@@ -1,0 +1,51 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_typography' as *
+@use '../../../../../styles/_variables' as *
+
+.delete-container
+    display: flex
+    flex-direction: column
+    gap: pxToRem(28)
+    width: pxToRem(428.208)
+    padding: 1.5rem
+    border-radius: 4px
+    background-color: $white
+
+    .main
+        @include flex-column(.5rem)
+
+        .header
+            @include flex-row($display: flex, $position: space-between, $align: flex-start)
+
+            .title
+                font-size: 1.25rem
+                font-weight: 500
+                color: #101828
+            
+        .message
+            color: #667085
+            font-size: pxToRem(15)
+    
+    .delete-actions
+        display: flex
+        gap: 1rem
+        width: 100%
+
+        .btn
+            width: 100%
+            padding: pxToRem(10.705) pxToRem(19.269)
+            border-radius: 4px
+            cursor: pointer
+            border: none
+
+        .cancel
+            background-color: $white
+            color: #344054
+            border: 1px solid #D0D5DD
+
+        .delete
+            background-color: $red-accent-5
+            color: $white
+            
+        
