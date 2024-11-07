@@ -1,0 +1,48 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_typography' as *
+@use '../../../../../styles/_variables' as *
+
+.container
+    width: 100%
+    padding: 1rem 0.5rem 0.5rem
+    @include flex-column($gap: 0.5rem)
+    background-color: $white
+
+    .inner-container
+        @include flex-row($display: flex, $position: space-between, $align: center)
+        padding: 0.5rem
+        padding-bottom: 1.25rem
+        flex-direction: column
+        width: 100%
+
+        .nav-container
+            @include flex-column($gap: pxToRem(12))
+            align-items: center
+            align-self: stretch
+            width: 100%
+
+            .nav-group
+                @include flex-row(flex, $position: null, $align: center)
+                gap: .5rem
+                padding: .5rem 1rem
+                border-radius: 8px
+                cursor: pointer
+                width: pxToRem(228)
+                font-size: 1rem
+                letter-spacing: 0.8px
+                color: $black-darken-1
+                text-decoration: none
+
+                svg
+                    stroke: $black-darken-1
+
+                &.active-link
+                    background-color: #408EFD
+                    color: $white
+
+                    svg
+                        stroke: $white
+
+            
+        
