@@ -56,6 +56,20 @@ export const routes: Routes = [
           ).then((m) => m.AppointmentsComponent),
       },
       {
+        path: 'help-support',
+        loadComponent: () =>
+          import(
+            './features/service-provider/pages/help-support/help-support.component'
+          ).then((m) => m.HelpSupportComponent),
+      },
+      {
+        path: 'settings',
+        loadComponent: () =>
+          import(
+            './features/service-provider/pages/settings/settings.component'
+          ).then((m) => m.SettingsComponent),
+      },
+      {
         path: '**',
         redirectTo: '',
       },

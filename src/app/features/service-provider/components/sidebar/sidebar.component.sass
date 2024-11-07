@@ -28,6 +28,7 @@
             &:hover
                 // background-color: $blue-lighten-5
 
+    .top
         .active-link
             background-color: $blue
             color: $white
@@ -39,6 +40,19 @@
             &:not(:first-child)
                 svg path
                     stroke: $white
+
+    .bottom
+        .active-link
+            background-color: $blue
+            color: $white
+
+            &:first-child
+                svg path
+                    stroke: $white
+
+            &:not(:first-child)
+                svg path
+                    fill: $white
 
             
 
