@@ -6,8 +6,8 @@
     .form
         display: flex
         flex-direction: column
-        margin-top: pxToRem(50)
-        padding: pxToRem(32) pxToRem(128)
+        margin-top: pxToRem(20)
+        padding: pxToRem(32) pxToRem(90)
 
         h6
             font-size: pxToRem(30)
@@ -27,12 +27,22 @@
         padding: pxToRem(16) pxToRem(21)
         margin-top: pxToRem(32)
 
+        img
+          cursor: pointer
+
+
         input
           border: none
           background: transparent
           width: 100%
           &:focus
             outline: none
+
+        &.has-error
+          border: 1px solid $error
+
+    .error-message
+        color: $error
 
     .forgot
             display: flex

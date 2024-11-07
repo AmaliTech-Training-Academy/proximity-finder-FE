@@ -7,21 +7,27 @@
         <h6>Log in to your Account</h6>
         <p>Welcome back, select a method to sign in</p>
 
-        <form>
-            <div class="email">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="email" [ngClass]="{'has-error': loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)}">
                 <img src="assets/svgs/email.svg" alt="email">
-                <input type="email" placeholder="Email">
-            </div>
+                <input type="email" placeholder="Email" formControlName="email">
+              </div>
+              <div class="error-message" *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
+                Email is required and must be valid
+              </div>
 
-            <div class="password">
+              <div class="password" [ngClass]="{'has-error': loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)}">
                 <img src="assets/svgs/password.svg" alt="lock">
-                <input type="password" placeholder="Password">
-                 <img src="assets/svgs/close.svg" alt="">
-            </div>
+                <input [type]="showPassword ? 'text' : 'password'" placeholder="Password" formControlName="password">
+                <img [src]="showPassword ? 'assets/svgs/open.svg' : 'assets/svgs/close.svg'" alt="" (click)="togglePassword()">
+              </div>
+              <div class="error-message" *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
+                Password is required
+              </div>
            <div class="forgot">
             <a>Forgot Password?</a>
            </div>
-            <button class="btn-login" type="submit">Log In</button>
+            <button class="btn-login" type="submit" [disabled]="loginForm.invalid">Log In</button>
             <div class="google">
                 <img src="assets/svgs/Google.svg" alt="google">
                 <button class="google-btn">Sign in with Google</button>
