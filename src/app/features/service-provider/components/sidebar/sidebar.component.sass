@@ -1,0 +1,81 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+
+.sidebar
+    padding: 16px 8px
+    height: 100%
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+    border-right: solid 1px $grey-lighten-3
+
+    nav
+        display: flex
+        flex-direction: column
+        gap: 12px
+
+        a
+            text-decoration: none
+            color: $text-main
+            padding: 8px 16px
+            display: flex
+            align-items: center
+            gap: 8px
+            border-radius: 8px
+
+            &:hover
+                background-color: $blue-lighten-5
+
+        .active-link
+            background-color: $blue
+            color: $white
+
+            &:first-child
+                svg path
+                    fill: $white
+
+            &:not(:first-child)
+                svg path
+                    stroke: $white
+
+            
+
+    .bottom
+        display: flex
+        flex-direction: column
+        gap: 28px
+
+    .profile
+        display: flex
+        align-items: center
+        gap: 6px
+        padding: 0 8px
+
+        .avatar
+            width: 40px
+            height: 40px
+            border-radius: 50%
+            overflow: hidden
+
+            img
+                width: 100%
+                height: 100%
+                object-fit: cover
+
+        .info
+            .name
+                font-size: 16px
+                line-height: 15px
+                color: $text-main
+
+            .role
+                font-size: 12px
+                line-height: 20px
+                color: $text-secondary
+
+        .logout
+            border: none
+            padding: 4px
+            cursor: pointer
+            background: none
