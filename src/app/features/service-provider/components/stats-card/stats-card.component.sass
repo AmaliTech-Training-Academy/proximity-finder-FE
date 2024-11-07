@@ -1,0 +1,67 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+
+.card
+    width: 262px
+    background-color: $white
+    border: solid 1px $grey-lighten-3
+    padding: 10px
+    border-radius: 5px
+    display: flex
+    flex-direction: column
+    gap: 10px
+
+    .top, .stats
+        display: flex
+        justify-content: space-between
+        align-items: center
+
+    .top
+        // gap: 130px
+
+    .stats
+        gap: 10px
+
+        h4
+            font-size: 16px
+            font-weight: 500
+            color: $text-main
+
+        .stat-chip
+            font-size: 8px
+            display: flex
+            align-items: center
+            gap: 5px
+            border-radius: 6px
+
+        .increase
+            color: #2BBFAE
+            background-color: rgba(231, 248, 246, 1)
+            padding: 3px 5px
+
+        .decrease
+            color: rgba(245, 79, 108, 1)
+            background-color: rgba(254, 236, 239, 1)
+            padding: 3px 5px
+
+
+    .type
+        display: flex
+        align-items: center
+        gap: 5px
+
+        .icon
+            background-color: $background-blue
+            padding: 5px
+            border-radius: 5px
+            display: flex
+            align-items: center
+            justify-content: center
+
+        .title
+            font-size: 12px
+            font-weight: 700
+            color: $text-main
+
+    
