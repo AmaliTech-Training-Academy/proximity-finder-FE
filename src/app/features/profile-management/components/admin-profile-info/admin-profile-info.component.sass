@@ -1,24 +1,22 @@
 @use '../../../../../styles/_functions' as *
 @use '../../../../../styles/_variables' as *
+@use '../../../../../styles/_typography' as *
+@use '../../../../../styles/_mixins' as *
+
 
 .container
     background-color: $white
-    display: flex
-    flex-direction: column
-    gap: pxToRem(12)
+    @include flex-column($gap: 12rem)
     padding: pxToRem(24) pxToRem(52)
     border: 2px solid $grey-lighten-0
     border-radius: 10px
     width: 100%
 
     .profile-container
+        @include flex-column($gap: 2.5rem)
         padding: 1rem 1.25rem
-        display: flex
-        flex-direction: column
-        gap: 2.5rem
 
         .image-container
-            border: 1px solid yellow
             display: flex
             align-items: center
             gap: pxToRem(28)
@@ -35,11 +33,9 @@
                     height: 100%
         
         .info
-            display: flex
-            flex-direction: column
+            @include flex-column($gap: pxToRem(36))
             align-items: flex-start
             width: pxToRem(250)
-            gap: pxToRem(36)
 
             p
                 font-size: 1.125rem
@@ -52,6 +48,17 @@
                 display: flex
                 gap: 1rem
 
+                label
+                    display: inline-block
+                    border: 1px solid $primary
+                    background-color: transparent
+                    color: $black-darken-1
+                    @extend .body-b2
+                    cursor: pointer
+                    border-radius: 6px
+                    padding: pxToRem(9.099)
+
+
                 button
                     background-color: transparent
                     color: $black-darken-1
@@ -63,23 +70,18 @@
                     outline: none
                     padding: pxToRem(9.099)
 
-                .upload-btn
-                    border: 1px solid $primary
+                .file-input
+                    display: none
                 
                 .delete-btn
                     border: 1px solid #FCA27E
 
         .info-container
             form
-                display: flex
-                flex-direction: column
-                gap: 2rem
-                border: 1px solid pink
+                @include flex-column($gap: 2rem)
 
                 .input-field
-                    display: flex
-                    flex-direction: column
-                    gap: .5rem
+                    @include flex-column($gap: .5rem)
                     color: $black-darken-1
 
                     label
@@ -91,4 +93,26 @@
                         padding: pxToRem(12)
                         border-radius: 4px
                         border: 1px solid #EAECF0
+                
+
+                .form-buttons
+                    @include flex-row($display: flex, $position:flex-end , $align: center)
+                    gap: 1rem
+                    @extend .body-b2
+                    transition: opacity 0.3s ease
+
+                    button
+                        padding: pxToRem(12) 1rem
+                        border-radius: 4px
+                        cursor: pointer
+
+                    .cancel-btn
+                        border: 1px solid $grey-lighten-0
+                        background-color: $white
+                    
+                    .save-changes-btn
+                        background-color: $blue-accent-5
+                        color: $white
+                        border: none
+
 

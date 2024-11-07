@@ -9,4 +9,10 @@ import { Component } from '@angular/core';
 })
 export class AdminProfileInfoComponent {
 
+  // check if form is active
+  isFormActive: boolean = false;
+
+  onFocus(): void {
+    this.isFormActive = true;
+  }
 }
