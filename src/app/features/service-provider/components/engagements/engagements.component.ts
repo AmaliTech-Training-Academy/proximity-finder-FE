@@ -47,6 +47,7 @@ export class EngagementsComponent implements OnInit {
     this.basicOptions = {
       plugins: {
         legend: {
+          display: false,
           labels: {
             color: textColor,
           },
