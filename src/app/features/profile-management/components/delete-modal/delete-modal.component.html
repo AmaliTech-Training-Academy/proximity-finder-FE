@@ -5,7 +5,12 @@
             <p class="title">Delete Profile</p>
 
             <!-- svg -->
-            <p>+</p>
+            <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg" (click)="onCancel()">
+                <g id="Regular/X">
+                <path id="Vector" d="M18.957 5.25073L5.45703 18.7507" stroke="#191C1F" stroke-width="1.60578" stroke-linecap="round" stroke-linejoin="round"/>
+                <path id="Vector_2" d="M18.957 18.7507L5.45703 5.25073" stroke="#191C1F" stroke-width="1.60578" stroke-linecap="round" stroke-linejoin="round"/>
+                </g>
+                </svg>
         </div>
 
         <div class="message">
@@ -15,6 +20,6 @@
 
     <div class="delete-actions">
         <button type="submit" class="btn cancel" (click)="onCancel()">Cancel</button>
-        <button type="submit" class="btn delete">Delete</button>
+        <button type="submit" class="btn delete" (click)="onConfirm()">Delete</button>
     </div>
 </div>

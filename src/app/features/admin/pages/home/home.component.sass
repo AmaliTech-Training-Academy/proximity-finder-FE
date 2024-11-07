@@ -1,0 +1,19 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+@use '../../../../../styles/_typography' as *
+
+.main
+    display: flex
+    border: 1px solid blue
+
+    .sidebar
+        width: pxToRem(260)
+        border: 1px solid green
+
+    .content
+        width: 100%
+        @include flex-column($gap: pxToRem(28))
+        padding: 1.25rem pxToRem(160)
+        border: 1px solid pink
+        background-color: $grey-lighten-0

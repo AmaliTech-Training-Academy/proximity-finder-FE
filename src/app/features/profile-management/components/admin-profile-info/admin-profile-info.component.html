@@ -4,16 +4,45 @@
         <!-- image -->
         <div class="image-container">
             <div class="image">
-                <img src="" alt="user's profile image">
+                <img src="../../../../../assets/images/Avatar.png" alt="user's profile image">
             </div>
 
             <div class="info">
                 <p>Click to update or remove  your profile picture</p>
 
                 <div class="info-actions">
-                    <label for="file">upload</label>
-                    <input type="file" name="file" id="file" class="file-input">
-                    <button class="delete-btn" (click)="openDialog()">delete</button>
+                    <label for="file">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g id="Group">
+                            <g id="Group_2">
+                            <g id="Group_3">
+                            <path id="Vector" d="M0.369141 23.3754H5.10746L19.0823 9.40046L14.344 4.66211L0.369141 18.6371V23.3754ZM2.89624 19.6858L14.344 8.23799L15.5065 9.40046L4.05871 20.8483H2.89624V19.6858Z" fill="#065AD8"/>
+                            </g>
+                            <g id="Group_4">
+                            <path id="Vector_2" d="M19.7873 0.994591C19.2945 0.501803 18.4984 0.501803 18.0057 0.994591L15.6934 3.30691L20.4317 8.04526L22.744 5.73294C23.2368 5.24015 23.2368 4.44411 22.744 3.95132L19.7873 0.994591Z" fill="#065AD8"/>
+                            </g>
+                            </g>
+                            </g>
+                            </svg>
+                        Upload
+                    </label>
+        
+                    <input type="file" name="file" id="file" class="file-input" accept="image/*">
+                    <button class="delete-btn" (click)="openDialog()">
+                        <!-- svg -->
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g id="Cancel" clip-path="url(#clip0_4467_6188)">
+                            <path id="Vector" d="M11.8217 2.51953C6.5804 2.51953 2.34375 6.75618 2.34375 11.9975C2.34375 17.2388 6.5804 21.4754 11.8217 21.4754C17.063 21.4754 21.2997 17.2388 21.2997 11.9975C21.2997 6.75618 17.063 2.51953 11.8217 2.51953ZM11.8217 19.5799C7.64193 19.5799 4.23934 16.1773 4.23934 11.9975C4.23934 7.81771 7.64193 4.41512 11.8217 4.41512C16.0015 4.41512 19.4041 7.81771 19.4041 11.9975C19.4041 16.1773 16.0015 19.5799 11.8217 19.5799ZM15.2243 7.25851L11.8217 10.6611L8.41912 7.25851L7.08273 8.5949L10.4853 11.9975L7.08273 15.4001L8.41912 16.7365L11.8217 13.3339L15.2243 16.7365L16.5607 15.4001L13.1581 11.9975L16.5607 8.5949L15.2243 7.25851Z" fill="#E1571D"/>
+                            </g>
+                            <defs>
+                            <clipPath id="clip0_4467_6188">
+                            <rect width="22.7471" height="22.7471" fill="white" transform="translate(0.447266 0.626953)"/>
+                            </clipPath>
+                            </defs>
+                            </svg>
+                            
+                        Delete
+                    </button>
                 </div>
             </div>
         </div>

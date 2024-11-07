@@ -25,7 +25,6 @@
                 width: pxToRem(176)
                 height: pxToRem(176)
                 border-radius: 100px
-                border: 1px solid blue
 
                 img
                     object-fit: cover
@@ -50,6 +49,8 @@
 
                 label
                     display: inline-block
+                    @include flex-row($display: flex, $position: null, $align: center)
+                    gap: pxToRem(9.099)
                     border: 1px solid $primary
                     background-color: transparent
                     color: $black-darken-1
@@ -69,6 +70,8 @@
                     border: none
                     outline: none
                     padding: pxToRem(9.099)
+                    @include flex-row($display: flex, $position: null, $align: center)
+                    gap: pxToRem(9.099)
 
                 .file-input
                     display: none
