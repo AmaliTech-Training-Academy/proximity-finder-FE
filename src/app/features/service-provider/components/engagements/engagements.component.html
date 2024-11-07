@@ -1,1 +1,14 @@
-<p>engagements works!</p>
+<div class="card">
+  <div class="header">
+    <div class="info">
+      <h1>User Engagements</h1>
+      <p>789 Monthly logins</p>
+    </div>
+    <select>
+      <option value="1">Quarterly</option>
+    </select>
+  </div>
+  <div class="data">
+    <p-chart type="bar" [data]="basicData" [options]="basicOptions" />
+  </div>
+</div>
