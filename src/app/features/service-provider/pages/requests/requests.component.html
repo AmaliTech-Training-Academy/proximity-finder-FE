@@ -1,1 +1,20 @@
-<p>requests works!</p>
+<section class="content">
+  <h1 class="page-title">Requests</h1>
+
+  <p-tabMenu [model]="routes">
+    <ng-template pTemplate="item" let-item>
+      <a
+        *ngIf="item.routerLink"
+        [routerLink]="item.routerLink"
+        routerLinkActive="active-route"
+        class="p-menuitem-link"
+      >
+        <span class="ml-2">{{ item.label }}</span>
+      </a>
+    </ng-template>
+  </p-tabMenu>
+
+  <div class="main-content">
+    <router-outlet />
+  </div>
+</section>
