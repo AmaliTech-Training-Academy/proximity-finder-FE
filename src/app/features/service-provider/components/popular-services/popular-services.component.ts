@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
+import { popularServices, popularServicesOptions } from '../../data';
 
 @Component({
   selector: 'app-popular-services',
@@ -9,36 +10,7 @@ import { ChartModule } from 'primeng/chart';
   styleUrl: './popular-services.component.sass',
 })
 export class PopularServicesComponent {
-  data = {
-    labels: ['Painting', 'Appliance Fixing', 'Plumbing', 'Cleaning'],
-    datasets: [
-      {
-        data: [300, 50, 100, 200],
-        backgroundColor: [
-          'rgba(64, 142, 253, 0.8)',
-          'rgba(148, 186, 239, 0.8)',
-          'rgba(200, 217, 242, 0.8)',
-          'rgba(227, 236, 249, 0.8)',
-        ],
-        hoverBackgroundColor: [
-          'rgba(64, 142, 253, 1)',
-          'rgba(148, 186, 239, 1)',
-          'rgba(200, 217, 242, 1)',
-          'rgba(227, 236, 249, 1)',
-        ],
-      },
-    ],
-  };
+  data = popularServices;
 
-  options = {
-    cutout: '60%',
-    plugins: {
-      legend: {
-        display: false,
-        labels: {
-          color: 'rgba(37, 44, 50, 1)',
-        },
-      },
-    },
-  };
+  options = popularServicesOptions;
 }
