@@ -1,12 +1,5 @@
 import { Component, Input } from '@angular/core';
-
-interface Stat {
-  icon: string;
-  name: string;
-  number: number;
-  percentage: number;
-  type: string;
-}
+import { Stat } from '../../../../core/models/IStat';
 
 @Component({
   selector: 'app-stats-card',

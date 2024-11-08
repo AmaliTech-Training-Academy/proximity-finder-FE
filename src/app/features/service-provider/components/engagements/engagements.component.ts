@@ -14,13 +14,6 @@ export class EngagementsComponent implements OnInit {
   basicOptions: any;
 
   ngOnInit(): void {
-    const documentStyle = getComputedStyle(document.documentElement);
-    const textColor = documentStyle.getPropertyValue('--text-color');
-    const textColorSecondary = documentStyle.getPropertyValue(
-      '--text-color-secondary'
-    );
-    const surfaceBorder = documentStyle.getPropertyValue('--surface-border');
-
     this.basicData = {
       labels: [
         'Jan',
@@ -49,7 +42,7 @@ export class EngagementsComponent implements OnInit {
         legend: {
           display: false,
           labels: {
-            color: textColor,
+            color: 'rgba(37, 44, 50, 1)',
           },
         },
       },
@@ -57,19 +50,20 @@ export class EngagementsComponent implements OnInit {
         y: {
           beginAtZero: true,
           ticks: {
-            color: textColorSecondary,
+            color: 'rgba(119, 135, 143, 1)',
           },
           grid: {
-            color: surfaceBorder,
+            display: false,
             drawBorder: false,
           },
         },
         x: {
           ticks: {
-            color: textColorSecondary,
+            color: 'rgba(119, 135, 143, 1)',
           },
           grid: {
-            color: surfaceBorder,
+            // color: 'none',
+            display: false,
             drawBorder: false,
           },
         },
