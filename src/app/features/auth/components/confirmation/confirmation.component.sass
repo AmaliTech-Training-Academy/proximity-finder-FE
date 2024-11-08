@@ -1,0 +1,45 @@
+@use '../../../../../styles/_variables' as *
+@use '../../../../../styles/_functions' as *
+
+.container
+
+    .confirm
+       display: flex
+       flex-direction: column
+       margin-top: pxToRem(100)
+       padding: pxToRem(32) pxToRem(90)
+
+       h6
+           font-size: pxToRem(30)
+
+       p
+           font-size: pxToRem(16)
+           color: $subtext 
+           margin-top: pxToRem(32)
+
+    #buttons
+        display: flex
+        flex-direction: column
+        gap: pxToRem(8)
+        margin-top: pxToRem(32)   
+
+        .btn-resend
+            padding: pxToRem(16) pxToRem(90)
+            background-color: $primary
+            border: none 
+            border-radius: pxToRem(8)
+            font-size: pxToRem(14)
+            font-weight: 500
+            color: $white
+            text-transform: uppercase
+            cursor: pointer 
+
+        .btn-back
+            padding: pxToRem(16) pxToRem(90)
+            background-color: $white
+            border: 1px solid $primary
+            border-radius: pxToRem(8)
+            font-size: pxToRem(14)
+            font-weight: 500
+            text-transform: uppercase
+            cursor: pointer               
