@@ -217,3 +217,58 @@ export const popularSerivcesDataInterval = [
   { name: 'Monthly' },
   { name: 'Annually' },
 ];
+
+// Quote Requests
+export const quotes = [
+  {
+    serviceName: 'Website Development',
+    requirements: 'Responsive design, e-commerce integration, CMS setup',
+    dateTime: '2024-11-08T10:30:00',
+  },
+  {
+    serviceName: 'Digital Marketing',
+    requirements: 'SEO optimization, social media management, ad campaigns',
+    dateTime: '2024-11-09T14:00:00',
+  },
+  {
+    serviceName: 'Graphic Design',
+    requirements: 'Logo design, branding, promotional materials',
+    dateTime: '2024-11-10T09:15:00',
+  },
+  {
+    serviceName: 'Mobile App Development',
+    requirements:
+      'iOS and Android support, user authentication, payment gateway',
+    dateTime: '2024-11-11T13:45:00',
+  },
+  {
+    serviceName: 'Content Writing',
+    requirements: 'Blog posts, website copy, product descriptions',
+    dateTime: '2024-11-12T11:20:00',
+  },
+  {
+    serviceName: 'Video Production',
+    requirements: 'Promotional video, scriptwriting, voice-over',
+    dateTime: '2024-11-13T16:30:00',
+  },
+  {
+    serviceName: 'IT Support',
+    requirements: 'Network setup, troubleshooting, software installation',
+    dateTime: '2024-11-14T08:00:00',
+  },
+  {
+    serviceName: 'Cybersecurity',
+    requirements: 'Vulnerability assessment, firewall setup, training',
+    dateTime: '2024-11-15T17:45:00',
+  },
+  {
+    serviceName: 'Cloud Services',
+    requirements: 'Cloud migration, data backup, SaaS setup',
+    dateTime: '2024-11-16T14:30:00',
+  },
+  {
+    serviceName: 'Consulting',
+    requirements: 'Market research, feasibility analysis, strategic planning',
+    dateTime: '2024-11-17T15:00:00',
+  },
+];

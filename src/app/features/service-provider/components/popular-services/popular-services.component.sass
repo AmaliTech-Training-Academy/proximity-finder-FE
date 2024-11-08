@@ -9,9 +9,7 @@
     height: 100%
 
     .header
-        display: flex
-        justify-content: space-between
-        align-items: center
+        @include flex-option($display: flex, $justify-content: space-between, $align-items: center, $direction: row)
 
         .info
             h1
@@ -21,18 +19,17 @@
                 margin: 0 0 4px 0
 
     .data
-        display: flex
+        @include flex-option($display: flex, $justify-content: null, $align-items: null, $direction: null)
+
 
         .services
             flex: 1
             padding: 30px
-            display: flex
-            flex-direction: column
+            @include flex-option($display: flex, $justify-content: space-between, $align-items: null, $direction: column)
             gap: 12px
 
             .service
-                display: flex
-                justify-content: space-between
+                @include flex-option($display: flex, $justify-content: space-between, $align-items: center, $direction: row)
                 gap: 17px
                 font-size: 14px
 

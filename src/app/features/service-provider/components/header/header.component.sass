@@ -4,9 +4,7 @@
 
 header
     border-bottom: solid 1px $grey-lighten-3
-    display: flex
-    justify-content: space-between
-    align-items: center
+    @include flex-option($display: flex, $justify-content: space-between, $align-items: center, $direction: row)
     padding: 4px 22px
 
     .logo
@@ -14,15 +12,13 @@ header
         font-size: 22px
         font-weight: 700
         color: $text-main
-        display: flex
-        align-items: center
+        @include flex-option($display: flex, $justify-content: space-between, $align-items: center, $direction: row)
         gap: 12px
         padding: 12px 0
         text-transform: uppercase
 
     .options
-        display: flex
-        align-items: center
+        @include flex-option($display: flex, $justify-content: space-between, $align-items: center, $direction: row)
         gap: 8px
 
         .search

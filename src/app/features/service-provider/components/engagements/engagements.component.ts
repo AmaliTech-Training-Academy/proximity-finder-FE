@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
 import { quoteRequests, quoteRequestsOptions } from '../../data';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { quoteDataInterval } from '../../data';
 
@@ -12,18 +12,12 @@ import { quoteDataInterval } from '../../data';
   templateUrl: './engagements.component.html',
   styleUrl: './engagements.component.sass',
 })
-export class EngagementsComponent implements OnInit {
+export class EngagementsComponent {
   basicData = quoteRequests;
 
   basicOptions = quoteRequestsOptions;
 
-  formGroup!: FormGroup;
-
   interval = quoteDataInterval;
 
-  ngOnInit(): void {
-    this.formGroup = new FormGroup({
-      selectedInterval: new FormControl(this.interval[0].name),
-    });
-  }
+  selectedInterval = new FormControl(this.interval[0].name);
 }

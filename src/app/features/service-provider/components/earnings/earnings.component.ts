@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
 import { earnings, earningsOptions } from '../../data';
-import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { months } from '../../data';
 
@@ -17,13 +17,7 @@ export class EarningsComponent {
 
   options = earningsOptions;
 
-  formGroup!: FormGroup;
-
   months = months;
 
-  ngOnInit(): void {
-    this.formGroup = new FormGroup({
-      selectedMonth: new FormControl(months[0].name),
-    });
-  }
+  selectedMonth = new FormControl(months[0].name);
 }

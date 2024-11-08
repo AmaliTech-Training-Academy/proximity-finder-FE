@@ -1,1 +1,18 @@
-<p>quotes works!</p>
+<div class="table">
+  <p-table [value]="quotes" [tableStyle]="{ 'min-width': '50rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Service Details</th>
+        <th>Requirements</th>
+        <th>Timeframe</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-quote>
+      <tr>
+        <td>{{ quote.serviceName }}</td>
+        <td>{{ quote.requirements }}</td>
+        <td>{{ quote.dateTime }}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

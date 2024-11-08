@@ -12,18 +12,12 @@ import { popularSerivcesDataInterval } from '../../data';
   templateUrl: './popular-services.component.html',
   styleUrl: './popular-services.component.sass',
 })
-export class PopularServicesComponent implements OnInit {
+export class PopularServicesComponent {
   data = popularServices;
 
   options = popularServicesOptions;
 
-  formGroup!: FormGroup;
-
   interval = popularSerivcesDataInterval;
 
-  ngOnInit(): void {
-    this.formGroup = new FormGroup({
-      selectedInterval: new FormControl(this.interval[0].name),
-    });
-  }
+  selectedInterval = new FormControl(this.interval[0].name);
 }

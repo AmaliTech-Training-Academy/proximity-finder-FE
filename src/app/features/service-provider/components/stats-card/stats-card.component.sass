@@ -8,15 +8,13 @@
     gap: 16px
     
     .top
-        display: flex
-        justify-content: space-between
-        align-items: center
+        @include flex-option($display: flex, $justify-content: space-between, $align-items: center, $direction: null)
 
     .top
         // gap: 130px
 
     .stats
-        display: flex
+        @include flex-option($display: flex, $justify-content: null, $align-items: null, $direction: null)
         gap: 10px
 
         h4
@@ -26,8 +24,7 @@
 
         .stat-chip
             font-size: 8px
-            display: flex
-            align-items: center
+            @include flex-option($display: flex, $justify-content: null, $align-items: center, $direction: null)
             gap: 5px
             border-radius: 6px
 
@@ -43,17 +40,14 @@
 
 
     .type
-        display: flex
-        align-items: center
+        @include flex-option($display: flex, $justify-content: null, $align-items: center, $direction: null)
         gap: 5px
 
         .icon
             background-color: $background-blue
             padding: 8px
             border-radius: 5px
-            display: flex
-            align-items: center
-            justify-content: center
+            @include flex-option($display: flex, $justify-content: center, $align-items: center, $direction: null)
 
             img
                 width: 20px
