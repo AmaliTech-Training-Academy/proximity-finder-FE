@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
 
 @Component({
@@ -9,7 +9,7 @@ import { ChartModule } from 'primeng/chart';
   styleUrl: './engagements.component.sass',
 })
 export class EngagementsComponent {
-  basicData: any = {
+  basicData = {
     labels: [
       'Jan',
       'Feb',
@@ -34,7 +34,7 @@ export class EngagementsComponent {
     ],
   };
 
-  basicOptions: any = {
+  basicOptions = {
     plugins: {
       legend: {
         display: false,

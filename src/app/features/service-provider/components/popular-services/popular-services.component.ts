@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
 
 @Component({
@@ -9,7 +9,7 @@ import { ChartModule } from 'primeng/chart';
   styleUrl: './popular-services.component.sass',
 })
 export class PopularServicesComponent {
-  data: any = {
+  data = {
     labels: ['Painting', 'Appliance Fixing', 'Plumbing', 'Cleaning'],
     datasets: [
       {
@@ -30,7 +30,7 @@ export class PopularServicesComponent {
     ],
   };
 
-  options: any = {
+  options = {
     cutout: '60%',
     plugins: {
       legend: {

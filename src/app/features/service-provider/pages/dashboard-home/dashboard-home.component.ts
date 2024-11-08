@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from '../../components/header/header.component';
 import { SidebarComponent } from '../../components/sidebar/sidebar.component';
-import { RouterOutlet } from '@angular/router';
 import { StatsCardComponent } from '../../components/stats-card/stats-card.component';
 import { AnalyticsComponent } from '../../components/analytics/analytics.component';
 import { generalStats } from '../../data';
