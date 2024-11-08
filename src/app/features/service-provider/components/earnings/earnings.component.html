@@ -1,9 +1,15 @@
 <div class="card">
   <div class="header">
     <h1>Earning Summary</h1>
-    <select>
-      <option value="1">May 2022 - Dec 2022</option>
-    </select>
+
+    <p-dropdown
+      [formControl]="selectedMonth"
+      [options]="months"
+      optionLabel="name"
+      placeholder="November"
+    />
   </div>
-  <div class="data"></div>
+  <div class="data">
+    <p-chart type="line" [data]="data" [options]="options" />
+  </div>
 </div>

@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router';
-import { DashboardHomeComponent } from './features/service-provider/pages/dashboard-home/dashboard-home.component';
 import { DashboardLayoutComponent } from './features/service-provider/layouts/dashboard-layout/dashboard-layout.component';
 
 export const routes: Routes = [
@@ -26,6 +25,27 @@ export const routes: Routes = [
           import(
             './features/service-provider/pages/requests/requests.component'
           ).then((m) => m.RequestsComponent),
+        children: [
+          {
+            path: '',
+            redirectTo: 'quotes', // Default child route
+            pathMatch: 'full',
+          },
+          {
+            path: 'quotes',
+            loadComponent: () =>
+              import(
+                './features/service-provider/pages/quotes/quotes.component'
+              ).then((m) => m.QuotesComponent),
+          },
+          {
+            path: 'calls',
+            loadComponent: () =>
+              import(
+                './features/service-provider/pages/calls/calls.component'
+              ).then((m) => m.CallsComponent),
+          },
+        ],
       },
       {
         path: 'projects',
