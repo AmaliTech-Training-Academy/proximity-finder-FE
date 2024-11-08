@@ -1,12 +1,13 @@
 @use '../../../../../styles/_functions' as *
 @use '../../../../../styles/_variables' as *
+@use '../../../../../styles/_mixins' as *
 
-.content
-    display: flex
+.login
+    @include flex-option(flex , null, null ,null)
 
-    .input
+    .login-input
         flex: 1
         
-    .comment
+    .login-comment
         flex: 1
         

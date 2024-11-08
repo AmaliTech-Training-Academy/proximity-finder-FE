@@ -1,12 +1,16 @@
 @use '../../../../../styles/_functions' as *
 @use '../../../../../styles/_variables' as *
+@use '../../../../../styles/_mixins' as *
 
 .content
-    display: flex
+    @include flex-option(flex,null,null,null)
+    height: 100vh
+    overflow: hidden
 
-    .input
+
+    .signup-input
         flex: 1
         
-    .comment
+    .signup-comment
         flex: 1
         

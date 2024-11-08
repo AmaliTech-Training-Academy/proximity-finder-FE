@@ -1,11 +1,11 @@
 @use '../../../../../styles/_functions' as *
 @use '../../../../../styles/_variables' as *
+@use '../../../../../styles/_mixins' as *
 
 .container
 
     .form
-        display: flex
-        flex-direction: column
+        @includeflex-option(flex , null , null ,column )
         margin-top: pxToRem(20)
         padding: pxToRem(32) pxToRem(90)
 
@@ -18,13 +18,12 @@
 
     .email,
     .password
-        display: flex
-        flex-direction: row
+        @include flex-option(flex , null, null ,row)
         gap: pxToRem(10)
         background-color: #FAFBFE
         border: 1px solid #EFF2F7
         border-radius: pxToRem(8)
-        padding: pxToRem(16) pxToRem(21)
+        width: 100%
         margin-top: pxToRem(32)
 
         img
@@ -45,8 +44,7 @@
         color: $error
 
     .forgot
-            display: flex
-            justify-content: flex-end
+            @include flex-option(flex , flex-end, null ,row)
             margin-top: pxToRem(10)
 
             a
@@ -56,7 +54,7 @@
                 text-decoration: none
 
     .btn-login 
-        width: pxToRem(550)
+        width: pxToRem(514)
         padding: pxToRem(16) 0
         margin-top: pxToRem(16)
         border: none
@@ -69,9 +67,7 @@
         cursor: pointer
 
     .google
-        display: flex
-        flex-direction: row
-        align-items: center
+        @include flex-option(flex , null, center ,row)
         gap: pxToRem(10)
         padding: pxToRem(16) pxToRem(160)
         margin-top: pxToRem(16)
@@ -89,9 +85,7 @@
 
     .dont-have
         margin-top: pxToRem(16)
-        display: flex
-        align-items: center
-        justify-content: center
+        @include flex-option(flex , center, center ,row)
         gap: pxToRem(6)
 
         p

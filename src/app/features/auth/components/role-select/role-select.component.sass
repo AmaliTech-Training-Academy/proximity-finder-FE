@@ -1,14 +1,12 @@
 @use '../../../../../styles/_functions' as *
 @use '../../../../../styles/_variables' as *
+@use '../../../../../styles/_mixins' as *
 
 .content
-    display: flex
-    flex-direction: column
-    align-items: center
-    border: 1px solid red
+    
+    
     
     .role-selection
-        display: flex
-        flex-direction: column
-        // align-items: center
-        justify-content: center
+        @include flex-option(flex , null, null ,column)
+        margin-top: pxToRem(20)
+        padding: pxToRem(32) pxToRem(90)
