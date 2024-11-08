@@ -1,0 +1,43 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+
+header
+    border-bottom: solid 1px $grey-lighten-3
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: 4px 48px
+    
+
+    .options
+        display: flex
+        align-items: center
+        gap: 8px
+
+        .search
+            position: relative
+
+            input
+                border: solid 1px $grey-lighten-3
+                border-radius: 2px
+                padding: 8px 8px 8px 36px
+                width: 200px
+                background-color: $blue-lighten-6
+
+                &::placeholder
+                    color: $grey-darken-2
+
+            svg
+                position: absolute
+                top: 50%
+                left: 8px
+                transform: translateY(-50%)
+
+        .notifications
+            background-color: $blue-lighten-6
+            border: solid 1px $grey-lighten-3
+            border-radius: 2px
+            cursor: pointer
+            @include flex-option($display: flex, $justify-content: center, $align-items: center,$direction: row)
+            padding: 4px

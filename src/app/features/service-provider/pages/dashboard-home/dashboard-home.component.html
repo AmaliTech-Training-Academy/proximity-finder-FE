@@ -1,0 +1,9 @@
+<section class="content">
+  <h1 class="page-title">Dashboard</h1>
+  <div class="general-stats">
+    @for(stat of generalStats; track stat.name) {
+    <app-stats-card [stat]="stat" />
+    }
+  </div>
+  <app-analytics />
+</section>

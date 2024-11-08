@@ -1,0 +1,16 @@
+@use './_functions' as *
+@use './_variables' as *
+
+@mixin card()
+    background-color: $white
+    border: solid 1px $grey-lighten-3
+    padding: 10px
+    border-radius: 5px
+    display: flex
+    flex-direction: column
+
+@mixin flex-option($display, $justify-content, $align-items,$direction)
+    display: $display
+    justify-content: $justify-content
+    align-items: $align-items
+    flex-direction: $direction
