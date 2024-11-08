@@ -30,7 +30,7 @@
         </div>
         <div class="email" [ngClass]="{'has-error': signUpForm.get('email')?.invalid && (signUpForm.get('email')?.dirty || signUpForm.get('email')?.touched)}">
           <img src="assets/svgs/email.svg" alt="email">
-          <input type="email" placeholder="Email Address" formControlName="email">
+          <input type="email" placeholder="Email" formControlName="email">
         </div>
         <div class="error-message" *ngIf="signUpForm.get('email')?.invalid && (signUpForm.get('email')?.dirty || signUpForm.get('email')?.touched)">
           Email is required and must be valid
