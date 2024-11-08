@@ -1,9 +1,14 @@
 <div class="card">
   <div class="header">
     <h1>Earning Summary</h1>
-    <select>
-      <option value="1">November</option>
-    </select>
+    <form [formGroup]="formGroup">
+      <p-dropdown
+        formControlName="selectedMonth"
+        [options]="months"
+        optionLabel="name"
+        placeholder="November"
+      />
+    </form>
   </div>
   <div class="data">
     <p-chart type="line" [data]="data" [options]="options" />
