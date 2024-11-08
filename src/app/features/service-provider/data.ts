@@ -89,6 +89,12 @@ export const quoteRequestsOptions = {
   },
 };
 
+export const quoteDataInterval = [
+  { name: 'Quarterly' },
+  { name: 'Monthly' },
+  { name: 'Annually' },
+];
+
 // Earnings Data
 export const earnings = {
   labels: [
@@ -156,6 +162,21 @@ export const earningsOptions = {
   },
 };
 
+export const months = [
+  { name: 'January' },
+  { name: 'February' },
+  { name: 'March' },
+  { name: 'April' },
+  { name: 'May' },
+  { name: 'June' },
+  { name: 'July' },
+  { name: 'August' },
+  { name: 'September' },
+  { name: 'October' },
+  { name: 'November' },
+  { name: 'December' },
+];
+
 // Popular Services Data
 export const popularServices = {
   labels: ['Painting', 'Appliance Fixing', 'Plumbing', 'Cleaning'],
@@ -189,3 +210,9 @@ export const popularServicesOptions = {
     },
   },
 };
+
+export const popularSerivcesDataInterval = [
+  { name: 'Quarterly' },
+  { name: 'Monthly' },
+  { name: 'Annually' },
+];

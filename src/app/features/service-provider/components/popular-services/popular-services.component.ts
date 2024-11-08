@@ -3,6 +3,7 @@ import { ChartModule } from 'primeng/chart';
 import { popularServices, popularServicesOptions } from '../../data';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
+import { popularSerivcesDataInterval } from '../../data';
 
 @Component({
   selector: 'app-popular-services',
@@ -18,7 +19,7 @@ export class PopularServicesComponent implements OnInit {
 
   formGroup!: FormGroup;
 
-  interval = [{ name: 'Quarterly' }, { name: 'Monthly' }, { name: 'Annually' }];
+  interval = popularSerivcesDataInterval;
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({

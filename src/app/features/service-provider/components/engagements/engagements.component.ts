@@ -3,6 +3,7 @@ import { ChartModule } from 'primeng/chart';
 import { quoteRequests, quoteRequestsOptions } from '../../data';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
+import { quoteDataInterval } from '../../data';
 
 @Component({
   selector: 'app-engagements',
@@ -18,7 +19,7 @@ export class EngagementsComponent implements OnInit {
 
   formGroup!: FormGroup;
 
-  interval = [{ name: 'Quarterly' }, { name: 'Monthly' }, { name: 'Annually' }];
+  interval = quoteDataInterval;
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({

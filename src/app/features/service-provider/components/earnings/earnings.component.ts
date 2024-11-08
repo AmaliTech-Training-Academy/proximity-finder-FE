@@ -3,6 +3,7 @@ import { ChartModule } from 'primeng/chart';
 import { earnings, earningsOptions } from '../../data';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
+import { months } from '../../data';
 
 @Component({
   selector: 'app-earnings',
@@ -18,24 +19,11 @@ export class EarningsComponent {
 
   formGroup!: FormGroup;
 
-  months = [
-    { name: 'January' },
-    { name: 'February' },
-    { name: 'March' },
-    { name: 'April' },
-    { name: 'May' },
-    { name: 'June' },
-    { name: 'July' },
-    { name: 'August' },
-    { name: 'September' },
-    { name: 'October' },
-    { name: 'November' },
-    { name: 'December' },
-  ];
+  months = months;
 
   ngOnInit(): void {
     this.formGroup = new FormGroup({
-      selectedMonth: new FormControl(this.months[0].name),
+      selectedMonth: new FormControl(months[0].name),
     });
   }
 }
