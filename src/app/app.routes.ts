@@ -3,7 +3,6 @@ import { DashboardHomeComponent } from './features/service-provider/pages/dashbo
 import { DashboardLayoutComponent } from './features/service-provider/layouts/dashboard-layout/dashboard-layout.component';
 
 export const routes: Routes = [
-   //auth
    {
     path:'role-select',
     loadComponent: () => import ('./features/auth/pages/role/role.component').then(m => m.RoleComponent)
@@ -35,6 +34,10 @@ export const routes: Routes = [
 {
     path:'reset-password',
     loadComponent: () => import ('./features/auth/pages/password-reset/password-reset.component').then(m => m.PasswordResetComponent)
+},
+{
+    path:'verification',
+    loadComponent: () => import ('./features/auth/pages/email-verification/email-verification.component').then(m => m.EmailVerificationComponent)
 },
 
   {
