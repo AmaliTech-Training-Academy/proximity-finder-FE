@@ -132,6 +132,7 @@ export const earningsOptions = {
   aspectRatio: 0.6,
   plugins: {
     legend: {
+      display: false,
       labels: {
         color: 'rgba(37, 44, 50, 1)',
       },
