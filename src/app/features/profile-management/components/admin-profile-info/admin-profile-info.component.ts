@@ -6,7 +6,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 @Component({
   selector: 'app-admin-profile-info',
   standalone: true,
-  imports: [DeleteModalComponent, MatDialogModule],
+  imports: [ MatDialogModule],
   templateUrl: './admin-profile-info.component.html',
   styleUrl: './admin-profile-info.component.sass',
   providers: [provideNativeDateAdapter()]
