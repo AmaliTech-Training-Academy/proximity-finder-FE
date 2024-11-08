@@ -271,4 +271,55 @@ export const quotes = [
     requirements: 'Market research, feasibility analysis, strategic planning',
     dateTime: '2024-11-17T15:00:00',
   },
+  {
+    serviceName: 'Web Design',
+    requirements: 'Responsive layout, modern design, SEO optimized',
+    dateTime: 'September 19, 2021',
+  },
+  {
+    serviceName: 'Mobile App Development',
+    requirements:
+      'iOS and Android versions, user authentication, in-app payments',
+    dateTime: 'October 5, 2021',
+  },
+  {
+    serviceName: 'Digital Marketing',
+    requirements: 'Social media management, email marketing, analytics setup',
+    dateTime: 'November 12, 2021',
+  },
+  {
+    serviceName: 'Graphic Design',
+    requirements: 'Logo design, brand identity, and social media graphics',
+    dateTime: 'December 8, 2021',
+  },
+  {
+    serviceName: 'Content Writing',
+    requirements: 'Blog posts, SEO-focused articles, and website content',
+    dateTime: 'January 23, 2022',
+  },
+  {
+    serviceName: 'Video Production',
+    requirements: 'Product videos, animations, and editing',
+    dateTime: 'February 15, 2022',
+  },
+  {
+    serviceName: 'SEO Optimization',
+    requirements: 'On-page SEO, backlink building, keyword research',
+    dateTime: 'March 4, 2022',
+  },
+  {
+    serviceName: 'E-commerce Development',
+    requirements: 'Payment gateway integration, product pages, shopping cart',
+    dateTime: 'April 10, 2022',
+  },
+  {
+    serviceName: 'IT Support',
+    requirements: 'Network setup, troubleshooting, and server maintenance',
+    dateTime: 'May 18, 2022',
+  },
+  {
+    serviceName: 'Photography',
+    requirements: 'Product photography, editing, and image retouching',
+    dateTime: 'June 30, 2022',
+  },
 ];
