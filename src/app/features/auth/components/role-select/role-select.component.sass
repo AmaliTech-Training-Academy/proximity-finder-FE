@@ -24,13 +24,41 @@
         .client-role
             @include flex-option(flex , null, center ,row) 
             gap: pxToRem(10)
+            padding: pxToRem(5) pxToRem(5)
             cursor: pointer
+            &:hover
+                border: 1px solid $primary
+
+            .description
+                span
+                  font-size: pxToRem(16)
+                  font-weight: 600
+
+                p
+                  font-size: pxToRem(14)
+                  font-weight: 400 
+                  color: #252C32  
+
 
         .provider-option 
             @include flex-option(flex , null, center ,row) 
             gap: pxToRem(10)
-            margin-top: pxToRem(20) 
-            cursor: pointer  
+            margin-top: pxToRem(20)
+            padding: pxToRem(5) pxToRem(5) 
+            cursor: pointer 
+            &:hover
+                border: 1px solid $primary 
+
+            .description
+                span
+                  font-size: pxToRem(16)
+                  font-weight: 600
+
+                p
+                  font-size: pxToRem(14)
+                  font-weight: 400 
+                  color: #252C32 
+                    
 
     .btn-text
              @include flex-option(flex , null, null ,column) 
