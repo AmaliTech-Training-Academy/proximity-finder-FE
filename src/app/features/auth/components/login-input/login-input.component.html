@@ -8,22 +8,26 @@
         <p>Welcome back, select a method to sign in</p>
 
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-            <div class="email" [ngClass]="{'has-error': loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)}">
-                <img src="assets/svgs/email.svg" alt="email">
-                <input type="email" placeholder="Email" formControlName="email">
-              </div>
-              <div class="error-message" *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
-                Email is required and must be valid
-              </div>
+          <app-input-field
+          type="email"
+          placeholder="Email"
+          imgPath="assets/svgs/email.svg"
+          formControlName="email"
+          [ngClass]="{'has-error': loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)}"
+          />
+          <div class="error-message" *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
+            Email is required and must be valid
+          </div>
 
-              <div class="password" [ngClass]="{'has-error': loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)}">
-                <img src="assets/svgs/password.svg" alt="lock">
-                <input [type]="showPassword ? 'text' : 'password'" placeholder="Password" formControlName="password">
-                <img [src]="showPassword ? 'assets/svgs/open.svg' : 'assets/svgs/close.svg'" alt="" (click)="togglePassword()">
-              </div>
-              <div class="error-message" *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
-                Password is required
-              </div>
+          <app-input-field
+          type="password"
+          placeholder="Password"
+          imgPath="assets/svgs/password.svg"
+          formControlName="password"
+          />
+          <div class="error-message" *ngIf="loginForm.hasError('mismatchedPassword') && (loginForm.get('confirmPassword')?.dirty || loginForm.get('confirmPassword')?.touched)">
+            Passwords do not match
+          </div>
            <div class="forgot">
             <a [routerLink]="['/forgot-password']">Forgot Password?</a>
            </div>

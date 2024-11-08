@@ -1,14 +1,12 @@
 import { Component } from '@angular/core';
-import { InputComponent } from "../../components/input/input.component";
-import { CommentsComponent } from "../../components/comments/comments.component";
+import { CommentsComponent } from '../../components/comments/comments.component';
+import { SignupClientComponent } from "../../components/signup-client/signup-client.component";
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [InputComponent, CommentsComponent],
+  imports: [CommentsComponent, SignupClientComponent],
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.sass'
+  styleUrl: './signup.component.sass',
 })
-export class SignupComponent {
-
-}
+export class SignupComponent {}
