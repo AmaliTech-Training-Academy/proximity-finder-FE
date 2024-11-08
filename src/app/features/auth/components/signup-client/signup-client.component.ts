@@ -8,11 +8,12 @@ import {
 } from '@angular/forms';
 import { InputFieldComponent } from '../input-field/input-field.component';
 import { passwordValidator } from '../../../../utils/passwordValidator';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-signup-client',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, InputFieldComponent],
+  imports: [ReactiveFormsModule, CommonModule, InputFieldComponent,RouterLink],
   templateUrl: './signup-client.component.html',
   styleUrl: './signup-client.component.sass',
 })

@@ -3,11 +3,12 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { InputFieldComponent } from '../input-field/input-field.component';
 import { passwordValidator } from '../../../../utils/passwordValidator';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-provider-input',
   standalone: true,
-  imports: [CommonModule,ReactiveFormsModule,InputFieldComponent],
+  imports: [CommonModule,ReactiveFormsModule,InputFieldComponent,RouterLink],
   templateUrl: './provider-input.component.html',
   styleUrl: './provider-input.component.sass'
 })
