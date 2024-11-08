@@ -10,6 +10,9 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 })
 export class ChangePasswordComponent implements OnInit{
   changePasswordForm!: FormGroup;
+  oldPasswordVisible: boolean = false;
+  newPasswordVisible: boolean = false;
+  confirmPasswordVisible: boolean = false;
 
   constructor (private fb: FormBuilder) {}
 
@@ -29,6 +32,19 @@ export class ChangePasswordComponent implements OnInit{
   // ensure old password doesn't match new password
   passwordMismatchValidator(form: FormGroup): {[key: string]: boolean} | null {
     return form.get('oldPassword')?.value === form.get('newPassword')?.value ? {'mismatch': true} : null
+  }
+
+  // toggle password visibility
+  togglePasswordVisibility(type: string): void {
+    if (type === 'oldPassword') {
+      this.oldPasswordVisible = !this.oldPasswordVisible
+    }
+    else if (type === 'newPassword') {
+      this.newPasswordVisible = !this.newPasswordVisible
+    }
+    else {
+      this.confirmPasswordVisible = !this.confirmPasswordVisible
+    }
   }
 
   // submit data
