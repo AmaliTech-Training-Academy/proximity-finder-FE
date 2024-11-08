@@ -10,19 +10,21 @@ import { ChartModule } from 'primeng/chart';
 })
 export class PopularServicesComponent {
   data: any = {
-    labels: ['Painting', 'Plumbing', 'Appliance Fixing'],
+    labels: ['Painting', 'Appliance Fixing', 'Plumbing', 'Cleaning'],
     datasets: [
       {
-        data: [300, 50, 100],
+        data: [300, 50, 100, 200],
         backgroundColor: [
           'rgba(64, 142, 253, 0.8)',
-          'rgba(186, 230, 253, 0.8)',
-          'rgba(125, 211, 252, 0.8)',
+          'rgba(148, 186, 239, 0.8)',
+          'rgba(200, 217, 242, 0.8)',
+          'rgba(227, 236, 249, 0.8)',
         ],
         hoverBackgroundColor: [
           'rgba(64, 142, 253, 1)',
-          'rgba(186, 230, 253, 1)',
-          'rgba(125, 211, 252, 1)',
+          'rgba(148, 186, 239, 1)',
+          'rgba(200, 217, 242, 1)',
+          'rgba(227, 236, 249, 1)',
         ],
       },
     ],
