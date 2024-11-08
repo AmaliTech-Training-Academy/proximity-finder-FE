@@ -17,8 +17,8 @@ export class AdminProfileInfoComponent {
   // check if form is active
   isFormActive: boolean = false
 
-  onFocus(): void {
-    this.isFormActive = true
+  togglEditForm(): void {
+    this.isFormActive = !this.isFormActive
   }
 
   // display delete modal
