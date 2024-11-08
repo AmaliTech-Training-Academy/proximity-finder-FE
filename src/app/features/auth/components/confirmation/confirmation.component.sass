@@ -1,11 +1,11 @@
 @use '../../../../../styles/_variables' as *
 @use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
 
 .container
 
     .confirm
-       display: flex
-       flex-direction: column
+       @include flex-option(flex , null, null ,column)
        margin-top: pxToRem(100)
        padding: pxToRem(32) pxToRem(90)
 
@@ -18,8 +18,7 @@
            margin-top: pxToRem(32)
 
     #buttons
-        display: flex
-        flex-direction: column
+        @include flex-option(flex , null, null ,column)
         gap: pxToRem(8)
         margin-top: pxToRem(32)   
 

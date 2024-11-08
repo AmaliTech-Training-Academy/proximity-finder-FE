@@ -1,20 +1,15 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
+
 
 @Component({
   selector: 'app-confirmation',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './confirmation.component.html',
   styleUrl: './confirmation.component.sass'
 })
 export class ConfirmationComponent {
-  constructor(private router:Router){}
+  constructor(){}
 
-
-  
-  backToLogin() {
-    // Navigate back to login page
-    this.router.navigate(['/login']);
-  }
 }
