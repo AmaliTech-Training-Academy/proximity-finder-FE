@@ -2,8 +2,10 @@
   <div class="header">
     <h1>Earning Summary</h1>
     <select>
-      <option value="1">May 2022 - Dec 2022</option>
+      <option value="1">November</option>
     </select>
   </div>
-  <div class="data"></div>
+  <div class="data">
+    <p-chart type="line" [data]="data" [options]="options" />
+  </div>
 </div>

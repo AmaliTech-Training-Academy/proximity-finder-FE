@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
-import { earnings } from '../../data';
+import { earnings, earningsOptions } from '../../data';
 
 @Component({
   selector: 'app-earnings',
@@ -11,4 +11,6 @@ import { earnings } from '../../data';
 })
 export class EarningsComponent {
   data = earnings;
+
+  options = earningsOptions;
 }

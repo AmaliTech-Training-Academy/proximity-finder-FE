@@ -91,16 +91,69 @@ export const quoteRequestsOptions = {
 
 // Earnings Data
 export const earnings = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  labels: [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ],
   datasets: [
     {
       label: 'First Dataset',
-      data: [65, 59, 80, 81, 56, 55, 40],
+      data: [
+        343900, 273876, 366019, 4152, 272774, 174694, 363146, 174710, 362970,
+        70505, 7419, 359507,
+      ],
+
       fill: false,
       borderColor: 'rgba(64, 142, 253, 1)',
+      backgroundColor: 'rgba(64, 142, 253, 0.16)',
       tension: 0.4,
     },
   ],
+};
+
+export const earningsOptions = {
+  maintainAspectRatio: false,
+  aspectRatio: 0.6,
+  plugins: {
+    legend: {
+      labels: {
+        color: 'rgba(37, 44, 50, 1)',
+      },
+    },
+  },
+  scales: {
+    x: {
+      ticks: {
+        color: 'rgba(119, 135, 143, 1)',
+      },
+      grid: {
+        display: false,
+        drawBorder: false,
+      },
+    },
+    y: {
+      min: 0, // Set minimum value
+      max: 400000, // Set maximum value
+      ticks: {
+        stepSize: 100000, // Set step size
+        color: 'rgba(119, 135, 143, 1)',
+        callback: (value: number) => `$${value / 1000}K`, // Format as currency
+      },
+      grid: {
+        drawBorder: false,
+      },
+    },
+  },
 };
 
 // Popular Services Data
