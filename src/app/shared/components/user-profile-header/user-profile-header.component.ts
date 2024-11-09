@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './user-profile-header.component.sass'
 })
 export class UserProfileHeaderComponent {
-
+  isAuthenticated = false
 }

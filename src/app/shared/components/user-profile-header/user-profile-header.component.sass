@@ -1,0 +1,65 @@
+@use '../../../../styles/_functions' as * 
+@use '../../../../styles/_mixins' as * 
+@use '../../../../styles/_variables' as * 
+@use '../../../../styles/_typography' as * 
+
+header
+    @include flex-row(flex, space-between, center)
+    height: pxToRem(51)
+    background-color: $white
+    padding-inline: pxToRem(38)
+
+    .logo
+        @include flex-row(flex, null, center)
+        gap: pxToRem(13)
+
+        img
+            width: pxToRem(30)
+            height: pxToRem(30)
+        
+        h4
+            font-size: 1.125rem
+            font-weight: 700
+            color: $black-darken-1
+    
+    .nav-container
+        @include flex-row(flex, center, center)
+        gap: 4px
+
+        a
+            border-radius: 8px
+            padding: 0.5rem 1rem
+            font-size: 1rem
+            letter-spacing: 0.8px
+            line-height: 20px
+            color: $black-darken-1
+            cursor: pointer
+
+        .pro
+            background-color: #065AD8
+            color: $white
+            font-weight: 600
+        
+        .profile-container
+            @include flex-row(flex, null, center)
+            gap: 0.5rem
+            cursor: pointer
+
+            .profile
+                @include flex-row(flex, null, center)
+                gap: 0.75rem
+
+                img
+                    width: pxToRem(30)
+                    height: pxToRem(30)
+                    object-fit: cover
+                    border-radius: 50%
+
+                p
+                    font-size: pxToRem(14.99)
+                    line-height: 20px
+                    font-family: 'Inter', sans-serif
+                    color: $black-darken-1
+
+
+        
