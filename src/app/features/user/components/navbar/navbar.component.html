@@ -1,0 +1,14 @@
+<nav>
+    <mat-icon svgIcon="home" aria-hidden="false" aria-label="home SVG icon"></mat-icon>
+
+    <a routerLink="/user" routerLinkActive="active-link" 
+    [routerLinkActiveOptions]="{ exact: true }">Home</a>
+
+    <mat-icon svgIcon="arrow-right" aria-hidden="false" aria-label="arrow right icon"></mat-icon>
+
+    @if (currentRoute) {
+        <a [routerLink]="currentRoute | lowercase" routerLinkActive="active-link" 
+        >{{currentRoute}}</a>
+    }
+
+</nav>
