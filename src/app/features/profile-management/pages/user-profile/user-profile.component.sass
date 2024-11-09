@@ -1,0 +1,125 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_typography' as *
+@use '../../../../../styles/_variables' as *
+
+
+.cover-image
+    height: pxToRem(214)
+
+    img
+        width: 100%
+        height: 100%
+        object-fit: cover
+
+.container
+    background-color: #F7FAFC
+    padding: pxToRem(20) pxToRem(60) pxToRem(28) pxToRem(60)
+    @include flex-column(0.625rem)
+    position: relative
+    
+
+    .profile-image
+        img
+            position: absolute
+            top: 20%
+    
+    .info-container
+        background-color: $white
+        padding: pxToRem(95) pxToRem(20) pxToRem(40)
+
+        form
+            @include flex-column(1.25rem)
+            padding-inline: pxToRem(102)
+
+            .header
+                @include flex-row(flex, space-between, center)
+                padding-bottom: 0.625rem
+                border-bottom: 1px solid #F2F4F5
+
+                .info
+                    @include flex-column(0.625rem)
+                    
+                    h4
+                        font-size: 1.5rem
+                        font-weight: 500
+                        color: $black-darken-1
+
+                    p
+                        font-size: 0.875rem
+                        color: #475156
+                
+                button
+                    padding: pxToRem(12) 1rem
+                    border-radius: 9999px
+                    border: 2px solid #408EFD
+                    background-color: $white
+                    color: #408EFD
+
+            .input-group
+                @include flex-column(2rem)
+
+                .input-field
+                    @include flex-column($gap: .5rem)
+                    color: $black-darken-1
+
+                    label
+                        font-size: pxToRem(14)
+                        letter-spacing: 0.7px
+
+                    input
+                        font-size: 1rem
+                        padding: pxToRem(12)
+                        border-radius: 4px
+                        border: 1px solid #EAECF0
+
+                        &:active,
+                        &:focus-within
+                            outline: none
+                
+                .account
+                    font-size: 1rem
+                    padding: pxToRem(12)
+                    border-radius: 4px
+                    border: 1px solid #E2E8F0
+                    background-color: #FDFFFE
+            
+            .add-account
+                margin-top: pxToRem(44)
+                padding-block: 1rem
+                @include flex-column(1.25rem)
+
+                .title
+                    @include flex-row(flex, space-between, center)
+
+                    h5
+                        font-size: 1rem
+                        font-weight: 700
+                        line-height: 20px
+                        letter-spacing: 0.8px
+
+                    .icons
+                        @include flex-row(flex, null, center)
+                        gap: 0.75rem
+                
+
+                .details
+                    @include flex-row(flex, space-between,flex-start)
+                    gap: 1.25rem
+
+                    .column
+                        @include flex-column(pxToRem(5))
+
+                        input
+                            padding: 0.625rem
+                            border-radius: 8px
+                            border: 1px solid #CBCED7
+                            background-color: #FAFBF
+                    
+                    
+                
+                
+
+    .account-container
+        padding: pxToRem(40) pxToRem(20) pxToRem(16)
+        

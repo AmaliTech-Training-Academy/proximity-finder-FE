@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './user-profile.component.sass'
 })
 export class UserProfileComponent {
-
+  isFormActive = false
 }
