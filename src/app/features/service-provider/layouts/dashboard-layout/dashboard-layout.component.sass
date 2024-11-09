@@ -4,8 +4,7 @@
 
 .container
     height: 100vh
-    display: flex
-    flex-direction: column
+    @include flex-option($display: flex, $justify-content: null, $align-items: null, $direction: column)
 
     app-sidebar
         height: 100%
@@ -13,7 +12,7 @@
 
     .content-area
         flex: 1
-        display: flex
+        @include flex-option($display: flex, $justify-content: null, $align-items: null, $direction: null)
         background-color: $background-blue
         overflow: hidden 
 
