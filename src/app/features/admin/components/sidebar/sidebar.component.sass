@@ -37,15 +37,25 @@
                 color: $black-darken-1
                 text-decoration: none
 
-                svg
+                .icon
+                    width: 1.5rem
+                    height: 1.5rem
+                    fill: $white
                     stroke: $black-darken-1
+
+                svg
+                    stroke: $black-darken-1       
+                        
 
                 &.active-link
                     background-color: #408EFD
                     color: $white
 
-                    svg
+                    .icon, svg
                         stroke: $white
+                        fill: #408EFD
+
+
 
         .help-settings-container
             @include flex-column($gap: 0.75rem)
@@ -56,11 +66,10 @@
                 padding: 0.5rem 1rem
                 border-radius: 8px
                 gap: 0.5rem
-
-                p
-                    font-size: 1rem
-                    letter-spacing: 0.8px
-                    line-height: 20px
+                font-size: 1rem
+                letter-spacing: 0.8px
+                line-height: 20px
+                cursor: pointer
                 
             
     
