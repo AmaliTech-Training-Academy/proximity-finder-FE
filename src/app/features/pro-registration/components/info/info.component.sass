@@ -1,0 +1,50 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+
+.main-container
+    background-color: #FAFBFE
+    padding: pxToRem(80) pxToRem(40)
+    height: 100vh
+    overflow-y: auto
+    scrollbar-width: none
+   
+    .welcome
+        p
+            font-size: pxToRem(40)
+            font-weight: 600
+        span
+            font-size: pxToRem(14)
+            color: #646976
+
+
+    .step
+        margin-top: pxToRem(32)
+    
+    .options
+        @include flex-option(flex, null , null ,column )
+        gap: pxToRem(30)
+        height: pxToRem(550)
+        margin-top: pxToRem(52)
+       
+        
+        .menu-items
+          background-color: $primary
+          @include flex-option(flex , null , center ,row )
+          gap: pxToRem(30)
+          border-radius: pxToRem(8)
+          padding: pxToRem(8) pxToRem(12)
+
+          .num
+            background-color: $white
+            width: pxToRem(50)
+            height: pxToRem(50)
+            border-radius: pxToRem(3)
+            @include flex-option(flex , center , center ,row )
+            
+
+            span
+               font-size: pxToRem(14)    
+               color: red
+            
+                
