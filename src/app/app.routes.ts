@@ -95,4 +95,8 @@ export const routes: Routes = [
       },
     ],
   },
+  {
+    path:'binfo',
+    loadComponent: () =>import('./features/pro-registration/pages/basic-info-page/basic-info-page.component').then(m => m.BasicInfoPageComponent)
+  }
 ];
