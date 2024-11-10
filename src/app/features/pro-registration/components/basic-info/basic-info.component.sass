@@ -1,0 +1,31 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+
+.basic-profile
+    padding: pxToRem(80) pxToRem(129) 
+    border: 1px solid red  
+
+    .inst
+        p
+         font-size: pxToRem(40)
+         font-weight: 600
+         color: $text-main
+
+        span
+            font-size: pxToRem(14)
+            font-weight: 400
+            color: $text-secondary
+
+    .pro
+        border: 1px solid yellow
+        padding: pxToRem(20) 
+        @include flex-option(flex, null , center ,row )
+        gap: pxToRem(10)
+        
+
+        .pro-img
+            border: 1px solid red
+            width: pxToRem(80)
+            height: pxToRem(80)
+            border-radius: 50%       
