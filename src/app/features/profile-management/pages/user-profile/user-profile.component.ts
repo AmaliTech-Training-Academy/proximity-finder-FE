@@ -9,4 +9,9 @@ import { Component } from '@angular/core';
 })
 export class UserProfileComponent {
   isFormActive = false
+  isAccountClicked = false
+
+  toggleAccountDetails() {
+    this.isAccountClicked = !this.isAccountClicked
+  }
 }

@@ -1,10 +1,12 @@
 <div class="cover-image">
     <img src="../../../../../assets/images/cover-image.png" alt="cover image">
 </div>
+
+<div class="profile-image">
+    <img src="../../../../../assets/images/Avatar.png" alt="user's avatar" class="avatar">
+</div>
+
 <div class="container">
-    <!-- <div class="profile-image">
-        <img src="../../../../../assets/images/Avatar.png" alt="user's avatar">
-    </div> -->
 
     <div class="info-container">
         <form>
@@ -50,40 +52,61 @@
             </div>
 
             <div class="input-group">
-                <p class="account">American Express</p>
-                <p class="account">Fidelity Bank - EUR</p>
-                <p class="account">MTN Mobile Money</p>
+                <div class="account" (click)="toggleAccountDetails()">
+                    <p>American Express</p>
+                    @if (isAccountClicked) {
+                        <img src="../../../../../assets/check-fill.svg" alt="check icon">
+                    }
+                </div>
+
+
+                <div class="account" (click)="toggleAccountDetails()">
+                    <p>Fidelty Bank - EUR</p>
+                    @if (isAccountClicked) {
+                        <img src="../../../../../assets/check-fill.svg" alt="check icon">
+                    }                
+                </div>
+
+                <div class="account" (click)="toggleAccountDetails()">
+                    <p>MTN Mobile Money</p>
+                    @if (isAccountClicked) {
+                        <img src="../../../../../assets/check-fill.svg" alt="check icon">
+                    } 
+                </div>
+               
             </div>
 
+            @if (isAccountClicked) {
             <div class="add-account">
                 <div class="title">
                     <h5>Account Information</h5>
 
                     <div class="icons">
-                        <p>p</p>
-                        <p>t</p>
+                        <img src="../../../../../assets/edit.svg" alt="pen icon">
+                        <img src="../../../../../assets/trash.svg" alt="trash icon">
                     </div>
                 </div>
 
-                <div class="details">
-                    <div class="column">
-                        <p>Bank Name:</p>
-                        <input type="text" placeholder="Fidelty">
-                    </div>
-                    <div class="column">
-                        <p>Account Name:</p>
-                        <input type="text" placeholder="John Doe">
-                    </div>
-                    <div class="column">
-                        <p>Account Alias:</p>
-                        <input type="text" placeholder="EUR">
-                    </div>
-                    <div class="column">
-                        <p>Account Number:</p>
-                        <input type="number" placeholder="45341287975437">
+                    <div class="details">
+                        <div class="column">
+                            <p>Bank Name:</p>
+                            <input type="text" placeholder="Fidelty">
+                        </div>
+                        <div class="column">
+                            <p>Account Name:</p>
+                            <input type="text" placeholder="John Doe">
+                        </div>
+                        <div class="column">
+                            <p>Account Alias:</p>
+                            <input type="text" placeholder="EUR">
+                        </div>
+                        <div class="column">
+                            <p>Account Number:</p>
+                            <input type="number" placeholder="45341287975437">
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         </form>
 
     </div>
