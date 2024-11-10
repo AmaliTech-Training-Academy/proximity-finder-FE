@@ -1,0 +1,55 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+
+.pro
+    padding: pxToRem(20) 0
+    @include flex-option(flex, null , center ,row )
+    gap: pxToRem(30)
+        
+
+    .pro-img
+        border: 1px solid red
+        width: pxToRem(80)
+        height: pxToRem(80)
+        border-radius: 50%   
+
+    .upload
+        @include flex-option(flex,null,null,column)
+        gap: pxToRem(16)   
+
+        p
+         font-size: pxToRem(18)
+         font-weight: 500 
+
+        .actions
+            @include flex-option(flex,null,null,row)
+            gap: pxToRem(10) 
+
+            .load
+                border: 1px solid $primary
+                border-radius: pxToRem(6)
+                @include flex-option(flex,null,center,row)
+                gap: pxToRem(10)
+                padding: pxToRem(10) pxToRem(31)
+                cursor: pointer
+
+                .btn-upload
+                    border: none 
+                    background: none
+                    font-size: pxToRem(16)
+                    font-weight: 500 
+            
+            .del
+                border: 1px solid $error
+                border-radius: pxToRem(6)
+                @include flex-option(flex,null,center,row)
+                gap: pxToRem(10)
+                padding: pxToRem(10) pxToRem(31)
+                cursor: pointer
+                
+                .btn-remove
+                    border: none 
+                    background: none
+                    font-size: pxToRem(16)
+                    font-weight: 500 
