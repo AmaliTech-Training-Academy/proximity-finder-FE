@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import {MatIconRegistry, MatIconModule} from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { SvgService } from '../../../../shared/services/svg.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,20 +16,7 @@ import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/r
 export class NavbarComponent implements OnInit{
   currentRoute!: string
 
-  constructor(    private router: Router, private activatedRoute: ActivatedRoute) {
-    const iconRegistry = inject(MatIconRegistry);
-    const sanitizer = inject(DomSanitizer);
-
-    iconRegistry.addSvgIcon(
-      'home',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/home.svg')
-    );
-
-    iconRegistry.addSvgIcon(
-      'arrow-right',
-      sanitizer.bypassSecurityTrustResourceUrl('assets/arrow-right.svg')
-    );
-  }
+  constructor( private router: Router, private activatedRoute: ActivatedRoute, private svgService: SvgService) {}
 
   ngOnInit() {
     this.updateRoute()
