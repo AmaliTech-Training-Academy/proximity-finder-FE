@@ -1,0 +1,55 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+
+.basic-profile
+    padding: pxToRem(80) pxToRem(135) 
+    padding: auto
+    height: 100vh
+    overflow-y: auto
+    scrollbar-width: none
+    margin: auto
+
+    .inst
+        p
+         font-size: pxToRem(40)
+         font-weight: 600
+         color: $text-main
+
+        span
+            font-size: pxToRem(14)
+            font-weight: 400
+            color: $text-secondary
+
+    .profile-update
+        margin-top: pxToRem(40) 
+        
+
+    form
+        @include flex-option( flex,null,  null, column)
+        gap: pxToRem(32) 
+        margin-top: pxToRem(32)
+        
+        &.has-error
+          border: 1px solid $error
+
+        .error-message
+          color: $error
+          margin-top: pxToRem(8)  
+
+        .continue
+            padding: pxToRem(10) pxToRem(21) 
+            width: pxToRem(113)  
+            @include flex-option(flex , flex-end , null ,null )
+            align-self: flex-end
+            border: none
+            border-radius: pxToRem(4)
+            background-color: $primary
+            font-size: pxToRem(16)
+            color: $white
+            cursor: pointer
+
+            
+                  
+
+   

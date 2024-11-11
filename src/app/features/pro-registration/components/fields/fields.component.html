@@ -1,0 +1,10 @@
+<div class="inputs">
+    <div [attr.for]="label" class="label">{{label}}</div>
+    <input
+    [type]="type"
+    [placeholder]="placeholder"
+    [(ngModel)]="value"
+    [attr.aria.label]="label"
+    [id]="label"
+    >
+</div>

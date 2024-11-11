@@ -1,0 +1,32 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_variables' as *
+@use '../../../../../styles/_mixins' as *
+
+.input
+    @include flex-option(flex, null,null,row )
+    gap: pxToRem(10)
+    background-color: #FAFBFE
+    border: 1px solid #EFF2F7
+    border-radius: pxToRem(8)
+    padding: pxToRem(16) pxToRem(21)
+    margin-top: pxToRem(16)
+
+    img
+      cursor: pointer
+
+    input
+        border: none
+        background: transparent
+        width: 100%
+        &:focus
+          outline: none
+
+        &.has-error
+          border: 1px solid $error
+
+    .error-message
+        color: $error
+        margin-top: pxToRem(8)
+
+     
+    

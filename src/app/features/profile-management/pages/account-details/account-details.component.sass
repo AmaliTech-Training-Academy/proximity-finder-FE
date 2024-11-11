@@ -1,0 +1,12 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_typography' as *
+@use '../../../../../styles/_variables' as *
+
+.container
+    @include flex-option(flex, null, null, column)
+    gap: pxToRem(28)
+    width: pxToRem(524)
+    padding: 1.25rem
+    background-color: $white
+    border-radius: 4px

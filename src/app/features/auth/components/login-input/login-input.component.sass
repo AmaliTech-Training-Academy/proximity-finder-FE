@@ -1,0 +1,108 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_variables' as *
+@use '../../../../../styles/_mixins' as *
+
+.container
+
+    .form
+        @includeflex-option(flex , null , null ,column )
+        margin-top: pxToRem(20)
+        padding: pxToRem(32) pxToRem(90)
+
+        h6
+            font-size: pxToRem(30)
+
+        p
+            font-size: pxToRem(16)
+            color: $subtext  
+
+    .email,
+    .password
+        @include flex-option(flex , null, null ,row)
+        gap: pxToRem(10)
+        background-color: #FAFBFE
+        border: 1px solid #EFF2F7
+        border-radius: pxToRem(8)
+        width: 100%
+        margin-top: pxToRem(32)
+
+        img
+          cursor: pointer
+
+
+        input
+          border: none
+          background: transparent
+          width: 100%
+          &:focus
+            outline: none
+
+        &.has-error
+          border: 1px solid $error
+
+    .error-message
+        color: $error
+
+    .forgot
+            @include flex-option(flex , flex-end, null ,row)
+            margin-top: pxToRem(10)
+
+            a
+                font-size: pxToRem(14)
+                color: $primary
+                cursor: pointer 
+                text-decoration: none
+
+    .btn-login 
+        width: pxToRem(514)
+        padding: pxToRem(16) 0
+        margin-top: pxToRem(16)
+        border: none
+        border-radius: pxToRem(8)
+        background-color: $primary
+        font-size: pxToRem(14)
+        font-weight: 500
+        text-transform: uppercase
+        color: $white
+        cursor: pointer
+
+    .google
+        @include flex-option(flex , null, center ,row)
+        gap: pxToRem(10)
+        padding: pxToRem(13) pxToRem(160)
+        margin-top: pxToRem(16)
+        border: 1px solid $primary
+        border-radius: pxToRem(8)
+        cursor: pointer
+
+        .google-btn
+          border: none
+          background: none
+          font-size: pxToRem(14)
+          font-weight: 500
+          text-transform: uppercase
+          cursor: pointer
+
+    .dont-have
+        margin-top: pxToRem(16)
+        @include flex-option(flex , center, center ,row)
+        gap: pxToRem(6)
+
+        p
+          font-size: pxToRem(14)
+          color: $subtext
+          font-weight: 500
+
+        a
+          color: $primary
+          font-size: pxToRem(14)
+          font-weight: 500
+          text-transform: uppercase
+          text-decoration: none
+          cursor: pointer     
+
+                   
+               
+            
+       
+            

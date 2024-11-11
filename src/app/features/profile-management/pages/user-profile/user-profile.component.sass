@@ -1,0 +1,141 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_typography' as *
+@use '../../../../../styles/_variables' as *
+
+
+.cover-image
+    height: pxToRem(214)
+    position: relative
+
+    img
+        width: 100%
+        height: 100%
+        object-fit: cover
+
+.profile-image
+    .avatar
+        position: absolute
+        top: 41%
+        left: 12%
+        width: pxToRem(150)
+        height: pxToRem(150)
+        object-fit: cover
+        border: 5px solid $white
+        border-radius: 50%
+
+.container
+    @include flex-option(flex, null, null, column)
+    padding: pxToRem(20) pxToRem(60) pxToRem(28) pxToRem(60)
+    gap: 0.625rem
+    background-color: #F7FAFC
+      
+    .info-container
+        background-color: $white
+        padding: pxToRem(95) pxToRem(20) pxToRem(40)
+
+        form
+            @include flex-option(flex, null, null, column)
+            gap: 1.25rem
+            padding-inline: pxToRem(102)
+
+            .header
+                @include flex-option(flex, space-between, center, row)
+                padding-bottom: 0.625rem
+                border-bottom: 1px solid #F2F4F5
+
+                .info
+                    @include flex-option(flex, null, null, column)
+                    gap: 0.625rem
+                    
+                    h4
+                        font-size: 1.5rem
+                        font-weight: 500
+                        color: $black-darken-1
+
+                    p
+                        font-size: 0.875rem
+                        color: #475156
+                
+                button
+                    padding: pxToRem(12) 1rem
+                    border-radius: 9999px
+                    border: 2px solid #408EFD
+                    background-color: $white
+                    color: #408EFD
+                    cursor: pointer
+
+            .input-group
+                @include flex-option(flex, null, null, column)
+                gap: 2rem
+                cursor: pointer
+
+                .input-field
+                    @include flex-option(flex, null, null, column)
+                    gap: 0.5rem
+                    color: $black-darken-1
+
+                    label
+                        font-size: pxToRem(14)
+                        letter-spacing: 0.7px
+
+                    input
+                        font-size: 1rem
+                        padding: pxToRem(12)
+                        border-radius: 4px
+                        border: 1px solid #EAECF0
+
+                        &:active,
+                        &:focus-within
+                            outline: none
+                
+                .account
+                    @include flex-option(flex, space-between, center, row)
+                    font-size: 1rem
+                    padding: pxToRem(12)
+                    border-radius: 4px
+                    border: 1px solid #E2E8F0
+                    background-color: #FDFFFE
+            
+            .add-account
+                @include flex-option(flex, null, null, column)
+                gap: 1.25rem
+                margin-top: pxToRem(44)
+                padding-block: 1rem
+
+                .title
+                    @include flex-option(flex,space-between, center, row)
+
+                    h5
+                        font-size: 1rem
+                        font-weight: 700
+                        line-height: 20px
+                        letter-spacing: 0.8px
+
+                    .icons
+                        @include flex-option(flex, null, center, row)
+                        gap: 0.75rem
+                        cursor: pointer
+                
+
+                .details
+                    @include flex-option(flex, space-between,flex-start, row)
+                    gap: 1.25rem
+
+                    .column
+                        @include flex-option(flex, null, null, column)
+                        gap: pxToRem(5)
+
+                        input
+                            padding: 0.625rem
+                            border-radius: 8px
+                            border: 1px solid #CBCED7
+                            background-color: #FAFBF
+                    
+                    
+                
+                
+
+    .account-container
+        padding: pxToRem(40) pxToRem(20) pxToRem(16)
+        

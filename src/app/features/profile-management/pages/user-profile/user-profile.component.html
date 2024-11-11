@@ -1,0 +1,113 @@
+<div class="cover-image">
+    <img src="../../../../../assets/images/cover-image.png" alt="cover image">
+</div>
+
+<div class="profile-image">
+    <img src="../../../../../assets/images/Avatar.png" alt="user's avatar" class="avatar">
+</div>
+
+<div class="container">
+
+    <div class="info-container">
+        <form>
+            <div class="header">
+                <div class="info">
+                    <h4>Personal Info</h4>
+                    <p>Update your personal details here</p>
+                </div>
+
+                <button> Save Changes</button>
+            </div>
+
+            <div class="input-group">
+                <div class="input-field">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Esthera Jackson" [readOnly]="!isFormActive">
+                </div>
+
+                <div class="input-field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="whitney419@gmail.com" [readOnly]="!isFormActive">
+                </div>
+                <div class="input-field">
+                    <label for="phone">Mobile number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Add a phone number" [readOnly]="!isFormActive">
+                </div>
+            </div>
+            
+        </form>
+
+    </div>
+
+    <div class="info-container account-container">
+        <form>
+            <div class="header">
+                <div class="info">
+                    <h4>Account Info</h4>
+                    <p>Update your account details here</p>
+                </div>
+
+                <button type="button" (click)="openAccountDialog()">Add Account</button>
+
+            </div>
+
+            <div class="input-group">
+                <div class="account" (click)="toggleAccountDetails()">
+                    <p>American Express</p>
+                    @if (isAccountClicked) {
+                        <img src="../../../../../assets/check-fill.svg" alt="check icon">
+                    }
+                </div>
+
+
+                <div class="account" (click)="toggleAccountDetails()">
+                    <p>Fidelty Bank - EUR</p>
+                    @if (isAccountClicked) {
+                        <img src="../../../../../assets/check-fill.svg" alt="check icon">
+                    }                
+                </div>
+
+                <div class="account" (click)="toggleAccountDetails()">
+                    <p>MTN Mobile Money</p>
+                    @if (isAccountClicked) {
+                        <img src="../../../../../assets/check-fill.svg" alt="check icon">
+                    } 
+                </div>
+               
+            </div>
+
+            @if (isAccountClicked) {
+            <div class="add-account">
+                <div class="title">
+                    <h5>Account Information</h5>
+
+                    <div class="icons">
+                        <img src="../../../../../assets/edit.svg" alt="pen icon" (click)="openAccountDialog()">
+                        <img src="../../../../../assets/trash.svg" alt="trash icon" (click)="openDeleteDialog()">
+                    </div>
+                </div>
+
+                    <div class="details">
+                        <div class="column">
+                            <p>Bank Name:</p>
+                            <input type="text" placeholder="Fidelty">
+                        </div>
+                        <div class="column">
+                            <p>Account Name:</p>
+                            <input type="text" placeholder="John Doe">
+                        </div>
+                        <div class="column">
+                            <p>Account Alias:</p>
+                            <input type="text" placeholder="EUR">
+                        </div>
+                        <div class="column">
+                            <p>Account Number:</p>
+                            <input type="number" placeholder="45341287975437">
+                        </div>
+                    </div>
+                </div>
+            }
+        </form>
+
+    </div>
+</div>

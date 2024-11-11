@@ -1,0 +1,40 @@
+
+<div class="content">
+    <div class="logo">
+        <img src="assets/svgs/Logo.svg" alt="logo">
+    </div>
+
+    <div class="role-selection">
+        <h6>Select Your Role</h6>
+        <p>Select a role and continue to sign up</p>
+
+        <div class="role-options">
+             <div class="client-role" [routerLink]="['/client-signup']">
+                <div class="icon">
+                    <img src="assets/svgs/Client.svg" alt="icon">
+                </div>
+                <div class="description">
+                    <span>Client</span>
+                    <p>Get experts solution to your problems</p>
+                </div>
+             </div>
+
+             <div class="provider-option" [routerLink]="['/pro-signup']">
+                <div class="icon">
+                    <img src="assets/svgs/provider.svg" alt="icon">
+                </div>
+                <div class="description">
+                    <span>Provider</span>
+                    <p>Render your services to our clients</p>
+                </div>
+             </div>
+        </div>
+       <div class="btn-text">
+        <button class="btn-continue">Continue</button>
+        <p>Already have an account? <a [routerLink]="['/login']">Sign in</a></p>
+       </div>
+    </div>
+    
+
+
+</div>
