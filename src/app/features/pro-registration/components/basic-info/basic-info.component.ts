@@ -3,11 +3,12 @@ import { ProfileUpdateComponent } from '../profile-update/profile-update.compone
 import { FieldsComponent } from "../fields/fields.component";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-basic-info',
   standalone: true,
-  imports: [ProfileUpdateComponent, FieldsComponent,CommonModule,ReactiveFormsModule],
+  imports: [ProfileUpdateComponent, FieldsComponent,CommonModule,ReactiveFormsModule,RouterLink],
   templateUrl: './basic-info.component.html',
   styleUrl: './basic-info.component.sass'
 })

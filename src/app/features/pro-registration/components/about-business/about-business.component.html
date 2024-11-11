@@ -1,1 +1,24 @@
-<p>about-business works!</p>
+<div class="about-business">
+    <div class="about">
+        <p>About (business name)</p>
+        <span>Tell us more about your business</span>
+    </div>
+
+    <form action="">
+        <app-fields
+        label="Inception Date"
+        type="date"
+        />
+        <app-fields
+        label="Number of Employees (Digits only)"
+        type="number"
+        placeholder="Enter the number of employees"
+        />
+        <div class="text-area">
+            <label>Summary*</label>
+            <textarea name="" id=""></textarea>
+        </div>
+
+        <button  [routerLink]="['/registration/payment-method']" class="btn-continue">Continue</button>
+    </form>
+</div>
