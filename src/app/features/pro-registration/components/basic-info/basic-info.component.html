@@ -5,20 +5,39 @@
         <span>Lets’ get your business information and get your business up and running.</span>
     </div>
 
-    <div class="pro">
-        <div class="pro-img"></div>
+   <app-profile-update class="profile-update"/>
 
-        <div class="upload">
-            <p>Click to update or remove  your 
-                profile picture</p>
+   <form>
+    <app-fields
+    label="Business Name*"
+    type="text"
+    placeholder="Enter your business name"
+    />
 
-                <div class="actons">
-                    <button>Upload</button>
-                    <button>Remove</button>
-                </div>
-        </div>
+    <app-fields
+    label="Business Owner's Name*"
+    type="text"
+    placeholder="Enter your full name"
+    />
+    <app-fields
+    label="Business Email*"
+    type="text"
+    placeholder="Enter your email "
+    />
+    <app-fields
+    label="Phone Number*"
+    type="text"
+    placeholder="Enter your mobile number "
+    />
+    <app-fields
+    label="Business Address*"
+    type="text"
+    placeholder="Enter your address "
+    />
 
-    </div>
+    <button class="continue">Continue</button>
+    
+   </form>
 
   
 </div>

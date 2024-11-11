@@ -1,55 +1,57 @@
 @use '../../../../../styles/_functions' as *
 @use '../../../../../styles/_mixins' as *
 @use '../../../../../styles/_variables' as *
-
-.pro
-    padding: pxToRem(20) 0
-    @include flex-option(flex, null , center ,row )
-    gap: pxToRem(30)
-        
-
-    .pro-img
-        border: 1px solid red
-        width: pxToRem(80)
-        height: pxToRem(80)
-        border-radius: 50%   
-
-    .upload
-        @include flex-option(flex,null,null,column)
-        gap: pxToRem(16)   
-
-        p
-         font-size: pxToRem(18)
-         font-weight: 500 
-
-        .actions
-            @include flex-option(flex,null,null,row)
-            gap: pxToRem(10) 
-
-            .load
-                border: 1px solid $primary
-                border-radius: pxToRem(6)
-                @include flex-option(flex,null,center,row)
-                gap: pxToRem(10)
-                padding: pxToRem(10) pxToRem(31)
-                cursor: pointer
-
-                .btn-upload
-                    border: none 
-                    background: none
-                    font-size: pxToRem(16)
-                    font-weight: 500 
-            
-            .del
-                border: 1px solid $error
-                border-radius: pxToRem(6)
-                @include flex-option(flex,null,center,row)
-                gap: pxToRem(10)
-                padding: pxToRem(10) pxToRem(31)
-                cursor: pointer
-                
-                .btn-remove
-                    border: none 
-                    background: none
-                    font-size: pxToRem(16)
-                    font-weight: 500 
+.image-container
+            display: flex
+            align-items: center
+            gap: pxToRem(28)
+            .image
+                width: pxToRem(176)
+                height: pxToRem(176)
+                border-radius: 100px
+                img
+                    object-fit: cover
+                    width: 100%
+                    height: 100%
+            .info
+              @include flex-option(flex , null , flex-start ,column )
+              width: pxToRem(250)
+              gap: pxToRem(36)
+              p
+                font-size: 1.125rem
+                color: black
+                font-weight: 500
+                line-height: var(--auto, 27px)
+                margin: 0
+            .info-actions
+                display: flex
+                gap: 1rem
+                label
+                    display: inline-block
+                    @include flex-option(flex, null, center,row)
+                    gap: pxToRem(9.099)
+                    border: 1px solid $primary
+                    background-color: transparent
+                    color: $black
+                    font-size: pxToRem(20)
+                    font-weight: 500
+                    cursor: pointer
+                    border-radius: 6px
+                    padding: pxToRem(9.099)
+                button
+                    background-color: transparent
+                    color: $black
+                    font-size: 1rem
+                    font-weight: 500
+                    cursor: pointer
+                    border-radius: 6px
+                    border: none
+                    outline: none
+                    padding: pxToRem(9.099)
+                    @include flex-option(flex, null,  center,row)
+                    gap: pxToRem(9.099)
+                .file-input
+                    display: none
+                .delete-btn
+                    border: 1px solid #FCA27E
+                    width: pxToRem(100)

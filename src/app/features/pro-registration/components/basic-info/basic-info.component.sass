@@ -3,8 +3,10 @@
 @use '../../../../../styles/_variables' as *
 
 .basic-profile
-    padding: pxToRem(80) pxToRem(129) 
-    border: 1px solid red  
+    padding: pxToRem(80) pxToRem(100) 
+    height: 100vh
+    overflow-y: auto
+    scrollbar-width: none
 
     .inst
         p
@@ -17,15 +19,25 @@
             font-weight: 400
             color: $text-secondary
 
-    .pro
-        border: 1px solid yellow
-        padding: pxToRem(20) 
-        @include flex-option(flex, null , center ,row )
-        gap: pxToRem(10)
-        
+    .profile-update
+        margin-top: pxToRem(32) 
 
-        .pro-img
-            border: 1px solid red
-            width: pxToRem(80)
-            height: pxToRem(80)
-            border-radius: 50%       
+    form
+        @include flex-option( flex,null,  null, column)
+        gap: pxToRem(32) 
+        margin-top: pxToRem(32)
+
+        .continue
+            padding: pxToRem(10) pxToRem(21) 
+            width: pxToRem(113)  
+            @include flex-option(flex , flex-end , null ,null )
+            align-self: flex-end
+            border: none
+            border-radius: pxToRem(4)
+            background-color: $primary
+            font-size: pxToRem(16)
+            color: $white
+            cursor: pointer
+                  
+
+   
