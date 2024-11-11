@@ -1,0 +1,21 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+
+
+.inputs
+    .label
+        font-size: pxToRem(18)
+        font-weight: 500
+        color: $text-main 
+
+    input
+        margin-top: pxToRem(8)
+        padding: pxToRem(16) pxToRem(21)
+        border: 1px solid #EAECF0
+        border-radius: pxToRem(8)
+        width: 100% 
+
+        &:focus
+            outline: none
+            border-color: $primary

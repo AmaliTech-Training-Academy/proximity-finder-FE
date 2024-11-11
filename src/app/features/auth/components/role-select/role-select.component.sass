@@ -1,0 +1,93 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_variables' as *
+@use '../../../../../styles/_mixins' as *
+
+.content
+    .role-selection
+        @include flex-option(flex , null, null ,column)
+        margin-top: pxToRem(20)
+        padding: pxToRem(70) pxToRem(90)
+        
+
+        h6
+            font-size: pxToRem(30)
+
+        p
+            font-size: pxToRem(16)  
+            color: $subtext
+            margin-top: pxToRem(8)
+
+    .role-options
+        margin-top: pxToRem(32)
+        
+
+        .client-role
+            @include flex-option(flex , null, center ,row) 
+            gap: pxToRem(10)
+            padding: pxToRem(5) pxToRem(5)
+            cursor: pointer
+            &:hover
+                border: 1px solid $primary
+
+            .description
+                span
+                  font-size: pxToRem(16)
+                  font-weight: 600
+
+                p
+                  font-size: pxToRem(14)
+                  font-weight: 400 
+                  color: #252C32  
+
+
+        .provider-option 
+            @include flex-option(flex , null, center ,row) 
+            gap: pxToRem(10)
+            margin-top: pxToRem(20)
+            padding: pxToRem(5) pxToRem(5) 
+            cursor: pointer 
+            &:hover
+                border: 1px solid $primary 
+
+            .description
+                span
+                  font-size: pxToRem(16)
+                  font-weight: 600
+
+                p
+                  font-size: pxToRem(14)
+                  font-weight: 400 
+                  color: #252C32 
+                    
+
+    .btn-text
+             @include flex-option(flex , null, null ,column) 
+             margin-top: pxToRem(32) 
+             gap: pxToRem(16)
+
+             .btn-continue
+                 padding: pxToRem(16) pxToRem(90)
+                 background-color: $primary
+                 border: none 
+                 border-radius: pxToRem(8)
+                 font-size: pxToRem(14)
+                 font-weight: 500
+                 color: $white
+                 text-transform: uppercase
+
+             p
+                 font-size: pxToRem(16)
+                 color: $subtext
+                 text-align: center
+
+                 a
+                     color: $primary
+                     font-size: pxToRem(14)
+                     font-weight: 500
+                     text-transform: uppercase
+                     text-decoration: none
+                     cursor: pointer
+                 
+
+                 
+            
