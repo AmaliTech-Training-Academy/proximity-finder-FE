@@ -26,6 +26,13 @@
         @include flex-option( flex,null,  null, column)
         gap: pxToRem(32) 
         margin-top: pxToRem(32)
+        
+        &.has-error
+          border: 1px solid $error
+
+        .error-message
+          color: $error
+          margin-top: pxToRem(8)  
 
         .continue
             padding: pxToRem(10) pxToRem(21) 
@@ -38,6 +45,8 @@
             font-size: pxToRem(16)
             color: $white
             cursor: pointer
+
+            
                   
 
    
