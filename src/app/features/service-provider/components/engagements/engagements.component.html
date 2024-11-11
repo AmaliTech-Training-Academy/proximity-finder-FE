@@ -4,9 +4,12 @@
       <h1>Quote Requests</h1>
       <p>789 Monthly requests</p>
     </div>
-    <select>
-      <option value="1">Quarterly</option>
-    </select>
+    <p-dropdown
+      forrmControl="selectedInterval"
+      [options]="interval"
+      optionLabel="name"
+      placeholder="Quarterly"
+    />
   </div>
   <div class="data">
     <p-chart type="bar" [data]="basicData" [options]="basicOptions" />

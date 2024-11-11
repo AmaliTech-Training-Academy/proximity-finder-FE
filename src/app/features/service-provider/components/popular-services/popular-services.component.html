@@ -3,9 +3,12 @@
     <div class="info">
       <h1>Popular Services</h1>
     </div>
-    <select>
-      <option value="1">Quarterly</option>
-    </select>
+    <p-dropdown
+      [formControl]="selectedInterval"
+      [options]="interval"
+      optionLabel="name"
+      placeholder="Quarterly"
+    />
   </div>
   <div class="data">
     <p-chart
