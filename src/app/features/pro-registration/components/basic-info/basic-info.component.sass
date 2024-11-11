@@ -3,10 +3,12 @@
 @use '../../../../../styles/_variables' as *
 
 .basic-profile
-    padding: pxToRem(80) pxToRem(100) 
+    padding: pxToRem(80) pxToRem(135) 
+    padding: auto
     height: 100vh
     overflow-y: auto
     scrollbar-width: none
+    margin: auto
 
     .inst
         p
@@ -20,12 +22,20 @@
             color: $text-secondary
 
     .profile-update
-        margin-top: pxToRem(32) 
+        margin-top: pxToRem(40) 
+        
 
     form
         @include flex-option( flex,null,  null, column)
         gap: pxToRem(32) 
         margin-top: pxToRem(32)
+        
+        &.has-error
+          border: 1px solid $error
+
+        .error-message
+          color: $error
+          margin-top: pxToRem(8)  
 
         .continue
             padding: pxToRem(10) pxToRem(21) 
@@ -38,6 +48,8 @@
             font-size: pxToRem(16)
             color: $white
             cursor: pointer
+
+            
                   
 
    
