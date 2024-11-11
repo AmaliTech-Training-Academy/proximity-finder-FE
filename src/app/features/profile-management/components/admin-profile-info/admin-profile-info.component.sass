@@ -6,7 +6,8 @@
 
 .container
     background-color: $white
-    @include flex-column($gap: 12rem)
+    @include flex-option(flex, null, null, column)
+    gap: pxToRem(12)
     padding: pxToRem(24) pxToRem(52)
     border: 2px solid $grey-lighten-0
     border-radius: 10px
@@ -14,7 +15,8 @@
     margin-bottom: 2rem
 
     .profile-container
-        @include flex-column($gap: 2.5rem)
+        @include flex-option(flex, null, null, column)
+        gap: 2.5rem
         padding: 1rem 1.25rem
 
         .image-container
@@ -33,7 +35,8 @@
                     height: 100%
         
         .info
-            @include flex-column($gap: pxToRem(36))
+            @include flex-option(flex, null, null, column)
+            gap: pxToRem(36)
             align-items: flex-start
             width: pxToRem(250)
 
@@ -45,12 +48,12 @@
                 margin: 0
 
             .info-actions
-                display: flex
+                @include flex-option(flex, null, null,null)
                 gap: 1rem
 
                 label
                     display: inline-block
-                    @include flex-row($display: flex, $position: null, $align: center)
+                    @include flex-option(flex, null, center, row)
                     gap: pxToRem(9.099)
                     border: 1px solid $primary
                     background-color: transparent
@@ -71,7 +74,7 @@
                     border: none
                     outline: none
                     padding: pxToRem(9.099)
-                    @include flex-row($display: flex, $position: null, $align: center)
+                    @include flex-option(flex, null, center, row)
                     gap: pxToRem(9.099)
 
                 .file-input
@@ -82,10 +85,12 @@
 
         .info-container
             form
-                @include flex-column($gap: 2rem)
+                @include flex-option(flex, null, null, column)
+                gap: 2rem
 
                 .input-field
-                    @include flex-column($gap: .5rem)
+                    @include flex-option(flex, null, null, column)
+                    gap: 0.5rem
                     color: $black-darken-1
 
                     label
@@ -104,7 +109,7 @@
                 
 
                 .form-buttons
-                    @include flex-row($display: flex, $position:flex-end , $align: center)
+                    @include flex-option(flex, flex-end , center, row)
                     gap: 1rem
                     @extend .body-b2
                     transition: opacity 0.3s ease

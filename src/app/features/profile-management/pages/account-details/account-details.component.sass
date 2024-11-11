@@ -4,7 +4,8 @@
 @use '../../../../../styles/_variables' as *
 
 .container
-    @include flex-column(pxToRem(28))
+    @include flex-option(flex, null, null, column)
+    gap: pxToRem(28)
     width: pxToRem(524)
     padding: 1.25rem
     background-color: $white

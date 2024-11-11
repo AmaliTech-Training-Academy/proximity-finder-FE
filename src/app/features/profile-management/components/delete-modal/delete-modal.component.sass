@@ -4,17 +4,19 @@
 @use '../../../../../styles/_variables' as *
 
 .delete-container
-    @include flex-column(pxToRem(28))
+    @include flex-option(flex, null, null, column)
+    gap: pxToRem(28)
     width: pxToRem(428.208)
     padding: 1.5rem
     border-radius: 4px
     background-color: $white
 
     .main
-        @include flex-column(.5rem)
+        @include flex-option(flex, null, null, column)
+        gap: 0.5rem
 
         .header
-            @include flex-row($display: flex, $position: space-between, $align: flex-start)
+            @include flex-option(flex, space-between, flex-start, row)
 
             .title
                 font-size: 1.25rem

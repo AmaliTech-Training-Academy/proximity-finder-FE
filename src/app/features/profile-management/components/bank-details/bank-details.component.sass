@@ -4,17 +4,21 @@
 @use '../../../../../styles/_variables' as *
 
 .container
-    @include flex-column(pxToRem(28))
+    @include flex-option(flex, null , null, column)
+    gap: pxToRem(28)
     padding: pxToRem(28) 0.5rem 0
 
     form
-        @include flex-column(1.5rem)
+        @include flex-option(flex, null , null, column)
+        gap: 1.5rem
 
         .input-group
-            @include flex-column(1.5rem)
+            @include flex-option(flex, null , null, column)
+            gap: 1.5rem
 
             .input-field
-                @include flex-column(pxToRem(4))
+                @include flex-option(flex, null , null, column)
+                gap: pxToRem(4)
 
                 label
                     font-size: 1rem
@@ -30,9 +34,10 @@
                     outline: none
                     font-size: pxToRem(14)
                     letter-spacing: 0.7px
+
         
         .form-actions
-            @include flex-row(flex, flex-end, center)
+            @include flex-option(flex, flex-end, center, row)
             gap: 1rem
 
             button
@@ -48,7 +53,3 @@
             .cancel-btn
                 border: 1px solid #EAECF0
             
-                
-            
-        
-    

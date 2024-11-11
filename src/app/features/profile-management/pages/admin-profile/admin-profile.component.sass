@@ -4,7 +4,8 @@
 @use '../../../../../styles/_typography' as *
 
 .tabs
-    @include flex-column($gap: 1rem)
+    @include flex-option(flex, null, null, column)
+    gap: 1rem
     
     .title
         @extend .heading-h1
@@ -16,7 +17,7 @@
 
     ::ng-deep .mat-mdc-tab-labels
         color: $black-darken-1
-        display: flex
+        @include flex-option(flex, null, null,row)
         gap: 1.5rem
 
     ::ng-deep .mat-mdc-tab .mdc-tab__text-label

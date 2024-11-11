@@ -4,13 +4,13 @@
 @use '../../../../styles/_typography' as * 
 
 header
-    @include flex-row(flex, space-between, center)
+    @include flex-option(flex, space-between, center, row)
     height: pxToRem(51)
     background-color: $white
     padding-inline: pxToRem(38)
 
     .logo
-        @include flex-row(flex, null, center)
+        @include flex-option(flex, null, center, row)
         gap: pxToRem(13)
 
         img
@@ -23,7 +23,7 @@ header
             color: $black-darken-1
     
     .nav-container
-        @include flex-row(flex, center, center)
+        @include flex-option(flex, center, center, row)
         gap: 4px
 
         a
@@ -41,12 +41,12 @@ header
             font-weight: 600
         
         .profile-container
-            @include flex-row(flex, null, center)
+            @include flex-option(flex, null, center, row)
             gap: 0.5rem
             cursor: pointer
 
             .profile
-                @include flex-row(flex, null, center)
+                @include flex-option(flex, null, center, row)
                 gap: 0.75rem
 
                 img
