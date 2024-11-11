@@ -1,0 +1,13 @@
+<div class="input">
+  <img [src]="imgPath" alt="" />
+  <input
+    [type]="type"
+    [placeholder]="placeholder"
+    [(ngModel)]="value"
+    [attr.aria.label]="label"
+  />
+  @if(type=== 'password'){
+    <img [src]="showConfirmPassword ? 'assets/svgs/open.svg' : 'assets/svgs/close.svg'" alt="" (click)="togglePasswordVisibility('confirmPassword')">
+
+  }
+</div>
