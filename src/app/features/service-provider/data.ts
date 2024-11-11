@@ -367,3 +367,11 @@ export const services = [
     pricing: 'GHC 600',
   },
 ];
+
+export const accountPreferences = [
+  { name: 'MTN Mobile Money' },
+  { name: 'AirtelTigo Cash' },
+  { name: 'T-Cash' },
+  { name: 'PayPal' },
+  { name: 'Bank Transfer' },
+];

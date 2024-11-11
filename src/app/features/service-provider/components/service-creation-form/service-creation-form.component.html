@@ -1,0 +1,74 @@
+<form [formGroup]="serviceForm" class="service-creation-form">
+  <div class="section-one">
+    <div>
+      <label for="jobTitle">What service(s) do you offer?</label>
+      <input
+        type="text"
+        pInputText
+        formControlName="jobTitle"
+        placeholder="Enter job title"
+      />
+    </div>
+    <div>
+      <label for="accountPreference">Account Preference</label>
+      <p-dropdown
+        id="accountPreference"
+        formControlName="accountPreference"
+        [options]="accountPreferences"
+        optionLabel="name"
+        placeholder="Please choose"
+      />
+    </div>
+  </div>
+  <!--Top Section-->
+  <div class="section-two">
+    <div>
+      <label for="businessCertificate"
+        >Upload Business Certificate (Optional)</label
+      >
+
+      <!-- <input
+        id="businessCertificate"
+        type="file"
+        formControlName="businessCertificate"
+      /> -->
+    </div>
+  </div>
+
+  <div class="section-three">
+    <div>
+      <label for="serviceDescription">Service Description</label>
+      <textarea
+        rows="5"
+        pInputTextarea
+        formControlName="serviceDescription"
+        placeholder="Please describe your service"
+      >
+      </textarea>
+    </div>
+  </div>
+  <div class="section-four">
+    <div>
+      <label for="schedulingPolicy">Scheduling Policy (Optional)</label>
+      <textarea
+        rows="5"
+        pInputTextarea
+        formControlName="schedulingPolicy"
+        placeholder="Please enter your scheduling policy"
+      >
+      </textarea>
+    </div>
+  </div>
+  <div class="section-five">
+    <div>
+      <label for="">Upload some pictures from the project</label>
+      <input
+        type="file"
+        #pictureInput
+        class="hidden"
+        accept="image/*"
+        multiple
+      />
+    </div>
+  </div>
+</form>

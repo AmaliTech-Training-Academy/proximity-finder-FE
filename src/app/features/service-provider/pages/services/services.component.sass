@@ -35,3 +35,17 @@
         cursor: pointer
         background: none
         border: none
+
+    .buttons
+        @include flex-option($display: flex, $justify-content: null, $align-items: center,$direction: row)
+        gap: 16px
+        margin: 32px 0 0 0
+        border-top: solid 1px $grey-lighten-3
+        padding: 16px 0 0 0
+
+        p-button
+            flex: 1
+
+        .primary
+            background-color: $blue
+            border-radius: 4px
