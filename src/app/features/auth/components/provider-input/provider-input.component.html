@@ -1,0 +1,60 @@
+<div class="content">
+    <div class="logo">
+      <img src="assets/svgs/Logo.svg" alt="logo">
+    </div>
+    <div class="form">
+      <div class="header">
+        <h6>Sign up for an Account</h6>
+        <p>Select a method to sign up to Swift Craft</p>
+      </div>
+      <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+        <app-input-field
+        type="text"
+        placeholder="Business Name"
+        imgPath="assets/svgs/person.svg"
+        formControlName="businessName"
+        [ngClass]="{'has-error': signUpForm.get('businessName')?.invalid && (signUpForm.get('businessName')?.dirty || signUpForm.get('businessName')?.touched)}"
+        />
+        <div class="error-message" *ngIf="signUpForm.get('businessName')?.invalid && (signUpForm.get('businessName')?.dirty || signUpForm.get('businessName')?.touched)">
+          Business name is required
+        </div>
+        <app-input-field
+        type="email"
+        placeholder="Email"
+        imgPath="assets/svgs/email.svg"
+        formControlName="email"
+        [ngClass]="{'has-error': signUpForm.get('email')?.invalid && (signUpForm.get('email')?.dirty || signUpForm.get('email')?.touched)}"
+        />
+        <div class="error-message" *ngIf="signUpForm.get('email')?.invalid && (signUpForm.get('email')?.dirty || signUpForm.get('email')?.touched)">
+          Email is required and must be valid
+        </div>
+        <app-input-field
+        type="password"
+        placeholder="Password"
+        imgPath="assets/svgs/password.svg"
+        formControlName="password"
+        />
+        <div class="error-message" *ngIf="signUpForm.get('password')?.invalid && (signUpForm.get('password')?.dirty || signUpForm.get('password')?.touched)">
+          Password must be at least 12 characters, including uppercase, lowercase, number, and symbol
+        </div>
+        <app-input-field
+        type="password"
+        placeholder="Password"
+        imgPath="assets/svgs/password.svg"
+        formControlName="confirmPassword"
+        />
+        <div class="error-message" *ngIf="signUpForm.hasError('mismatchedPassword') && (signUpForm.get('confirmPassword')?.dirty || signUpForm.get('confirmPassword')?.touched)">
+          Passwords do not match
+        </div>
+        <button class="btn-signup" type="submit" [disabled]="signUpForm.invalid">Sign up</button>
+        <div class="google">
+          <img src="assets/svgs/Google.svg" alt="google">
+          <button class="google-btn">Sign in with google</button>
+        </div>
+        <div class="text">
+          <p>Alredy have an account?</p>
+          <a [routerLink]="['/login']">Sign in</a>
+        </div>
+      </form>
+    </div>
+  </div>
