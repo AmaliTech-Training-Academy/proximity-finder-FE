@@ -1,0 +1,58 @@
+<div class="container">
+
+    <div class="profile-container">
+
+        <div class="image-container">
+            <div class="image">
+                <img src="../../../../../assets/images/Avatar.png" alt="user's profile image">
+            </div>
+
+            <div class="info">
+                <p>Click to update or remove  your profile picture</p>
+
+                <div class="info-actions">
+                    <label for="file">
+                        <img src="../../../../../assets/upload.svg" alt="upload icon">
+                        Upload
+                    </label>
+        
+                    <input type="file" name="file" id="file" class="file-input" accept="image/*">
+                    <button class="delete-btn" (click)="openDialog()">
+                        <img src="../../../../../assets/Cancel.svg" alt="cancel icon">
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    
+        <div class="info-container">
+            <form >
+                <div class="input-field">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name" placeholder="Esthera Jackson" [readOnly]="!isFormActive">
+                </div>
+
+                <div class="input-field">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="whitney419@gmail.com" [readOnly]="!isFormActive">
+                </div>
+                <div class="input-field">
+                    <label for="phone">Mobile number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Add a phone number" [readOnly]="!isFormActive">
+                </div>
+
+                 @if (isFormActive) {
+                    <div class="form-buttons">
+                        <button type="submit" class="cancel-btn" (click)="togglEditForm()">Cancel</button>
+                        <button type="submit" class="save-changes-btn">Save Changes</button>
+                    </div>
+                 }
+                 @else {
+                    <div class="form-buttons">
+                        <a class="edit-btn" (click)="togglEditForm()">Edit Profile</a>
+                    </div>
+                 }
+            </form>
+        </div>
+    </div>
+</div>

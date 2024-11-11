@@ -1,0 +1,26 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+@use '../../../../../styles/_typography' as *
+
+.container
+    overflow: hidden
+    height: 100vh
+    
+    .main
+        display: flex
+
+        .sidebar
+            width: pxToRem(260)
+            border: 1px solid $grey-lighten-0
+
+
+        .content
+            width: 100%
+            @include flex-option(flex, null, null,column)
+            padding: 1.25rem pxToRem(160)
+            background-color: $grey-lighten-0
+            overflow: scroll
+            height: 100vh
+            scroll-behavior: smooth
+            scrollbar-width: none

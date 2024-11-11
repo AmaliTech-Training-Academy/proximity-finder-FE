@@ -132,6 +132,32 @@ export const routes: Routes = [
       },
     ],
   },
+
+  {
+    path: 'admin',
+    loadComponent: () => import('./features/admin/pages/home/home.component').then(m => m.HomeComponent),
+
+    children: [
+      { 
+        path: 'profile',
+        loadComponent: () => import('./features/profile-management/pages/admin-profile/admin-profile.component').then((m)=> m.AdminProfileComponent)
+      },
+
+    ]
+  },
+
+  {
+    path: 'user',
+    loadComponent: () => import('./features/user/pages/home/home.component').then(m => m.HomeComponent),
+
+    children: [
+      {
+        path: 'profile',
+        loadComponent: () => import('./features/profile-management/pages/user-profile/user-profile.component').then(m => m.UserProfileComponent)
+      }
+    ]
+  },
+
   {
     path:'registration',
     loadComponent: () =>
