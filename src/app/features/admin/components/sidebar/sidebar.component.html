@@ -1,0 +1,70 @@
+<div class="container">
+    <div class="inner-container">
+
+        <div class="nav-container">
+
+            <a class="nav-group">
+                <mat-icon svgIcon="dashboard" aria-hidden="false" aria-label="dashboard icon" id="dashboard"></mat-icon>
+                Dashboard
+            </a>
+
+            <a class="nav-group">
+                <mat-icon svgIcon="pro-account" aria-hidden="false" aria-label="pro account icon"></mat-icon>
+                Pro Accounts
+            </a>
+
+            <a class="nav-group">
+                <mat-icon svgIcon="users" aria-hidden="false" aria-label="users icon"></mat-icon>
+                User Accounts
+            </a>
+
+            <a class="nav-group">
+                <mat-icon svgIcon="project" aria-hidden="false" aria-label="project icon"></mat-icon>
+                Manage Projects
+            </a>
+            
+            <a class="nav-group">
+                <mat-icon svgIcon="reports" aria-hidden="false" aria-label="clipboard icon"></mat-icon>
+                Manage Reports
+            </a>
+
+            <a class="nav-group">
+                <mat-icon svgIcon="reviews" aria-hidden="false" aria-label="review icon"></mat-icon>
+                Manage Reviews
+            </a>
+
+            <a class="nav-group" routerLink="/admin/profile" routerLinkActive="active-link" 
+            [routerLinkActiveOptions]="{ exact: true }">
+            <mat-icon svgIcon="profile" aria-hidden="false" aria-label="profile icon"></mat-icon>
+                Profile
+            </a>
+        </div>
+
+        <div class="nav-container">
+            <a class="nav-group">
+                <mat-icon svgIcon="help" aria-hidden="false" aria-label="headset icon"></mat-icon>
+                Help & Support
+            </a>
+
+            <a class="nav-group">
+                <mat-icon svgIcon="settings" aria-hidden="false" aria-label="settings icon"></mat-icon>
+                Settings
+            </a>
+        </div>
+    </div>
+
+    <div class="profile-container">
+        <div class="profile-image">
+            <img src="../../../../../assets/images/profile.png" alt="user's profile avatar">
+        </div>
+
+        <div class="profile-details">
+            <h4>Esthera Jackson</h4>
+            <p>Admin</p>
+        </div>
+
+        <div class="logout-icon">
+            <mat-icon svgIcon="logout" aria-hidden="false" aria-label="logout icon"></mat-icon>
+        </div>
+    </div>
+</div>
