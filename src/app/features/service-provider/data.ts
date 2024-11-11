@@ -323,3 +323,47 @@ export const quotes = [
     dateTime: 'June 30, 2022',
   },
 ];
+
+export const services = [
+  {
+    serviceName: 'Website Development',
+    description: 'Responsive design, e-commerce integration, CMS setup',
+    pricing: 'GHC 500',
+  },
+  {
+    serviceName: 'Digital Marketing',
+    description: 'SEO optimization, social media management, ad campaigns',
+    pricing: 'GHC 1000',
+  },
+  {
+    serviceName: 'Graphic Design',
+    description: 'Logo design, branding, promotional materials',
+    pricing: 'GHC 700',
+  },
+  {
+    serviceName: 'Mobile App Development',
+    description:
+      'iOS and Android versions, user authentication, in-app payments',
+    pricing: 'GHC 1200',
+  },
+  {
+    serviceName: 'Content Writing',
+    description: 'Blog posts, SEO-focused articles, and website content',
+    pricing: 'GHC 300',
+  },
+  {
+    serviceName: 'Video Production',
+    description: 'Product videos, animations, and editing',
+    pricing: 'GHC 800',
+  },
+  {
+    serviceName: 'SEO Optimization',
+    description: 'On-page SEO, backlink building, keyword research',
+    pricing: 'GHC 400',
+  },
+  {
+    serviceName: 'E-commerce Development',
+    description: 'Payment gateway integration, product pages, shopping cart',
+    pricing: 'GHC 600',
+  },
+];
