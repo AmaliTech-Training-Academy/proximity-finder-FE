@@ -47,7 +47,7 @@
                     <p>Update your account details here</p>
                 </div>
 
-                <button>Add Account</button>
+                <button type="button" (click)="openAccountDialog()">Add Account</button>
 
             </div>
 
@@ -82,8 +82,8 @@
                     <h5>Account Information</h5>
 
                     <div class="icons">
-                        <img src="../../../../../assets/edit.svg" alt="pen icon">
-                        <img src="../../../../../assets/trash.svg" alt="trash icon">
+                        <img src="../../../../../assets/edit.svg" alt="pen icon" (click)="openAccountDialog()">
+                        <img src="../../../../../assets/trash.svg" alt="trash icon" (click)="openDeleteDialog()">
                     </div>
                 </div>
 

@@ -20,7 +20,13 @@ export class AdminProfileInfoComponent {
   }
 
   openDialog(){
-    const dialogRef = this.dialog.open(DeleteModalComponent)
+    const dialogRef = this.dialog.open(DeleteModalComponent, {
+            data: {title: 'Delete Profile',
+            message: 'Are you sure you want to delete your profile? This action cannot be undone.',
+            type: 'delete',
+            confirmText: 'Delete',
+            cancelText: 'Cancel'}
+    })
     dialogRef.afterClosed().subscribe((results) => console.log(results))
   }
 }

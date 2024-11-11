@@ -1,0 +1,54 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_typography' as *
+@use '../../../../../styles/_variables' as *
+
+.container
+    @include flex-column(pxToRem(28))
+    padding: pxToRem(28) 0.5rem 0
+
+    form
+        @include flex-column(1.5rem)
+
+        .input-group
+            @include flex-column(1.5rem)
+
+            .input-field
+                @include flex-column(pxToRem(4))
+
+                label
+                    font-size: 1rem
+                    font-weight: 500
+                    line-height: 24px
+                    color: $black-darken-1
+                
+                input, select
+                    padding: 0.75rem 0.5rem
+                    border-radius: 4px
+                    border: 1px solid #EAECF0
+                    cursor: pointer
+                    outline: none
+                    font-size: pxToRem(14)
+                    letter-spacing: 0.7px
+        
+        .form-actions
+            @include flex-row(flex, flex-end, center)
+            gap: 1rem
+
+            button
+                padding: 0.75rem 1rem
+                border-radius: 4px
+                border: none
+                outline: none
+
+            .save-btn
+                background-color: #408EFD
+                color: $white
+            
+            .cancel-btn
+                border: 1px solid #EAECF0
+            
+                
+            
+        
+    
