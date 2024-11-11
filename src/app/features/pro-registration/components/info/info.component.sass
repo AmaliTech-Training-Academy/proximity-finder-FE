@@ -29,22 +29,40 @@
        
         
         .menu-items
-          background-color: $primary
           @include flex-option(flex , null , center ,row )
           gap: pxToRem(30)
           border-radius: pxToRem(8)
-          padding: pxToRem(8) pxToRem(12)
+          padding: pxToRem(6) pxToRem(10)
+          cursor: pointer
+          color: $text-main
+          font-size: pxToRem(24)
+          font-weight: 500
+
+        a
+          text-decoration: none
+
+          &.active-link
+            background-color: $primary
+            color: $white 
+
+            .num
+              color: $text-main 
 
           .num
             background-color: $white
             width: pxToRem(50)
             height: pxToRem(50)
+            border: 1px solid #DFE3E8
             border-radius: pxToRem(3)
             @include flex-option(flex , center , center ,row )
             
+          .text-arrow
+            @include flex-option(flex , space-between , null ,row)
+            width: 100%
 
-            span
-               font-size: pxToRem(14)    
-               color: red
-            
+        
+                
+
+                
+           
                 

@@ -1,17 +1,19 @@
-<div class="pro">
-    <div class="pro-img"></div>
-    <div class="upload">
-        <p>Click to update or remove  your 
-            profile picture</p>
-
-            <div class="actions">
-                <div class="load"><img src="assets/upload.svg" alt="upload">
-                    <button class="btn-upload">Upload</button></div>
-               <div class="del">
-                <img src="assets/delete.svg" alt="cancel">
-                <button class="btn-remove">Remove</button>
-               </div>
-            </div>
+<div class="image-container">
+    <div class="image">
+        <img src="../../../../../assets/images/Avatar.png" alt="user's profile image">
     </div>
-
+    <div class="info">
+        <p>Click to update or remove  your profile picture</p>
+        <div class="info-actions">
+            <label for="file">
+                <img src="../../../../../assets/upload.svg" alt="upload icon">
+                Upload
+            </label>
+            <input type="file" name="file" id="file" class="file-input" accept="image/*">
+            <button class="delete-btn">
+                <img src="../../../../../assets/delete.svg" alt="cancel icon">
+                Delete
+            </button>
+        </div>
+    </div>
 </div>
