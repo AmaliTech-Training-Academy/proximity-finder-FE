@@ -132,4 +132,62 @@ export const routes: Routes = [
       },
     ],
   },
+  {
+    path:'registration',
+    loadComponent: () =>
+      import(
+        './features/pro-registration/pages/registration/registration.component'
+      ).then((m) => m.RegistrationComponent),
+    children: [
+      {
+        path: '',
+        redirectTo: 'basic-info', 
+        pathMatch: 'full',
+      },
+      {
+        path:'basic-info',
+        loadComponent: () =>
+          import(
+            './features/pro-registration/components/basic-info/basic-info.component'
+          ).then((m) => m.BasicInfoComponent),
+      },
+      {
+        path:'about-business',
+        loadComponent: () =>
+          import(
+            './features/pro-registration/components/about-business/about-business.component'
+          ).then((m) => m.AboutBusinessComponent),
+      },
+      {
+        path:'payment-method',
+        loadComponent: () =>
+          import(
+            './features/pro-registration/components/payment-method/payment-method.component'
+          ).then((m) => m.PaymentMethodComponent),
+      },
+      {
+        path:'service-preference',
+        loadComponent: () =>
+          import(
+            './features/pro-registration/components/service-preference/service-preference.component'
+          ).then((m) => m.ServicePreferenceComponent),
+      },
+      {
+        path:'service-experience',
+        loadComponent: () =>
+          import(
+            './features/pro-registration/components/service-experience/service-experience.component'
+          ).then((m) => m.ServiceExperienceComponent),
+      },
+      {
+        path:'preview',
+        loadComponent: () =>
+          import(
+            './features/pro-registration/components/preview/preview.component'
+          ).then((m) => m.PreviewComponent),
+      }
+      
+    ]
+
+  }
 ];
