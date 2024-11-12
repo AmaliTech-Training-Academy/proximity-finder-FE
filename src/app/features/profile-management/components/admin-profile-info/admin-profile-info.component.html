@@ -2,19 +2,26 @@
 
     <div class="profile-container">
 
-        <div class="image-container">
+        <form class="image-container">
             <div class="image">
-                <img src="../../../../../assets/images/Avatar.png" alt="user's profile image">
+                <img [src]="imageUrl || '../../../../../assets/images/Avatar.png'" alt="user's profile image" (click)="triggerFileInput()">
             </div>
+
+            <input 
+                type="file" 
+                id="file" 
+                class="file-input" 
+                accept="image/*" 
+                (change)="onFileSelected($event)">
 
             <div class="info">
                 <p>Click to update or remove  your profile picture</p>
 
                 <div class="info-actions">
-                    <label for="file">
-                        <img src="../../../../../assets/upload.svg" alt="upload icon">
+                    <button type="submit" class="upload-btn">
+                        <mat-icon svgIcon="upload" aria-hidden="false" aria-label="upload icon"></mat-icon>
                         Upload
-                    </label>
+                    </button>
         
                     <input type="file" name="file" id="file" class="file-input" accept="image/*">
                     <button class="delete-btn" (click)="openDialog()">
@@ -23,7 +30,7 @@
                     </button>
                 </div>
             </div>
-        </div>
+        </form>
     
         <div class="info-container">
             <form >
