@@ -5,7 +5,10 @@
     </div>
 
     <div class="step">
-        <h2>read</h2>
+       <app-stepper
+       [currentStep]="1"
+       [totalSteps]="6"
+       />
     </div>
    <div class="options">
     <a routerLink="/registration/basic-info" routerLinkActive="active-link" class="menu-items" >

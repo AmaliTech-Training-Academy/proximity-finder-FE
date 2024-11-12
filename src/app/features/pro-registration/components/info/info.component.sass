@@ -4,14 +4,11 @@
 
 .main-container
     background-color: #FAFBFE
-    padding: pxToRem(80) pxToRem(60)
-    height: 100vh
-    overflow-y: auto
-    scrollbar-width: none
+    padding: pxToRem(40) pxToRem(60)
    
     .welcome
         p
-            font-size: pxToRem(40)
+            font-size: pxToRem(30)
             font-weight: 600
         span
             font-size: pxToRem(14)
@@ -23,20 +20,22 @@
     
     .options
         @include flex-option(flex, null , null ,column )
-        gap: pxToRem(30)
+        gap: pxToRem(20)
         height: pxToRem(550)
         margin-top: pxToRem(52)
+        width: pxToRem(400)
        
         
         .menu-items
           @include flex-option(flex , null , center ,row )
           gap: pxToRem(30)
           border-radius: pxToRem(8)
-          padding: pxToRem(6) pxToRem(10)
+          padding: pxToRem(6) pxToRem(4)
           cursor: pointer
           color: $text-main
-          font-size: pxToRem(24)
+          font-size: pxToRem(16)
           font-weight: 500
+         
 
         a
           text-decoration: none
@@ -50,15 +49,16 @@
 
           .num
             background-color: $white
-            width: pxToRem(50)
-            height: pxToRem(50)
+            width: pxToRem(30)
+            height: pxToRem(30)
             border: 1px solid #DFE3E8
             border-radius: pxToRem(3)
             @include flex-option(flex , center , center ,row )
             
           .text-arrow
             @include flex-option(flex , space-between , null ,row)
-            width: 100%
+            width: 80%
+            
 
         
                 

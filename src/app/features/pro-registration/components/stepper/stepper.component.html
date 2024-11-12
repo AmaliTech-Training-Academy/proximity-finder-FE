@@ -1,0 +1,10 @@
+<div class="step-indicator">
+    <span class="step-text">Step {{ currentStep }} out of {{ totalSteps }}</span>
+    <div class="steps">
+      <div *ngFor="let step of steps" 
+           [class.active]="step <= currentStep" 
+           class="step">
+      </div>
+    </div>
+  </div>
+  

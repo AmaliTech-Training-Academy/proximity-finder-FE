@@ -4,6 +4,8 @@
 @use './styles/_mixins' as *
 @use './styles/_variables' as *
 
+@import "primeicons/primeicons.css"
+
 body, button, input, textarea
     font-family: $font-stack
 
@@ -126,3 +128,13 @@ body, button, input, textarea
         background-color: $white
         border: solid 1px $grey-lighten-3
         color: $text-main
+
+.payment-form
+    .p-dropdown
+        border: 1px solid #EAECF0
+        padding: pxToRem(16) pxToRem(21)
+        width: 100%
+        &:focus
+            border-color: $primary
+
+            

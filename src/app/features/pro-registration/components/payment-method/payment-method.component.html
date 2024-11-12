@@ -1,1 +1,40 @@
-<p>payment-method works!</p>
+<div class="payment">
+    <div class="payment-text">
+        <p>Payment Method</p>
+        <span>Tell us about the payment method you would like to use.</span>
+    </div>
+
+    <form class="payment-form">
+       <div class="drop">
+        <label>Payment Preference*</label>
+        <p-dropdown 
+        formControlName="selectedCity"
+        [options]="paymentMethod"
+        optionLabel="name"
+        placeholder="Please Choose" />
+       </div>
+
+        <app-fields
+        label="Account Name*"
+        type="text"
+        placeholder="Enter your account name"
+        />
+        
+        <app-fields
+        label="Account Alias*"
+        type="text"
+        placeholder="Enter a desired name you wish to attach to your account"/>
+
+        <app-fields
+        label="Account Number*"
+        type="number"
+        placeholder="0000 0000 0000 0000"/>
+
+    <div class="btns">
+        <button type="submit" class="btn-back" (click)="navigateTo()">Back</button>
+        <button type="button" class="btn-continue">Continue</button>
+    </div>
+
+        
+    </form>
+</div>

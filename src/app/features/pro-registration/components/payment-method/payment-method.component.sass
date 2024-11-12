@@ -1,0 +1,63 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+
+.payment
+    padding: pxToRem(40) pxToRem(135) 
+    padding: auto
+    height: 100vh
+    overflow-y: auto
+    scrollbar-width: none
+    margin: auto
+
+    .payment-text
+        p
+         font-size: pxToRem(30)
+         font-weight: 600
+         color: $text-main
+
+        span
+            font-size: pxToRem(14)
+            font-weight: 400
+            color: $text-secondary
+
+    .payment-form
+        @include flex-option( flex,null,  null, column)
+        gap: pxToRem(32) 
+        margin-top: pxToRem(32)
+
+        .drop
+            @include flex-option(flex, null, null, column)
+            gap: pxToRem(16)
+
+        .btns
+            @include flex-option(flex, null, null, row)
+            gap: pxToRem(5) 
+            align-self: flex-end 
+
+            .btn-back
+                border: 1px solid #EAECF0
+                border-radius: pxToRem(4)  
+                padding: pxToRem(10) pxToRem(21) 
+                background: none
+                color: $text-main
+                font-size: pxToRem(16)
+                font-weight: 500
+                cursor: pointer 
+                
+            .btn-continue
+                background-color: $primary
+                border: none
+                border-radius: pxToRem(4)  
+                padding: pxToRem(10) pxToRem(21.41) 
+                color: $white
+                font-size: pxToRem(16)
+                font-weight: 500
+                cursor: pointer    
+
+
+
+
+
+
+             

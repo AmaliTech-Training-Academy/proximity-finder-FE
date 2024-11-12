@@ -19,6 +19,9 @@
             <textarea name="" id=""></textarea>
         </div>
 
-        <button  [routerLink]="['/registration/payment-method']" class="btn-continue">Continue</button>
+        <div class="btns">
+            <button type="submit" class="btn-back" (click)="navigateTo()">Back</button>
+            <button type="button" class="btn-continue" [routerLink]="['/registration/payment-method']" >Continue</button>
+        </div>
     </form>
 </div>
