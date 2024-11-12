@@ -3,6 +3,7 @@
 @use '../../../../../styles/_variables' as *
 
 form
+    width: 874px
     @include flex-option($display: flex, $justify-content: space-between, $align-items: null, $direction: column)
     gap: 16px
 
@@ -11,6 +12,12 @@ form
 
     .section-one
         gap: 32px
+
+        div
+            flex: 1
+
+        input
+            width: 100%
 
     .section-two
         width: 100%
