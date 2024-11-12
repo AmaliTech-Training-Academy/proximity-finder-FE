@@ -4,7 +4,11 @@
 
         <form class="image-container">
             <div class="image">
-                <img [src]="imageUrl || '../../../../../assets/images/Avatar.png'" alt="user's profile image" (click)="triggerFileInput()">
+                <img [src]="imageUrl || '../../../../../assets/images/Avatar.png'" alt="user's profile image">
+                <div class="overlay" (click)="triggerFileInput()">
+                    <mat-icon svgIcon="uploads" aria-hidden="false" aria-label="upload icon"></mat-icon>
+                    <span class="overlay-text">Upload Image</span>
+                </div>
             </div>
 
             <input 

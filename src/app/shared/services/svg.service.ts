@@ -75,5 +75,10 @@ export class SvgService {
       'upload',
       sanitizer.bypassSecurityTrustResourceUrl('assets/upload.svg')
     );
+
+    iconRegistry.addSvgIcon(
+      'uploads',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/uploads.svg')
+    );
   }
 }
