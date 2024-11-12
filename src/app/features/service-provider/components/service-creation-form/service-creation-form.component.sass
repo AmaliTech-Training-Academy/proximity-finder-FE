@@ -1,0 +1,54 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+
+form
+    @include flex-option($display: flex, $justify-content: space-between, $align-items: null, $direction: column)
+    gap: 16px
+
+    .section-one, .section-two, .section-five
+        @include flex-option($display: flex, $justify-content: null, $align-items: null, $direction: row)
+
+    .section-one
+        gap: 32px
+
+    label
+        display: block
+        font-size: 14px
+        font-weight: 500
+        margin: 0 0 4px 0
+        color: $text-main
+
+        
+    .file-upload-container
+        display: flex
+        align-items: center
+        border: 1px solid #e0e0e0
+        padding: 5px 10px
+        border-radius: 4px
+        width: 300px
+
+    .file-name
+        flex: 1
+        padding: 5px
+        overflow: hidden
+        text-overflow: ellipsis
+        white-space: nowrap
+        cursor: pointer
+        color: #333
+
+    .upload-btn
+        background-color: #f5f5f5
+        color: #333
+        border: none
+        padding: 8px 12px
+        border-radius: 0 4px 4px 0
+        cursor: pointer
+
+        &:hover
+            background-color: #e0e0e0
+
+        
+
+.p-inputtext
+    padding: 12px 14px

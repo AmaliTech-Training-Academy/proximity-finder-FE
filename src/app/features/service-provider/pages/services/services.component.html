@@ -1,1 +1,73 @@
-<p>services works!</p>
+<section class="content">
+  <h1 class="page-title">Services</h1>
+
+  <div class="options">
+    <p-iconField iconPosition="left">
+      <p-inputIcon styleClass="pi pi-search" />
+      <input
+        type="text"
+        pInputText
+        placeholder="Search by project title, description, ..."
+      />
+    </p-iconField>
+
+    <p-button
+      (onClick)="showDialog()"
+      label="Create New Service"
+      icon="pi pi-plus"
+      styleClass="create-service-button"
+    />
+  </div>
+
+  <div class="main-content">
+    <div class="table">
+      <p-table
+        [paginator]="true"
+        [rows]="10"
+        [value]="services"
+        [tableStyle]="{ 'min-width': '50rem' }"
+      >
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Service Name</th>
+            <th>Description</th>
+            <th>Pricing</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-service>
+          <tr>
+            <td>{{ service.serviceName }}</td>
+            <td class="description">{{ service.description }}</td>
+            <td>{{ service.pricing }}</td>
+            <td>
+              <button>
+                <i
+                  class="pi pi-ellipsis-v"
+                  style="color: rgba(119, 135, 143, 1)"
+                ></i>
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+  </div>
+
+  <p-dialog
+    header="Create New Service"
+    [modal]="true"
+    [(visible)]="visible"
+    [draggable]="false"
+    [resizable]="false"
+  >
+    <app-service-creation-form />
+    <div class="buttons">
+      <p-button
+        label="Cancel"
+        severity="secondary"
+        (onClick)="visible = false"
+      />
+      <p-button label="Create" class="primary" />
+    </div>
+  </p-dialog>
+</section>
