@@ -1,0 +1,14 @@
+<div class="file-upload-container">
+  <input
+    type="file"
+    id="fileInput"
+    #fileInput
+    accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.rtf,.odt"
+    (change)="onFileSelected($event)"
+    hidden
+  />
+  <span class="file-name">{{ selectedFileName || "No file chosen" }}</span>
+  <button type="button" class="upload-btn" (click)="fileInput.click()">
+    Upload
+  </button>
+</div>

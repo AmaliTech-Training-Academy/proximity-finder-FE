@@ -1,0 +1,29 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+
+.image-uploader
+    border: dashed 1px $blue-accent-3
+    background-color: $blue-lighten-6
+    width: 100%
+    padding: 16px 0
+    border-radius: 8px
+    @include flex-option($display: flex, $justify-content: center, $align-items: center,$direction: null)
+    cursor: pointer
+    transition: background-color 0.2s ease
+
+    .instructions
+        @include flex-option($display: flex, $justify-content: center, $align-items: center, $direction: column)
+        gap: 4px
+        font-size: 14px
+
+        .upload-text
+            color: $blue
+
+    .dragging 
+        background-color: #f0f0f0
+        border-color: #aaa
+
+    .image-preview
+       img
+        height: 150px

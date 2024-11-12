@@ -26,20 +26,7 @@
       <label for="businessCertificate"
         >Upload Business Certificate (Optional)</label
       >
-      <div class="file-upload-container">
-        <input
-          type="file"
-          id="fileInput"
-          (change)="onFileSelected($event)"
-          hidden
-        />
-        <label for="fileInput" class="file-name">{{
-          selectedFileName || "No file chosen"
-        }}</label>
-        <button type="button" class="upload-btn" (click)="uploadFile()">
-          Upload
-        </button>
-      </div>
+      <app-file-uploader />
     </div>
   </div>
 
@@ -70,13 +57,7 @@
   <div class="section-five">
     <div>
       <label for="">Upload some pictures from the project</label>
-      <input
-        type="file"
-        #pictureInput
-        class="hidden"
-        accept="image/*"
-        multiple
-      />
+      <app-image-uploader />
     </div>
   </div>
 </form>
