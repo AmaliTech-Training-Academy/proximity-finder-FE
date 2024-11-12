@@ -28,18 +28,17 @@ import { CommonModule } from '@angular/common';
 })
 export class ServiceCreationFormComponent {
   accountPreferences = accountPreferences;
-  serviceForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {
-    this.serviceForm = this.fb.group({
-      jobTitle: ['', Validators.required],
-      accountPreference: ['', Validators.required],
-      businessCertificate: [null],
-      serviceDescription: ['', Validators.required],
-      schedulingPolicy: [''],
-      projectPictures: [[]],
-    });
-  }
+  serviceForm: FormGroup = this.fb.group({
+    jobTitle: ['', Validators.required],
+    accountPreference: ['', Validators.required],
+    businessCertificate: [null],
+    serviceDescription: ['', Validators.required],
+    schedulingPolicy: [''],
+    projectPictures: [[]],
+  });
+
+  constructor(private fb: FormBuilder) {}
 
   selectedFile: File | null = null;
   selectedFileName: string = '';
@@ -54,9 +53,7 @@ export class ServiceCreationFormComponent {
 
   uploadFile(): void {
     if (this.selectedFile) {
-      // Handle file upload logic
       console.log('Uploading:', this.selectedFile);
-      // Reset after upload if desired
       this.selectedFile = null;
       this.selectedFileName = '';
     } else {
