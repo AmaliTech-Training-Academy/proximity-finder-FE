@@ -11,7 +11,7 @@ import { Component } from '@angular/core';
 export class ImageUploaderComponent {
   isDragging = false;
   files: File[] = [];
-  imagePreviews: string[] = [];
+  imagePreviews: { url: string; name: string }[] = [];
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -40,15 +40,20 @@ export class ImageUploaderComponent {
   }
 
   private processFiles(fileList: FileList): void {
-    this.files = Array.from(fileList);
+    const newFiles = Array.from(fileList);
 
-    this.imagePreviews = [];
-
-    this.files.forEach((file) => {
-      if (file.type.startsWith('image/')) {
+    newFiles.forEach((file) => {
+      if (
+        file.type.startsWith('image/') &&
+        !this.imagePreviews.some((img) => img.name === file.name)
+      ) {
         const imageUrl = URL.createObjectURL(file);
-        this.imagePreviews.push(imageUrl);
+        this.imagePreviews.push({ url: imageUrl, name: file.name });
       }
     });
+  }
+
+  removeImage(index: number): void {
+    this.imagePreviews.splice(index, 1);
   }
 }
