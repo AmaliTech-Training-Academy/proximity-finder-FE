@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FieldsComponent } from "../fields/fields.component";
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
@@ -19,5 +19,9 @@ export class AboutBusinessComponent {
 
   })
 
-  constructor(private fb:FormBuilder){}
+  constructor(private fb:FormBuilder,private router:Router){}
+
+  navigateTo(){
+    this.router.navigateByUrl('/registration/basic-info');
+  }
 }
