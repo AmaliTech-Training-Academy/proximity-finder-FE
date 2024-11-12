@@ -41,7 +41,7 @@
                 <div class="input-field">
                     <label for="name">Name</label>
                     <input type="text" id="name" name="name" placeholder="Esthera Jackson" [readOnly]="!isFormActive" formControlName="name">
-                    @if (userForm.get('name')?.invalid && userForm.get('name')?.touched) {
+                    @if (isFormActive && userForm.get('name')?.invalid && userForm.get('name')?.touched) {
                         @if (userForm.get('name')?.errors?.['required']) {
                             <small class="error">Name is required.</small>
                         }
@@ -55,7 +55,7 @@
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" placeholder="whitney419@gmail.com" [readOnly]="!isFormActive" formControlName="email">
                     
-                    @if (userForm.get('email')?.invalid && userForm.get('email')?.touched) {
+                    @if (isFormActive && userForm.get('email')?.invalid && userForm.get('email')?.touched) {
                         @if (userForm.get('email')?.errors?.['required']) {
                             <small class="error">Email is required.</small>
                         }
@@ -69,7 +69,7 @@
                     <label for="phone">Mobile number</label>
                     <input type="tel" id="phone" name="phone" placeholder="Add a phone number" [readOnly]="!isFormActive" formControlName="phone">
                     
-                    @if (userForm.get('phone')?.invalid && userForm.get('phone')?.touched) {
+                    @if (isFormActive && userForm.get('phone')?.invalid && userForm.get('phone')?.touched) {
                         @if (userForm.get('phone')?.errors?.['required']) {
                             <small class="error">Phone number is required.</small>
                         }
