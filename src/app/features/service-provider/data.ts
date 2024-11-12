@@ -271,4 +271,107 @@ export const quotes = [
     requirements: 'Market research, feasibility analysis, strategic planning',
     dateTime: '2024-11-17T15:00:00',
   },
+  {
+    serviceName: 'Web Design',
+    requirements: 'Responsive layout, modern design, SEO optimized',
+    dateTime: 'September 19, 2021',
+  },
+  {
+    serviceName: 'Mobile App Development',
+    requirements:
+      'iOS and Android versions, user authentication, in-app payments',
+    dateTime: 'October 5, 2021',
+  },
+  {
+    serviceName: 'Digital Marketing',
+    requirements: 'Social media management, email marketing, analytics setup',
+    dateTime: 'November 12, 2021',
+  },
+  {
+    serviceName: 'Graphic Design',
+    requirements: 'Logo design, brand identity, and social media graphics',
+    dateTime: 'December 8, 2021',
+  },
+  {
+    serviceName: 'Content Writing',
+    requirements: 'Blog posts, SEO-focused articles, and website content',
+    dateTime: 'January 23, 2022',
+  },
+  {
+    serviceName: 'Video Production',
+    requirements: 'Product videos, animations, and editing',
+    dateTime: 'February 15, 2022',
+  },
+  {
+    serviceName: 'SEO Optimization',
+    requirements: 'On-page SEO, backlink building, keyword research',
+    dateTime: 'March 4, 2022',
+  },
+  {
+    serviceName: 'E-commerce Development',
+    requirements: 'Payment gateway integration, product pages, shopping cart',
+    dateTime: 'April 10, 2022',
+  },
+  {
+    serviceName: 'IT Support',
+    requirements: 'Network setup, troubleshooting, and server maintenance',
+    dateTime: 'May 18, 2022',
+  },
+  {
+    serviceName: 'Photography',
+    requirements: 'Product photography, editing, and image retouching',
+    dateTime: 'June 30, 2022',
+  },
+];
+
+export const services = [
+  {
+    serviceName: 'Website Development',
+    description: 'Responsive design, e-commerce integration, CMS setup',
+    pricing: 'GHC 500',
+  },
+  {
+    serviceName: 'Digital Marketing',
+    description: 'SEO optimization, social media management, ad campaigns',
+    pricing: 'GHC 1000',
+  },
+  {
+    serviceName: 'Graphic Design',
+    description: 'Logo design, branding, promotional materials',
+    pricing: 'GHC 700',
+  },
+  {
+    serviceName: 'Mobile App Development',
+    description:
+      'iOS and Android versions, user authentication, in-app payments',
+    pricing: 'GHC 1200',
+  },
+  {
+    serviceName: 'Content Writing',
+    description: 'Blog posts, SEO-focused articles, and website content',
+    pricing: 'GHC 300',
+  },
+  {
+    serviceName: 'Video Production',
+    description: 'Product videos, animations, and editing',
+    pricing: 'GHC 800',
+  },
+  {
+    serviceName: 'SEO Optimization',
+    description: 'On-page SEO, backlink building, keyword research',
+    pricing: 'GHC 400',
+  },
+  {
+    serviceName: 'E-commerce Development',
+    description: 'Payment gateway integration, product pages, shopping cart',
+    pricing: 'GHC 600',
+  },
+];
+
+export const accountPreferences = [
+  { name: 'MTN Mobile Money' },
+  { name: 'AirtelTigo Cash' },
+  { name: 'T-Cash' },
+  { name: 'PayPal' },
+  { name: 'Bank Transfer' },
 ];
