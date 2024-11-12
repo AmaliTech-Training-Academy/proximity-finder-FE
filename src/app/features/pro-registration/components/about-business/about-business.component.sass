@@ -3,14 +3,14 @@
 @use '../../../../../styles/_variables' as *
 
 .about-business
-    padding: pxToRem(80) pxToRem(100) 
+    padding: pxToRem(40) pxToRem(135) 
     height: 100vh
     overflow-y: auto
     scrollbar-width: none
 
     .about
         p
-         font-size: pxToRem(40)
+         font-size: pxToRem(30)
          font-weight: 600
          color: $text-main
 
@@ -39,16 +39,29 @@
                 height: pxToRem(123)
                 border: 1px solid #EAECF0
 
-       .btn-continue
-            padding: pxToRem(10) pxToRem(21) 
-            width: pxToRem(113)  
-            @include flex-option(flex , flex-end , null ,null )
-            align-self: flex-end
-            border: none
-            border-radius: pxToRem(4)
-            background-color: $primary
-            font-size: pxToRem(16)
-            color: $white
-            cursor: pointer        
+       .btns
+            @include flex-option(flex, null, null, row)
+            gap: pxToRem(5) 
+            align-self: flex-end 
+
+            .btn-back
+                border: 1px solid #EAECF0
+                border-radius: pxToRem(4)  
+                padding: pxToRem(10) pxToRem(21) 
+                background: none
+                color: $text-main
+                font-size: pxToRem(16)
+                font-weight: 500
+                cursor: pointer 
+                
+            .btn-continue
+                background-color: $primary
+                border: none
+                border-radius: pxToRem(4)  
+                padding: pxToRem(10) pxToRem(21.41) 
+                color: $white
+                font-size: pxToRem(16)
+                font-weight: 500
+                cursor: pointer          
 
         
