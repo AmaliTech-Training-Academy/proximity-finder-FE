@@ -4,11 +4,13 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DeleteModalComponent } from '../../components/delete-modal/delete-modal.component';
 import { AccountDetailsComponent } from '../account-details/account-details.component';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NavbarComponent } from "../../../user/components/navbar/navbar.component";
+import { UserProfileHeaderComponent } from "../../../../shared/components/user-profile-header/user-profile-header.component";
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [MatDialogModule, ReactiveFormsModule],
+  imports: [MatDialogModule, ReactiveFormsModule, NavbarComponent, UserProfileHeaderComponent],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.sass',
   providers: [provideNativeDateAdapter()]
