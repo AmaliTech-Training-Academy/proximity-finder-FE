@@ -3,10 +3,12 @@ import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-admin-profile-info',
   standalone: true,
-  imports: [MatDialogModule, MatIconModule],
+  imports: [MatDialogModule, MatIconModule, ReactiveFormsModule, CommonModule],
   templateUrl: './admin-profile-info.component.html',
   styleUrl: './admin-profile-info.component.sass',
   providers: [provideNativeDateAdapter()]
@@ -18,9 +20,17 @@ export class AdminProfileInfoComponent {
   imageUrl: string = ''
   selectedFile: File | null = null
 
+  constructor(private fb: FormBuilder) { }
+
   togglEditForm(): void {
     this.isFormActive = !this.isFormActive
   }
+
+  userForm = this.fb.group({
+    name: ['', [Validators.required, Validators.minLength(3)]],
+    email: ['', [Validators.required, Validators.email]],
+    phone: ['', [Validators.required,Validators.pattern(/^\d{10}$/)]]
+  })
 
   openDialog(){
     const dialogRef = this.dialog.open(DeleteModalComponent, {
