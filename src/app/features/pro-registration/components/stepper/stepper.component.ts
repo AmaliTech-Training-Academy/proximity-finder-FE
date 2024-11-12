@@ -9,12 +9,11 @@ import { Component, Input, OnInit } from '@angular/core';
   templateUrl: './stepper.component.html',
   styleUrl: './stepper.component.sass'
 })
-export class StepperComponent implements OnInit {
+export class StepperComponent {
+  
   @Input() currentStep: number = 1;
   @Input() totalSteps: number = 6;
-  steps: number[] = [];
+  steps: number[] = Array.from({ length: this.totalSteps }, (_, i) => i + 1);
 
-  ngOnInit(): void {
-    this.steps = Array.from({ length: this.totalSteps }, (_, i) => i + 1);
-  }
+
 }
