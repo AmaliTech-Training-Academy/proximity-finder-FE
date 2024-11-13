@@ -2,19 +2,30 @@
 
     <div class="profile-container">
 
-        <div class="image-container">
+        <form class="image-container">
             <div class="image">
-                <img src="../../../../../assets/images/Avatar.png" alt="user's profile image">
+                <img [src]="imageUrl || '../../../../../assets/images/Avatar.png'" alt="user's profile image">
+                <div class="overlay" (click)="triggerFileInput()">
+                    <mat-icon svgIcon="uploads" aria-hidden="false" aria-label="upload icon"></mat-icon>
+                    <span class="overlay-text">Upload Image</span>
+                </div>
             </div>
+
+            <input 
+                type="file" 
+                id="file" 
+                class="file-input" 
+                accept="image/*" 
+                (change)="onFileSelected($event)">
 
             <div class="info">
                 <p>Click to update or remove  your profile picture</p>
 
                 <div class="info-actions">
-                    <label for="file">
-                        <img src="../../../../../assets/upload.svg" alt="upload icon">
+                    <button type="submit" class="upload-btn">
+                        <img src="../../../../../assets/upload.svg" alt="">
                         Upload
-                    </label>
+                    </button>
         
                     <input type="file" name="file" id="file" class="file-input" accept="image/*">
                     <button class="delete-btn" (click)="openDialog()">
@@ -23,28 +34,55 @@
                     </button>
                 </div>
             </div>
-        </div>
+        </form>
     
         <div class="info-container">
-            <form >
+            <form [formGroup]="userForm">
                 <div class="input-field">
                     <label for="name">Name</label>
-                    <input type="text" id="name" name="name" placeholder="Esthera Jackson" [readOnly]="!isFormActive">
+                    <input type="text" id="name" name="name" placeholder="Esthera Jackson" [readOnly]="!isFormActive" formControlName="name">
+                    @if (isFormActive && userForm.get('name')?.invalid && userForm.get('name')?.touched) {
+                        @if (userForm.get('name')?.errors?.['required']) {
+                            <small class="error">Name is required.</small>
+                        }
+                        @if (userForm.get('name')?.errors?.['minlength']) {
+                            <small class="error">Name must be at least 3 characters long.</small>
+                        }
+                    }
                 </div>
 
                 <div class="input-field">
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="whitney419@gmail.com" [readOnly]="!isFormActive">
+                    <input type="email" id="email" name="email" placeholder="whitney419@gmail.com" [readOnly]="!isFormActive" formControlName="email">
+                    
+                    @if (isFormActive && userForm.get('email')?.invalid && userForm.get('email')?.touched) {
+                        @if (userForm.get('email')?.errors?.['required']) {
+                            <small class="error">Email is required.</small>
+                        }
+                        @if (userForm.get('email')?.errors?.['email']) {
+                            <small class="error">Email must be a valid email address.</small>
+                        }
+                    }
                 </div>
+
                 <div class="input-field">
                     <label for="phone">Mobile number</label>
-                    <input type="tel" id="phone" name="phone" placeholder="Add a phone number" [readOnly]="!isFormActive">
+                    <input type="tel" id="phone" name="phone" placeholder="Add a phone number" [readOnly]="!isFormActive" formControlName="phone">
+                    
+                    @if (isFormActive && userForm.get('phone')?.invalid && userForm.get('phone')?.touched) {
+                        @if (userForm.get('phone')?.errors?.['required']) {
+                            <small class="error">Phone number is required.</small>
+                        }
+                        @if (userForm.get('phone')?.errors?.['pattern']) {
+                            <small class="error">Please enter a valid 10-digit phone number.</small>
+                        }
+                    }
                 </div>
 
                  @if (isFormActive) {
                     <div class="form-buttons">
                         <button type="submit" class="cancel-btn" (click)="togglEditForm()">Cancel</button>
-                        <button type="submit" class="save-changes-btn">Save Changes</button>
+                        <button type="submit" class="save-changes-btn" [disabled]="userForm.invalid">Save Changes</button>
                     </div>
                  }
                  @else {

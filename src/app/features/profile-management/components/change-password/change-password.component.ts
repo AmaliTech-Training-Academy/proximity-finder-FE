@@ -5,7 +5,7 @@ import { InputFieldComponent } from "../../../auth/components/input-field/input-
 @Component({
   selector: 'app-change-password',
   standalone: true,
-  imports: [ReactiveFormsModule, InputFieldComponent],
+  imports: [ReactiveFormsModule],
   templateUrl: './change-password.component.html',
   styleUrl: './change-password.component.sass'
 })

@@ -1,26 +1,61 @@
-<div class="email-container" style="background-color: white; display: flex; flex-direction: column; margin: 1rem auto; padding: 2rem; width: 40rem;">
-    <header style="padding: 4px 1rem; display: flex; gap: 4px;">
-      <img src="../../../assets/logo.svg" alt="application logo">
-    </header>
-    <main style="display: flex; flex-direction: column; gap: 2rem; padding: 2rem 1.5rem; align-items: flex-start; border-radius: 4px 4px 0 0;">
-  
-      <section style="font-size: 1rem; display: flex; flex-direction: column; color: #252C32;">
-        <p>Hello Sandra Johnson,</p>
-  
-        <p>We've received a request to reset the password for your Swift Craft account. No worries – we're here to help you regain access to your account securely.</p>
-  
-        <p>To reset your password, simply click the button below:</p>
-      </section>
-  
-      <button type="submit" style="padding: 0.75rem 1rem; background-color: #408EFD; border-radius: 4px; outline: none; border: 1px solid transparent; color: white; font-size: 1rem; font-weight: 500; letter-spacing: 0.8px;">Reset password</button>
-  
-      <section style="font-size: 1rem; display: flex; flex-direction: column; color: #252C32;">
-        <p>If you didn't initiate this request, don't worry – your account is still secure. You can safely ignore this email, and your password will remain unchanged.</p>
-  
-        <p>If the button does not work, you can also copy and paste the following URL into your browser:</p>
-  
-        <a href="" style="color: #0408E7;">[Link here]</a>
-      </section>
-    </main>
-  </div>
-  
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333333; margin: 0; padding: 20px;">
+    <div style="max-width: 600px; margin: 0 auto;">
+        <!-- Logo -->
+        <div style="margin-bottom: 20px;">
+          <h3 style="padding: 1rem;">SWIFT CRAFT</h3>
+        </div>
+        <!-- Main Content -->
+        <div style="background-color: #FFFFFF; padding: 20px; border-radius: 5px;">
+            <p style="margin-bottom: 16px;">
+                Hello <span th:text="${userName}">Sarah Johnson</span>,
+            </p>
+            <p style="margin-bottom: 16px;">
+                We've received a request to reset the password for your Swift Craft account. No worries – we're here to help you regain access to your account securely.
+            </p>
+            <p style="margin-bottom: 16px;">
+                To reset your password, simply click the button below:
+            </p>
+            <!-- Reset Button -->
+            <div style="margin: 24px 0;">
+                <a th:href="${resetUrl}"
+                   style="display: inline-block;
+                          padding: 12px 24px;
+                          background-color: #4285F4;
+                          color: #FFFFFF;
+                          text-decoration: none;
+                          border-radius: 4px;
+                          font-weight: bold;">
+                    Reset password
+                </a>
+            </div>
+            <p style="margin-bottom: 16px;">
+                If you didn't initiate this request, don't worry – your account is still secure. You can safely ignore this email, and your password will remain unchanged.
+            </p>
+            <p style="margin-bottom: 8px;">
+                If the button does not work, you can also copy and paste the following URL into your browser:
+            </p>
+            <p style="margin-bottom: 24px;">
+                <a th:href="${resetUrl}"
+                   th:text="${resetUrl}"
+                   style="color: #4285F4; word-break: break-all;">
+                    [Link here]
+                </a>
+            </p>
+            <!-- Footer -->
+            <div style="font-size: 12px; color: #666666; margin-top: 32px; border-top: 1px solid #EEEEEE; padding-top: 16px;">
+                <p style="margin-bottom: 8px;">
+                    This is an automated message, please do not reply to this email.
+                </p>
+                <p style="margin-bottom: 8px;">
+                    If you need assistance, please contact our support team.
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
