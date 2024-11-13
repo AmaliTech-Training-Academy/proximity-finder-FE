@@ -6,7 +6,8 @@
 
     <div class="nav-container">
         @if (isAuthenticated) {
-            <a>Sign up as Pro</a>
+            <a routerLink="/pro-signup" routerLinkActive="active-link" 
+            [routerLinkActiveOptions]="{ exact: true }">Sign up as Pro</a>
 
             <a>Projects</a>
 
@@ -21,13 +22,16 @@
         }
 
         @else {
-            <a class="pro">
+            <a class="pro" routerLink="/pro-signup" routerLinkActive="active-link" 
+            [routerLinkActiveOptions]="{ exact: true }">
                 Join as a Pro
             </a>
     
-            <a>Sign up</a>
+            <a routerLink="/client-signup" routerLinkActive="active-link" 
+            [routerLinkActiveOptions]="{ exact: true }">Sign up</a>
     
-            <a>Log in</a>
+            <a routerLink="/login" routerLinkActive="active-link" 
+            [routerLinkActiveOptions]="{ exact: true }">Log in</a>
         }
     </div>
 </header>

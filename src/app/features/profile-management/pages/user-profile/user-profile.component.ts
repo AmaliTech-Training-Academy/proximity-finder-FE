@@ -3,11 +3,14 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { DeleteModalComponent } from '../../components/delete-modal/delete-modal.component';
 import { AccountDetailsComponent } from '../account-details/account-details.component';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NavbarComponent } from "../../../user/components/navbar/navbar.component";
+import { UserProfileHeaderComponent } from "../../../../shared/components/user-profile-header/user-profile-header.component";
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [MatDialogModule],
+  imports: [MatDialogModule, ReactiveFormsModule, NavbarComponent, UserProfileHeaderComponent],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.sass',
   providers: [provideNativeDateAdapter()]
@@ -18,6 +21,21 @@ export class UserProfileComponent {
   isAccountClicked = false
   isDeleteModal = false
 
+  constructor(private fb: FormBuilder) { }
+
+  userForm = this.fb.group({
+    name: ['', [Validators.required, Validators.minLength(3)]],
+    email: ['', [Validators.required, Validators.email]],
+    phone: ['', [Validators.required,Validators.pattern(/^\d{10}$/)]]
+  })
+
+  accountInfoForm = this.fb.group({
+    bankName: ['', Validators.required],
+    accountName: ['', Validators.required],
+    accountAlias: [''],
+    accountNumber: ['', [Validators.required, Validators.pattern(/^\d{13}$/)]]
+  });
+  
   toggleAccountDetails() {
     this.isAccountClicked = !this.isAccountClicked
   }

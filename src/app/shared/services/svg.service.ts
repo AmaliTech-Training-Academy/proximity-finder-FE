@@ -70,5 +70,15 @@ export class SvgService {
       'arrow-right',
       sanitizer.bypassSecurityTrustResourceUrl('assets/arrow-right.svg')
     );
+
+    iconRegistry.addSvgIcon(
+      'upload',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/upload.svg')
+    );
+
+    iconRegistry.addSvgIcon(
+      'uploads',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/uploads.svg')
+    );
   }
 }

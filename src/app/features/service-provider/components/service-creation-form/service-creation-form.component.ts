@@ -11,6 +11,8 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CommonModule } from '@angular/common';
+import { FileUploaderComponent } from '../file-uploader/file-uploader.component';
+import { ImageUploaderComponent } from '../image-uploader/image-uploader.component';
 
 @Component({
   selector: 'app-service-creation-form',
@@ -22,6 +24,8 @@ import { CommonModule } from '@angular/common';
     InputTextModule,
     InputTextareaModule,
     CommonModule,
+    FileUploaderComponent,
+    ImageUploaderComponent,
   ],
   templateUrl: './service-creation-form.component.html',
   styleUrl: './service-creation-form.component.sass',
@@ -39,25 +43,4 @@ export class ServiceCreationFormComponent {
   });
 
   constructor(private fb: FormBuilder) {}
-
-  selectedFile: File | null = null;
-  selectedFileName: string = '';
-
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.selectedFile = input.files[0];
-      this.selectedFileName = this.selectedFile.name;
-    }
-  }
-
-  uploadFile(): void {
-    if (this.selectedFile) {
-      console.log('Uploading:', this.selectedFile);
-      this.selectedFile = null;
-      this.selectedFileName = '';
-    } else {
-      alert('Please select a file first!');
-    }
-  }
 }
