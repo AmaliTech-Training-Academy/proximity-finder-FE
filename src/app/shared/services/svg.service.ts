@@ -80,5 +80,9 @@ export class SvgService {
       'uploads',
       sanitizer.bypassSecurityTrustResourceUrl('assets/uploads.svg')
     );
+    iconRegistry.addSvgIcon(
+      'arrow-left',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/arrow.svg')
+    );
   }
 }

@@ -4,10 +4,8 @@
         <p>Basic Information</p>
         <span>Lets’ get your business information and get your business up and running.</span>
     </div>
-
-   <app-profile-update class="profile-update"/>
-
    <form  [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+      <app-profile-update class="profile-update"/>
     <app-fields
     label="Business Name*"
     type="text"
