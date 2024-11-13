@@ -20,6 +20,38 @@
       />
     </div>
   </div>
+  <div class="section-booking">
+    <div>
+      <label for="bookingDays">Booking Days</label>
+      <p-dropdown
+        id="bookingDays"
+        formControlName="bookingDays"
+        [options]=""
+        optionLabel="name"
+        placeholder="Please choose"
+      />
+    </div>
+    <div class="bookingTimes">
+      <div>
+        <label for="from">From</label>
+        <p-dropdown
+          formControlName="bookingTimeFrom"
+          [options]=""
+          optionLabel="name"
+          placeholder="00:00"
+        />
+      </div>
+      <div>
+        <label for="to">To</label>
+        <p-dropdown
+          formControlName="bookingTimeTo"
+          [options]=""
+          optionLabel="name"
+          placeholder="00:00"
+        />
+      </div>
+    </div>
+  </div>
   <!--Top Section-->
   <div class="section-two">
     <div>
