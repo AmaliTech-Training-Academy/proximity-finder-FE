@@ -9,18 +9,26 @@
                     <option value="cal">Cal</option>
                 </select>
             </div>
+            
             <div class="input-field">
-                <app-fields/>
-                <label for="name">Account Name</label>
-                <input type="text" id="name" name="name" placeholder="Enter account name">
+                <app-fields label="Account Name"
+                type="text"
+                placeholder="Enter account name"
+                [class]="'custom-style'"/>
             </div>
+
             <div class="input-field">
-                <label for="alias">Account Alias</label>
-                <input type="text" id="alias" name="alias" placeholder="Enter a desired name">
+                <app-fields label="Account Alias"
+                type="text"
+                placeholder="Enter a desired name"
+                [class]="'custom-style'"/>
             </div>
+
             <div class="input-field">
-                <label for="account-number">Account Number</label>
-                <input type="number" id="account-number" name="account-number" placeholder="0000 0000 0000">
+                <app-fields label="Account Number"
+                type="number"
+                placeholder="0000 0000 00000"
+                [class]="'custom-style'"/>
             </div>
         </div>
 
