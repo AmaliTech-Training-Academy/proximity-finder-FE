@@ -85,5 +85,15 @@ export class SvgService {
       'location',
       sanitizer.bypassSecurityTrustResourceUrl('assets/location.svg')
     );
+
+    iconRegistry.addSvgIcon(
+      'bookmark',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/bookmark.svg')
+    );
+
+    iconRegistry.addSvgIcon(
+      'communication',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/message.svg')
+    );
   }
 }
