@@ -6,11 +6,13 @@ import { AccountDetailsComponent } from '../account-details/account-details.comp
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NavbarComponent } from "../../../user/components/navbar/navbar.component";
 import { UserProfileHeaderComponent } from "../../../../shared/components/user-profile-header/user-profile-header.component";
+import { FieldsComponent } from "../../../pro-registration/components/fields/fields.component";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [MatDialogModule, ReactiveFormsModule, NavbarComponent, UserProfileHeaderComponent],
+  imports: [MatDialogModule, ReactiveFormsModule, NavbarComponent, UserProfileHeaderComponent, FieldsComponent, CommonModule],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.sass',
   providers: [provideNativeDateAdapter()]
@@ -38,6 +40,12 @@ export class UserProfileComponent {
   
   toggleAccountDetails() {
     this.isAccountClicked = !this.isAccountClicked
+  }
+
+  onSubmit() {
+    if (this.userForm.valid) {
+      console.log(this.userForm.value)
+    }
   }
 
   openDialog(){

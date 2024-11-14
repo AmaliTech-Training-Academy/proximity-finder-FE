@@ -3,6 +3,10 @@
 @use '../../../../../styles/_typography' as *
 @use '../../../../../styles/_variables' as *
 
+.user-profile
+    overflow: scroll
+    scroll-behavior: smooth
+    scrollbar-width: none
 
 .cover-image
     height: pxToRem(214)
@@ -144,3 +148,6 @@
 
 .error
     color: $red
+
+.has-error
+    border: 1px solid $red
