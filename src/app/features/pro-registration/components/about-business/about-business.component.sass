@@ -23,14 +23,27 @@
        @include flex-option(flex, null , null ,column )
        gap: pxToRem(32)
        margin-top: pxToRem(32)
+
+       &.has-error
+         border: 1px solid $error
+         
+
+    .error-message
+        color: $error
+        margin-top: pxToRem(8)
        
-       input
+        input
          padding: pxToRem(16) pxToRem(21)
          width: 100%
 
-       .text-area
+    .text-area
             @include flex-option(flex, null , null ,column )
             gap: pxToRem(8)
+
+            label
+                font-size: pxToRem(14)
+                font-weight: 500
+                color: $text-main
 
             textarea
                 padding: pxToRem(16) pxToRem(21)
@@ -39,7 +52,22 @@
                 height: pxToRem(123)
                 border: 1px solid #EAECF0
 
-       .btns
+                &:focus
+                    outline: none
+                    border-color: $primary
+
+    .doc-upload
+        @include flex-option(flex, null, null, column )
+        gap: pxToRem(8)
+
+        label
+            font-size: pxToRem(14)
+            font-weight: 500
+            color: $text-main
+
+                
+
+    .btns
             @include flex-option(flex, null, null, row)
             gap: pxToRem(5) 
             align-self: flex-end 

@@ -16,6 +16,9 @@
                               (experienceForm.get('description')?.dirty || experienceForm.get('description')?.touched)
               }"
             ></textarea>
+            <div class="error-message" *ngIf="experienceForm.get('description')?.invalid && (experienceForm.get('description')?.dirty || experienceForm.get('description')?.touched)">
+                Description is required
+              </div>
         </div>
         <div class="image-upload">
             <label>Upload some pictures from the project</label>
@@ -23,7 +26,7 @@
         </div>
         <div class="form-actions">
             <button type="button" class="back-btn">Back</button>
-            <button type="submit" class="continue-btn" [disabled]="experienceForm.valid">Continue</button>
+            <button type="submit" class="continue-btn" [disabled]="experienceForm.invalid">Continue</button>
         </div>
     </form>
 </div>

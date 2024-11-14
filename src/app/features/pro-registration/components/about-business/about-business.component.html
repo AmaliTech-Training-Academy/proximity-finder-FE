@@ -4,25 +4,52 @@
         <span>Tell us more about your business</span>
     </div>
 
-    <form action="">
+    <form [formGroup]="aboutForm">
         <app-fields
         label="Inception Date"
         type="date"
+        formControlName="date"
+        [ngClass]="{'has-error': aboutForm.get('date')?.invalid && (aboutForm.get('date')?.dirty || aboutForm.get('date')?.touched)}"
         />
+        <div class="error-message" *ngIf="aboutForm.get('date')?.invalid && (aboutForm.get('date')?.dirty || aboutForm.get('date')?.touched)">
+            Inception date is required
+        </div>
         <app-socials/>
         <app-fields
         label="Number of Employees (Digits only)"
         type="number"
         placeholder="Enter the number of employees"
+        formControlName="employees"
+        [ngClass]="{'has-error': aboutForm.get('employees')?.invalid && (aboutForm.get('employees')?.dirty || aboutForm.get('employees')?.touched)}"
         />
+        <div class="error-message" *ngIf="aboutForm.get('employees')?.invalid && (aboutForm.get('employees')?.dirty || aboutForm.get('employees')?.touched)">
+            Number of employees is required
+        </div>
         <div class="text-area">
             <label>Summary</label>
-            <textarea name="" id=""></textarea>
+            <textarea 
+            placeholder="Write a short summary about your business"
+            formControlName="summary"
+            [ngClass]="{'has-error': aboutForm.get('summary')?.invalid && (aboutForm.get('summary')?.dirty || aboutForm.get('summary')?.touched)}"
+            ></textarea>
+            <div class="error-message" *ngIf="aboutForm.get('summary')?.invalid && (aboutForm.get('summary')?.dirty || aboutForm.get('summary')?.touched)">
+                Summary is required
+              </div>
+        </div>
+
+        <div class="doc-upload">
+            <label>Upload ID</label>
+            <app-file-uploader/>
+        </div>
+
+        <div class="doc-upload">
+            <label>Upload Business Certificate</label>
+            <app-file-uploader/>
         </div>
 
         <div class="btns">
             <button type="submit" class="btn-back" (click)="navigateTo()">Back</button>
-            <button type="button" class="btn-continue" [routerLink]="['/registration/payment-method']" >Continue</button>
+            <button type="button" class="btn-continue" [routerLink]="['/registration/payment-method']" [disabled]="aboutForm.invalid">Continue</button>
         </div>
     </form>
 </div>
