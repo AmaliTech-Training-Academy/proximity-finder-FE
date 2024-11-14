@@ -3,14 +3,26 @@
 @use '../../../../../styles/_variables' as *
 
 form
+    width: 874px
     @include flex-option($display: flex, $justify-content: space-between, $align-items: null, $direction: column)
     gap: 16px
 
-    .section-one, .section-two, .section-five
+    .section-one, .section-two, .section-five, .section-booking
         @include flex-option($display: flex, $justify-content: null, $align-items: null, $direction: row)
 
-    .section-one
+    .section-one, .section-booking
         gap: 32px
+
+        div
+            flex: 1
+
+        input
+            width: 100%
+    
+    .section-booking
+        .bookingTimes
+            @include flex-option($display: flex, $justify-content: null, $align-items: center, $direction: row)
+            gap: 32px
 
     .section-two
         width: 100%
