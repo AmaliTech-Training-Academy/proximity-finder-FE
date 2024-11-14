@@ -38,10 +38,19 @@
     
         <div class="info-container">
             <form [formGroup]="userForm">
+                
                 <div class="input-field">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" placeholder="Esthera Jackson" [readOnly]="!isFormActive" formControlName="name">
-                    @if (isFormActive && userForm.get('name')?.invalid && userForm.get('name')?.touched) {
+                    <app-fields label="Name"
+                            type="text"
+                            placeholder="Esthera Jackson"
+                            formControlName="name"
+                            [readOnly]="!isFormActive"
+                            [ngClass]="{
+                                'error': userForm.get('name')?.invalid && (userForm.get('name')?.touched || userForm.get('name')?.dirty),
+                                'custom-style': true
+                              }"
+                    />
+                    @if (isFormActive && userForm.get('name')?.invalid && (userForm.get('name')?.touched || userForm.get('name')?.dirty)) {
                         @if (userForm.get('name')?.errors?.['required']) {
                             <small class="error">Name is required.</small>
                         }
@@ -52,10 +61,18 @@
                 </div>
 
                 <div class="input-field">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="whitney419@gmail.com" [readOnly]="!isFormActive" formControlName="email">
+                    <app-fields label="Email"
+                        type="email"
+                        placeholder="whitney491@gmail.com"
+                        formControlName="email"
+                        [readOnly]="!isFormActive"
+                        [ngClass]="{
+                            'error': userForm.get('email')?.invalid && (userForm.get('email')?.touched || userForm.get('email')?.dirty),
+                            'custom-style': true
+                          }"
+                    />
                     
-                    @if (isFormActive && userForm.get('email')?.invalid && userForm.get('email')?.touched) {
+                    @if (isFormActive && userForm.get('email')?.invalid && (userForm.get('email')?.touched || userForm.get('email')?.dirty)) {
                         @if (userForm.get('email')?.errors?.['required']) {
                             <small class="error">Email is required.</small>
                         }
@@ -66,10 +83,17 @@
                 </div>
 
                 <div class="input-field">
-                    <label for="phone">Mobile number</label>
-                    <input type="tel" id="phone" name="phone" placeholder="Add a phone number" [readOnly]="!isFormActive" formControlName="phone">
-                    
-                    @if (isFormActive && userForm.get('phone')?.invalid && userForm.get('phone')?.touched) {
+                    <app-fields label="Mobile number"
+                        type="tel"
+                        placeholder="Add a phone number"
+                        formControlName="phone"
+                        [readOnly]="!isFormActive"
+                        [ngClass]="{
+                            'error': userForm.get('phone')?.invalid && (userForm.get('phone')?.touched || userForm.get('phone')?.dirty),
+                            'custom-style': true
+                          }"
+                    />
+                    @if (isFormActive && userForm.get('phone')?.invalid && (userForm.get('phone')?.touched || userForm.get('phone')?.dirty)) {
                         @if (userForm.get('phone')?.errors?.['required']) {
                             <small class="error">Phone number is required.</small>
                         }
