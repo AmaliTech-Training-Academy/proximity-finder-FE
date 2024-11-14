@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" [formGroup]="form">
     <div class="logo">
         <img src="assets/svgs/Logo.svg" alt="logo">
     </div>
@@ -6,12 +6,12 @@
     <div class="info">
         <div class="info-header">
             <h6>Register as a Provider</h6>
-            <p>Complete your registration with us to offer your services on out platform</p>
+            <p>Complete your registration with us to offer your services on our platform</p>
         </div>
         <div class="more">
             <div class="proof">
                 <div id="check">
-                    <input type="checkbox">
+                    <input type="checkbox" formControlName="proof">
                     <p>Proof of Identity</p>
                 </div>
                 <span>Upload a government-issued ID (e.g., driver’s license, passport).</span>
@@ -19,23 +19,22 @@
     
             <div class="license">
                 <div id="check">
-                    <input type="checkbox">
+                    <input type="checkbox" formControlName="license">
                     <p>Professional License or Certification</p>
                 </div>
                 <span>Upload any relevant licenses or certifications required for your profession.</span>
             </div>
     
-            
             <div class="insurance">
                 <div id="check">
-                    <input type="checkbox">
+                    <input type="checkbox" formControlName="insurance">
                     <p>Insurance Documents (if applicable)</p>
                 </div>
-                <span>Upload proof of insurance coverage relevant to your services (e.g, liability insurance.)</span>
+                <span>Upload proof of insurance coverage relevant to your services (e.g., liability insurance.)</span>
             </div>
         </div>
 
-        <button class="btn-continue">Continue</button>
+        <button class="btn-continue" [disabled]="!form.valid" (click)="onSubmit()">Continue</button>
 
         <div class="already">
             <p>Already have a Provider account?  <a>Sign in</a></p>

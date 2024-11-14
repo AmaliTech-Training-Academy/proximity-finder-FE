@@ -52,7 +52,8 @@ export class InputFieldComponent implements ControlValueAccessor{
 
 
   togglePasswordVisibility(field: 'password' | 'confirmPassword') {
-    if (field === 'password') {
+    console.log(this.showPassword)
+    if (this.type === 'password') {
       this.showPassword = !this.showPassword;
     } else {
       this.showConfirmPassword = !this.showConfirmPassword;
