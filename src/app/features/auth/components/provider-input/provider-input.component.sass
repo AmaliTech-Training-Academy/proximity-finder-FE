@@ -11,13 +11,23 @@
     padding: pxToRem(32) pxToRem(90)
     padding: auto
 
+    .back
+      @include flex-option(flex , null, null ,row)
+      align-items: center
+      gap: pxToRem(10)
+      cursor: pointer
+
+      p
+        color: $primary
+        font-size: pxToRem(14)
+
     .header
       margin-top: pxToRem(32)
       h6
-        font-size: pxToRem(40)
+        font-size: pxToRem(30)
 
       p
-        font-size: pxToRem(20)
+        font-size: pxToRem(14)
         color: $subtext
         margin-top: pxToRem(8)
 
@@ -51,12 +61,12 @@
 
       .error-message
         color: $error
-        margin-top: pxToRem(8)
+        margin-top: pxToRem(12)
 
         
 
       .btn-signup
-        width: pxToRem(550)
+        width: 100%
         padding: pxToRem(16) 0
         margin-top: pxToRem(16)
         border: none
@@ -71,7 +81,7 @@
       .google
         @include flex-option(flex , null, center ,row)
         gap: pxToRem(10)
-        padding: pxToRem(13) pxToRem(169)
+        padding: pxToRem(13) pxToRem(160)
         margin-top: pxToRem(16)
         border: 1px solid $primary
         border-radius: pxToRem(8)

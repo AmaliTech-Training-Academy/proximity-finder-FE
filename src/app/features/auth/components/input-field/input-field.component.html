@@ -1,7 +1,7 @@
 <div class="input">
   <img [src]="imgPath" alt="" />
   <input
-    [type]="type"
+    [type]="type === 'password' && showPassword ? 'text' : type"
     [placeholder]="placeholder"
     [(ngModel)]="value"
     [attr.aria.label]="label"

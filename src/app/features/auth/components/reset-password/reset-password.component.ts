@@ -36,10 +36,8 @@ export class ResetPasswordComponent {
 
   onSubmit() {
     if (this.passwordForm.valid) {
-      console.log('Form submitted:', this.passwordForm.value);
-    } else {
-      console.log('Form is invalid');
-    }
+  
+    } 
   }
 
 }
