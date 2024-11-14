@@ -12,8 +12,7 @@
     padding: pxToRem(32) pxToRem(90)
     
     .back
-      @include flex-option(flex , null, null ,row)
-      align-items: center
+      @include flex-option(flex , null, center ,row)
       gap: pxToRem(10)
       cursor: pointer
 
@@ -65,7 +64,7 @@
 
       .error-message
         color: $error
-        margin-top: pxToRem(8)
+        margin-top: pxToRem(12)
 
       .btn-signup
         width: pxToRem(514)

@@ -19,8 +19,7 @@ export class ForgotPasswordComponent {
    constructor(private fb: FormBuilder) {}
      
    onSubmit() {
-     // Send password reset email to provided email address
-     console.log(this.resetForm.value);
+     
    }
 
    

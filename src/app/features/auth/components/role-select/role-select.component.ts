@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
+type Role = 'client' | 'provider' | null;
+
 @Component({
   selector: 'app-role-select',
   standalone: true,
@@ -11,10 +13,12 @@ import { RouterLink } from '@angular/router';
 })
 export class RoleSelectComponent {
 
-  selectedRole: 'client' | 'provider' | null = null;
+  selectedRole: Role= null;
 
-    selectRole(role: 'client' | 'provider') {
-        this.selectedRole = role;
-    }
-
+    
+  selectRole(role: Exclude<Role, null>) {
+    this.selectedRole = role;
+  }
 }
+
+

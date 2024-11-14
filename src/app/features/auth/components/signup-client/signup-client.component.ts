@@ -49,13 +49,9 @@ export class SignupClientComponent {
   }
 
   onSubmit() {
-    console.log('Form submitted:', this.signUpForm.value);
-
     if (this.signUpForm.valid) {
-      console.log('Form submitted:', this.signUpForm.value);
-    } else {
-      console.log('Form is invalid');
-    }
+     
+    } 
   }
 
   goBack(){

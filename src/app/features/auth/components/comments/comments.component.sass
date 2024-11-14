@@ -6,26 +6,46 @@
 .container
     background: $primary
     .circle-container
-         @include flex-option(flex , center, center ,row)
-         height: 100vh
-         text-align: center
-         color: white
+        @include flex-option(flex , center, center ,column)
+        gap: pxToRem(50)
+        height: 100vh
+        text-align: center
+        color: white
 
-         .outer-circle
-            width: pxToRem(535.26)
-            height: pxToRem(535.26)
-            border-radius: 50
-            background: radial-gradient(circle, rgba(255,255,255,0.2) 40%, transparent 60%)
-            @include flex-option(flex , center, center ,column)
-            padding: 20px
+        .outer-circle
+          width: pxToRem(400)
+          height: pxToRem(400)
+          border-radius: 50%
+          background: linear-gradient(180deg, rgba(156, 187, 232, 0.56) 0%, rgba(6, 90, 216, 0.3472) 100%)
+          @include flex-option(flex , center, center ,column)
+          box-sizing: border-box
+
+          .inner-circle
+            width: pxToRem(300)
+            height: pxToRem(300)
+            border-radius: 50%
+            background: linear-gradient(180deg, rgba(156, 187, 232, 0.19) 0%, rgba(71, 132, 222, 0.19) 100%)
+            @include flex-option(flex , center, null,column)
             box-sizing: border-box
 
-            .inner-circle
-              width: pxToRem(428.21)
-              height: pxToRem(428.21)
-              border-radius: 50%
-              background-color: rgba(255, 255, 255, 0.1)
-              @include flex-option(flex , center, center ,column)
-              padding: 20px
-              box-sizing: border-box
+            p
+             font-size: pxToRem(28)
+             font-weight: 600
+
+
+          .author
+            @include flex-option(flex , null , center ,row )
+            margin-top: pxToRem(30)
+
+        .bottom-text
+              p
+               font-size: pxToRem(16)  
+               font-weight: 600
+
+              span
+                font-size: pxToRem(14)
+                font-weight: 700
+                color: #4B91FA
+              
+                  
            

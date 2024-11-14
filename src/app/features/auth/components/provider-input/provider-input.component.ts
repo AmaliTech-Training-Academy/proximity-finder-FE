@@ -38,10 +38,8 @@ export class ProviderInputComponent {
 
   onSubmit() {
     if (this.signUpForm.valid) {
-      console.log('Form submitted:', this.signUpForm.value);
-    } else {
-      console.log('Form is invalid');
-    }
+      
+    } 
   }
 
   goBack(){
