@@ -9,17 +9,26 @@
                     <option value="telecel">Telecel</option>
                 </select>
             </div>
+
             <div class="input-field">
-                <label for="name">Account Name</label>
-                <input type="text" id="name" name="name" placeholder="Enter account name">
+                <app-fields label="Account Name"
+                type="text"
+                placeholder="Enter account name"
+                [class]="'custom-style'"/>
             </div>
+
             <div class="input-field">
-                <label for="alias">Account Alias</label>
-                <input type="text" id="alias" name="alias" placeholder="Enter a desired name you wish to attach to your account">
+                <app-fields label="Account Akias"
+                type="text"
+                placeholder="Enter a desired name you wish to attach to your account"
+                [class]="'custom-style'"/>
             </div>
+
             <div class="input-field">
-                <label for="account-number">Mobile Number</label>
-                <input type="number" id="account-number" name="account-number" placeholder="000 000 0000">
+                <app-fields label="Mobile Money"
+                type="number"
+                placeholder="000 000 0000"
+                [class]="'custom-style'"/>
             </div>
         </div>
 
