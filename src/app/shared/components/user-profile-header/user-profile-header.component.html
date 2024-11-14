@@ -6,10 +6,11 @@
 
     <div class="nav-container">
         @if (isAuthenticated) {
+            <a>Help & Support</a>
             <a routerLink="/pro-signup" routerLinkActive="active-link" 
             [routerLinkActiveOptions]="{ exact: true }">Sign up as Pro</a>
 
-            <a>Projects</a>
+            <a>Tasks</a>
 
             <div class="profile-container">
                 <div class="profile">
