@@ -1,0 +1,33 @@
+<div class="dropper">
+  <label>Social Media Links</label>
+  <div class="dropdown">
+    <div class="selection">
+      <select [(ngModel)]="selectedOption" aria-label="Select social media">
+        <option value="" disabled selected>Select Social Media</option>
+        <option *ngFor="let media of socialMedias" [value]="media.name">
+          {{ media.name }}
+        </option>
+      </select>
+      <button class="add-btn" (click)="addSocialMedia()" [disabled]="!selectedOption || !canAddMoreLinks()">
+        <img src="assets/images/add.png" alt="add">
+      </button>
+    </div>
+  </div>
+</div>
+
+<div *ngFor="let media of selectedSocialMedias; let i = index" class="social-input">
+  <img [src]="media.icon" [alt]="media.name" />
+  <input
+    type="text"
+    [(ngModel)]="media.link"
+    (input)="updateLink(i, media.link)"
+    [placeholder]="'Enter your ' + media.name + ' link'"
+  />
+  <button (click)="deleteSocialMedia(i)"><img src="assets/images/trash.png" alt="del"></button>
+  <p class="error" *ngIf="!media.isValid" class="error-message">
+    Please enter a valid {{ media.name }} URL.
+  </p>
+</div>
+<div class="error-message" *ngIf="!canAddMoreLinks()">
+  <p>You can add up to 5 social media links only.</p>
+</div>
