@@ -5,10 +5,11 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FieldsComponent } from "../../../pro-registration/components/fields/fields.component";
 @Component({
   selector: 'app-admin-profile-info',
   standalone: true,
-  imports: [MatDialogModule, MatIconModule, ReactiveFormsModule, CommonModule],
+  imports: [MatDialogModule, MatIconModule, ReactiveFormsModule, CommonModule, FieldsComponent],
   templateUrl: './admin-profile-info.component.html',
   styleUrl: './admin-profile-info.component.sass',
   providers: [provideNativeDateAdapter()]
