@@ -375,3 +375,10 @@ export const accountPreferences = [
   { name: 'PayPal' },
   { name: 'Bank Transfer' },
 ];
+
+export const serviceCategories = [
+  { name: 'Painting' },
+  { name: 'Cleaning' },
+  { name: 'Plumbing' },
+  { name: 'Painting' },
+];

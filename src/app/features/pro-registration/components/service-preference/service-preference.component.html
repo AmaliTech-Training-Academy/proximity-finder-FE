@@ -1,1 +1,96 @@
-<p>service-preference works!</p>
+<div class="container">
+  <h3>Service Preference</h3>
+  <p>Tell us more about your preferences and what you can offer.</p>
+  <form class="service-preference-form">
+    <div>
+      <label for="jobTitle">What service do you offer?*</label>
+      <p-dropdown
+        id="services"
+        formControlName="services"
+        [options]="serviceCategories"
+        optionLabel="name"
+        placeholder="Please choose"
+      />
+    </div>
+    <div>
+      <label for="paymentPreference">Payment Preference*</label>
+      <p-dropdown
+        id="paymentPreference"
+        formControlName="paymentPreference"
+        [options]="paymentPreferences"
+        optionLabel="name"
+        placeholder="Please choose"
+      />
+    </div>
+    <div class="section-booking">
+      <div>
+        <label for="bookingDays">Booking Days</label>
+        <p-dropdown
+          id="bookingDays"
+          formControlName="bookingDays"
+          [options]=""
+          optionLabel="name"
+          placeholder="Please choose"
+        />
+      </div>
+      <div class="bookingTimes">
+        <div>
+          <label for="from">From</label>
+          <p-dropdown
+            formControlName="bookingTimeFrom"
+            [options]=""
+            optionLabel="name"
+            placeholder="00:00"
+          />
+        </div>
+        <div>
+          <label for="to">To</label>
+          <p-dropdown
+            formControlName="bookingTimeTo"
+            [options]=""
+            optionLabel="name"
+            placeholder="00:00"
+          />
+        </div>
+      </div>
+    </div>
+    <div>
+      <label>Is this the same location as the previous one?*</label>
+      <p-dropdown
+        formControlName="sameLocation"
+        [options]="[
+          { name: 'Yes', value: 'Yes' },
+          { name: 'No', value: 'No' }
+        ]"
+        optionLabel="name"
+        placeholder="Please choose"
+      />
+    </div>
+    <div>
+      <label for="location">Location*</label>
+      <input
+        type="text"
+        pInputText
+        formControlName="location"
+        placeholder="Accra, Ghana"
+      />
+    </div>
+    <div>
+      <label for="documents">Upload Extra Documents</label>
+      <app-file-uploader />
+    </div>
+    <div>
+      <label for="schedulingPolicy">Scheduling Policy (Optional)</label>
+      <textarea
+        rows="5"
+        pInputTextarea
+        formControlName="schedulingPolicy"
+        placeholder="Please enter your scheduling policy"
+      ></textarea>
+    </div>
+    <div class="form-actions">
+      <button type="button" class="back-btn">Back</button>
+      <button type="submit" class="continue-btn">Continue</button>
+    </div>
+  </form>
+</div>
