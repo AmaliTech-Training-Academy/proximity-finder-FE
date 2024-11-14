@@ -7,7 +7,7 @@
    @if(selectedPaymentMethod.name === 'Bank Account'){
     <form [formGroup]="paymentForm" class="payment-form">
         <div class="drop">
-         <label>Payment Preference*</label>
+         <label>Payment Preference</label>
          <p-dropdown 
          [(ngModel)]="selectedPaymentMethod" 
          [options]="paymentMethod" 
@@ -18,7 +18,7 @@
         </div>
  
         <div class="drop">
-         <label>Bank Name*</label>
+         <label>Bank Name</label>
          <p-dropdown 
          [options]="paymentMethod"
          optionLabel="name"
@@ -28,7 +28,7 @@
         </div>
  
         <app-fields
-        label="Account Name*"
+        label="Account Name"
         type="text"
         placeholder="Enter your account name"
          formControlName="accountName" 
@@ -36,14 +36,14 @@
         />
          
          <app-fields
-         label="Account Alias*"
+         label="Account Alias"
          type="text"
          placeholder="Enter a desired name you wish to attach to your account"
          formControlName="accountAlias" 
          />
  
          <app-fields
-         label="Account Number*"
+         label="Account Number"
          type="number"
          placeholder="0000 0000 0000 0000"
          formControlName="accountNumber" 
@@ -58,7 +58,7 @@
  @else if(selectedPaymentMethod.name === 'Mobile Money'){
     <form [formGroup]="paymentForm" class="payment-form">
         <div class="drop">
-         <label>Payment Preference*</label>
+         <label>Payment Preference</label>
          <p-dropdown 
          [(ngModel)]="selectedPaymentMethod" 
          [options]="paymentMethod" 
@@ -69,7 +69,7 @@
         </div>
  
         <div class="drop">
-         <label>Service Provider*</label>
+         <label>Service Provider</label>
          <p-dropdown 
          [options]="paymentMethod"
          optionLabel="name"
@@ -79,21 +79,21 @@
         </div>
  
         <app-fields
-        label="Account Name*"
+        label="Account Name"
         type="text"
         placeholder="Enter your account name"
         formControlName="accountName"
         />
          
          <app-fields
-         label="Account Alias*"
+         label="Account Alias"
          type="text"
          placeholder="Enter a desired name you wish to attach to your account"
          formControlName="accountAlias"
          />
  
          <app-fields
-         label="Account Number*"
+         label="Account Number"
          type="number"
          placeholder="0000 0000 0000 0000"
          formControlName="phoneNumber"
@@ -108,7 +108,7 @@
  @else (){
     <form [formGroup]="paymentForm" class="payment-form">
         <div class="drop">
-         <label>Payment Preference*</label>
+         <label>Payment Preference</label>
          <p-dropdown 
          [(ngModel)]="selectedPaymentMethod" 
          [options]="paymentMethod" 
@@ -118,21 +118,21 @@
          />
         </div>
         <app-fields
-        label="First Name*"
+        label="First Name"
         type="text"
         placeholder="Enter your first name"
         formControlName="firstName"
         />
          
          <app-fields
-         label="Last Name*"
+         label="Last Name"
          type="text"
          placeholder="Enter your Last name"
          formControlName="firstName"
          />
  
          <app-fields
-         label="Email*"
+         label="Email"
          type="number"
          placeholder="Enter your email"
          formControlName="email"

@@ -26,10 +26,7 @@ export class BasicInfoComponent {
 
   onSubmit(){
     if(this.registrationForm.valid){
-      console.log('Form submitted:', this.registrationForm.value);
-    }else
-    {
-      console.log('Form is invalid');
+    
     }
   }
 
