@@ -3,11 +3,13 @@ import { UserProfileHeaderComponent } from "../../../../shared/components/user-p
 import { HeroComponent } from "../../components/hero/hero.component";
 import { TrendingServicesComponent } from "../../components/trending-services/trending-services.component";
 import { CoreFeaturesComponent } from "../../components/core-features/core-features.component";
+import { DiscoverComponent } from "../../components/discover/discover.component";
+import { FeedbackComponent } from "../../components/feedback/feedback.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [UserProfileHeaderComponent, HeroComponent, TrendingServicesComponent, CoreFeaturesComponent],
+  imports: [UserProfileHeaderComponent, HeroComponent, TrendingServicesComponent, CoreFeaturesComponent, DiscoverComponent, FeedbackComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.sass'
 })

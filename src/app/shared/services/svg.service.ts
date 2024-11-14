@@ -95,5 +95,15 @@ export class SvgService {
       'communication',
       sanitizer.bypassSecurityTrustResourceUrl('assets/message.svg')
     );
+
+    iconRegistry.addSvgIcon(
+      'search',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/discover-search.svg')
+    );
+
+    iconRegistry.addSvgIcon(
+      'compare',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/arrows.svg')
+    );
   }
 }
