@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { InputFieldComponent } from '../input-field/input-field.component';
 import { passwordValidator } from '../../../../utils/passwordValidator';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-signup-client',
@@ -36,7 +36,7 @@ export class SignupClientComponent {
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(private formBuilder: FormBuilder,private router:Router) {}
 
   matchPassword(group: FormGroup) {
     const password = group.get('password')?.value;
@@ -49,12 +49,12 @@ export class SignupClientComponent {
   }
 
   onSubmit() {
-    console.log('Form submitted:', this.signUpForm.value);
-
     if (this.signUpForm.valid) {
-      console.log('Form submitted:', this.signUpForm.value);
-    } else {
-      console.log('Form is invalid');
-    }
+     
+    } 
+  }
+
+  goBack(){
+    this.router.navigateByUrl('/role-select')
   }
 }
