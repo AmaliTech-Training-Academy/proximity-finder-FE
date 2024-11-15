@@ -24,11 +24,16 @@
     .payment-form
         @include flex-option( flex,null,  null, column)
         gap: pxToRem(32) 
-        margin-top: pxToRem(32)
+        margin-top: pxToRem(30)
 
         .drop
             @include flex-option(flex, null, null, column)
             gap: pxToRem(16)
+
+            label
+                font-size: pxToRem(14)
+                color: $text-main
+                font-weight: 500
 
         .btns
             @include flex-option(flex, null, null, row)

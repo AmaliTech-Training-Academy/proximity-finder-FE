@@ -4,19 +4,17 @@
         <p>Basic Information</p>
         <span>Lets’ get your business information and get your business up and running.</span>
     </div>
-
-   <app-profile-update class="profile-update"/>
-
    <form  [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+      <app-profile-update class="profile-update"/>
     <app-fields
-    label="Business Name*"
+    label="Business Name"
     type="text"
     placeholder="Enter your business name"
     formControlName="businessName"
     />
 
     <app-fields
-    label="Business Owner's Name*"
+    label="Business Owner's Name"
     type="text"
     placeholder="Enter your full name"
     formControlName="businessOwnerName"
@@ -27,13 +25,13 @@
       </div>
     
     <app-fields
-    label="Business Email*"
+    label="Business Email"
     type="text"
     placeholder="Enter your email "
     formControlName="businessEmail"
     />
     <app-fields
-    label="Phone Number*"
+    label="Phone Number"
     type="text"
     placeholder="Enter your mobile number"
     formControlName="phoneNumber"
@@ -43,7 +41,7 @@
        Phone number is required
       </div>
     <app-fields
-    label="Business Address*"
+    label="Business Address"
     type="text"
     placeholder="Enter your address "
     formControlName="businessAddress"

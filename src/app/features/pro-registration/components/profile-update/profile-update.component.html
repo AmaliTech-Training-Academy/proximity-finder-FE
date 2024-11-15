@@ -1,19 +1,33 @@
-<div class="image-container">
+<form class="image-container">
     <div class="image">
-        <img src="../../../../../assets/images/Avatar.png" alt="user's profile image">
+        <img [src]="imageUrl || '../../../../../assets/images/Avatar.png'" alt="user's profile image">
+        <div class="overlay" (click)="triggerFileInput()">
+            <mat-icon svgIcon="uploads" aria-hidden="false" aria-label="upload icon"></mat-icon>
+            <span class="overlay-text">Upload Image</span>
+        </div>
     </div>
+
+    <input 
+        type="file" 
+        id="file" 
+        class="file-input" 
+        accept="image/*" 
+        (change)="onFileSelected($event)">
+
     <div class="info">
         <p>Click to update or remove  your profile picture</p>
+
         <div class="info-actions">
-            <label for="file">
-                <img src="../../../../../assets/upload.svg" alt="upload icon">
+            <button type="submit" class="upload-btn">
+                <img src="../../../../../assets/upload.svg" alt="">
                 Upload
-            </label>
+            </button>
+
             <input type="file" name="file" id="file" class="file-input" accept="image/*">
             <button class="delete-btn" (click)="openDialog()">
-                <img src="../../../../../assets/delete.svg" alt="cancel icon">
+                <img src="../../../../../assets/Cancel.svg" alt="cancel icon">
                 Delete
             </button>
         </div>
     </div>
-</div>
+</form>

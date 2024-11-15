@@ -4,37 +4,145 @@
         <span>Tell us about the payment method you would like to use.</span>
     </div>
 
-    <form class="payment-form">
-       <div class="drop">
-        <label>Payment Preference*</label>
-        <p-dropdown 
-        formControlName="selectedCity"
-        [options]="paymentMethod"
-        optionLabel="name"
-        placeholder="Please Choose" />
-       </div>
-
+   @if(selectedPaymentMethod.name === 'Bank Account'){
+    <form [formGroup]="paymentForm" class="payment-form">
+        <div class="drop">
+         <label>Payment Preference</label>
+         <p-dropdown 
+         [(ngModel)]="selectedPaymentMethod" 
+         [options]="paymentMethod" 
+         optionLabel="name" 
+         placeholder="Select a Payment Method"
+         formControlName="paymentPreference"
+         />
+        </div>
+ 
+        <div class="drop">
+         <label>Bank Name</label>
+         <p-dropdown 
+         [options]="paymentMethod"
+         optionLabel="name"
+         placeholder="Please Choose"
+         formControlName="bankName" 
+         />
+        </div>
+ 
         <app-fields
-        label="Account Name*"
+        label="Account Name"
         type="text"
         placeholder="Enter your account name"
+         formControlName="accountName" 
+ 
         />
-        
+         
+         <app-fields
+         label="Account Alias"
+         type="text"
+         placeholder="Enter a desired name you wish to attach to your account"
+         formControlName="accountAlias" 
+         />
+ 
+         <app-fields
+         label="Account Number"
+         type="number"
+         placeholder="0000 0000 0000 0000"
+         formControlName="accountNumber" 
+         />
+ 
+     <div class="btns">
+         <button type="submit" class="btn-back" (click)="navigateTo()">Back</button>
+         <button type="button" class="btn-continue">Continue</button>
+     </div>  
+     </form>
+   }
+ @else if(selectedPaymentMethod.name === 'Mobile Money'){
+    <form [formGroup]="paymentForm" class="payment-form">
+        <div class="drop">
+         <label>Payment Preference</label>
+         <p-dropdown 
+         [(ngModel)]="selectedPaymentMethod" 
+         [options]="paymentMethod" 
+         optionLabel="name" 
+         placeholder="Select a Payment Method"
+         formControlName="paymentPreference"
+         />
+        </div>
+ 
+        <div class="drop">
+         <label>Service Provider</label>
+         <p-dropdown 
+         [options]="paymentMethod"
+         optionLabel="name"
+         placeholder="Please Choose"
+         formControlName="serviceProvider" 
+         />
+        </div>
+ 
         <app-fields
-        label="Account Alias*"
+        label="Account Name"
         type="text"
-        placeholder="Enter a desired name you wish to attach to your account"/>
-
+        placeholder="Enter your account name"
+        formControlName="accountName"
+        />
+         
+         <app-fields
+         label="Account Alias"
+         type="text"
+         placeholder="Enter a desired name you wish to attach to your account"
+         formControlName="accountAlias"
+         />
+ 
+         <app-fields
+         label="Account Number"
+         type="number"
+         placeholder="0000 0000 0000 0000"
+         formControlName="phoneNumber"
+         />
+ 
+     <div class="btns">
+         <button type="submit" class="btn-back" (click)="navigateTo()">Back</button>
+         <button type="button" class="btn-continue">Continue</button>
+     </div>  
+     </form>
+ }
+ @else (){
+    <form [formGroup]="paymentForm" class="payment-form">
+        <div class="drop">
+         <label>Payment Preference</label>
+         <p-dropdown 
+         [(ngModel)]="selectedPaymentMethod" 
+         [options]="paymentMethod" 
+         optionLabel="name" 
+         placeholder="Select a Payment Method"
+         formControlName="paymentPreference"
+         />
+        </div>
         <app-fields
-        label="Account Number*"
-        type="number"
-        placeholder="0000 0000 0000 0000"/>
-
-    <div class="btns">
-        <button type="submit" class="btn-back" (click)="navigateTo()">Back</button>
-        <button type="button" class="btn-continue">Continue</button>
-    </div>
-
-        
-    </form>
+        label="First Name"
+        type="text"
+        placeholder="Enter your first name"
+        formControlName="firstName"
+        />
+         
+         <app-fields
+         label="Last Name"
+         type="text"
+         placeholder="Enter your Last name"
+         formControlName="firstName"
+         />
+ 
+         <app-fields
+         label="Email"
+         type="email"
+         placeholder="Enter your email"
+         formControlName="email"
+         />
+ 
+     <div class="btns">
+         <button type="submit" class="btn-back" (click)="navigateTo()">Back</button>
+         <button type="button" class="btn-continue">Continue</button>
+     </div>  
+     </form>
+ }
+    
 </div>

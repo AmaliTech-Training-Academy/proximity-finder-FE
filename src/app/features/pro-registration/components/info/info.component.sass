@@ -5,6 +5,7 @@
 .main-container
     background-color: #FAFBFE
     padding: pxToRem(40) pxToRem(60)
+    height: 100vh
    
     .welcome
         p
@@ -40,9 +41,19 @@
         a
           text-decoration: none
 
+          ::ng-deep .mat-icon
+              svg
+                stroke: $text-main
+
+
           &.active-link
             background-color: $primary
             color: $white 
+
+            ::ng-deep .mat-icon
+               svg
+                stroke: $white
+
 
             .num
               color: $text-main 
@@ -58,6 +69,11 @@
           .text-arrow
             @include flex-option(flex , space-between , null ,row)
             width: 80%
+
+            
+                
+
+
             
 
         

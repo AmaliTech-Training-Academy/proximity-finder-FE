@@ -82,8 +82,15 @@ export class SvgService {
     );
 
     iconRegistry.addSvgIcon(
+      'arrow-left',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/arrow.svg')
+    );
+
+
+    iconRegistry.addSvgIcon(
       'location',
       sanitizer.bypassSecurityTrustResourceUrl('assets/location.svg')
+
     );
   }
 }
