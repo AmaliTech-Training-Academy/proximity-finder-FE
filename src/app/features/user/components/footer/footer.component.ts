@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FieldsComponent } from "../../../pro-registration/components/fields/fields.component";
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-footer',
@@ -11,7 +11,7 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 })
 export class FooterComponent {
   newletter = this.fb.group({
-    email: ['']
+    email: ['', Validators.email]
   });
 
   constructor(private fb: FormBuilder) {}
