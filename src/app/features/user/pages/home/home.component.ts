@@ -1,12 +1,11 @@
 import { Component } from '@angular/core';
 import { UserProfileHeaderComponent } from "../../../../shared/components/user-profile-header/user-profile-header.component";
-import { NavbarComponent } from "../../components/navbar/navbar.component";
-import { RouterOutlet } from '@angular/router';
+import { HeroComponent } from "../../components/hero/hero.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [UserProfileHeaderComponent, NavbarComponent, RouterOutlet],
+  imports: [UserProfileHeaderComponent, HeroComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.sass'
 })
