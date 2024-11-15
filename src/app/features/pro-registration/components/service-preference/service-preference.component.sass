@@ -1,16 +1,71 @@
 @use '../../../../../styles/_functions' as *
 @use '../../../../../styles/_mixins' as *
 @use '../../../../../styles/_variables' as *
-.services
+
+.container
     padding: pxToRem(40) pxToRem(135)
     height: 100vh
     overflow-y: auto
     scrollbar-width: none
-    p
+
+    h3
         font-size: pxToRem(30)
         font-weight: 600
         color: $text-main
-    span
+    p
         font-size: pxToRem(14)
         font-weight: 400
         color: $text-secondary
+
+    form
+        @include flex-option(flex, null , null ,column )
+        gap: pxToRem(32)
+        margin-top: pxToRem(32)
+
+        .section-booking
+            @include flex-option($display: flex, $justify-content: null, $align-items: null, $direction: row)
+            gap: 32px
+
+            div
+                flex: 1
+
+            input
+                width: 100%
+
+            .bookingTimes
+                @include flex-option($display: flex, $justify-content: null, $align-items: center, $direction: row)
+                gap: 32px
+
+        .form-actions
+            @include flex-option(flex, flex-end, center, row)
+
+            button
+                padding: pxToRem(10) pxToRem(21)
+                width: pxToRem(113)
+                border: none
+                border-radius: pxToRem(4)
+                font-size: pxToRem(16)
+                cursor: pointer
+                margin-left: pxToRem(16)
+
+            .continue-btn
+                background-color: $primary
+                color: $white
+
+            .back-btn
+                background-color: $white
+                color: $text-main
+                border: 1px solid $text-secondary
+
+        div
+            width: 100%
+
+        label
+            display: block
+            font-size: 14px
+            font-weight: 500
+            margin: 0 0 8px 0
+            color: $text-main
+
+.p-inputtext
+    padding: 12px 14px

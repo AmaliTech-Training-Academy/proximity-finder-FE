@@ -9,6 +9,7 @@ import {
 import { InputFieldComponent } from '../input-field/input-field.component';
 import { passwordValidator } from '../../../../utils/passwordValidator';
 import { Router, RouterLink } from '@angular/router';
+import { ClientService } from '../../services/client/client.service';
 
 @Component({
   selector: 'app-signup-client',
@@ -18,10 +19,11 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './signup-client.component.sass',
 })
 export class SignupClientComponent {
+
   signUpForm: FormGroup = this.formBuilder.group(
     {
-      fullName: ['', Validators.required],
-      phoneNumber: ['', Validators.required],
+      userName: ['', Validators.required],
+      mobileNumber: ['', Validators.required, Validators.pattern('^\\d{10}$') ],
       email: ['', [Validators.required, Validators.email]],
       password: [
         '',
@@ -36,7 +38,7 @@ export class SignupClientComponent {
   showPassword: boolean = false;
   showConfirmPassword: boolean = false;
 
-  constructor(private formBuilder: FormBuilder,private router:Router) {}
+  constructor(private formBuilder: FormBuilder,private router:Router,private clientService:ClientService) {}
 
   matchPassword(group: FormGroup) {
     const password = group.get('password')?.value;
@@ -50,8 +52,30 @@ export class SignupClientComponent {
 
   onSubmit() {
     if (this.signUpForm.valid) {
-     
+ 
+     const { userName, mobileNumber, email, password, confirmPassword } = this.signUpForm.value;
+     const role ='seeker';
+  
+
+     const data ={
+       userName,
+       mobileNumber,
+       email,
+       password,
+       confirmPassword,
+       role
+     }
+     this.clientService.signupClient(data).subscribe((res) => {
+       if(res.statusCode===201){
+        
+       }
+       else{
+         
+       }
+     });
+
     } 
+
   }
 
   goBack(){
