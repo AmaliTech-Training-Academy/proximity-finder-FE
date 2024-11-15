@@ -15,7 +15,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './payment-method.component.sass'
 })
 export class PaymentMethodComponent {
-  paymentMethod=[
+  paymentMethod =[
     {name: 'Mobile Money'},
     {name: 'Bank Account'},
     {name: 'Paypal Account'},
