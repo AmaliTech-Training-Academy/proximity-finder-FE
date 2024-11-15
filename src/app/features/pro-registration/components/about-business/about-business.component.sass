@@ -56,6 +56,9 @@
                     outline: none
                     border-color: $primary
 
+                &.has-error
+                   border: 1px solid $error
+
     .doc-upload
         @include flex-option(flex, null, null, column )
         gap: pxToRem(8)

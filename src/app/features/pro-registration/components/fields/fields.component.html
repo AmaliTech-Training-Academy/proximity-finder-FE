@@ -1,4 +1,4 @@
-<div class="inputs">
+<div class="inputs" [ngClass]="{ 'has-error': error }">
     <div [attr.for]="label" class="label">{{label}}</div>
     <input
     [type]="type"
