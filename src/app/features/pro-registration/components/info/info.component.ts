@@ -29,7 +29,6 @@ export class InfoComponent {
 
   
   private setCurrentStep(url: string): void {
-    console.log()
     if (url.includes('/registration/basic-info')) {
       this.currentStep = 1;
     } else if (url.includes('/registration/about-business')) {
@@ -43,7 +42,6 @@ export class InfoComponent {
     } else if (url.includes('/registration/preview')) {
       this.currentStep = 6;
     }
-    console.log(this.currentStep)
   }
 
 }
