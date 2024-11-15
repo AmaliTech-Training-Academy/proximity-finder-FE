@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angula
 import { InputFieldComponent } from '../input-field/input-field.component';
 import { passwordValidator } from '../../../../utils/passwordValidator';
 import { Router, RouterLink } from '@angular/router';
+import { ProviderService } from '../../services/provider/provider.service';
 
 @Component({
   selector: 'app-provider-input',
@@ -23,7 +24,7 @@ export class ProviderInputComponent {
   });
  
 
-  constructor(private formBuilder: FormBuilder, private router:Router) {}
+  constructor(private formBuilder: FormBuilder, private router:Router,private providerService:ProviderService) {}
 
 
   matchPassword(group: FormGroup) {
@@ -36,9 +37,25 @@ export class ProviderInputComponent {
     return null;
   }
 
+
+
+
+
   onSubmit() {
     if (this.signUpForm.valid) {
-      
+      const { businessName, email, password,confirmPassword} = this.signUpForm.value;
+      const role='provider'
+
+      const data ={
+        businessName,
+        email,
+        password,
+        confirmPassword,
+        role
+      }
+      this.providerService.signupProvider(data).subscribe((res) =>{
+
+      })  
     } 
   }
 
