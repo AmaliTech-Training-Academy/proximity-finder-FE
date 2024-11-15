@@ -21,6 +21,7 @@ export class InputFieldComponent implements ControlValueAccessor{
   @Input() label:string=''
   @Input() placeholder:string=''
   @Input() imgPath:string =''
+  @Input() error:boolean | undefined =false
 
   isDisabled: boolean = false;
   showPassword: boolean = false;
