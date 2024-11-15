@@ -17,7 +17,7 @@ interface paymentMethod {
   styleUrl: './payment-method.component.sass'
 })
 export class PaymentMethodComponent {
-  paymentMethod: paymentMethod [] =[
+  paymentMethod =[
     {name: 'Mobile Money'},
     {name: 'Bank Account'},
     {name: 'Paypal Account'},
