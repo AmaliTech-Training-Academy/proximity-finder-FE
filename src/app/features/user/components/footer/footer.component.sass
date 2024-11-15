@@ -1,0 +1,75 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_typography' as *
+@use '../../../../../styles/_variables' as *
+
+.container
+    @include flex-option(flex, space-between, null,row)
+    padding-inline: pxToRem(112)
+
+    .address-container
+        padding-block: pxToRem(85)
+        @include flex-option(flex, null, null,column)
+        gap: 2rem
+
+        .address
+            @include flex-option(flex, null, null,column)
+            gap: 2rem
+
+            .col-1
+                @include flex-option(flex, flex-start, center,row)
+                gap: 0.75rem
+
+                span
+                    width: pxToRem(91)
+
+            
+        .logo
+            @include flex-option(flex, flex-start, center,row)
+            gap: 0.75rem
+                
+        
+        .newsletter
+            @include flex-option(flex, null, null,column )
+            gap: 1.25rem
+
+
+            .input-field
+                @include flex-option(flex, null, flex-end,row)
+                gap: 0.5rem
+
+                button
+                    background-color: $primary
+                    color: $white
+                    font-size: 1.125rem
+                    font-weight: 600
+                    border: none
+                    border-radius: 4px
+                    padding: 0.625rem 0.5rem
+                    cursor: pointer
+            
+        .socials
+            @include flex-option(flex, null, null,column)
+            gap: 1.25rem
+
+            .icons
+                @include flex-option(flex, flex-start, center,row)
+                
+                gap: 1.25rem
+
+                
+
+.col
+    @include flex-option(flex, flex-start, center,row)
+    background-color: $primary
+    height: pxToRem(70)
+    padding-inline: pxToRem(112)
+    color: $white
+    font-size: 1rem
+    font-weight: 300
+
+span
+    font-size: 1.25rem
+    font-weight: 500
+    color: $primary
+    text-transform: uppercase

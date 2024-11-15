@@ -1,0 +1,53 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_typography' as *
+@use '../../../../../styles/_variables' as *
+
+.container
+    padding: pxToRem(40) pxToRem(80) 0
+    @include flex-option(flex, null, null, column)
+    gap: pxToRem(48)
+
+    .header
+        @include flex-option(flex, center, center, column)
+        padding-inline: pxToRem(140)
+        gap: 0.75rem
+
+        h3
+            font-size: 2rem
+            font-weight: 500
+
+        p
+            font-size: 1rem
+            color: #7A7D9C
+            text-align: center
+    
+    .services
+        display: grid
+        grid-template-columns: repeat(3, 1fr)
+        grid-template-rows: repeat(2, 1fr)
+        gap: 2rem
+
+        .card
+            @include flex-option(flex, null, null,column)
+            gap: 1.5rem
+            width: pxToRem(380)
+
+            img
+                width: 100%
+                height: pxToRem(240)
+                object-fit: cover
+
+            .details
+                @include flex-option(flex, null, null,column)
+                gap: 0.75rem
+
+                .title
+                    font-size: 1.5rem
+                    font-weight: 500
+                    color: $text-main
+                
+                .description
+                    font-size: 1rem
+                    color: #475467
+    
