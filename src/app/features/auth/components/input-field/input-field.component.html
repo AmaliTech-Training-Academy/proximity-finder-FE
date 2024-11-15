@@ -1,4 +1,4 @@
-<div class="input">
+<div class="input" [ngClass]="{ 'has-error': error }">
   <img [src]="imgPath" alt="" />
   <input
     [type]="type === 'password' && showPassword ? 'text' : type"
