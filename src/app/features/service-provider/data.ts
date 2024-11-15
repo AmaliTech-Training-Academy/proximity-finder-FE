@@ -376,6 +376,8 @@ export const accountPreferences = [
   { name: 'Bank Transfer' },
 ];
 
+
+
 export const serviceCategories = [
   { name: 'Painting' },
   { name: 'Cleaning' },

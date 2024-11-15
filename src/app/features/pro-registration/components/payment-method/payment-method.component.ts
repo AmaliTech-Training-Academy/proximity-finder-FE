@@ -5,9 +5,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-interface paymentMethod {
-  name: string;
-}
+
 
 @Component({
   selector: 'app-payment-method',
@@ -17,13 +15,13 @@ interface paymentMethod {
   styleUrl: './payment-method.component.sass'
 })
 export class PaymentMethodComponent {
-  paymentMethod: paymentMethod [] =[
+  paymentMethod=[
     {name: 'Mobile Money'},
     {name: 'Bank Account'},
     {name: 'Paypal Account'},
   ]
 
-    selectedPaymentMethod: paymentMethod = this.paymentMethod[1];
+    selectedPaymentMethod= this.paymentMethod[1];
 
     paymentForm = this.fb.group({
       paymentPreference: ['',Validators.required],

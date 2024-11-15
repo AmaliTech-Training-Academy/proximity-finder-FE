@@ -80,16 +80,17 @@ export class SvgService {
       'uploads',
       sanitizer.bypassSecurityTrustResourceUrl('assets/uploads.svg')
     );
-<<<<<<< HEAD
+
     iconRegistry.addSvgIcon(
       'arrow-left',
       sanitizer.bypassSecurityTrustResourceUrl('assets/arrow.svg')
-=======
+    );
+
 
     iconRegistry.addSvgIcon(
       'location',
       sanitizer.bypassSecurityTrustResourceUrl('assets/location.svg')
->>>>>>> ba63e6ef96be22c90ed9abda0672a2f8ab3146e9
+
     );
   }
 }
