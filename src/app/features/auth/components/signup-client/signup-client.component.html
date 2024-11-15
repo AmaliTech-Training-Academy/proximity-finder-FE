@@ -18,7 +18,7 @@
         type="text"
         placeholder="Full Name"
         imgPath="assets/svgs/person.svg"
-        formControlName="fullName"
+        formControlName="userName"
         [ngClass]="{'has-error': signUpForm.get('fullName')?.invalid && (signUpForm.get('fullName')?.dirty || signUpForm.get('fullName')?.touched)}"
         />
         <div class="error-message" *ngIf="signUpForm.get('fullName')?.invalid && (signUpForm.get('fullName')?.dirty || signUpForm.get('fullName')?.touched)">
@@ -28,7 +28,7 @@
         type="tel"
         placeholder="Phone Number"
         imgPath="assets/svgs/phone.svg"
-        formControlName="phoneNumber"
+        formControlName="mobileNumber"
         [ngClass]="{'has-error': signUpForm.get('phoneNumber')?.invalid && (signUpForm.get('phoneNumber')?.dirty || signUpForm.get('phoneNumber')?.touched)}"
         />
         <div class="error-message" *ngIf="signUpForm.get('phoneNumber')?.invalid && (signUpForm.get('phoneNumber')?.dirty || signUpForm.get('phoneNumber')?.touched)">
