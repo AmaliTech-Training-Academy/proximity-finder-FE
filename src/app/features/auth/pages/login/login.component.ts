@@ -5,8 +5,8 @@ import { CommentsComponent } from "../../components/comments/comments.component"
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [LoginInputComponent, CommentsComponent],
-  templateUrl: './login.component.html',
+  imports: [LoginInputComponent ,CommentsComponent],
+  templateUrl:'./login.component.html',
   styleUrl: './login.component.sass'
 })
 export class LoginComponent {

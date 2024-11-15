@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component} from '@angular/core';
+import { Component, Inject} from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
@@ -10,6 +10,9 @@ import { InputFieldComponent } from '../input-field/input-field.component';
 import { passwordValidator } from '../../../../utils/passwordValidator';
 import { Router, RouterLink } from '@angular/router';
 import { ClientService } from '../../services/client/client.service';
+import { Notyf } from 'notyf';
+import { NOTYF } from '../../../../shared/notify/notyf.token';
+import { passwordMatchValidator } from '../../../../utils/passwordMatch';
 
 @Component({
   selector: 'app-signup-client',
@@ -23,7 +26,7 @@ export class SignupClientComponent {
   signUpForm: FormGroup = this.formBuilder.group(
     {
       userName: ['', Validators.required],
-      mobileNumber: ['', Validators.required, Validators.pattern('^\\d{10}$') ],
+      mobileNumber: ['', [Validators.required, Validators.pattern('^\\d{10}$')]],
       email: ['', [Validators.required, Validators.email]],
       password: [
         '',
@@ -32,23 +35,13 @@ export class SignupClientComponent {
       confirmPassword: ['', Validators.required],
     },
     {
-      validators: this.matchPassword,
+      validators: passwordMatchValidator(),
     }
   );
-  showPassword: boolean = false;
-  showConfirmPassword: boolean = false;
+ 
 
-  constructor(private formBuilder: FormBuilder,private router:Router,private clientService:ClientService) {}
+  constructor(private formBuilder: FormBuilder,private router:Router,private clientService:ClientService,@Inject(NOTYF) private notyf: Notyf) {}
 
-  matchPassword(group: FormGroup) {
-    const password = group.get('password')?.value;
-    const confirmPassword = group.get('confirmPassword')?.value;
-
-    if (password !== confirmPassword) {
-      return { mismatchedPassword: true };
-    }
-    return null;
-  }
 
   onSubmit() {
     if (this.signUpForm.valid) {
@@ -66,12 +59,9 @@ export class SignupClientComponent {
        role
      }
      this.clientService.signupClient(data).subscribe((res) => {
-       if(res.statusCode===201){
-        
-       }
-       else{
-         
-       }
+      console.log(res);
+       this.notyf.success('Registration successful');
+       this.router.navigateByUrl('/login');
      });
 
     } 
