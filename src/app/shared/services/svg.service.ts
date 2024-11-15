@@ -105,5 +105,20 @@ export class SvgService {
       'compare',
       sanitizer.bypassSecurityTrustResourceUrl('assets/arrows.svg')
     );
+
+    iconRegistry.addSvgIcon(
+      'arrow-left',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/arrow-left.svg')
+    );
+
+    iconRegistry.addSvgIcon(
+      'star',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/star.svg')
+    );
+
+    iconRegistry.addSvgIcon(
+      'arrow-right-feedback',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/arrow-right-feedback.svg')
+    );
   }
 }
