@@ -28,10 +28,8 @@
                         type="text"
                         placeholder="Esthera Jackson"
                         formControlName="name"
-                        [ngClass]="{
-                            'error': userForm.get('name')?.invalid && (userForm.get('name')?.touched || userForm.get('name')?.dirty),
-                            'custom-style': true
-                          }"
+                        [error]="userForm.get('name')?.invalid && (userForm.get('name')?.touched || userForm.get('name')?.dirty)"
+                        [class]="'custom-style'"
                     />
                     @if (userForm.get('name')?.invalid && (userForm.get('name')?.touched || userForm.get('name')?.dirty)) {
                         @if (userForm.get('name')?.errors?.['required']) {
@@ -48,10 +46,8 @@
                         type="email"
                         placeholder="whitney491@gmail.com"
                         formControlName="email"
-                        [ngClass]="{
-                            'error': userForm.get('email')?.invalid && (userForm.get('email')?.touched || userForm.get('email')?.dirty),
-                            'custom-style': true
-                          }"
+                        [class]="'custom-style'"
+                        [error]="userForm.get('email')?.invalid && (userForm.get('email')?.touched || userForm.get('email')?.dirty)"
                     />
                     @if (userForm.get('email')?.invalid && (userForm.get('email')?.touched || userForm.get('email')?.dirty)) {
                         @if (userForm.get('email')?.errors?.['required']) {
@@ -68,10 +64,8 @@
                         type="tel"
                         placeholder="Add a phone number"
                         formControlName="phone"
-                        [ngClass]="{
-                            'error': userForm.get('phone')?.invalid && (userForm.get('phone')?.touched || userForm.get('phone')?.dirty),
-                            'custom-style': true
-                          }"
+                        [error]="userForm.get('phone')?.invalid && (userForm.get('phone')?.touched || userForm.get('phone')?.dirty)"
+                        [class]="'custom-style'"
                     />
 
                     @if (userForm.get('phone')?.invalid && (userForm.get('phone')?.touched || userForm.get('phone')?.dirty)) {
@@ -144,10 +138,9 @@
                             placeholder="Fidelty"
                             formControlName="bankName"
                             [readOnly]="!isFormActive"
-                            [ngClass]="{
-                                'error': accountInfoForm.get('bankName')?.invalid && (accountInfoForm.get('bankName')?.touched || accountInfoForm.get('bankName')?.dirty),
-                                'custom-input-style': true
-                              }"/>
+                            [error]="accountInfoForm.get('bankName')?.invalid && (accountInfoForm.get('bankName')?.touched || accountInfoForm.get('bankName')?.dirty)"
+                            [class]="'custom-input-style'"
+                            />
                             @if (isFormActive && accountInfoForm.get('bankName')?.touched && accountInfoForm.get('bankName')?.invalid) {
                                 @if (accountInfoForm.get('bankName')?.hasError('required')) {
                                     <small class="error">Bank name is required.</small>
@@ -160,10 +153,9 @@
                             placeholder="John Doe"
                             formControlName="accountName"
                             [readOnly]="!isFormActive"
-                            [ngClass]="{
-                                'error': accountInfoForm.get('accountName')?.invalid && (accountInfoForm.get('accountName')?.touched || accountInfoForm.get('accountName')?.dirty),
-                                'custom-input-style': true
-                              }"/>
+                            [class]="'custom-input-style'"
+                            [error]="accountInfoForm.get('accountName')?.invalid && (accountInfoForm.get('accountName')?.touched || accountInfoForm.get('accountName')?.dirty)"
+                            />
                             @if (isFormActive && accountInfoForm.get('accountName')?.touched && accountInfoForm.get('accountName')?.invalid) {
                                 @if (accountInfoForm.get('accountName')?.hasError('required')) {
                                     <small class="error">Account name is required.</small>
@@ -177,7 +169,8 @@
                             placeholder="EUR"
                             formControlName="accountAlias"
                             [readOnly]="!isFormActive"
-                            [ngClass]="'custom-input-style'"/>
+                            [class]="'custom-input-style'"
+                            />
                         </div>
                         <div class="column">
                             <app-fields type="text"
@@ -185,10 +178,9 @@
                             placeholder="45341287975437"
                             formControlName="accountNumber"
                             [readOnly]="!isFormActive"
-                            [ngClass]="{
-                                'error': accountInfoForm.get('accountNumber')?.invalid && (accountInfoForm.get('accountNumber')?.touched || accountInfoForm.get('accountNumber')?.dirty),
-                                'custom-input-style': true
-                              }"/>
+                            [class]="'custom-input-style'"
+                            [error]="accountInfoForm.get('accountNumber')?.invalid && (accountInfoForm.get('accountNumber')?.touched || accountInfoForm.get('accountNumber')?.dirty)"
+                            />
                             @if (isFormActive && accountInfoForm.get('accountNumber')?.touched && accountInfoForm.get('accountNumber')?.invalid) {
                                 @if (accountInfoForm.get('accountNumber')?.hasError('required')) {
                                     <small class="error">Account number is required.</small>
