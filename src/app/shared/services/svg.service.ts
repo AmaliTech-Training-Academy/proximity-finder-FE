@@ -82,7 +82,7 @@ export class SvgService {
     );
 
     iconRegistry.addSvgIcon(
-      'arrow-left',
+      'arrow',
       sanitizer.bypassSecurityTrustResourceUrl('assets/arrow.svg')
     );
 
