@@ -25,10 +25,9 @@
     <div class="section-booking">
       <div>
         <label for="bookingDays">Booking Days</label>
-        <p-dropdown
-          id="bookingDays"
-          formControlName="bookingDays"
-          [options]=""
+        <p-multiSelect
+          [options]="bookingDays"
+          formControlName="selectedDays"
           optionLabel="name"
           placeholder="Please choose"
         />
@@ -38,7 +37,7 @@
           <label for="from">From</label>
           <p-dropdown
             formControlName="bookingTimeFrom"
-            [options]=""
+            [options]="timeOptions"
             optionLabel="name"
             placeholder="00:00"
           />
@@ -47,7 +46,7 @@
           <label for="to">To</label>
           <p-dropdown
             formControlName="bookingTimeTo"
-            [options]=""
+            [options]="timeOptions"
             optionLabel="name"
             placeholder="00:00"
           />

@@ -156,3 +156,29 @@ app-fields.custom-style .inputs input
     cursor: pointer
     outline: none
     font-size: pxToRem(14)
+
+.section-booking
+    .p-multiselect
+        width: 100%
+
+    .p-multiselect-label-container
+        padding: 12px 14px
+
+    .p-multiselect-items, .p-multiselect-header
+        padding: 5px
+        gap: 5px
+
+    .p-multiselect-items
+        @include flex-option($display: flex, $justify-content: null, $align-items: null,$direction: column)
+        gap: 5px
+        
+
+    .p-multiselect-item
+        padding: 5px
+        gap: 5px
+
+    .p-multiselect-filter
+        padding: 8px 5px
+
+    .p-multiselect-filter-icon
+        top: 10px

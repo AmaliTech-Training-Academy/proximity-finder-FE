@@ -1,31 +1,49 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-file-uploader',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './file-uploader.component.html',
   styleUrl: './file-uploader.component.sass',
 })
 export class FileUploaderComponent {
-  selectedFile: File | null = null;
-  selectedFileName: string = '';
+  selectedFiles: File[] = [];
+  selectedFileNames: string[] = [];
 
-  onFileSelected(event: Event): void {
+  onFilesSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      this.selectedFile = input.files[0];
-      this.selectedFileName = this.selectedFile.name;
+      const newFiles = Array.from(input.files);
+
+      newFiles.forEach((file) => {
+        if (
+          !this.selectedFiles.some(
+            (f) => f.name === file.name && f.size === file.size
+          )
+        ) {
+          this.selectedFiles.push(file);
+          this.selectedFileNames.push(file.name);
+        }
+      });
     }
   }
 
-  uploadFile(): void {
-    if (this.selectedFile) {
-      console.log('Uploading:', this.selectedFile);
-      this.selectedFile = null;
-      this.selectedFileName = '';
+  removeFile(index: number): void {
+    this.selectedFiles.splice(index, 1);
+  }
+
+  uploadFiles(): void {
+    if (this.selectedFiles.length > 0) {
+      this.resetSelection();
     } else {
-      alert('Please select a file first!');
+      alert('Please select files first!');
     }
+  }
+
+  resetSelection(): void {
+    this.selectedFiles = [];
+    this.selectedFileNames = [];
   }
 }
