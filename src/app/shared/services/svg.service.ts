@@ -92,5 +92,40 @@ export class SvgService {
       sanitizer.bypassSecurityTrustResourceUrl('assets/location.svg')
 
     );
+
+    iconRegistry.addSvgIcon(
+      'bookmark',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/bookmark.svg')
+    );
+
+    iconRegistry.addSvgIcon(
+      'communication',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/message.svg')
+    );
+
+    iconRegistry.addSvgIcon(
+      'search',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/discover-search.svg')
+    );
+
+    iconRegistry.addSvgIcon(
+      'compare',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/arrows.svg')
+    );
+
+    iconRegistry.addSvgIcon(
+      'arrow-left',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/arrow-left.svg')
+    );
+
+    iconRegistry.addSvgIcon(
+      'star',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/star.svg')
+    );
+
+    iconRegistry.addSvgIcon(
+      'arrow-right-feedback',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/arrow-right-feedback.svg')
+    );
   }
 }

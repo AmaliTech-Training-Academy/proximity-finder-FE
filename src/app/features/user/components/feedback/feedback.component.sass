@@ -1,0 +1,91 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_typography' as *
+@use '../../../../../styles/_variables' as *
+
+.container
+    @include flex-option(flex, null, null,column)
+    gap: pxToRem(56)
+    padding: pxToRem(52) pxToRem(80)
+
+    .content
+        @include flex-option(flex, space-between, center,row)
+
+        .col-1
+            @include flex-option(flex, null, null,column)
+            gap: 0.5rem
+
+            h3
+                font-size: 2rem
+                font-weight: 700
+                color: $text-main
+
+            p
+                font-size: pxToRem(22)
+                color: #133240
+        
+        .actions
+            @include flex-option(flex, space-between, center, row)
+            gap: 0.5rem
+
+            button
+                @include flex-option(flex, space-between, center,center)
+                padding: pxToRem(6) pxToRem(12)
+                border-radius: pxToRem(4)
+                border: 1px solid #133240
+                outline: none
+                cursor: pointer
+                font-size: 1rem
+                background-color: $white
+                color: #133240
+
+            .disabled
+                cursor: not-allowed
+                opacity: 0.5
+
+    .testimonies
+        @include flex-option(flex, null, null, column)
+
+        .cards
+            @include flex-option(flex, space-between, center, row)
+            gap: 1.5rem
+
+            .card
+                @include flex-option(flex, null, null, column)
+                gap: 0.75rem
+                padding: 1.5rem
+                width: 23.75rem
+
+                .rating
+                    @include flex-option(flex, space-between, flex-start, row)
+
+                    img
+                        width: pxToRem(60)
+                        height: pxToRem(60)
+                        object-fit: cover
+
+                h6
+                    font-size: pxToRem(22)
+                    font-weight: 600
+                    color: $text-main
+
+                p
+                    font-size: 1rem
+                    color: $text-main
+        
+        .ellipses
+            @include flex-option(flex, center, center,row)
+            padding: 1rem
+
+            .ellipse
+                width: pxToRem(8)
+                height: pxToRem(8)
+                border-radius: 50%
+                background-color: #A1BDFC
+                margin: 0 pxToRem(2)
+            
+            .active
+                background-color: $primary
+
+            
+        

@@ -1,3 +1,5 @@
+@use '../../../../../styles/_mixins' as *
+
 .home-container
     overflow: hidden
     height: 100vh
@@ -7,4 +9,8 @@
         scroll-behavior: smooth
         scrollbar-width: none
         height: calc( 100vh - 51px )
+
+        .services
+            @include flex-option(flex, null, null, column)
+            gap: 4rem
         
