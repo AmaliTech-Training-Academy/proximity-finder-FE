@@ -110,7 +110,7 @@ body, button, input, textarea
         padding: 24px
     
 
-.service-creation-form
+.service-creation-form, .service-preference-form
     .p-dropdown
         padding: 12px 0 12px 14px
 
@@ -120,6 +120,10 @@ body, button, input, textarea
         overflow-y: auto
 
     .p-dropdown
+        width: 100%
+
+.service-preference-form
+    .p-inputtext
         width: 100%
 
 .buttons
@@ -156,3 +160,39 @@ app-fields.custom-style .inputs input
 app-fields.custom-input-style .inputs input
     padding: 0.625rem !important
     border: 1px solid #CBCED7 !important
+
+app-fields.custom .inputs input
+    margin-top: 0 !important
+    border: none !important
+    border-radius: 8px !important
+    height: 55px !important
+.p-accordion
+    @include flex-option(flex, center, center, column)
+    gap: 1.5rem
+
+.p-accordion p-accordiontab .p-accordion-tab
+    border-bottom: 1px solid $grey-lighten-3
+    padding-bottom: 1rem
+
+
+.p-accordion .p-accordion-header .p-accordion-header-link
+    @include flex-option(flex, space-between, center, row-reverse)
+    border: none
+    width: 100%
+    padding-block: 1rem
+    background: inherit
+    color: $text-main
+    border-radius: 0px
+    border: none
+
+
+.p-accordion-header-text
+    font-size: 1.125rem
+    font-weight: 500
+    color: $text-main
+
+.p-accordion .p-accordion-content
+    font-size: 1rem
+    color: $text-secondary
+    border-radius: 0
+    border: none

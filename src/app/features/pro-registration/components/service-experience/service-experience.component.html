@@ -1,16 +1,32 @@
 <div class="container">
     <h3>Service Experience</h3>
     <p>Tell us more about yourself</p>
-    <form >
-        <app-fields label="Title of Project*" placeholder="Enter the title of your project"/>
+    <form [formGroup]="experienceForm" (ngSubmit)="onSubmit()">
+        <app-fields label="Title of Project" placeholder="Enter the title of your project" formControlName="title"[ngClass]="{'has-error':experienceForm.get('title')?.invalid && (experienceForm.get('title')?.dirty ||experienceForm.get('title')?.touched)}"
+        />
+        <div class="error-message" *ngIf="experienceForm.get('title')?.invalid && (experienceForm.get('title')?.dirty ||experienceForm.get('title')?.touched)">
+           Title is required
+          </div>
         <div class="input-field">
-            <label for="description">Description*</label>
-            <textarea name="description" id="description"></textarea>
+            <label for="description">Description</label>
+            <textarea name="description" id="description" formControlName="description"
+            placeholder="Give a description of your project"
+            [ngClass]="{
+                'has-error': experienceForm.get('description')?.invalid && 
+                              (experienceForm.get('description')?.dirty || experienceForm.get('description')?.touched)
+              }"
+            ></textarea>
+            <div class="error-message" *ngIf="experienceForm.get('description')?.invalid && (experienceForm.get('description')?.dirty || experienceForm.get('description')?.touched)">
+                Description is required
+              </div>
         </div>
-        <app-fields type="file" accept="image/*"/>
+        <div class="image-upload">
+            <label>Upload some pictures from the project</label>
+            <app-image-uploader/>
+        </div>
         <div class="form-actions">
             <button type="button" class="back-btn">Back</button>
-            <button type="submit" class="continue-btn">Continue</button>
+            <button type="submit" class="continue-btn" [disabled]="experienceForm.invalid">Continue</button>
         </div>
     </form>
 </div>

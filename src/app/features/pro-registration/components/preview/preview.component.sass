@@ -1,0 +1,122 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+
+.preview
+    padding: pxToRem(40) pxToRem(135) 
+    padding: auto
+    height: 100vh
+    overflow-y: auto
+    scrollbar-width: none
+    margin: auto  
+
+    
+    .preview-text
+        p
+         font-size: pxToRem(30)
+         font-weight: 600
+         color: $text-main
+
+        span
+            font-size: pxToRem(14)
+            font-weight: 400
+            color: $text-secondary  
+
+    .basic-information  
+        margin-top: pxToRem(40)
+        width: 100%
+        
+
+        .info-content
+            @include flex-option(flex, null, null, column)
+            gap: pxToRem(32)
+
+            p
+                font-size: pxToRem(16)
+                font-weight: 500
+                color: $text-main
+
+            .more
+                @include flex-option(flex , center , center ,row )
+                gap: pxToRem(20)
+
+                .profile-img
+                    border: 1px solid red
+                    width: pxToRem(160)
+                    height: pxToRem(120)
+                    border-radius: 50%
+
+                .business-info
+                    @include flex-option(flex, null, flex-start, column)
+                    gap: pxToRem(20)
+                    width: 100%
+                   
+
+                    .name
+                        @include flex-option(flex , null , null,column)
+                        width: 100%
+                            
+
+                        p
+                          font-size:    pxToRem(14)
+                          font-weight: 500
+                          color: $text-main 
+
+                    .field
+                        border: 1px solid #EAECF0
+                        padding: pxToRem(16) pxToRem(21)  
+                        width: 100% 
+                        border-radius: pxToRem(4) 
+                        background: #E8F0FE
+                        margin-top: pxToRem(8)
+
+        .buzz
+            @include flex-option(flex, null, null, row)
+            gap: pxToRem(20)
+            
+
+            .name
+              @include flex-option(flex , null , null,column)
+              width: 100%
+                            
+
+              p
+                font-size: pxToRem(14)
+                font-weight: 500
+                color: $text-main 
+
+            .field
+                border: 1px solid #EAECF0
+                padding: pxToRem(16) pxToRem(21)  
+                width: 100% 
+                border-radius: pxToRem(4) 
+                background: #E8F0FE
+                margin-top: pxToRem(8)
+
+        .b-name
+            @include flex-option(flex, null, null,column)
+            width: 100%
+
+            .name
+              @include flex-option(flex , null , null,column)
+              width: 100%
+                            
+
+              p
+                font-size: pxToRem(14)
+                font-weight: 500
+                color: $text-main 
+
+            .field
+                border: 1px solid #EAECF0
+                padding: pxToRem(16) pxToRem(21)  
+                width: 100% 
+                border-radius: pxToRem(4) 
+                background: #E8F0FE
+                margin-top: pxToRem(8)
+
+
+
+                          
+
+

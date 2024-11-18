@@ -15,7 +15,7 @@ import { RouterLink } from '@angular/router';
 export class BasicInfoComponent {
   registrationForm:FormGroup = this.formBuilder.group({
     businessOwnerName:['', Validators.required],
-    phoneNumber:['', Validators.required],
+    phoneNumber:['', Validators.required,Validators.pattern('^\\d{10}$')],
     businessAddress:['', Validators.required],
     businessEmail:['', Validators.required, Validators.email],
     businessName:['', Validators.required],
@@ -26,10 +26,7 @@ export class BasicInfoComponent {
 
   onSubmit(){
     if(this.registrationForm.valid){
-      console.log('Form submitted:', this.registrationForm.value);
-    }else
-    {
-      console.log('Form is invalid');
+    
     }
   }
 

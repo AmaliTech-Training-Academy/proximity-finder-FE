@@ -1,0 +1,105 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+
+.dropper
+    @include flex-option(flex, null, null, column)
+    gap: pxToRem(10)
+    
+    label
+        font-size: pxToRem(14)
+        font-weight: 500
+        color: $text-main
+
+    .dropdown
+        border: 1px solid #EAECF0
+        padding: pxToRem(16) pxToRem(21) 
+        border-radius: pxToRem(8)
+
+        .selection
+            @include flex-option(flex, null, center, row)
+            gap: pxToRem(10) 
+
+            select
+             width: 95%
+             height: 100%
+             border: none
+             border-right: 1px solid #EAECF0
+             cursor: pointer
+        
+
+             &:focus
+                outline: none
+                border: none
+
+                option
+                    cursor: pointer
+                    
+
+
+
+            .add-btn
+               border: none
+               background: none
+                
+       
+
+               img
+                width: pxToRem(18)
+                height: pxToRem(18)
+                cursor: pointer 
+
+
+.social-input
+    @include flex-option(flex, space-between, center, row)
+    gap: pxToRem(8)
+    border: 1px solid #EAECF0
+    border-radius: pxToRem(4) 
+    padding: pxToRem(5) pxToRem(10) 
+    margin-top: pxToRem(10)
+    
+
+    img
+        width: pxToRem(20)
+        height: pxToRem(20)
+        
+    input
+        border: none
+        width: 80%
+        font-size: pxToRem(14)
+        color: $text-main
+        &:active,
+        &:focus
+            outline: none
+            border: none
+            background: none
+
+
+    button
+         border: none
+         background: none
+         cursor: pointer
+         img
+            width: pxToRem(20)
+            height: pxToRem(20)
+
+    p
+     font-size: pxToRem(12)
+     color: $error
+     margin-top: pxToRem(8)
+     text-align: center 
+     
+
+
+.error-message
+    p
+        font-size: pxToRem(12)
+        color: $error
+        margin-top: pxToRem(8)
+        text-align: center            
+               
+
+        
+   
+           
+
