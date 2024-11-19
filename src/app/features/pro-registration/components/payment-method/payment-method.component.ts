@@ -34,7 +34,7 @@ export class PaymentMethodComponent {
       phoneNumber: ['',Validators.required,Validators.pattern(/^\+?[1-9]\d{1,14}$/),Validators.minLength(10), Validators.maxLength(15)],
       firstName: ['',Validators.required],
       lastName: ['',Validators.required],
-      email: ['',Validators.required,Validators.email],
+      email: ['',[Validators.required,Validators.email]],
     });
 
 

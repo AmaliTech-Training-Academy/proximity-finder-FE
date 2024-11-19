@@ -41,10 +41,16 @@
                 gap: pxToRem(20)
 
                 .profile-img
-                    border: 1px solid red
                     width: pxToRem(160)
                     height: pxToRem(120)
                     border-radius: 50%
+
+                    img
+                        width: 100%
+                        height: 100%
+                        border-radius: 50%
+                        object-fit: cover
+
 
                 .business-info
                     @include flex-option(flex, null, flex-start, column)
@@ -114,6 +120,497 @@
                 border-radius: pxToRem(4) 
                 background: #E8F0FE
                 margin-top: pxToRem(8)
+
+
+    .about-business
+        margin-top: pxToRem(64)
+        
+
+        .header
+            p
+                font-size: pxToRem(16)
+                font-weight: 500
+                color: $text-main
+
+        .details
+            @include flex-option(flex, null, null, column)
+            gap: pxToRem(32)
+            margin-top: pxToRem(32)
+            
+
+            .date
+                @include flex-option(flex, null, null, row)
+                gap: pxToRem(20)
+
+                .date-info
+                    width: 100%
+                    p
+                     font-size: pxToRem(14)
+                     font-weight: 500
+                     color: $text-main
+
+                .field
+                    border: 1px solid #EAECF0
+                    padding: pxToRem(16) pxToRem(21)  
+                    width: 100% 
+                    border-radius: pxToRem(4) 
+                    background: #E8F0FE
+                    margin-top: pxToRem(8)
+
+                .business-doc
+                    width: 100%
+                    p
+                     font-size: pxToRem(14)
+                     font-weight: 500
+                     color: $text-main
+
+                .field
+                    border: 1px solid #EAECF0
+                    padding: pxToRem(16) pxToRem(21)  
+                    width: 100% 
+                    border-radius: pxToRem(4) 
+                    background: #E8F0FE
+                    margin-top: pxToRem(8) 
+
+        .employees
+            @include flex-option(flex, null, null, row)
+            gap: pxToRem(32) 
+            margin-top: pxToRem(32)
+
+            .count
+                width: 100%
+                p
+                 font-size: pxToRem(14)
+                 font-weight: 500
+                 color: $text-main 
+
+            .field
+                    border: 1px solid #EAECF0
+                    padding: pxToRem(16) pxToRem(21)  
+                    width: 100% 
+                    border-radius: pxToRem(4) 
+                    background: #E8F0FE
+                    margin-top: pxToRem(8)  
+
+            .id
+                width: 100%
+                p
+                 font-size: pxToRem(14)
+                 font-weight: 500
+                 color: $text-main
+
+            .field
+                border: 1px solid #EAECF0
+                padding: pxToRem(16) pxToRem(21)  
+                width: 100% 
+                border-radius: pxToRem(4) 
+                background: #E8F0FE
+                margin-top: pxToRem(8)   
+
+        .socials
+            @include flex-option(flex, null, null, row)
+            gap: pxToRem(32) 
+            margin-top: pxToRem(32)
+
+            .media
+                width: 100%
+                p
+                 font-size: pxToRem(14)
+                 font-weight: 500
+                 color: $text-main
+
+            .fields
+                @include flex-option(flex, null, null, column)
+                gap: pxToRem(16)
+                width: 100% 
+                padding: pxToRem(16) pxToRem(21) 
+                border: 1px solid #EAECF0 
+                border-radius: pxToRem(4) 
+                background: #E8F0FE
+                margin-top: pxToRem(8) 
+
+            .summary
+                width: 100%
+                p
+                 font-size: pxToRem(14)
+                 font-weight: 500
+                 color: $text-main
+
+            .sum
+                border: 1px solid #EAECF0
+                padding: pxToRem(16) pxToRem(21)  
+                width: 100% 
+                height: pxToRem(120)
+                border-radius: pxToRem(4) 
+                background: #E8F0FE
+                margin-top: pxToRem(8)
+
+
+    .payment
+        margin-top: pxToRem(64)
+
+        .head
+            p
+                font-size: pxToRem(16)
+                font-weight: 500
+                color: $text-main
+
+        .payment-pref
+            @include flex-option(flex, null, null, row)
+            gap: pxToRem(32)
+            margin-top: pxToRem(32)
+
+            .payment-info
+                width: 100%
+                p
+                 font-size: pxToRem(14)
+                 font-weight: 500
+                 color: $text-main
+
+                .field
+                    border: 1px solid #EAECF0
+                    padding: pxToRem(16) pxToRem(21)  
+                    width: 100% 
+                    border-radius: pxToRem(4) 
+                    background: #E8F0FE
+                    margin-top: pxToRem(8)
+
+            .payment-doc
+                width: 100%
+                p
+                 font-size: pxToRem(14)
+                 font-weight: 500
+                 color: $text-main
+
+
+                .field
+                    border: 1px solid #EAECF0
+                    padding: pxToRem(16) pxToRem(21)  
+                    width: 100% 
+                    border-radius: pxToRem(4) 
+                    background: #E8F0FE
+                    margin-top: pxToRem(8)
+
+
+        .account
+            @include flex-option(flex, null, null, row)
+            gap: pxToRem(32)
+            margin-top: pxToRem(32)
+
+            .account-info
+                width: 100%
+                p
+                 font-size: pxToRem(14)
+                 font-weight: 500
+                 color: $text-main
+
+                .field
+                    border: 1px solid #EAECF0
+                    padding: pxToRem(16) pxToRem(21)  
+                    width: 100% 
+                    border-radius: pxToRem(4) 
+                    background: #E8F0FE
+                    margin-top: pxToRem(8)
+
+            .account-alias
+                width: 100%
+                p
+                 font-size: pxToRem(14)
+                 font-weight: 500
+                 color: $text-main
+
+                .field
+                    border: 1px solid #EAECF0
+                    padding: pxToRem(16) pxToRem(21)  
+                    width: 100% 
+                    border-radius: pxToRem(4) 
+                    background: #E8F0FE
+                    margin-top: pxToRem(8)  
+
+        .pay-details
+            width: 100%
+            margin-top: pxToRem(32)
+            p
+             font-size: pxToRem(14)
+             font-weight: 500
+             color: $text-main
+
+            .field
+                border: 1px solid #EAECF0
+                padding: pxToRem(16) pxToRem(21)  
+                width: 100% 
+                border-radius: pxToRem(4) 
+                background: #E8F0FE
+                margin-top: pxToRem(8)
+
+
+    .preference
+        margin-top: pxToRem(64)
+
+        .head
+            p
+                font-size: pxToRem(16)
+                font-weight: 500
+                color: $text-main
+
+        .preference-details
+            @include flex-option(flex, null, null, row)
+            gap: pxToRem(32)
+            margin-top: pxToRem(32)
+
+            .service
+                width: 100%
+                p
+                 font-size: pxToRem(14)
+                 font-weight: 500
+                 color: $text-main
+
+                .field
+                    border: 1px solid #EAECF0
+                    padding: pxToRem(16) pxToRem(21)  
+                    width: 100% 
+                    border-radius: pxToRem(4) 
+                    background: #E8F0FE
+                    margin-top: pxToRem(8)  
+
+            .experience
+                width: 100%
+                p
+                 font-size: pxToRem(14)
+                 font-weight: 500
+                 color: $text-main
+
+                .field
+                    border: 1px solid #EAECF0
+                    padding: pxToRem(16) pxToRem(21)  
+                    width: 100% 
+                    border-radius: pxToRem(4) 
+                    background: #E8F0FE
+                    margin-top: pxToRem(8)   
+
+        .documents
+            @include flex-option(flex, null, null, row)
+            gap: pxToRem(32)
+            margin-top: pxToRem(32)
+
+            .document
+                width: 100%
+
+                p
+                    font-size: pxToRem(14)
+                    font-weight: 500
+                    color: $text-main
+
+                .field
+                    border: 1px solid #EAECF0
+                    padding: pxToRem(16) pxToRem(21)  
+                    width: 100% 
+                    border-radius: pxToRem(4) 
+                    background: #E8F0FE
+                    margin-top: pxToRem(8)   
+
+
+            .alias
+                width: 100%
+                p
+                 font-size: pxToRem(14)
+                 font-weight: 500
+                 color: $text-main
+
+                .field
+                  border: 1px solid #EAECF0
+                  padding: pxToRem(16) pxToRem(21)  
+                  width: 100% 
+                  border-radius: pxToRem(4) 
+                  background: #E8F0FE
+                  margin-top: pxToRem(8)
+
+        .booking
+            margin-top: pxToRem(32)
+            @include flex-option(flex, null, null, row)
+            gap: pxToRem(20)
+            
+
+            .days
+                width: 100%
+                p
+                 font-size: pxToRem(14)
+                 font-weight: 500
+                 color: $text-main
+
+                .day
+                    border: 1px solid #EAECF0
+                    padding: pxToRem(16) pxToRem(21)  
+                    width: 100% 
+                    border-radius: pxToRem(4) 
+                    background: #E8F0FE
+                    margin-top: pxToRem(8)
+
+            .from
+                width: 100%
+                p
+                 font-size: pxToRem(14)
+                 font-weight: 500
+                 color: $text-main
+
+                .time
+                    border: 1px solid #EAECF0
+                    padding: pxToRem(16) pxToRem(18)  
+                    width: 100% 
+                    border-radius: pxToRem(4) 
+                    background: #E8F0FE
+                    margin-top: pxToRem(8)
+
+            .to
+                width: 100%
+                p
+                 font-size: pxToRem(14)
+                 font-weight: 500
+                 color: $text-main
+
+
+                .time
+                    border: 1px solid #EAECF0
+                    padding: pxToRem(16) pxToRem(18)  
+                    width: 100% 
+                    border-radius: pxToRem(4) 
+                    background: #E8F0FE
+                    margin-top: pxToRem(8) 
+
+        .scheduling
+            width: 100%
+            margin-top: pxToRem(32)
+            p
+             font-size: pxToRem(14)
+             font-weight: 500
+             color: $text-main
+
+            .field
+                border: 1px solid #EAECF0
+                padding: pxToRem(16) pxToRem(21)  
+                width: 100% 
+                height: pxToRem(100)
+                border-radius: pxToRem(4) 
+                background: #E8F0FE
+                margin-top: pxToRem(8)  
+
+    .information
+        margin-top: pxToRem(32)
+
+        .head
+            p
+                font-size: pxToRem(16)
+                font-weight: 500
+                color: $text-main
+
+        .exp
+           @include flex-option(flex, null, null, row)   
+           gap: pxToRem(32) 
+           margin-top: pxToRem(32)   
+
+
+           .exp-info
+             width: 100%
+             p
+              font-size: pxToRem(14)
+              font-weight: 500
+              color: $text-main
+
+             .field
+                border: 1px solid #EAECF0
+                padding: pxToRem(16) pxToRem(21)  
+                width: 100% 
+                border-radius: pxToRem(4) 
+                background: #E8F0FE
+                margin-top: pxToRem(8)
+
+
+           .exp-details
+                width: 100%
+                p
+                  font-size: pxToRem(14)
+                  font-weight: 500
+                  color: $text-main
+
+                .field
+                   border: 1px solid #EAECF0
+                   padding: pxToRem(16) pxToRem(21)  
+                   width: 100% 
+                   height: pxToRem(100)
+                   border-radius: pxToRem(4) 
+                   background: #E8F0FE
+                   margin-top: pxToRem(8)   
+
+    .pic-upload
+        margin-top: pxToRem(32)
+
+        p
+            font-size: pxToRem(16)
+            font-weight: 500
+            color: $text-main
+
+        .uploaded
+            @include flex-option(flex, null, null, column)   
+            gap: pxToRem(16) 
+            margin-top: pxToRem(32)
+            padding: pxToRem(16) pxToRem(25)
+            border: 1px solid #EAECF0
+            width: 100%
+            height: pxToRem(60)
+            border-radius: pxToRem(4)
+
+    .instruction
+        margin-top: pxToRem(32)
+
+        p
+            font-size: pxToRem(16)
+            font-weight: 400
+            color: $text-secondary    
+
+    .buttons
+        @include flex-option(flex, flex-end, null, row)
+        gap: pxToRem(16) 
+        margin-top: pxToRem(32)
+       
+
+        .back
+            border: 1px solid #EAECF0
+            border-radius: pxToRem(4)  
+            padding: pxToRem(10) pxToRem(21) 
+            background: none
+            color: $text-main
+            font-size: pxToRem(16)
+            font-weight: 500
+            cursor: pointer 
+
+        .register
+            background-color: $primary
+            border: none
+            border-radius: pxToRem(4)  
+            padding: pxToRem(10) pxToRem(21.41) 
+            color: $white
+            font-size: pxToRem(16)
+            font-weight: 500
+            cursor: pointer              
+
+                            
+
+
+                        
+
+
+               
+
+                                               
+
+
+
+
+
+
+
+
+                  
 
 
 

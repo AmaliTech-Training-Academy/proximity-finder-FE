@@ -19,7 +19,7 @@
         placeholder="Business Name"
         imgPath="assets/svgs/person.svg"
         formControlName="businessName"
-        [ngClass]="{'has-error': signUpForm.get('businessName')?.invalid && (signUpForm.get('businessName')?.dirty || signUpForm.get('businessName')?.touched)}"
+        [error]="signUpForm.get('businessName')?.invalid && (signUpForm.get('businessName')?.dirty || signUpForm.get('businessName')?.touched)"
         />
         <div class="error-message" *ngIf="signUpForm.get('businessName')?.invalid && (signUpForm.get('businessName')?.dirty || signUpForm.get('businessName')?.touched)">
           Business name is required
@@ -29,7 +29,7 @@
         placeholder="Email"
         imgPath="assets/svgs/email.svg"
         formControlName="email"
-        [ngClass]="{'has-error': signUpForm.get('email')?.invalid && (signUpForm.get('email')?.dirty || signUpForm.get('email')?.touched)}"
+        [error]="signUpForm.get('email')?.invalid && (signUpForm.get('email')?.dirty || signUpForm.get('email')?.touched)"
         />
         <div class="error-message" *ngIf="signUpForm.get('email')?.invalid && (signUpForm.get('email')?.dirty || signUpForm.get('email')?.touched)">
           Email is required and must be valid
@@ -39,6 +39,7 @@
         placeholder="Password"
         imgPath="assets/svgs/password.svg"
         formControlName="password"
+        [error]="signUpForm.get('password')?.invalid && (signUpForm.get('password')?.dirty || signUpForm.get('password')?.touched)"
         />
         <div class="error-message" *ngIf="signUpForm.get('password')?.invalid && (signUpForm.get('password')?.dirty || signUpForm.get('password')?.touched)">
           Password must be at least 12 characters, including uppercase, lowercase, number, and symbol
@@ -48,6 +49,7 @@
         placeholder="Password"
         imgPath="assets/svgs/password.svg"
         formControlName="confirmPassword"
+        [error]="signUpForm.hasError('mismatchedPassword') && (signUpForm.get('confirmPassword')?.dirty || signUpForm.get('confirmPassword')?.touched)"
         />
         <div class="error-message" *ngIf="signUpForm.hasError('mismatchedPassword') && (signUpForm.get('confirmPassword')?.dirty || signUpForm.get('confirmPassword')?.touched)">
           Passwords do not match
