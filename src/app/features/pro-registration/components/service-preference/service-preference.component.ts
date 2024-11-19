@@ -16,9 +16,10 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Time } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ServiceService } from '../../../../core/services/service.service';
+import { ITime } from '../../../../core/models/ITime';
 
 @Component({
   selector: 'app-service-preference',
@@ -39,7 +40,7 @@ export class ServicePreferenceComponent implements OnInit {
   serviceCategories = serviceCategories;
   paymentPreferences = accountPreferences;
   days = bookingDays;
-  timeOptions: { name: string; value: string }[] = [];
+  timeOptions: ITime[] = [];
   uploadedFiles: File[] = [];
 
   servicePreferenceForm: FormGroup = this.fb.group({
@@ -94,7 +95,7 @@ export class ServicePreferenceComponent implements OnInit {
   }
 
   generateTimeOptions(step: number) {
-    const times: { name: string; value: string }[] = [];
+    const times: ITime[] = [];
     for (let hour = 0; hour < 24; hour++) {
       for (let minute = 0; minute < 60; minute += step) {
         const rawTime = new Date();
