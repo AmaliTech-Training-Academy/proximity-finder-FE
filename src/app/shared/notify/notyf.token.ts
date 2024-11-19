@@ -9,7 +9,7 @@ export function notyfFactory(): Notyf | null {
 
   if (isPlatformBrowser(platformId)) {
     return new Notyf({
-      duration: 3000, // Set your global Notyf configuration here
+      duration: 6000, 
       position: {
         x: 'center',
         y: 'top',
