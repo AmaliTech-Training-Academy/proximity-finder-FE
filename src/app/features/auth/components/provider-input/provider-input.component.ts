@@ -15,7 +15,7 @@ import { ProviderService } from '../../services/provider/provider.service';
 })
 export class ProviderInputComponent {
   signUpForm: FormGroup = this.formBuilder.group({
-    businessName: ['', Validators.required],
+    userName: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(12), passwordValidator]],
     confirmPassword: ['', Validators.required]
@@ -43,17 +43,18 @@ export class ProviderInputComponent {
 
   onSubmit() {
     if (this.signUpForm.valid) {
-      const { businessName, email, password,confirmPassword} = this.signUpForm.value;
-      const role='provider'
+      const { userName, email, password,confirmPassword} = this.signUpForm.value;
+      const role='PROVIDER'
 
       const data ={
-        businessName,
+        userName,
         email,
         password,
         confirmPassword,
         role
       }
       this.providerService.signupProvider(data).subscribe((res) =>{
+        console.log('Yes you did it');
 
       })  
     } 

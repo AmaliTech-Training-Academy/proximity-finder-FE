@@ -18,10 +18,10 @@
         type="text"
         placeholder="Business Name"
         imgPath="assets/svgs/person.svg"
-        formControlName="businessName"
-        [error]="signUpForm.get('businessName')?.invalid && (signUpForm.get('businessName')?.dirty || signUpForm.get('businessName')?.touched)"
+        formControlName="userName"
+        [error]="signUpForm.get('userName')?.invalid && (signUpForm.get('userName')?.dirty || signUpForm.get('userName')?.touched)"
         />
-        <div class="error-message" *ngIf="signUpForm.get('businessName')?.invalid && (signUpForm.get('businessName')?.dirty || signUpForm.get('businessName')?.touched)">
+        <div class="error-message" *ngIf="signUpForm.get('userName')?.invalid && (signUpForm.get('userName')?.dirty || signUpForm.get('userName')?.touched)">
           Business name is required
         </div>
         <app-input-field
@@ -46,7 +46,7 @@
         </div>
         <app-input-field
         type="password"
-        placeholder="Password"
+        placeholder="Confirm Password"
         imgPath="assets/svgs/password.svg"
         formControlName="confirmPassword"
         [error]="signUpForm.hasError('mismatchedPassword') && (signUpForm.get('confirmPassword')?.dirty || signUpForm.get('confirmPassword')?.touched)"
