@@ -28,43 +28,28 @@
         Email is required and must be valid
       </div>
 
-      <app-input-field
-        type="password"
-        placeholder="Password"
-        imgPath="assets/svgs/password.svg"
-        formControlName="password"
-        [error]="
-          loginForm.get('password')?.invalid &&
-          (loginForm.get('password')?.dirty ||
-            loginForm.get('password')?.touched)
-        "
-      />
-
-      <div
-        class="error-message"
-        *ngIf="
-          loginForm.get('password')?.hasError('required') &&
-          (loginForm.get('password')?.dirty ||
-            loginForm.get('password')?.touched)
-        "
-      >
-        Enter your password
-      </div>
-
-      <div class="forgot">
-        <a [routerLink]="['/forgot-password']">Forgot Password?</a>
-      </div>
-      <button class="btn-login" type="submit" [disabled]="loginForm.invalid">
-        Log In
-      </button>
-      <div class="google">
-        <img src="assets/svgs/Google.svg" alt="google" />
-        <button class="google-btn">Sign in with Google</button>
-      </div>
-      <div class="dont-have">
-        <p>Don’t have an account?</p>
-        <a [routerLink]="['/role-select']">sign up</a>
-      </div>
-    </form>
-  </div>
+          <app-input-field
+          type="password"
+          placeholder="Password"
+          imgPath="assets/svgs/password.svg"
+          formControlName="password"
+          [error]="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)"
+          />
+          <div class="error-message" *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
+          Password is required
+          </div>
+           <div class="forgot">
+            <a [routerLink]="['/forgot-password']">Forgot Password?</a>
+           </div>
+            <button class="btn-login" type="submit" [disabled]="loginForm.invalid">Log In</button>
+            <div class="google">
+                <img src="assets/svgs/Google.svg" alt="google">
+                <button class="google-btn">Sign in with Google</button>
+            </div>
+            <div class="dont-have">
+                <p>Don’t have an account?</p>
+                <a [routerLink]="['/role-select']">sign up</a>
+            </div>
+        </form>
+    </div>
 </div>
