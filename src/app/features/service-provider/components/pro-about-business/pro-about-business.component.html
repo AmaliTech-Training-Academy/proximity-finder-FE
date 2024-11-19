@@ -1,0 +1,82 @@
+<main>
+  <form>
+    <section class="formData">
+      <div class="left">
+        <div class="inceptionDate">
+          <label for="inceptionDate"> Inception Date</label>
+          <input
+            type="date"
+            id="inceptionDate"
+            formControlName="inceptionDate"
+          />
+        </div>
+
+        <div class="businessCertificate">
+          <label for="businessCertificate">Business Certificate</label>
+          <app-file-uploader />
+        </div>
+
+        <div class="socialLinks">
+          <label for="socialLinks">Social Media Links</label>
+          <div class="socials" formArrayName="socialLinks">
+            <p-inputGroup>
+              <p-inputGroupAddon>
+                <i class="pi pi-facebook"></i>
+              </p-inputGroupAddon>
+              <input pInputText value="https://facebook.com/montyhayton" />
+            </p-inputGroup>
+            <p-inputGroup>
+              <p-inputGroupAddon>
+                <i class="pi pi-instagram"></i>
+              </p-inputGroupAddon>
+              <input pInputText value="https://instagram.com/montyhayton" />
+            </p-inputGroup>
+            <p-inputGroup>
+              <p-inputGroupAddon>
+                <i class="pi pi-twitter"></i>
+              </p-inputGroupAddon>
+              <input pInputText value="https://twitter.com/montyhayton" />
+            </p-inputGroup>
+          </div>
+        </div>
+      </div>
+      <div class="right">
+        <div class="employees">
+          <label for="numberOfEmployees">Number of Employees</label>
+          <input
+            type="number"
+            id="numberOfEmployees"
+            formControlName="numberOfEmployees"
+          />
+        </div>
+        <div class="businessID">
+          <label for="businessID">ID</label>
+          <app-file-uploader />
+        </div>
+        <div class="summary">
+          <label for="summary">Summary</label>
+          <textarea rows="6" id="summary"></textarea>
+        </div>
+      </div>
+    </section>
+    <section class="formActions">
+      <button
+        [style]="{ display: isEditing ? 'none' : 'block' }"
+        type="button"
+        class="edit"
+        (click)="setEditing()"
+      >
+        Edit
+      </button>
+      <div
+        class="edit-buttons"
+        [style]="{ display: isEditing ? 'flex' : 'none' }"
+      >
+        <button type="button" class="cancel" (click)="cancelEditing()">
+          Cancel
+        </button>
+        <button type="submit" class="save">Save</button>
+      </div>
+    </section>
+  </form>
+</main>
