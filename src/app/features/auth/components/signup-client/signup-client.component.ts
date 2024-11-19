@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject} from '@angular/core';
+import { Component, Inject, OnDestroy } from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
@@ -13,20 +13,26 @@ import { ClientService } from '../../services/client/client.service';
 import { Notyf } from 'notyf';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { passwordMatchValidator } from '../../../../utils/passwordMatch';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-signup-client',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, InputFieldComponent,RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, InputFieldComponent, RouterLink],
   templateUrl: './signup-client.component.html',
-  styleUrl: './signup-client.component.sass',
+  styleUrls: ['./signup-client.component.sass'],
 })
-export class SignupClientComponent {
-
+export class SignupClientComponent implements OnDestroy {
   signUpForm: FormGroup = this.formBuilder.group(
     {
       userName: ['', Validators.required],
-      mobileNumber: ['', [Validators.required, Validators.pattern('^\\+?[1-9]\\d{1,14}(?:[\\s\\-]\\d{1,4})*$')]],
+      mobileNumber: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern('^\\+?[1-9]\\d{1,14}(?:[\\s\\-]\\d{1,4})*$'),
+        ],
+      ],
       email: ['', [Validators.required, Validators.email]],
       password: [
         '',
@@ -38,44 +44,56 @@ export class SignupClientComponent {
       validators: passwordMatchValidator(),
     }
   );
- 
 
-  constructor(private formBuilder: FormBuilder,private router:Router,private clientService:ClientService,@Inject(NOTYF) private notyf: Notyf) {}
+  private subscription: Subscription = new Subscription();
 
+  constructor(
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private clientService: ClientService,
+    @Inject(NOTYF) private notyf: Notyf
+  ) {}
 
   onSubmit() {
     if (this.signUpForm.valid) {
-      const { userName, mobileNumber, email, password, confirmPassword } = this.signUpForm.value;
+      const { userName, mobileNumber, email, password, confirmPassword } =
+        this.signUpForm.value;
       const role = 'SEEKER';
-  
+
       const data = {
         userName,
         mobileNumber,
         email,
         password,
         confirmPassword,
-        role
+        role,
       };
-  
+
       this.clientService.signupClient(data).subscribe({
         next: (res) => {
           this.notyf.success('Registration Successful');
-          this.router.navigate(['/login']);
-          
-          this.signUpForm.reset();
+
+          setTimeout(() => {
+            this.signUpForm.reset();
+            this.router.navigateByUrl('/login');
+          }, 1000); 
         },
         error: (err) => {
-          this.notyf.error( 'Registration Failed. Please Try Again');
-        }
+          this.notyf.error('Registration Failed. Please Try Again');
+        },
       });
     }
   }
 
-  googleLogin(){
-    
+  ngOnDestroy() {
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
   }
 
-  goBack(){
-    this.router.navigateByUrl('/role-select')
+  googleLogin() {}
+
+  goBack() {
+    this.router.navigateByUrl('/role-select');
   }
 }
