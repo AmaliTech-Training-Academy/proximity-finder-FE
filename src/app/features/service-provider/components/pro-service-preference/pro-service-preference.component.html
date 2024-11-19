@@ -1,0 +1,126 @@
+<main>
+  <form class="service-preference-form" [formGroup]="servicePreferenceForm">
+    <section class="formData">
+      <div class="left">
+        <div class="service field">
+          <label for="service">Service</label>
+          <p-dropdown
+            id="service"
+            formControlName="service"
+            [options]="serviceCategories"
+            optionLabel="name"
+          />
+        </div>
+
+        <div class="bookingDays field">
+          <label for="bookingDays">Booking Days</label>
+          <div formArrayName="bookingDays" class="bookingFields">
+            <div class="booking">
+              <div class="day">
+                <label for="">Booking Day</label>
+                <p-dropdown
+                  id=""
+                  formControlName="dayOfWeek"
+                  [options]="days"
+                  optionLabel="name"
+                  placeholder="Please choose"
+                />
+              </div>
+              <div class="bookingTimes">
+                <div>
+                  <label>From</label>
+                  <p-dropdown
+                    id=""
+                    formControlName="startTime"
+                    [options]="timeOptions"
+                    optionLabel="name"
+                    placeholder="00:00"
+                  />
+                </div>
+                <div>
+                  <label for="">To</label>
+                  <p-dropdown
+                    id=""
+                    formControlName="endTime"
+                    [options]="timeOptions"
+                    optionLabel="name"
+                    placeholder="00:00"
+                  />
+                </div>
+              </div>
+              <!-- <button class="remove-booking-day">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M9.59612 0.517578C4.35481 0.517578 0.118164 4.75422 0.118164 9.99553C0.118164 15.2368 4.35481 19.4735 9.59612 19.4735C14.8374 19.4735 19.0741 15.2368 19.0741 9.99553C19.0741 4.75422 14.8374 0.517578 9.59612 0.517578ZM9.59612 17.5779C5.41634 17.5779 2.01376 14.1753 2.01376 9.99553C2.01376 5.81576 5.41634 2.41317 9.59612 2.41317C13.7759 2.41317 17.1785 5.81576 17.1785 9.99553C17.1785 14.1753 13.7759 17.5779 9.59612 17.5779ZM12.9987 5.25656L9.59612 8.65914L6.19353 5.25656L4.85714 6.59295L8.25973 9.99553L4.85714 13.3981L6.19353 14.7345L9.59612 11.3319L12.9987 14.7345L14.3351 13.3981L10.9325 9.99553L14.3351 6.59295L12.9987 5.25656Z"
+                    fill="#E1571D"
+                  />
+                </svg>
+              </button> -->
+            </div>
+            <!-- <button type="button" class="add-booking-day">
+              + Add Booking Day
+            </button> -->
+          </div>
+        </div>
+        <div class="extraDocuments field">
+          <label for="extraDocuments">Extra Documents</label>
+          <app-file-uploader />
+        </div>
+      </div>
+      <div class="right">
+        <div class="payment field">
+          <label for="paymentPreference">Payment Preference</label>
+          <p-dropdown
+            id="paymentPreference"
+            formControlName="paymentPreference"
+            [options]="paymentPreferences"
+            optionLabel="name"
+            placeholder="Please choose"
+          />
+        </div>
+        <div class="location field">
+          <label for="location">Location</label>
+          <input
+            type="text"
+            pInputText
+            formControlName="location"
+            placeholder="Accra, Ghana"
+          />
+        </div>
+        <div class="schedulingPolicy field">
+          <label for="schedulingPolicy">Scheduling Policy</label>
+          <textarea
+            rows="6"
+            id="schedulingPolicy"
+            formControlName="schedulingPolicy"
+          ></textarea>
+        </div>
+      </div>
+    </section>
+    <section class="formActions">
+      <button
+        [style]="{ display: isEditing ? 'none' : 'block' }"
+        type="button"
+        class="edit"
+        (click)="setEditing()"
+      >
+        Edit
+      </button>
+      <div
+        class="edit-buttons"
+        [style]="{ display: isEditing ? 'flex' : 'none' }"
+      >
+        <button type="button" class="cancel" (click)="cancelEditing()">
+          Cancel
+        </button>
+        <button type="submit" class="save">Save</button>
+      </div>
+    </section>
+  </form>
+</main>

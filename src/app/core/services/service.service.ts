@@ -1,16 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ServiceResponse } from '../models/IServiceResponse';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ServiceService {
-  apiUrl = 'https://2ed7-196-61-35-158.ngrok-free.app/api/v1/services';
+  apiUrl = 'http://3.136.48.244:8080/api/v1/services';
 
   constructor(private http: HttpClient) {}
 
-  getServices(): Observable<any> {
-    return this.http.get<any>(this.apiUrl);
+  getServices(): Observable<ServiceResponse> {
+    return this.http.get<ServiceResponse>(this.apiUrl);
   }
 }
