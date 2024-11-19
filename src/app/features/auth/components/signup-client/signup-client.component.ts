@@ -26,7 +26,7 @@ export class SignupClientComponent {
   signUpForm: FormGroup = this.formBuilder.group(
     {
       userName: ['', Validators.required],
-      mobileNumber: ['', [Validators.required, Validators.pattern('^\\d{10}$')]],
+      mobileNumber: ['', [Validators.required, Validators.pattern('^\\+?[1-9]\\d{1,14}(?:[\\s\\-]\\d{1,4})*$')]],
       email: ['', [Validators.required, Validators.email]],
       password: [
         '',
@@ -45,27 +45,34 @@ export class SignupClientComponent {
 
   onSubmit() {
     if (this.signUpForm.valid) {
- 
-     const { userName, mobileNumber, email, password, confirmPassword } = this.signUpForm.value;
-     const role ='seeker';
+      const { userName, mobileNumber, email, password, confirmPassword } = this.signUpForm.value;
+      const role = 'SEEKER';
   
+      const data = {
+        userName,
+        mobileNumber,
+        email,
+        password,
+        confirmPassword,
+        role
+      };
+  
+      this.clientService.signupClient(data).subscribe({
+        next: (res) => {
+          this.notyf.success('Registration Successful');
+          this.router.navigate(['/login']);
+          
+          this.signUpForm.reset();
+        },
+        error: (err) => {
+          this.notyf.error( 'Registration Failed. Please Try Again');
+        }
+      });
+    }
+  }
 
-     const data ={
-       userName,
-       mobileNumber,
-       email,
-       password,
-       confirmPassword,
-       role
-     }
-     this.clientService.signupClient(data).subscribe((res) => {
-      console.log(res);
-       this.notyf.success('Registration successful');
-       this.router.navigateByUrl('/login');
-     });
-
-    } 
-
+  googleLogin(){
+    
   }
 
   goBack(){

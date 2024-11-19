@@ -1,10 +1,12 @@
+import { NOTYF } from './../../../../shared/notify/notyf.token';
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { InputFieldComponent } from '../input-field/input-field.component';
 import { passwordValidator } from '../../../../utils/passwordValidator';
 import { Router, RouterLink } from '@angular/router';
 import { ProviderService } from '../../services/provider/provider.service';
+import { Notyf } from 'notyf';
 
 @Component({
   selector: 'app-provider-input',
@@ -24,7 +26,7 @@ export class ProviderInputComponent {
   });
  
 
-  constructor(private formBuilder: FormBuilder, private router:Router,private providerService:ProviderService) {}
+  constructor(private formBuilder: FormBuilder, private router:Router,private providerService:ProviderService,@Inject(NOTYF) private notyf: Notyf) {}
 
 
   matchPassword(group: FormGroup) {
@@ -40,23 +42,30 @@ export class ProviderInputComponent {
 
 
 
-
   onSubmit() {
     if (this.signUpForm.valid) {
-      const { userName, email, password,confirmPassword} = this.signUpForm.value;
-      const role='PROVIDER'
-
-      const data ={
+      const { userName, email, password, confirmPassword } = this.signUpForm.value;
+      const role = 'PROVIDER';
+  
+      const data = {
         userName,
         email,
         password,
         confirmPassword,
         role
-      }
-      this.providerService.signupProvider(data).subscribe((res) =>{
-        console.log('Yes you did it');
-
-      })  
+      };
+  
+      this.providerService.signupProvider(data).subscribe({
+        next: (res) => {
+          this.notyf.success('Registration Successful');
+          this.router.navigate(['/registration']);
+          
+          this.signUpForm.reset();
+        },
+        error: (err) => {
+          this.notyf.error('Registration Failed. Please try again');
+        }
+      });
     } 
   }
 

@@ -1,9 +1,10 @@
 export interface IUser{
    email: string;
    password: string;
-   jwtAcessToken:string;
+   jwtAccessToken:string;
    jwtRefreshToken:string;
-   roles:Role[]
+   roles:Role[];
+   expirationTime: number
 }
 
 export type Role = 'provider' | 'seeker'|'admin'
