@@ -1,20 +1,36 @@
 import { inject } from '@angular/core';
-import { AuthService } from './../../../features/auth/services/auth/auth.service';
 import { HttpInterceptorFn } from '@angular/common/http';
+import { switchMap, catchError } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import { AuthService } from './../../../features/auth/services/auth/auth.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  
-const token= localStorage.getItem('token')?? '';
-const refreshToken=localStorage.getItem('refreshToken')??'';
+  const authService = inject(AuthService);
 
-const isRefreshTokenRoute= ''
-console.log(req.url)
-  const clonedReq = req.clone({
-    headers: req.headers.set('Authorization', `Bearer ${token}`),
-  })
-  return next(clonedReq);
+  if (req.url.includes('/auth/public/')) {
+    return next(req);
+  }
+  if (authService.isTokenExpired()) {
+    return authService.refreshAccessToken().pipe(
+      switchMap((refreshResponse) => {
+        const updatedRequest = req.clone({
+          setHeaders: {
+            Authorization: `Bearer ${authService.accessToken.value}`
+          }
+        });
+        return next(updatedRequest);
+      }),
+      catchError((error) => {
+        authService.logout();
+        return throwError(() => error);
+      })
+    );
+  }
+  const clonedRequest = req.clone({
+    setHeaders: {
+      Authorization: `Bearer ${authService.accessToken.value}`
+    }
+  });
 
-
-  
-
+  return next(clonedRequest);
 };
