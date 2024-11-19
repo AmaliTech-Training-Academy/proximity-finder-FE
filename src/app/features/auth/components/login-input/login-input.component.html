@@ -24,9 +24,10 @@
           placeholder="Password"
           imgPath="assets/svgs/password.svg"
           formControlName="password"
+          [error]="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)"
           />
-          <div class="error-message" *ngIf="loginForm.hasError('mismatchedPassword') && (loginForm.get('confirmPassword')?.dirty || loginForm.get('confirmPassword')?.touched)">
-            Passwords do not match
+          <div class="error-message" *ngIf="loginForm.get('password')?.invalid && (loginForm.get('password')?.dirty || loginForm.get('password')?.touched)">
+          Password is required
           </div>
            <div class="forgot">
             <a [routerLink]="['/forgot-password']">Forgot Password?</a>

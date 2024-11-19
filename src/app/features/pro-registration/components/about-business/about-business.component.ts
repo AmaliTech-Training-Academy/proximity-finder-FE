@@ -18,7 +18,8 @@ export class AboutBusinessComponent {
   aboutForm:FormGroup = this.fb.group({
     date: ['', Validators.required],
     employees:['', Validators.required],
-    summary: ['', Validators.required]
+    summary: ['', Validators.required],
+    
   })
 
   constructor(private fb:FormBuilder,private router:Router){}

@@ -9,7 +9,7 @@
         label="Inception Date"
         type="date"
         formControlName="date"
-        [ngClass]="{'has-error': aboutForm.get('date')?.invalid && (aboutForm.get('date')?.dirty || aboutForm.get('date')?.touched)}"
+        [error]=" aboutForm.get('date')?.invalid && (aboutForm.get('date')?.dirty || aboutForm.get('date')?.touched)"
         />
         <div class="error-message" *ngIf="aboutForm.get('date')?.invalid && (aboutForm.get('date')?.dirty || aboutForm.get('date')?.touched)">
             Inception date is required
@@ -20,7 +20,7 @@
         type="number"
         placeholder="Enter the number of employees"
         formControlName="employees"
-        [ngClass]="{'has-error': aboutForm.get('employees')?.invalid && (aboutForm.get('employees')?.dirty || aboutForm.get('employees')?.touched)}"
+        [error]="aboutForm.get('employees')?.invalid && (aboutForm.get('employees')?.dirty || aboutForm.get('employees')?.touched)"
         />
         <div class="error-message" *ngIf="aboutForm.get('employees')?.invalid && (aboutForm.get('employees')?.dirty || aboutForm.get('employees')?.touched)">
             Number of employees is required
