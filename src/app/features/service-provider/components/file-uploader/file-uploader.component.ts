@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-file-uploader',
@@ -11,6 +11,8 @@ import { Component } from '@angular/core';
 export class FileUploaderComponent {
   selectedFiles: File[] = [];
   selectedFileNames: string[] = [];
+
+  @Output() filesSelected = new EventEmitter<File[]>();
 
   onFilesSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -27,23 +29,20 @@ export class FileUploaderComponent {
           this.selectedFileNames.push(file.name);
         }
       });
+
+      this.filesSelected.emit(this.selectedFiles);
     }
   }
 
   removeFile(index: number): void {
     this.selectedFiles.splice(index, 1);
-  }
-
-  uploadFiles(): void {
-    if (this.selectedFiles.length > 0) {
-      this.resetSelection();
-    } else {
-      alert('Please select files first!');
-    }
+    this.filesSelected.emit(this.selectedFiles);
   }
 
   resetSelection(): void {
     this.selectedFiles = [];
     this.selectedFileNames = [];
+
+    this.filesSelected.emit(this.selectedFiles);
   }
 }
