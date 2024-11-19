@@ -1,23 +1,35 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IClient } from '../../auth/models/client';
 import { environment } from '../../../../environments/environment';
-import { Observable } from 'rxjs';
-import { IProvider } from '../../auth/models/providerData';
+import { catchError, Observable, retry } from 'rxjs';
+import { ErrorHandlingService } from '../../../core/services/error-handling.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
 
-  constructor(private http: HttpClient) {}
-  email = localStorage.getItem('email');
+  constructor(private http: HttpClient, private errorHandler: ErrorHandlingService) {}
+
+  email = 'admin@gmail.com';
 
   getClient(): Observable<IClient> {
-    return this.http.get<IClient>(`${environment.apiUrl}/auth/info?email=${this.email}`)
-  }
+    if(!this.email) {
+      throw new Error('Email not found')
+    }
+    const params = new HttpParams().set( 'email', this.email )
 
-  getProvider(): Observable<IProvider> {
-    return this.http.get<IProvider>(`${environment.apiUrl}/auth/info?email=${this.email}`)
+    return this.http.get<IClient>(`${environment.apiUrl}/auth/info`, { params }).pipe(
+      retry(2),
+      catchError((error) => this.errorHandler.handleError(error)
+    ))
+  }
+  
+  updateClient(client: IClient): Observable<IClient> {
+    return this.http.patch<IClient>(`${environment.apiUrl}/auth/update`, client).pipe(
+      retry(2),
+      catchError((error) => this.errorHandler.handleError(error))
+    )
   }
 }

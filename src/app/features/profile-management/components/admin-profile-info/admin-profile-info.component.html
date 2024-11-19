@@ -37,7 +37,7 @@
         </form>
     
         <div class="info-container">
-            <form [formGroup]="userForm">
+            <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
                 
                 <div class="input-field">
                     <app-fields label="Name"
