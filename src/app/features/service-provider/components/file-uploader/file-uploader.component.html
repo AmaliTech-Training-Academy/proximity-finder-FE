@@ -4,10 +4,34 @@
     id="fileInput"
     #fileInput
     accept=".pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt,.rtf,.odt"
-    (change)="onFileSelected($event)"
+    (change)="onFilesSelected($event)"
     hidden
+    multiple
   />
-  <span class="file-name">{{ selectedFileName || "No file chosen" }}</span>
+  <span class="file-name">
+    <ng-container *ngIf="selectedFiles.length > 0; else noFiles">
+      <span *ngFor="let file of selectedFiles; index as i" class="file-item">
+        {{ file.name }}
+        <button class="delete-btn" (click)="removeFile(i)">
+          <svg
+            width="11"
+            height="11"
+            viewBox="0 0 11 11"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              fill-rule="evenodd"
+              clip-rule="evenodd"
+              d="M5.77344 10.6387C8.53486 10.6387 10.7734 8.4001 10.7734 5.63867C10.7734 2.87725 8.53486 0.638672 5.77344 0.638672C3.01201 0.638672 0.773438 2.87725 0.773438 5.63867C0.773438 8.4001 3.01201 10.6387 5.77344 10.6387ZM4.96538 3.94673C4.7213 3.70265 4.32557 3.70265 4.0815 3.94673C3.83742 4.19081 3.83742 4.58654 4.0815 4.83061L4.88955 5.63867L4.0815 6.44673C3.83742 6.69081 3.83742 7.08654 4.0815 7.33061C4.32557 7.57469 4.7213 7.57469 4.96538 7.33061L5.77344 6.52256L6.5815 7.33061C6.82557 7.57469 7.2213 7.57469 7.46538 7.33061C7.70946 7.08654 7.70946 6.69081 7.46538 6.44673L6.65732 5.63867L7.46538 4.83061C7.70946 4.58654 7.70946 4.19081 7.46538 3.94673C7.2213 3.70265 6.82557 3.70265 6.5815 3.94673L5.77344 4.75479L4.96538 3.94673Z"
+              fill="#4B5563"
+            />
+          </svg>
+        </button>
+      </span>
+    </ng-container>
+    <ng-template #noFiles>No files chosen</ng-template>
+  </span>
   <button type="button" class="upload-btn" (click)="fileInput.click()">
     Upload
   </button>

@@ -1,0 +1,6 @@
+<main>
+  @if (serviceCategories$ | async; as serviceCategories) { @for (serviceCategory
+  of serviceCategories; track serviceCategory.id) {
+  <app-service-card [serviceCategory]="serviceCategory" />
+  } }
+</main>
