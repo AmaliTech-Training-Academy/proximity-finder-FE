@@ -26,7 +26,6 @@ export class ForgotPasswordComponent implements OnDestroy {
    private subscription: Subscription = new Subscription();
  
    onSubmit() {
-    console.log('Whats this');
     if (this.resetForm.valid) {
       const { email } = this.resetForm.value;
   
@@ -34,7 +33,10 @@ export class ForgotPasswordComponent implements OnDestroy {
         next: (response) => {
           this.notyf.success('Password Reset Mail Sent Successfully');
           this.resetForm.reset();
-          this.router.navigateByUrl('/confirmation')
+          this.router.navigateByUrl('/confirmation', {
+            state: { email }, 
+          });
+          
         },
         error: (error) => {
           this.notyf.error('Password Reset Failed. Please Try Again');
