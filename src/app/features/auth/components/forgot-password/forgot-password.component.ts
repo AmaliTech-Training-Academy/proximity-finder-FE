@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Inject} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { InputFieldComponent } from '../input-field/input-field.component';
 import { ForgotPasswordService } from '../../services/forgot-password/forgot-password.service';
 import { Notyf } from 'notyf';
@@ -19,25 +19,25 @@ export class ForgotPasswordComponent {
     email: ['', [Validators.required, Validators.email]]
   });
 
-   constructor(private fb: FormBuilder,private forgotPasswordService:ForgotPasswordService, @Inject(NOTYF) private notyf: Notyf) {}
+   constructor(private fb: FormBuilder,private forgotPasswordService:ForgotPasswordService, @Inject(NOTYF) private notyf: Notyf,private router:Router) {}
      
    onSubmit() {
-    if(this.resetForm.valid){
-      const{ email} =this.resetForm.value
-
+    console.log('Whats this');
+    if (this.resetForm.valid) {
+      const { email } = this.resetForm.value;
+  
       this.forgotPasswordService.resetMail(email).subscribe({
-        next: () => {
+        next: (response) => {
           this.notyf.success('Password Reset Mail Sent Successfully');
           this.resetForm.reset();
-          
+          this.router.navigateByUrl('/login')
         },
         error: (error) => {
           this.notyf.error('Password Reset Failed. Please Try Again');
         }
-      })
-     
-   }
-
-   
-}
+      });
+    }
+  }
+  
+  
 }
