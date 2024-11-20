@@ -7,7 +7,7 @@ import { AuthService } from './../../../features/auth/services/auth/auth.service
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
 
-  if (req.url.includes('/auth/public/') || req.url.includes('/password/reset-request')) {
+  if (req.url.includes('/auth/public/') || req.url.includes('/password/reset-request')||req.url.includes('/password/reset-password')) {
     return next(req);
   }
   if (authService.isTokenExpired()) {
