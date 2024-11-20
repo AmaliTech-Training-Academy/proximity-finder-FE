@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PasswordInputComponent } from "../password-input/password-input.component";
 import { FormValidators, passwordValidator } from '../../../../utils/passwordValidator';
 import { ChangePasswordService } from '../../services/change-password.service';
+import { NOTYF } from '../../../../shared/notify/notyf.token';
 
 @Component({
   selector: 'app-change-password',
@@ -13,9 +14,8 @@ import { ChangePasswordService } from '../../services/change-password.service';
 })
 
 export class ChangePasswordComponent{
-
-  successMessage: string = ''
-  errorMessage: string = ''
+  
+  private notyf = inject(NOTYF)
 
   changePasswordForm = this.fb.group({
     oldPassword: ['', [Validators.required, Validators.minLength(12)]],
@@ -37,11 +37,11 @@ export class ChangePasswordComponent{
     
       this.changePasswordService.changePassword(body).subscribe({
         next: () => {
-          this.successMessage = 'Password changed successfully'
+          this.notyf.success('Password changed successfully')
         },
         error: (err) => {
           console.error('Error changing password:', err)
-          this.errorMessage = 'Error changing password'
+          this.notyf.error('Error changing password')
         }
       });
     }

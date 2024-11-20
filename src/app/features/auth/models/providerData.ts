@@ -1,5 +1,5 @@
 export interface IProvider{
-    businessName: string;
+    userName: string;
     email: string;
     password: string;
     confirmPassword: string;

@@ -4,27 +4,46 @@ import { IPassword } from '../models/password';
 import { environment } from '../../../../environments/environment.development';
 import { catchError, Observable, retry } from 'rxjs';
 import { ErrorHandlingService } from '../../../core/services/error-handling.service';
+import { jwtDecode } from 'jwt-decode';
+import { LocalStorageService } from '../../../shared/services/local-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChangePasswordService {
+  token: string
+  email: string | null | undefined = null
 
-  constructor(private http: HttpClient, private errorHandler: ErrorHandlingService) {}
+  constructor(private http: HttpClient, private errorHandler: ErrorHandlingService, private localStorageService: LocalStorageService) {
+    this.token = this.localStorageService.getItem('accessToken') || ''
+    this.decodeToken()
+  }
 
-  email = 'admin@gmail.com'
-
+  
   changePassword(body: IPassword): Observable<IPassword> {
-
     if(!this.email) {
       throw new Error('Email not found')
     }
     
     const params = new HttpParams().set( 'email', this.email)
 
-    return this.http.put<IPassword>(`${environment.apiUrl}/auth/public/update-password`, body, {params}).pipe(
+    return this.http.put<IPassword>(`${environment.baseUrl}/auth/public/update-password`, body, {params}).pipe(
       retry(2),
       catchError(error => this.errorHandler.handleError(error))
     )
+  }
+
+  decodeToken(){
+    if(this.token) {
+      try {
+        const decodedToken = jwtDecode(this.token)
+        this.email = decodedToken.sub
+      }
+      catch (error) {
+        console.error('Error decoding token:', error)
+      }
+    } else {
+      console.error('Token not found')
+    }
   }
 }

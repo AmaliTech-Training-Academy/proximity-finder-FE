@@ -4,15 +4,21 @@ import { IClient } from '../../auth/models/client';
 import { environment } from '../../../../environments/environment';
 import { catchError, Observable, retry } from 'rxjs';
 import { ErrorHandlingService } from '../../../core/services/error-handling.service';
+import { LocalStorageService } from '../../../shared/services/local-storage.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
+  token: string
+  email: string | null | undefined = null
 
-  constructor(private http: HttpClient, private errorHandler: ErrorHandlingService) {}
+  constructor(private http: HttpClient, private errorHandler: ErrorHandlingService, private localStorageService: LocalStorageService) {
+    this.token = this.localStorageService.getItem('accessToken') || ''
+    this.decodeToken()
+  }
 
-  email = 'admin@gmail.com'
 
   getClient(): Observable<IClient> {
     if(!this.email) {
@@ -20,16 +26,30 @@ export class ProfileService {
     }
     const params = new HttpParams().set( 'email', this.email )
 
-    return this.http.get<IClient>(`${environment.apiUrl}/auth/info`, { params }).pipe(
+    return this.http.get<IClient>(`${environment.baseUrl}/auth/info`, { params }).pipe(
       retry(2),
       catchError((error) => this.errorHandler.handleError(error)
     ))
   }
   
   updateClient(client: IClient): Observable<IClient> {
-    return this.http.patch<IClient>(`${environment.apiUrl}/auth/update-profile`, client).pipe(
+    return this.http.patch<IClient>(`${environment.baseUrl}/auth/update-profile`, client).pipe(
       retry(2),
       catchError((error) => this.errorHandler.handleError(error))
     )
+  }
+
+  decodeToken(){
+    if(this.token) {
+      try {
+        const decodedToken = jwtDecode(this.token)
+        this.email = decodedToken.sub
+      }
+      catch (error) {
+        console.error('Error decoding token:', error)
+      }
+    } else {
+      console.error('Token not found')
+    }
   }
 }

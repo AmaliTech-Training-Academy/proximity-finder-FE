@@ -1,23 +1,32 @@
 <div class="container">
-    <div class="logo">
-        <img src="assets/svgs/Logo.svg" alt="logo">
-    </div>
+  <div class="logo">
+    <img src="assets/svgs/Logo.svg" alt="logo" />
+  </div>
 
-    <div class="form">
-        <h6>Log in to your Account</h6>
-        <p>Welcome back, select a method to sign in</p>
+  <div class="form">
+    <h6>Log in to your Account</h6>
+    <p>Welcome back, select a method to sign in</p>
 
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-          <app-input-field
-          type="email"
-          placeholder="Email"
-          imgPath="assets/svgs/email.svg"
-          formControlName="email"
-          [error]="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)"
-          />
-          <div class="error-message" *ngIf="loginForm.get('email')?.invalid && (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)">
-            Email is required and must be valid
-          </div>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <app-input-field
+        type="email"
+        placeholder="Email"
+        imgPath="assets/svgs/email.svg"
+        formControlName="email"
+        [error]="
+          loginForm.get('email')?.invalid &&
+          (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)
+        "
+      />
+      <div
+        class="error-message"
+        *ngIf="
+          loginForm.get('email')?.invalid &&
+          (loginForm.get('email')?.dirty || loginForm.get('email')?.touched)
+        "
+      >
+        Email is required and must be valid
+      </div>
 
           <app-input-field
           type="password"

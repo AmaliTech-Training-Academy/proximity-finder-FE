@@ -16,14 +16,14 @@ export class ImageManagementService {
     const formData = new FormData()
     formData.append('image', image)
 
-    return this.http.post<File>(`${environment.apiUrl}/auth/upload`, formData).pipe(
+    return this.http.post<File>(`${environment.baseUrl}/auth/upload`, formData).pipe(
       retry(2),
       catchError((error) => this.errorHandler.handleError(error))
     )
   }
 
   deleteProfileImage(): Observable<File> {
-    return this.http.delete<File>(`${environment.apiUrl}/auth/delete`).pipe(
+    return this.http.delete<File>(`${environment.baseUrl}/auth/delete`).pipe(
       retry(2),
       catchError((error) => this.errorHandler.handleError(error))
     )

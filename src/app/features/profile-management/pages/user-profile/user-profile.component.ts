@@ -11,6 +11,7 @@ import { CommonModule } from '@angular/common';
 import { ProfileService } from '../../services/profile.service';
 import { IClient } from '../../../auth/models/client';
 import { MatIconModule } from '@angular/material/icon';
+import { NOTYF } from '../../../../shared/notify/notyf.token';
 
 @Component({
   selector: 'app-user-profile',
@@ -30,6 +31,8 @@ export class UserProfileComponent implements OnInit {
   imageUrl: string | ArrayBuffer | null = null
   selectedFile: File | null = null
   defaultImage = 'assets/images/default-avatar.png'
+
+  private notyf = inject(NOTYF)
 
   constructor(private fb: FormBuilder, private profileService: ProfileService) { }
 
@@ -78,6 +81,10 @@ export class UserProfileComponent implements OnInit {
           this.client = client
           this.updateUserForm()
           this.isFormActive = false
+          this.notyf.success('Profile updated successfully')
+        },
+        error: (error) => {
+          this.notyf.error('An error occurred while updating profile')
         }
       })
     }
