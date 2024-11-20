@@ -20,6 +20,7 @@ export class AboutBusinessComponent {
     employees:['', Validators.required],
     summary: ['', Validators.required],
     
+    
   })
 
   constructor(private fb:FormBuilder,private router:Router){}

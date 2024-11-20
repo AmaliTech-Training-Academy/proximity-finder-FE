@@ -31,28 +31,26 @@ export class LoginInputComponent implements OnDestroy {
     @Inject(NOTYF) private notyf: Notyf
   ) {}
 
+ 
   onSubmit() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value; 
       this.authService.login(email, password).subscribe({
         next: (res) => {
-          let redirectPath = '';
-          switch(res.role) {
-            case 'ADMIN':
-              redirectPath = 'admin/dashboard';
-              break;
-            case 'SEEKER':
-              redirectPath = '';
-              break;
-            case 'PROVIDER':
-              redirectPath = 'provider/dashboard';
-              break;
-          }
           this.notyf.success('Login Successful');
-          setTimeout(() => {
+          console.log('response',res)
+            
+            if (res.roles[0] === 'ROLE_ADMIN') {
+              console.log('Admin')
+              this.router.navigateByUrl('admin/dashboard');
+            } else if (res.roles[0] === 'ROLE_SEEKER') {
+              console.log('seeker')
+              this.router.navigateByUrl('');
+            } else if (res.roles[0] === 'ROLE_PROVIDER') {
+              console.log('Yes provider')
+              this.router.navigateByUrl('/registration');
+            } 
             this.loginForm.reset();
-            this.router.navigateByUrl(redirectPath);
-          }, 500); 
         },
         error: () => {
           this.notyf.error('Login failed. Please check your credentials.');
@@ -60,7 +58,7 @@ export class LoginInputComponent implements OnDestroy {
       });
     }
   }
-
+  
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();
