@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { SvgService } from '../../../../shared/services/svg.service';
+import { ProfileService } from '../../../profile-management/services/profile.service';
+import { User } from '../../../profile-management/models/user';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,5 +13,12 @@ import { SvgService } from '../../../../shared/services/svg.service';
   styleUrl: './sidebar.component.sass'
 })
 export class SidebarComponent {
-  constructor(private svgService: SvgService) {}
+  loggedInUser: User | null = null
+  constructor(private svgService: SvgService, private profileService: ProfileService) {}
+
+  ngOnInit(): void {
+    this.profileService.loggedInUser$.subscribe((user) => {
+      this.loggedInUser = user
+    })
+  }
 }

@@ -58,10 +58,12 @@
             <img src="../../../../../assets/images/profile.png" alt="user's profile avatar">
         </div>
 
-        <div class="profile-details">
-            <h4>Esthera Jackson</h4>
-            <p>Admin</p>
-        </div>
+        @if (loggedInUser) {
+            <div class="profile-details">
+                <h4>{{loggedInUser.username}}</h4>
+                <p>Admin</p>
+            </div>
+        }
 
         <div class="logout-icon">
             <mat-icon svgIcon="logout" aria-hidden="false" aria-label="logout icon"></mat-icon>

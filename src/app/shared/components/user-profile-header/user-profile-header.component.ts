@@ -34,7 +34,6 @@ export class UserProfileHeaderComponent implements OnInit{
     else {
       this.router.navigate(['/provider/dashboard'])
     }
-  
   }
 
   ngOnDestroy(): void {
