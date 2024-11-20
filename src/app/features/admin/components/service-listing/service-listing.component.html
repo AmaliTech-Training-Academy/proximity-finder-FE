@@ -1,7 +1,6 @@
 <main>
-  <app-service-card />
-  <app-service-card />
-  <app-service-card />
-  <app-service-card />
-  <app-service-card />
+  @if (serviceCategories$ | async; as serviceCategories) { @for (serviceCategory
+  of serviceCategories; track serviceCategory.id) {
+  <app-service-card [serviceCategory]="serviceCategory" />
+  } }
 </main>

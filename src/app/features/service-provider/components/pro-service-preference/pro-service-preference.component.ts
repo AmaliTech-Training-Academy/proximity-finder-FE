@@ -54,9 +54,10 @@ export class ProServicePreferenceComponent {
 
   ngOnInit() {
     this.serviceService.getServices().subscribe({
-      next: (response: ServiceResponse) =>
-        (this.serviceCategories = response.result),
-      error: (error) => console.log(error),
+      next: (response) => {
+        this.serviceCategories = response;
+      },
+      error: (error) => console.error('Error:', error),
     });
   }
 
