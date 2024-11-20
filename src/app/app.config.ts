@@ -5,12 +5,17 @@ import { routes } from './app.routes';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { provideHttpClient, withFetch } from '@angular/common/http';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { NOTYF, notyfFactory } from './shared/notify/notyf.token';
+import { authInterceptor } from './core/interceptors/auth/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes),
+  providers: [
+     {provide: NOTYF,
+     useFactory: notyfFactory },
+    provideRouter(routes),
               BrowserModule,
               BrowserAnimationsModule,
               provideAnimationsAsync(),
-              provideHttpClient(withFetch())],
+              provideHttpClient(withInterceptors([authInterceptor])),],
 };
