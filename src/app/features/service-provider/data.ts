@@ -2,6 +2,37 @@
 export const generalStats = [
   {
     icon: '../../../../../assets/users.svg',
+    name: 'Total Projects',
+    number: 12450,
+    percentage: 15.8,
+    type: 'increase',
+  },
+  {
+    icon: '../../../../../assets/services.svg',
+    name: 'Total Services',
+    number: 10450,
+    percentage: 19.9,
+    type: 'increase',
+  },
+  {
+    icon: '../../../../../assets/appointments.svg',
+    name: 'Completed Bookings',
+    number: 9450,
+    percentage: 6.5,
+    type: 'decrease',
+  },
+  {
+    icon: '../../../../../assets/revenue.svg',
+    name: 'Total Revenue',
+    number: 363.95,
+    percentage: 36.5,
+    type: 'decrease',
+  },
+];
+
+export const adminGeneralStats = [
+  {
+    icon: '../../../../../assets/users.svg',
     name: 'Total Users',
     number: 12450,
     percentage: 15.8,
@@ -15,7 +46,7 @@ export const generalStats = [
     type: 'increase',
   },
   {
-    icon: '../../../../../assets/bookings.svg',
+    icon: '../../../../../assets/appointments.svg',
     name: 'Completed Bookings',
     number: 9450,
     percentage: 6.5,
@@ -23,7 +54,7 @@ export const generalStats = [
   },
   {
     icon: '../../../../../assets/revenue.svg',
-    name: 'Revenue',
+    name: 'Total Revenue',
     number: 363.95,
     percentage: 36.5,
     type: 'decrease',
@@ -383,4 +414,14 @@ export const serviceCategories = [
   { name: 'Cleaning' },
   { name: 'Plumbing' },
   { name: 'Painting' },
+];
+
+export const bookingDays = [
+  { name: 'Sunday' },
+  { name: 'Monday' },
+  { name: 'Tuesday' },
+  { name: 'Wednesday' },
+  { name: 'Thursday' },
+  { name: 'Friday' },
+  { name: 'Saturday' },
 ];

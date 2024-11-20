@@ -1,16 +1,29 @@
 <div class="container">
   <h3>Service Preference</h3>
   <p>Tell us more about your preferences and what you can offer.</p>
-  <form class="service-preference-form">
+  <form
+    class="service-preference-form"
+    [formGroup]="servicePreferenceForm"
+    (ngSubmit)="onSubmit()"
+  >
     <div>
       <label for="jobTitle">What service do you offer?*</label>
       <p-dropdown
-        id="services"
-        formControlName="services"
+        id="service"
+        formControlName="service"
         [options]="serviceCategories"
         optionLabel="name"
         placeholder="Please choose"
       />
+      <p
+        class="error-message"
+        *ngIf="
+          servicePreferenceForm.get('service')?.touched &&
+          servicePreferenceForm.get('service')?.invalid
+        "
+      >
+        Service is required
+      </p>
     </div>
     <div>
       <label for="paymentPreference">Payment Preference*</label>
@@ -21,38 +34,108 @@
         optionLabel="name"
         placeholder="Please choose"
       />
+      <p
+        class="error-message"
+        *ngIf="
+          servicePreferenceForm.get('paymentPreference')?.touched &&
+          servicePreferenceForm.get('paymentPreference')?.invalid
+        "
+      >
+        Payment preference is required.
+      </p>
     </div>
     <div class="section-booking">
-      <div>
-        <label for="bookingDays">Booking Days</label>
-        <p-dropdown
-          id="bookingDays"
-          formControlName="bookingDays"
-          [options]=""
-          optionLabel="name"
-          placeholder="Please choose"
-        />
-      </div>
-      <div class="bookingTimes">
-        <div>
-          <label for="from">From</label>
-          <p-dropdown
-            formControlName="bookingTimeFrom"
-            [options]=""
-            optionLabel="name"
-            placeholder="00:00"
-          />
+      <div formArrayName="bookingDays" class="bookingFields">
+        <div
+          *ngFor="
+            let bookingDay of bookingDaysFormArray.controls;
+            let i = index
+          "
+          class="booking"
+          [formGroupName]="i"
+        >
+          <div class="day">
+            <label for="bookingDay-{{ i }}">Booking Day</label>
+            <p-dropdown
+              id="bookingDay-{{ i }}"
+              formControlName="dayOfWeek"
+              [options]="days"
+              optionLabel="name"
+              placeholder="Please choose"
+            />
+            <p
+              class="error-message"
+              *ngIf="
+                bookingDay.get('dayOfWeek')?.touched &&
+                bookingDay.get('dayOfWeek')?.invalid
+              "
+            >
+              Booking day is required.
+            </p>
+          </div>
+          <div class="bookingTimes">
+            <div>
+              <label for="startTime-{{ i }}">From</label>
+              <p-dropdown
+                id="startTime-{{ i }}"
+                formControlName="startTime"
+                [options]="timeOptions"
+                optionLabel="name"
+                placeholder="00:00"
+              />
+              <p
+                class="error-message"
+                *ngIf="
+                  bookingDay.get('startTime')?.touched &&
+                  bookingDay.get('startTime')?.invalid
+                "
+              >
+                Start time is required.
+              </p>
+            </div>
+            <div>
+              <label for="endTime-{{ i }}">To</label>
+              <p-dropdown
+                id="endTime-{{ i }}"
+                formControlName="endTime"
+                [options]="timeOptions"
+                optionLabel="name"
+                placeholder="00:00"
+              />
+              <p
+                class="error-message"
+                *ngIf="
+                  bookingDay.get('endTime')?.touched &&
+                  bookingDay.get('endTime')?.invalid
+                "
+              >
+                End time is required.
+              </p>
+            </div>
+          </div>
+          <button
+            class="remove-booking-day"
+            (click)="removeBookingDay(i)"
+            *ngIf="bookingDaysFormArray.length > 1"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 20 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M9.59612 0.517578C4.35481 0.517578 0.118164 4.75422 0.118164 9.99553C0.118164 15.2368 4.35481 19.4735 9.59612 19.4735C14.8374 19.4735 19.0741 15.2368 19.0741 9.99553C19.0741 4.75422 14.8374 0.517578 9.59612 0.517578ZM9.59612 17.5779C5.41634 17.5779 2.01376 14.1753 2.01376 9.99553C2.01376 5.81576 5.41634 2.41317 9.59612 2.41317C13.7759 2.41317 17.1785 5.81576 17.1785 9.99553C17.1785 14.1753 13.7759 17.5779 9.59612 17.5779ZM12.9987 5.25656L9.59612 8.65914L6.19353 5.25656L4.85714 6.59295L8.25973 9.99553L4.85714 13.3981L6.19353 14.7345L9.59612 11.3319L12.9987 14.7345L14.3351 13.3981L10.9325 9.99553L14.3351 6.59295L12.9987 5.25656Z"
+                fill="#E1571D"
+              />
+            </svg>
+          </button>
         </div>
-        <div>
-          <label for="to">To</label>
-          <p-dropdown
-            formControlName="bookingTimeTo"
-            [options]=""
-            optionLabel="name"
-            placeholder="00:00"
-          />
-        </div>
       </div>
+      <button type="button" (click)="addBookingDay()" class="add-booking-day">
+        + Add Booking Day
+      </button>
     </div>
     <div>
       <label>Is this the same location as the previous one?*</label>
@@ -74,10 +157,19 @@
         formControlName="location"
         placeholder="Accra, Ghana"
       />
+      <p
+        class="error-message"
+        *ngIf="
+          servicePreferenceForm.get('location')?.touched &&
+          servicePreferenceForm.get('location')?.invalid
+        "
+      >
+        Location is required.
+      </p>
     </div>
     <div>
       <label for="documents">Upload Extra Documents</label>
-      <app-file-uploader />
+      <app-file-uploader (filesSelected)="onFilesSelected($event)" />
     </div>
     <div>
       <label for="schedulingPolicy">Scheduling Policy (Optional)</label>
