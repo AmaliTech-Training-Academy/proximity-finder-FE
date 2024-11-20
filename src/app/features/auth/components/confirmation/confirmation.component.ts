@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
   styleUrl: './confirmation.component.sass',
 })
 export class ConfirmationComponent implements OnDestroy {
-  email: string = '';
+  email = '';
   private subscription: Subscription = new Subscription();
 
   constructor(

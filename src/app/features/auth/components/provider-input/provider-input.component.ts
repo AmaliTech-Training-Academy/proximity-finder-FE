@@ -62,9 +62,9 @@ export class ProviderInputComponent implements OnDestroy {
         next: (res) => {
           this.notyf.success('Registration Successful');
           setTimeout(() => {
-            this.signUpForm.reset();
             this.router.navigateByUrl('/registration');
           }, 1000); 
+          this.signUpForm.reset();
         },
         error: (err) => {
           this.notyf.error('Registration Failed. Please try again');

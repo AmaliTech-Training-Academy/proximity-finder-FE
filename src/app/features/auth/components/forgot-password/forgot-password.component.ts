@@ -30,6 +30,7 @@ export class ForgotPasswordComponent implements OnDestroy {
       const { email } = this.resetForm.value;
   
       this.forgotPasswordService.resetMail(email).subscribe({
+
         next: (response) => {
           this.notyf.success('Password Reset Mail Sent Successfully');
           this.resetForm.reset();

@@ -41,14 +41,12 @@ export class ResetPasswordComponent implements OnDestroy{
         if(token){
         this.resetPasswordService.resetPassword(password,confirmPassword,token).subscribe({
           next: (response) => {
-            console.log('Response:', response)
             this.notyf.success('Password Reset Successfully');
             this.passwordForm.reset();
             this.router.navigateByUrl('/login');
           },
   
           error: (error) => {
-            console.log('Error:', error);
             this.notyf.error('Password Reset Failed. Please Try Again');
           }
         })
