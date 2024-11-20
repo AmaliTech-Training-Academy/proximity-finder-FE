@@ -1,8 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component} from '@angular/core';
+import { Component, Inject} from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { InputFieldComponent } from '../input-field/input-field.component';
+import { ForgotPasswordService } from '../../services/forgot-password/forgot-password.service';
+import { Notyf } from 'notyf';
+import { NOTYF } from '../../../../shared/notify/notyf.token';
 
 @Component({
   selector: 'app-forgot-password',
@@ -16,11 +19,25 @@ export class ForgotPasswordComponent {
     email: ['', [Validators.required, Validators.email]]
   });
 
-   constructor(private fb: FormBuilder) {}
+   constructor(private fb: FormBuilder,private forgotPasswordService:ForgotPasswordService, @Inject(NOTYF) private notyf: Notyf) {}
      
    onSubmit() {
+    if(this.resetForm.valid){
+      const{ email} =this.resetForm.value
+
+      this.forgotPasswordService.resetMail(email).subscribe({
+        next: () => {
+          this.notyf.success('Password Reset Mail Sent Successfully');
+          this.resetForm.reset();
+          
+        },
+        error: (error) => {
+          this.notyf.error('Password Reset Failed. Please Try Again');
+        }
+      })
      
    }
 
    
+}
 }
