@@ -8,7 +8,7 @@
         <p>We’ve sent you an email with a confirmation link.<br> Tap on the link to reset your password</p>
 
         <div id="buttons">
-            <button class="btn-resend">Resend Email</button>
+            <button class="btn-resend" (click)="resendEmail()">Resend Email</button>
             <button class="btn-back" [routerLink]="['/login']">Back to Login</button>
         </div>
     </div>
