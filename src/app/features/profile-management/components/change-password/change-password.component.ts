@@ -1,52 +1,50 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { InputFieldComponent } from "../../../auth/components/input-field/input-field.component";
+import { Component, inject } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { PasswordInputComponent } from "../password-input/password-input.component";
+import { FormValidators, passwordValidator } from '../../../../utils/passwordValidator';
+import { ChangePasswordService } from '../../services/change-password.service';
+import { NOTYF } from '../../../../shared/notify/notyf.token';
 
 @Component({
   selector: 'app-change-password',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, PasswordInputComponent],
   templateUrl: './change-password.component.html',
   styleUrl: './change-password.component.sass'
 })
+
 export class ChangePasswordComponent{
+  
+  private notyf = inject(NOTYF)
+
   changePasswordForm = this.fb.group({
     oldPassword: ['', [Validators.required, Validators.minLength(12)]],
-    newPassword: ['', [Validators.required, Validators.minLength(12)]],
+    newPassword: ['', [Validators.required, Validators.minLength(12), passwordValidator]],
     confirmPassword: ['', Validators.required]
-  }, {validators: [this.passwordMatchValidator, this.passwordMismatchValidator]})
+  }, {validators: [FormValidators.passwordMatchValidator]})
 
-  oldPasswordVisible = false;
-  newPasswordVisible = false;
-  confirmPasswordVisible = false;
-
-  constructor (private fb: FormBuilder) {}
-
-  passwordMatchValidator(form: FormGroup): {[key: string]: boolean} | null {
-    return form.get('newPassword')?.value === form.get('confirmPassword')?.value ? null : {'mismatch': true}
-  }
-
-  passwordMismatchValidator(form: FormGroup): {[key: string]: boolean} | null {
-    return form.get('oldPassword')?.value === form.get('newPassword')?.value ? {'mismatch': true} : null
-  }
-
-  togglePasswordVisibility(type: string): void {
-    if (type === 'oldPassword') {
-      this.oldPasswordVisible = !this.oldPasswordVisible
-    }
-    else if (type === 'newPassword') {
-      this.newPasswordVisible = !this.newPasswordVisible
-    }
-    else {
-      this.confirmPasswordVisible = !this.confirmPasswordVisible
-    }
-  }
+  constructor (private fb: FormBuilder, private changePasswordService: ChangePasswordService) {}
 
   onSubmit() {
     if (this.changePasswordForm.valid) {
-      const {oldPassword, newPassword, confirmPassword} = this.changePasswordForm.value
+      const { oldPassword, newPassword, confirmPassword } = this.changePasswordForm.value;
 
-      this.changePasswordForm.reset()
+      const body = {
+        oldPassword: oldPassword ?? '',
+        newPassword: newPassword ?? '',
+        confirmPassword: confirmPassword ?? ''
+      };
+    
+      this.changePasswordService.changePassword(body).subscribe({
+        next: () => {
+          this.notyf.success('Password changed successfully')
+        },
+        error: (err) => {
+          console.error('Error changing password:', err)
+          this.notyf.error('Error changing password')
+        }
+      });
     }
   }
+  
 }
