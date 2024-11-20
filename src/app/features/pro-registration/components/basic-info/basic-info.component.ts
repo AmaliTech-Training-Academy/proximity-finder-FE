@@ -15,7 +15,7 @@ import { RouterLink } from '@angular/router';
 export class BasicInfoComponent {
   registrationForm:FormGroup = this.formBuilder.group({
     businessOwnerName:['', Validators.required],
-    phoneNumber:['', Validators.required,Validators.pattern('^\\d{10}$')],
+    phoneNumber:['', Validators.required,Validators.pattern('^\\+?[1-9]\\d{1,14}(?:[\\s\\-]\\d{1,4})*$')],
     businessAddress:['', Validators.required],
     businessEmail:['', Validators.required, Validators.email],
     businessName:['', Validators.required],

@@ -66,6 +66,7 @@
         <div class="error-message" *ngIf="signUpForm.hasError('mismatchedPassword') && (signUpForm.get('confirmPassword')?.dirty || signUpForm.get('confirmPassword')?.touched)">
           Passwords do not match
         </div>
+        
         <button class="btn-signup" type="submit" [disabled]="signUpForm.invalid">Sign up</button>
         <div class="google">
           <img src="assets/svgs/Google.svg" alt="google">
