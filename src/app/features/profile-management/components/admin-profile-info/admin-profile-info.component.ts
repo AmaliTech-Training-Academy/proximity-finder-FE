@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { DeleteModalComponent } from '../delete-modal/delete-modal.component';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -8,6 +8,8 @@ import { CommonModule } from '@angular/common';
 import { FieldsComponent } from "../../../pro-registration/components/fields/fields.component";
 import { IClient } from '../../../auth/models/client';
 import { ProfileService } from '../../services/profile.service';
+import { Subscription } from 'rxjs';
+import { NOTYF } from '../../../../shared/notify/notyf.token';
 @Component({
   selector: 'app-admin-profile-info',
   standalone: true,
@@ -16,31 +18,41 @@ import { ProfileService } from '../../services/profile.service';
   styleUrl: './admin-profile-info.component.sass',
   providers: [provideNativeDateAdapter()]
 })
-export class AdminProfileInfoComponent implements OnInit{
+export class AdminProfileInfoComponent implements OnInit, OnDestroy{
   readonly dialog = inject(MatDialog)
+  private subscription: Subscription = new Subscription()
+  private notyf = inject(NOTYF)
 
   isFormActive: boolean = false
+  disableEmail: boolean = true
   imageUrl: string = ''
   selectedFile: File | null = null
   client!: IClient
 
-  constructor(private fb: FormBuilder, private profileService: ProfileService) { }
+  constructor(private fb: FormBuilder, private profileService: ProfileService) {  }
 
   togglEditForm(): void {
     this.isFormActive = !this.isFormActive
   }
 
   ngOnInit(): void {
-    this.profileService.getClient().subscribe((client) => {
-      this.client = client
-      this.updateUserForm()
-    })
+    this.profileService.getClient().subscribe({
+      next: (client) => {
+        this.client = client;
+        this.updateUserForm();
+      },
+      error: (error) => {
+        console.error('Error fetching client data:', error);
+      }
+    });
   }
+  
+  
 
   userForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
-    email: ['', [Validators.required, Validators.email]],
-    phone: ['', [Validators.required,Validators.pattern(/^\d{10}$/)]]
+    email: ['', Validators.email],
+    phone: ['', [Validators.required]]
   })
 
   updateUserForm() {
@@ -53,10 +65,9 @@ export class AdminProfileInfoComponent implements OnInit{
 
   onSubmit() {
     if(this.userForm.valid) {
-      const {name, email, phone} = this.userForm.value
+      const {name, phone} = this.userForm.value
       const updatedClient:IClient = {...this.client,
              userName: name ?? '',
-             email: email ?? '',
              mobileNumber: parseInt(phone ?? '0',10)}
 
       this.profileService.updateClient(updatedClient).subscribe({
@@ -64,6 +75,11 @@ export class AdminProfileInfoComponent implements OnInit{
           this.client = client
           this.updateUserForm()
           this.isFormActive = false
+          this.notyf.success('Profile updated successfully')
+        },
+        error: (error) => {
+          console.error('Error updating profile:', error)
+          this.notyf.error('Error updating profile')
         }
       })
     }
@@ -97,5 +113,9 @@ export class AdminProfileInfoComponent implements OnInit{
       };
       reader.readAsDataURL(file);
     } 
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe()
   }
 }

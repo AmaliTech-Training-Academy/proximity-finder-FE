@@ -52,6 +52,7 @@
                         type="email"
                         placeholder="whitney491@gmail.com"
                         formControlName="email"
+                        [readOnly]="!isFormActive"
                         [class]="'custom-style'"
                         [error]="userForm.get('email')?.invalid && (userForm.get('email')?.touched || userForm.get('email')?.dirty)"
                     />

@@ -70,10 +70,9 @@ export class UserProfileComponent implements OnInit {
 
   onSubmit() {
     if (this.userForm.valid) {
-      const {name, email, phone} = this.userForm.value
+      const {name, phone} = this.userForm.value
       const updatedClient:IClient = {...this.client,
              userName: name ?? '',
-             email: email ?? '',
              mobileNumber: parseInt(phone ?? '0',10)}
 
       this.profileService.updateClient(updatedClient).subscribe({
