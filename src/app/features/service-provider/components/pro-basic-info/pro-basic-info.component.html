@@ -1,5 +1,5 @@
 <main>
-  <form [formGroup]="basicInfoForm">
+  <form [formGroup]="basicInfoForm" (ngSubmit)="onSubmit()">
     <section class="formData">
       <div class="left">
         <div class="businessName">

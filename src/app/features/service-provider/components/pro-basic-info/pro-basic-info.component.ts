@@ -62,4 +62,10 @@ export class ProBasicInfoComponent {
       }
     });
   }
+
+  onSubmit() {
+    if (this.basicInfoForm.valid) {
+      console.log(this.basicInfoForm.value);
+    }
+  }
 }
