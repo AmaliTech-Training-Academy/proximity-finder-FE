@@ -12,7 +12,7 @@ export class ProfileService {
 
   constructor(private http: HttpClient, private errorHandler: ErrorHandlingService) {}
 
-  email = 'admin@gmail.com';
+  email = 'admin@gmail.com'
 
   getClient(): Observable<IClient> {
     if(!this.email) {
@@ -27,7 +27,7 @@ export class ProfileService {
   }
   
   updateClient(client: IClient): Observable<IClient> {
-    return this.http.patch<IClient>(`${environment.apiUrl}/auth/update`, client).pipe(
+    return this.http.patch<IClient>(`${environment.apiUrl}/auth/update-profile`, client).pipe(
       retry(2),
       catchError((error) => this.errorHandler.handleError(error))
     )
