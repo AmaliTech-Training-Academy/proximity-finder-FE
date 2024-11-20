@@ -37,7 +37,7 @@
         </form>
     
         <div class="info-container">
-            <form [formGroup]="userForm">
+            <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
                 
                 <div class="input-field">
                     <app-fields label="Name"
@@ -45,10 +45,8 @@
                             placeholder="Esthera Jackson"
                             formControlName="name"
                             [readOnly]="!isFormActive"
-                            [ngClass]="{
-                                'error': userForm.get('name')?.invalid && (userForm.get('name')?.touched || userForm.get('name')?.dirty),
-                                'custom-style': true
-                              }"
+                            [class]="'custom-style'"
+                            [error]="userForm.get('name')?.invalid && (userForm.get('name')?.touched || userForm.get('name')?.dirty)"
                     />
                     @if (isFormActive && userForm.get('name')?.invalid && (userForm.get('name')?.touched || userForm.get('name')?.dirty)) {
                         @if (userForm.get('name')?.errors?.['required']) {
@@ -66,12 +64,9 @@
                         placeholder="whitney491@gmail.com"
                         formControlName="email"
                         [readOnly]="!isFormActive"
-                        [ngClass]="{
-                            'error': userForm.get('email')?.invalid && (userForm.get('email')?.touched || userForm.get('email')?.dirty),
-                            'custom-style': true
-                          }"
+                        [class]="'custom-style'"
+                        [error]="userForm.get('email')?.invalid && (userForm.get('email')?.touched || userForm.get('email')?.dirty)"
                     />
-                    
                     @if (isFormActive && userForm.get('email')?.invalid && (userForm.get('email')?.touched || userForm.get('email')?.dirty)) {
                         @if (userForm.get('email')?.errors?.['required']) {
                             <small class="error">Email is required.</small>
@@ -88,10 +83,8 @@
                         placeholder="Add a phone number"
                         formControlName="phone"
                         [readOnly]="!isFormActive"
-                        [ngClass]="{
-                            'error': userForm.get('phone')?.invalid && (userForm.get('phone')?.touched || userForm.get('phone')?.dirty),
-                            'custom-style': true
-                          }"
+                        [class]="'custom-style'"
+                        [error]="userForm.get('phone')?.invalid && (userForm.get('phone')?.touched || userForm.get('phone')?.dirty)"
                     />
                     @if (isFormActive && userForm.get('phone')?.invalid && (userForm.get('phone')?.touched || userForm.get('phone')?.dirty)) {
                         @if (userForm.get('phone')?.errors?.['required']) {

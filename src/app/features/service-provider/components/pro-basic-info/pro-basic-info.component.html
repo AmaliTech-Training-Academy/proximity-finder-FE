@@ -1,0 +1,63 @@
+<main>
+  <form [formGroup]="basicInfoForm" (ngSubmit)="onSubmit()">
+    <section class="formData">
+      <div class="left">
+        <div class="businessName">
+          <label for="businessName">Business Name</label>
+          <input type="text" id="businessName" formControlName="businessName" />
+        </div>
+
+        <div class="businessEmail">
+          <label for="businessEmail">Business Email</label>
+          <input
+            type="email"
+            id="businessEmail"
+            formControlName="businessEmail"
+          />
+        </div>
+
+        <div class="businessAddress">
+          <label for="businessAddress">Business Address</label>
+          <input
+            type="text"
+            id="businessAddress"
+            formControlName="businessAddress"
+          />
+        </div>
+      </div>
+      <div class="right">
+        <div class="businessOwner">
+          <label for="businessOwnerName">Business Owner's Name</label>
+          <input
+            type="text"
+            id="businessOwnerName"
+            formControlName="businessOwnerName"
+          />
+        </div>
+        <div class="phoneNumber">
+          <label for="phoneNumber">Phone Number</label>
+          <input type="tel" id="phoneNumber" formControlName="phoneNumber" />
+        </div>
+      </div>
+    </section>
+    <section class="formActions">
+      <button
+        [style]="{ display: isEditing ? 'none' : 'block' }"
+        type="button"
+        class="edit"
+        (click)="setEditing()"
+      >
+        Edit
+      </button>
+      <div
+        class="edit-buttons"
+        [style]="{ display: isEditing ? 'flex' : 'none' }"
+      >
+        <button type="button" class="cancel" (click)="cancelEditing()">
+          Cancel
+        </button>
+        <button type="submit" class="save">Save</button>
+      </div>
+    </section>
+  </form>
+</main>
