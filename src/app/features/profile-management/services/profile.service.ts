@@ -2,10 +2,12 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IClient } from '../../auth/models/client';
 import { environment } from '../../../../environments/environment';
-import { catchError, Observable, retry } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, retry } from 'rxjs';
 import { ErrorHandlingService } from '../../../core/services/error-handling.service';
 import { LocalStorageService } from '../../../shared/services/local-storage.service';
 import { jwtDecode } from 'jwt-decode';
+import { User } from '../models/user';
+
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +15,9 @@ import { jwtDecode } from 'jwt-decode';
 export class ProfileService {
   token: string
   email: string | null | undefined = null
+
+  loggedInUserSubject = new BehaviorSubject<User | null>(null)
+  loggedInUser$ = this.loggedInUserSubject.asObservable()
 
   constructor(private http: HttpClient, private errorHandler: ErrorHandlingService, private localStorageService: LocalStorageService) {
     this.token = this.localStorageService.getItem('accessToken') || ''
@@ -42,8 +47,9 @@ export class ProfileService {
   decodeToken(){
     if(this.token) {
       try {
-        const decodedToken = jwtDecode(this.token)
+        const decodedToken = jwtDecode(this.token) as User
         this.email = decodedToken.sub
+        this.loggedInUserSubject.next(decodedToken)
       }
       catch (error) {
         console.error('Error decoding token:', error)
