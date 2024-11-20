@@ -4,50 +4,48 @@
         <p>Basic Information</p>
         <span>Lets’ get your business information and get your business up and running.</span>
     </div>
-
-   <app-profile-update class="profile-update"/>
-
    <form  [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+      <app-profile-update class="profile-update"/>
     <app-fields
-    label="Business Name*"
+    label="Business Name"
     type="text"
     placeholder="Enter your business name"
     formControlName="businessName"
     />
 
     <app-fields
-    label="Business Owner's Name*"
+    label="Business Owner's Name"
     type="text"
     placeholder="Enter your full name"
     formControlName="businessOwnerName"
-    [ngClass]="{'has-error': registrationForm.get('businessOwnerName')?.invalid && (registrationForm.get('businessOwnerName')?.dirty || registrationForm.get('businessOwnerName')?.touched)}"
+    [error]="registrationForm.get('businessOwnerName')?.invalid && (registrationForm.get('businessOwnerName')?.dirty || registrationForm.get('businessOwnerName')?.touched)"
     />
     <div class="error-message" *ngIf="registrationForm.get('businessOwnerName')?.invalid && (registrationForm.get('businessOwnerName')?.dirty || registrationForm.get('businessOwnerName')?.touched)">
        Business Owner's name is required
       </div>
     
     <app-fields
-    label="Business Email*"
+    label="Business Email"
     type="text"
     placeholder="Enter your email "
     formControlName="businessEmail"
     />
     <app-fields
-    label="Phone Number*"
+    label="Phone Number"
     type="text"
     placeholder="Enter your mobile number"
     formControlName="phoneNumber"
-    [ngClass]="{'has-error': registrationForm.get('phoneNumber')?.invalid && (registrationForm.get('phoneNumber')?.dirty || registrationForm.get('phoneNumber')?.touched)}"
+    [error]=" registrationForm.get('phoneNumber')?.invalid && (registrationForm.get('phoneNumber')?.dirty || registrationForm.get('phoneNumber')?.touched)"
     />
     <div class="error-message" *ngIf="registrationForm.get('phoneNumber')?.invalid && (registrationForm.get('phoneNumber')?.dirty || registrationForm.get('phoneNumber')?.touched)">
        Phone number is required
       </div>
     <app-fields
-    label="Business Address*"
+    label="Business Address"
     type="text"
     placeholder="Enter your address "
     formControlName="businessAddress"
-    [ngClass]="{'has-error': registrationForm.get('businessAddress')?.invalid && (registrationForm.get('businessAddress')?.dirty || registrationForm.get('businessAddress')?.touched)}"
+    [error]="registrationForm.get('businessAddress')?.invalid && (registrationForm.get('businessAddress')?.dirty || registrationForm.get('businessAddress')?.touched)"
     />
     <div class="error-message" *ngIf="registrationForm.get('businessAddress')?.invalid && (registrationForm.get('businessAddress')?.dirty || registrationForm.get('businessAddress')?.touched)">
        Business Address is required

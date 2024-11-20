@@ -11,6 +11,9 @@
     padding: pxToRem(16) pxToRem(21)
     margin-top: pxToRem(16)
 
+    &.has-error
+          border: 1px solid $error
+
     img
       cursor: pointer
 
@@ -21,8 +24,7 @@
         &:focus
           outline: none
 
-        &.has-error
-          border: 1px solid $error
+       
 
     .error-message
         color: $error

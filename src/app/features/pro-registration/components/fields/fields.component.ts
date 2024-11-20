@@ -20,6 +20,8 @@ export class FieldsComponent  implements ControlValueAccessor {
   @Input() type:string=''
   @Input() label:string=''
   @Input() placeholder:string=''
+  @Input() readOnly: boolean = false;
+  @Input() error:boolean | undefined =false
 
   isDisabled: boolean = false;
 

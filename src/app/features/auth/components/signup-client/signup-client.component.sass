@@ -67,7 +67,7 @@
         margin-top: pxToRem(12)
 
       .btn-signup
-        width: pxToRem(514)
+        width: 100%
         padding: pxToRem(16) 0
         margin-top: pxToRem(16)
         border: none
@@ -80,9 +80,10 @@
         cursor: pointer
 
       .google
-        @include flex-option(flex , null, null ,row)
+        @include flex-option(flex , center, center ,row)
         gap: pxToRem(10)
-        padding: pxToRem(14) pxToRem(160)
+        padding: pxToRem(14) pxToRem(21)
+        width:100%
         margin-top: pxToRem(16)
         border: 1px solid $primary
         border-radius: pxToRem(8)
