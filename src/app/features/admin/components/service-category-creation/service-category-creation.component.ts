@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { ServiceListingComponent } from '../service-listing/service-listing.component';
 import { DialogModule } from 'primeng/dialog';
@@ -13,6 +13,10 @@ import { ImageUploaderComponent } from '../../../service-provider/components/ima
 import { ServiceService } from '../../../../core/services/service.service';
 import { ServiceCategory } from '../../../../core/models/IServiceCategory';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { NOTYF } from '../../../../shared/notify/notyf.token';
+import { Notyf } from 'notyf';
+import { AdminServiceCreationFormComponent } from '../admin-service-creation-form/admin-service-creation-form.component';
 
 @Component({
   selector: 'app-service-category-creation',
@@ -20,10 +24,9 @@ import { HttpClient } from '@angular/common/http';
   imports: [
     ReactiveFormsModule,
     ButtonModule,
-    ServiceListingComponent,
     DialogModule,
     InputTextModule,
-    ImageUploaderComponent,
+    AdminServiceCreationFormComponent,
   ],
   templateUrl: './service-category-creation.component.html',
   styleUrl: './service-category-creation.component.sass',
@@ -32,44 +35,22 @@ export class ServiceCategoryCreationComponent {
   visible: boolean = false;
   serviceCategoryForm: FormGroup = this.fb.group({
     categoryName: ['', Validators.required],
-    description: ['Some description'],
+    description: [''],
     serviceImage: [null],
   });
 
   constructor(
     private fb: FormBuilder,
-    private serviceService: ServiceService
+    private serviceService: ServiceService,
+    private router: Router,
+    @Inject(NOTYF) private notyf: Notyf
   ) {}
 
   showDialog() {
     this.visible = true;
   }
 
-  onImageUploaded(file: File) {
-    this.serviceCategoryForm.patchValue({
-      serviceImage: file,
-    });
-    console.log('Uploaded file', file);
-  }
-
-  submitForm() {
-    if (this.serviceCategoryForm.valid) {
-      this.onSubmit();
-    } else {
-      console.log('Form is invalid');
-    }
-  }
-
-  onSubmit() {
-    const serviceCategory: ServiceCategory = {
-      name: this.serviceCategoryForm.value.categoryName,
-      description: this.serviceCategoryForm.value.description,
-      image: this.serviceCategoryForm.value.serviceImage,
-    };
-
-    this.serviceService.createService(serviceCategory).subscribe({
-      next: (response) => console.log('Response:', response),
-      error: (error) => console.error('Error:', error),
-    });
+  resetDialog() {
+    this.visible = false;
   }
 }

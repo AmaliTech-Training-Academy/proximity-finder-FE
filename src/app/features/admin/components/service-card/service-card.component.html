@@ -3,7 +3,17 @@
   <div class="details">
     <div class="top">
       <h3 class="title">{{ serviceCategory.name }}</h3>
-      <button class="options"><i class="pi pi-ellipsis-v"></i></button>
+      <button class="options" (click)="menu.toggle($event)">
+        <i class="pi pi-ellipsis-v"></i>
+      </button>
     </div>
+    <p class="description">{{ serviceCategory.description }}</p>
   </div>
+
+  <p-menu #menu [model]="menuItems" [popup]="true" />
 </div>
+
+<app-admin-service-creation-form
+  [visible]="visible"
+  (visibleChange)="resetDialog()"
+/>

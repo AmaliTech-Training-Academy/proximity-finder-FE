@@ -167,11 +167,6 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '',
-        pathMatch: 'full',
-      },
-      {
-        path: '',
         loadComponent: () =>
           import(
             './features/admin/pages/admin-dashboard-home/admin-dashboard-home.component'
@@ -183,6 +178,10 @@ export const routes: Routes = [
           import(
             './features/admin/pages/admin-settings/admin-settings.component'
           ).then((m) => m.AdminSettingsComponent),
+      },
+      {
+        path: '**',
+        redirectTo: '',
       },
     ],
   },

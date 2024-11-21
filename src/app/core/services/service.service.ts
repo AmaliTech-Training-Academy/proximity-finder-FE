@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable } from 'rxjs';
 import { ServiceResponse } from '../models/IServiceResponse';
 import { ServiceCategory } from '../models/IServiceCategory';
 
@@ -9,13 +9,18 @@ import { ServiceCategory } from '../models/IServiceCategory';
 })
 export class ServiceService {
   apiUrl = 'http://3.136.48.244:8080/api/v1/services';
+  servicesSubject = new BehaviorSubject<ServiceCategory[]>([]);
+  serviceCategories$ = this.servicesSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.getServices();
+  }
 
-  getServices(): Observable<ServiceCategory[]> {
-    return this.http
+  getServices() {
+    this.http
       .get<ServiceResponse>(this.apiUrl)
-      .pipe(map((response) => response.result));
+      .pipe(map((response) => this.servicesSubject.next(response.result)))
+      .subscribe();
   }
 
   createService(serviceCategory: ServiceCategory): Observable<ServiceResponse> {
@@ -24,8 +29,12 @@ export class ServiceService {
     formData.append('description', serviceCategory.description);
     formData.append('image', serviceCategory.image);
 
-    console.log(formData);
-
     return this.http.post<ServiceResponse>(this.apiUrl, formData);
+  }
+
+  deleteService(id: string) {
+    this.http
+      .delete<ServiceResponse>(`${this.apiUrl}/${id}`)
+      .subscribe(() => this.getServices());
   }
 }

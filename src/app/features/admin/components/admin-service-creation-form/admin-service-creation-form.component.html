@@ -1,0 +1,47 @@
+<p-dialog
+  header="Create Service Category"
+  [modal]="true"
+  [(visible)]="visible"
+  (visibleChange)="closeDialog()"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '32.5rem' }"
+>
+  <form
+    class="service-category-form"
+    [formGroup]="serviceCategoryForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="name">
+      <label for="categoryName">Service Category Name</label>
+      <input
+        type="text"
+        pInputText
+        formControlName="categoryName"
+        placeholder="Enter the name of the service"
+      />
+    </div>
+    <div class="description">
+      <label for="description">Description</label>
+      <input
+        type="text"
+        pInputText
+        formControlName="description"
+        placeholder="Enter a description"
+      />
+    </div>
+    <div class="image">
+      <label for="serviceImage"> Attach Image </label>
+      <app-image-uploader (uploadedImage)="onImageUploaded($event)" />
+    </div>
+  </form>
+  <div class="buttons">
+    <p-button label="Cancel" severity="secondary" (onClick)="closeDialog()" />
+    <p-button
+      type="button"
+      (onClick)="submitForm()"
+      label="Create"
+      class="primary"
+    />
+  </div>
+</p-dialog>
