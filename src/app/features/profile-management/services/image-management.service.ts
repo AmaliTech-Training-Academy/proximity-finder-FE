@@ -4,7 +4,6 @@ import { environment } from '../../../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ErrorHandlingService } from '../../../core/services/error-handling.service';
 import { LocalStorageService } from '../../../shared/services/local-storage.service';
-import { jwtDecode } from 'jwt-decode';
 import { User } from '../models/user';
 import { decodeToken } from '../../../utils/decodeToken';
 
@@ -12,7 +11,6 @@ import { decodeToken } from '../../../utils/decodeToken';
   providedIn: 'root'
 })
 export class ImageManagementService {
-  // apiUrl = 'https://authservice.ahmedzubairu.xyz/api/auth/public/update-profile-picture'
   token!: string
   email: string | number | boolean  = ''
 
@@ -37,26 +35,33 @@ export class ImageManagementService {
     }
   }
 
-  uploadProfileImage(image: File | Blob | undefined): Observable<File> {
+  uploadProfileImage(image: File | Blob | undefined): Observable<string> {
     if (!image) {
       return throwError(() => new Error('Image is required for upload.'));
     }
-    
-    const formData = new FormData()
-    formData.append('file', image || '')
 
-    const params = new HttpParams().set( 'email', this.email )
+    const formData = new FormData();
+    formData.append('file', image);
 
-    return this.http.put<File>(`${environment.baseUrl}/auth/public/update-profile-picture`, formData, {params}).pipe(
+    const params = new HttpParams().set('email', this.email);
+
+    return this.http.put(`${environment.baseUrl}/auth/public/update-profile-picture`, formData, {
+      params,
+      responseType: 'text',
+    }).pipe(
       retry(2),
       catchError((error) => this.errorHandler.handleError(error))
-    )
-  }
+    );
+}
 
-  deleteProfileImage(): Observable<File> {
-    return this.http.delete<File>(`${environment.baseUrl}/auth/delete`).pipe(
-      retry(2),
-      catchError((error) => this.errorHandler.handleError(error))
-    )
-  }
+
+deleteProfileImage(): Observable<string> {
+  return this.http.delete<string>(`${environment.baseUrl}/auth/public/delete-profile-picture`, {
+    responseType: 'text' as 'json',
+  }).pipe(
+    retry(2),
+    catchError((error) => this.errorHandler.handleError(error))
+  );
+}
+
 }

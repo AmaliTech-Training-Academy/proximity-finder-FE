@@ -37,7 +37,7 @@ export class ChangePasswordComponent implements OnDestroy{
         confirmPassword: confirmPassword ?? ''
       };
     
-      this.changePasswordService.changePassword(body).subscribe({
+      this.subscription = this.changePasswordService.changePassword(body).subscribe({
         next: () => {
           this.notyf.success('Password changed successfully')
         },

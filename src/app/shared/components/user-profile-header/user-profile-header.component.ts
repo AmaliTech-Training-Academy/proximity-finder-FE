@@ -14,11 +14,12 @@ import { User } from '../../../features/profile-management/models/user';
 export class UserProfileHeaderComponent implements OnInit{
   loggedInUser: User | null = null
   private subscription: Subscription = new Subscription()
+  loggedInSubcription!: Subscription
 
   constructor(private profileService: ProfileService, private router: Router) {}
 
   ngOnInit(): void {
-    this.profileService.loggedInUser$.subscribe((user) => {
+    this.loggedInSubcription = this.profileService.loggedInUser$.subscribe((user) => {
       this.loggedInUser = user
     })
   }
@@ -37,7 +38,7 @@ export class UserProfileHeaderComponent implements OnInit{
   }
 
   ngOnDestroy(): void {
-    this.subscription.unsubscribe()
+    this.loggedInSubcription.unsubscribe()
   }
 
 }

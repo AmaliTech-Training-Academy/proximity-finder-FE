@@ -5,12 +5,13 @@
     <img src="../../../../../assets/images/cover-image.png" alt="cover image">
 
     <div class="profile-image-container">
-        <img [src]= "imageUrl || defaultImage" alt="user's avatar" class="avatar">
-        <div class="overlay" (click)="triggerFileInput()">
-            <img src="../../../../../assets/Vector.png" alt="camera icon">
-        </div>
+        @if (client) {
+            <img [src]= "client.profileImage || defaultImage" alt="user's avatar" class="avatar">
+            <div class="overlay" (click)="triggerFileInput()">
+                <img src="../../../../../assets/Vector.png" alt="camera icon">
+            </div>
+        }
         <input type="file" accept="image/*" (change)="onFileSelected($event)" id="fileInput"/>
-        <button type="submit" (click)="updateProfileImage()">Save</button>
     </div>
 </div>
 

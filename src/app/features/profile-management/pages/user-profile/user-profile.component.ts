@@ -9,10 +9,11 @@ import { UserProfileHeaderComponent } from "../../../../shared/components/user-p
 import { FieldsComponent } from "../../../pro-registration/components/fields/fields.component";
 import { CommonModule } from '@angular/common';
 import { ProfileService } from '../../services/profile.service';
-import { IClient } from '../../../auth/models/client';
 import { MatIconModule } from '@angular/material/icon';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { ImageManagementService } from '../../services/image-management.service';
+import { IProfile } from '../../models/profile';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-profile',
@@ -28,17 +29,19 @@ export class UserProfileComponent implements OnInit {
   isFormActive = false
   isAccountClicked = false
   isDeleteModal = false
-  client!: IClient
+  client!: IProfile
   imageUrl: string | ArrayBuffer | null = null
   selectedFile: File | Blob | undefined
   defaultImage = 'assets/images/default-avatar.png'
 
   private notyf = inject(NOTYF)
+  profileSubscription!: Subscription
+  imageSubscription!: Subscription
 
   constructor(private fb: FormBuilder, private profileService: ProfileService, private imageService: ImageManagementService) { }
 
   ngOnInit() {
-    this.profileService.getClient().subscribe((client) => {
+    this.profileSubscription = this.profileService.getClient().subscribe((client) => {
       this.client = client
       this.updateUserForm()
     })
@@ -61,7 +64,7 @@ export class UserProfileComponent implements OnInit {
     this.userForm.patchValue({
       name: this.client.userName,
       email: this.client.email,
-      phone: this.client.mobileNumber.toString()
+      phone: this.client.mobileNumber
     })
   }
   
@@ -72,15 +75,16 @@ export class UserProfileComponent implements OnInit {
   onSubmit() {
     if (this.userForm.valid) {
       const {name, phone} = this.userForm.value
-      const updatedClient:IClient = {...this.client,
+      const updatedClient:IProfile = {...this.client,
              userName: name ?? '',
-             mobileNumber: parseInt(phone ?? '0',10)}
-
+             mobileNumber: phone ?? ''
+      }
+      
       this.profileService.updateClient(updatedClient).subscribe({
         next: (client) => {
           this.client = client
-          this.updateUserForm()
           this.isFormActive = false
+          this.updateProfileImage()
           this.notyf.success('Profile updated successfully')
         },
         error: (error) => {
@@ -101,7 +105,7 @@ export class UserProfileComponent implements OnInit {
       const file = fileInput.files[0];
 
       if (!file.type.startsWith('image/')) {
-        alert('Please select a valid image file.');
+        this.notyf.error('Please select a valid image file.');
         return;
       }
 
@@ -116,10 +120,10 @@ export class UserProfileComponent implements OnInit {
   }
 
   updateProfileImage() {
-    console.log(this.selectedFile)
-    this.imageService.uploadProfileImage(this.selectedFile).subscribe({
-      next: () => {
-        console.log('image uploaded successfully')
+    this.imageSubscription = this.imageService.uploadProfileImage(this.selectedFile).subscribe({
+      next: (response) => {
+        console.log(response)
+        this.imageUrl = response
       },
       error: (error) => {
         console.error(error)
@@ -153,5 +157,10 @@ export class UserProfileComponent implements OnInit {
   openDeleteDialog() {
     this.isDeleteModal = true
     this.openDialog()
+  } 
+
+  ngOnDestroy() {
+    this.profileSubscription.unsubscribe()
+    this.imageSubscription.unsubscribe()
   }
 }

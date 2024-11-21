@@ -1,13 +1,12 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IClient } from '../../auth/models/client';
 import { environment } from '../../../../environments/environment';
 import { BehaviorSubject, catchError, Observable, retry } from 'rxjs';
 import { ErrorHandlingService } from '../../../core/services/error-handling.service';
 import { LocalStorageService } from '../../../shared/services/local-storage.service';
 import { jwtDecode } from 'jwt-decode';
 import { User } from '../models/user';
-import { decodeToken } from '../../../utils/decodeToken';
+import { IProfile } from '../models/profile';
 
 
 @Injectable({
@@ -21,34 +20,23 @@ export class ProfileService {
   loggedInUser$ = this.loggedInUserSubject.asObservable()
 
   constructor(private http: HttpClient, private errorHandler: ErrorHandlingService, private localStorageService: LocalStorageService) {
-    this.initializeUser()
-  }
-
-  initializeUser() {
     this.token = this.localStorageService.getItem('accessToken') || ''
-    const decodedUser = decodeToken(this.token)
-    if(decodedUser) {
-      this.email = decodedUser.sub
-      this.loggedInUserSubject.next(decodedUser)
-    }
-    else {
-      console.error('Failed to decode token')
-    }
+    this.decodeToken()
   }
 
-  getClient(): Observable<IClient> {
+  getClient(): Observable<IProfile> {
     if(!this.email) {
       throw new Error('Email not found')
     }
     const params = new HttpParams().set( 'email', this.email )
 
-    return this.http.get<IClient>(`${environment.baseUrl}/auth/info`, { params }).pipe(
+    return this.http.get<IProfile>(`${environment.baseUrl}/auth/info`, { params }).pipe(
       retry(2),
       catchError((error) => this.errorHandler.handleError(error)
     ))
   }
   
-  updateClient(client: IClient): Observable<IClient> {
+  updateClient(client: IProfile): Observable<IProfile> {
     if(!this.email) {
       throw new Error('Email not found')
     }
@@ -57,7 +45,7 @@ export class ProfileService {
     });
     const params = new HttpParams().set( 'email', this.email )
 
-    return this.http.put<IClient>(`${environment.baseUrl}/auth/update/info`, client, {params, headers}).pipe(
+    return this.http.put<IProfile>(`${environment.baseUrl}/auth/update/info`, client, {params, headers}).pipe(
       retry(2),
       catchError((error) => this.errorHandler.handleError(error))
     )
