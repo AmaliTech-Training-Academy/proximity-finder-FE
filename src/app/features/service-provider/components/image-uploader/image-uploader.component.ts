@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-image-uploader',
@@ -12,6 +12,8 @@ export class ImageUploaderComponent {
   isDragging = false;
   files: File[] = [];
   imagePreviews: { url: string; name: string }[] = [];
+
+  @Output() uploadedImage = new EventEmitter<File>();
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -49,11 +51,14 @@ export class ImageUploaderComponent {
       ) {
         const imageUrl = URL.createObjectURL(file);
         this.imagePreviews.push({ url: imageUrl, name: file.name });
+        this.files.push(file);
+        this.uploadedImage.emit(file);
       }
     });
   }
 
   removeImage(index: number): void {
     this.imagePreviews.splice(index, 1);
+    this.files.splice(index, 1);
   }
 }

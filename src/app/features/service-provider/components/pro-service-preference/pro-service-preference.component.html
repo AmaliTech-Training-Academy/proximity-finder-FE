@@ -1,0 +1,106 @@
+<main>
+  <form class="service-preference-form" [formGroup]="servicePreferenceForm">
+    <section class="formData">
+      <div class="left">
+        <div class="service field">
+          <label for="service">Service</label>
+          <p-dropdown
+            id="service"
+            formControlName="service"
+            [options]="serviceCategories"
+            optionLabel="name"
+          />
+        </div>
+
+        <div class="bookingDays field">
+          <label for="bookingDays">Booking Days</label>
+          <div formArrayName="bookingDays" class="bookingFields">
+            <div class="booking">
+              <div class="day">
+                <p-dropdown
+                  id=""
+                  formControlName="dayOfWeek"
+                  [options]="days"
+                  optionLabel="name"
+                  placeholder="Please choose"
+                />
+              </div>
+              <div class="bookingTimes">
+                <div>
+                  <p-dropdown
+                    id=""
+                    formControlName="startTime"
+                    [options]="timeOptions"
+                    optionLabel="name"
+                    placeholder="00:00"
+                  />
+                </div>
+                <div>
+                  <p-dropdown
+                    id=""
+                    formControlName="endTime"
+                    [options]="timeOptions"
+                    optionLabel="name"
+                    placeholder="00:00"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="extraDocuments field">
+          <label for="extraDocuments">Extra Documents</label>
+          <app-file-uploader />
+        </div>
+      </div>
+      <div class="right">
+        <div class="payment field">
+          <label for="paymentPreference">Payment Preference</label>
+          <p-dropdown
+            id="paymentPreference"
+            formControlName="paymentPreference"
+            [options]="paymentPreferences"
+            optionLabel="name"
+            placeholder="Please choose"
+          />
+        </div>
+        <div class="location field">
+          <label for="location">Location</label>
+          <input
+            type="text"
+            pInputText
+            formControlName="location"
+            placeholder="Accra, Ghana"
+          />
+        </div>
+        <div class="schedulingPolicy field">
+          <label for="schedulingPolicy">Scheduling Policy</label>
+          <textarea
+            rows="6"
+            id="schedulingPolicy"
+            formControlName="schedulingPolicy"
+          ></textarea>
+        </div>
+      </div>
+    </section>
+    <section class="formActions">
+      <button
+        [style]="{ display: isEditing ? 'none' : 'block' }"
+        type="button"
+        class="edit"
+        (click)="setEditing()"
+      >
+        Edit
+      </button>
+      <div
+        class="edit-buttons"
+        [style]="{ display: isEditing ? 'flex' : 'none' }"
+      >
+        <button type="button" class="cancel" (click)="cancelEditing()">
+          Cancel
+        </button>
+        <button type="submit" class="save">Save</button>
+      </div>
+    </section>
+  </form>
+</main>

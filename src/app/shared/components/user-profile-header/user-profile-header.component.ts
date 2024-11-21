@@ -26,7 +26,7 @@ export class UserProfileHeaderComponent implements OnInit{
   navigateToProfile(): void {
     const [role] = this.loggedInUser?.role || []
     if (role === 'ROLE_ADMIN') {
-      this.router.navigate(['/admin/profile'])
+      this.router.navigate(['/admin/dashboard/profile'])
     }
     else if (role === 'SEEKER') {
       this.router.navigate(['/profile'])

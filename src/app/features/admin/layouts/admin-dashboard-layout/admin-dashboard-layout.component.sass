@@ -1,0 +1,22 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+
+.container
+    height: 100vh
+    @include flex-option($display: flex, $justify-content: null, $align-items: null, $direction: column)
+
+    app-sidebar
+        height: 100%
+        flex-shrink: 0
+
+    .content-area
+        flex: 1
+        @include flex-option($display: flex, $justify-content: null, $align-items: null, $direction: null)
+        background-color: $background-blue
+        overflow: hidden 
+
+    .main-content
+        flex: 1
+        overflow-y: auto
+

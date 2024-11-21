@@ -9,6 +9,7 @@
 body, button, input, textarea
     font-family: $font-stack
 
+
 // PrimeNG Styles
 .p-button, .p-inputtext, .p-dropdown, .p-checkbox, .p-radio, .p-table, .p-dialog
     font-family: $font-stack
@@ -100,6 +101,10 @@ body, button, input, textarea
         width: 312px
         padding: 12px 8px 12px 36px
 
+.p-inputtextarea, textarea
+    resize: none
+    overflow-y: auto
+
 .p-dialog
 
     .p-dialog-header
@@ -116,8 +121,7 @@ body, button, input, textarea
 
     .p-inputtextarea
         width: 100%
-        resize: none
-        overflow-y: auto
+        
 
     .p-dropdown
         width: 100%
@@ -157,6 +161,50 @@ app-fields.custom-style .inputs input
     outline: none
     font-size: pxToRem(14)
 
+.section-booking
+    .p-multiselect
+        width: 100%
+
+    .p-multiselect-label-container
+        padding: 12px 14px
+
+    .p-multiselect-items, .p-multiselect-header
+        padding: 5px
+        gap: 5px
+
+    .p-multiselect-items
+        @include flex-option($display: flex, $justify-content: null, $align-items: null,$direction: column)
+        gap: 5px
+        
+
+    .p-multiselect-item
+        padding: 5px
+        gap: 5px
+
+    .p-multiselect-filter
+        padding: 8px 5px
+
+    .p-multiselect-filter-icon
+        top: 10px
+
+.p-tabview-nav
+    background: none
+
+    li
+        a
+            background: none
+            padding: 16px
+
+.p-tabview-title
+    font-family: $font-stack
+    font-size: 16px
+    font-weight: 500
+    color: $text-main
+
+.p-inputgroup
+    input
+        width: 100%
+    
 app-fields.custom-input-style .inputs input
     padding: 0.625rem !important
     border: 1px solid #CBCED7 !important
@@ -196,3 +244,7 @@ app-fields.custom .inputs input
     color: $text-secondary
     border-radius: 0
     border: none
+
+.service-category-form
+    .p-inputtext
+        padding: 10px 14px

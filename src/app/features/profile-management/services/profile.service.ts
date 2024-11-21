@@ -7,23 +7,34 @@ import { ErrorHandlingService } from '../../../core/services/error-handling.serv
 import { LocalStorageService } from '../../../shared/services/local-storage.service';
 import { jwtDecode } from 'jwt-decode';
 import { User } from '../models/user';
+import { decodeToken } from '../../../utils/decodeToken';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProfileService {
-  token: string
+  token!: string
   email: string | null | undefined = null
 
   loggedInUserSubject = new BehaviorSubject<User | null>(null)
   loggedInUser$ = this.loggedInUserSubject.asObservable()
 
   constructor(private http: HttpClient, private errorHandler: ErrorHandlingService, private localStorageService: LocalStorageService) {
-    this.token = this.localStorageService.getItem('accessToken') || ''
-    this.decodeToken()
+    this.initializeUser()
   }
 
+  initializeUser() {
+    this.token = this.localStorageService.getItem('accessToken') || ''
+    const decodedUser = decodeToken(this.token)
+    if(decodedUser) {
+      this.email = decodedUser.sub
+      this.loggedInUserSubject.next(decodedUser)
+    }
+    else {
+      console.error('Failed to decode token')
+    }
+  }
 
   getClient(): Observable<IClient> {
     if(!this.email) {

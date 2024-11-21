@@ -7,7 +7,12 @@ import { AuthService } from './../../../features/auth/services/auth/auth.service
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
 
-  if (req.url.includes('/auth/public/') || req.url.includes('/auth/info') || req.url.includes('/auth/update/info')) {
+  if (
+    req.url.includes('/auth/public/') ||
+    req.url.includes('/api/v1/services') ||
+    req.url.includes('/auth/info') ||
+    req.url.includes('/auth/update/info')
+  ) {
     return next(req);
   }
   if (authService.isTokenExpired()) {
@@ -15,8 +20,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       switchMap((refreshResponse) => {
         const updatedRequest = req.clone({
           setHeaders: {
-            Authorization: `Bearer ${authService.accessToken.value}`
-          }
+            Authorization: `Bearer ${authService.accessToken.value}`,
+          },
         });
         return next(updatedRequest);
       }),
@@ -28,8 +33,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   }
   const clonedRequest = req.clone({
     setHeaders: {
-      Authorization: `Bearer ${authService.accessToken.value}`
-    }
+      Authorization: `Bearer ${authService.accessToken.value}`,
+    },
   });
 
   return next(clonedRequest);

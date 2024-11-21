@@ -23,18 +23,29 @@
         margin-top: pxToRem(32)
 
         .section-booking
-            @include flex-option($display: flex, $justify-content: null, $align-items: null, $direction: row)
-            gap: 32px
+            @include flex-option($display: flex, $justify-content: null, $align-items: null, $direction: column)
+            gap: 20px
 
-            div
-                flex: 1
+            .booking
+                @include flex-option($display: flex, $justify-content: null, $align-items: null,$direction: row)
+                gap: 20px
 
             input
                 width: 100%
 
             .bookingTimes
                 @include flex-option($display: flex, $justify-content: null, $align-items: center, $direction: row)
-                gap: 32px
+                gap: 10px
+
+            .add-booking-day
+                padding: 15px 0
+                border: none
+                cursor: pointer
+                border-radius: 999px
+                background-color: $blue-lighten-5
+
+                &:hover
+                    background-color: $blue-lighten-4
 
         .form-actions
             @include flex-option(flex, flex-end, center, row)
@@ -66,6 +77,22 @@
             font-weight: 500
             margin: 0 0 8px 0
             color: $text-main
+
+        .bookingFields
+            @include flex-option(flex, null, null, column)
+            gap: 20px
+
+            .booking
+                .remove-booking-day
+                    border: none
+                    cursor: pointer
+                    background: none
+
+        .error-message
+            color: $error
+            font-size: 12px
+            margin-top: 5px
+            
 
 .p-inputtext
     padding: 12px 14px

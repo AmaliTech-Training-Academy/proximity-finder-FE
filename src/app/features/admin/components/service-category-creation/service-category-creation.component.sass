@@ -1,0 +1,29 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+
+.options
+    @include flex-option($display: flex, $justify-content: flex-end, $align-items: center, $direction: row)
+
+.buttons
+        @include flex-option($display: flex, $justify-content: null, $align-items: center,$direction: row)
+        gap: 16px
+        margin: 32px 0 0 0
+        border-top: solid 1px $grey-lighten-3
+        padding: 16px 0 0 0
+
+        p-button
+            flex: 1
+
+        .primary
+            background-color: $blue
+            border-radius: 4px
+
+form
+    @include flex-option($display: flex, $justify-content: null, $align-items: null, $direction: column)
+    gap: 32px
+    
+    .name, .image
+        @include flex-option($display: flex, $justify-content: null, $align-items: null,$direction: column)
+        gap: 6px
+        

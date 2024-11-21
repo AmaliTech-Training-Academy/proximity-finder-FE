@@ -12,6 +12,7 @@ import { ProfileService } from '../../services/profile.service';
 import { IClient } from '../../../auth/models/client';
 import { MatIconModule } from '@angular/material/icon';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
+import { ImageManagementService } from '../../services/image-management.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -29,12 +30,12 @@ export class UserProfileComponent implements OnInit {
   isDeleteModal = false
   client!: IClient
   imageUrl: string | ArrayBuffer | null = null
-  selectedFile: File | null = null
+  selectedFile: File | Blob | undefined
   defaultImage = 'assets/images/default-avatar.png'
 
   private notyf = inject(NOTYF)
 
-  constructor(private fb: FormBuilder, private profileService: ProfileService) { }
+  constructor(private fb: FormBuilder, private profileService: ProfileService, private imageService: ImageManagementService) { }
 
   ngOnInit() {
     this.profileService.getClient().subscribe((client) => {
@@ -112,6 +113,18 @@ export class UserProfileComponent implements OnInit {
       reader.readAsDataURL(file);
 
     }
+  }
+
+  updateProfileImage() {
+    console.log(this.selectedFile)
+    this.imageService.uploadProfileImage(this.selectedFile).subscribe({
+      next: () => {
+        console.log('image uploaded successfully')
+      },
+      error: (error) => {
+        console.error(error)
+      }
+    })
   }
 
   openDialog(){
