@@ -38,8 +38,6 @@ export class LoginInputComponent implements OnDestroy {
       this.authService.login(email, password).subscribe({
         next: (res) => {
           this.notyf.success('Login Successful');
-          console.log('response',res)
-            
             if (res.roles[0] === 'ROLE_ADMIN') {
               console.log('Admin')
               this.router.navigateByUrl('admin/dashboard');
@@ -47,7 +45,6 @@ export class LoginInputComponent implements OnDestroy {
               console.log('seeker')
               this.router.navigateByUrl('');
             } else if (res.roles[0] === 'ROLE_PROVIDER') {
-              console.log('Yes provider')
               this.router.navigateByUrl('/registration');
             } 
             this.loginForm.reset();
