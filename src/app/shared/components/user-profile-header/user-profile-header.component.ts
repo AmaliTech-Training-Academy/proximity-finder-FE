@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { ProfileService } from '../../../features/profile-management/services/profile.service';
+import { Subscription } from 'rxjs';
+import { User } from '../../../features/profile-management/models/user';
 
 @Component({
   selector: 'app-user-profile-header',
@@ -8,6 +11,34 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './user-profile-header.component.html',
   styleUrl: './user-profile-header.component.sass'
 })
-export class UserProfileHeaderComponent {
-  isAuthenticated = false
+export class UserProfileHeaderComponent implements OnInit{
+  loggedInUser: User | null = null
+  private subscription: Subscription = new Subscription()
+  loggedInSubcription!: Subscription
+
+  constructor(private profileService: ProfileService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.loggedInSubcription = this.profileService.loggedInUser$.subscribe((user) => {
+      this.loggedInUser = user
+    })
+  }
+  
+  navigateToProfile(): void {
+    const [role] = this.loggedInUser?.role || []
+    if (role === 'ROLE_ADMIN') {
+      this.router.navigate(['/admin/dashboard/profile'])
+    }
+    else if (role === 'SEEKER') {
+      this.router.navigate(['/profile'])
+    }
+    else {
+      this.router.navigate(['/provider/dashboard'])
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.loggedInSubcription.unsubscribe()
+  }
+
 }
