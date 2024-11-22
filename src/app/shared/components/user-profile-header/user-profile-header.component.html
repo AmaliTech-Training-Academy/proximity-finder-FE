@@ -5,7 +5,7 @@
     </div>
 
     <div class="nav-container">
-        @if (isAuthenticated) {
+        @if (loggedInUser) {
             <a>Help & Support</a>
             <a routerLink="/pro-signup" routerLinkActive="active-link" 
             [routerLinkActiveOptions]="{ exact: true }">Sign up as Pro</a>
@@ -13,9 +13,9 @@
             <a>Tasks</a>
 
             <div class="profile-container">
-                <div class="profile">
+                <div class="profile" (click)="navigateToProfile()">
                     <img src="../../../../assets/images/Avatar.png" alt="user's avatar">
-                    <p>Whitney</p>
+                    <p>{{loggedInUser.username}}</p>
                 </div>
     
                 <img src="../../../../assets/arrow-down.svg" alt="arrow down icon">

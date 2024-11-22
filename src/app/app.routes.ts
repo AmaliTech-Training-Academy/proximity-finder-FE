@@ -184,6 +184,11 @@ export const routes: Routes = [
             './features/admin/pages/admin-settings/admin-settings.component'
           ).then((m) => m.AdminSettingsComponent),
       },
+
+      {
+        path: 'profile',
+        loadComponent: () => import('./features/profile-management/pages/admin-profile/admin-profile.component').then((m) => m.AdminProfileComponent),
+      }
     ],
   },
 
