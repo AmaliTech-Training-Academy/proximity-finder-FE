@@ -14,6 +14,8 @@ import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { ImageManagementService } from '../../services/image-management.service';
 import { IProfile } from '../../models/profile';
 import { Subscription } from 'rxjs';
+import { LocalStorageService } from '../../../../shared/services/local-storage.service';
+import { decodeToken } from '../../../../utils/decodeToken';
 
 @Component({
   selector: 'app-user-profile',
@@ -33,24 +35,43 @@ export class UserProfileComponent implements OnInit {
   imageUrl: string | ArrayBuffer | null = null
   selectedFile: File | Blob | undefined
   defaultImage = 'assets/images/default-avatar.png'
+  token!: string
+  role: string[] = []
 
   private notyf = inject(NOTYF)
   profileSubscription!: Subscription
   imageSubscription!: Subscription
 
-  constructor(private fb: FormBuilder, private profileService: ProfileService, private imageService: ImageManagementService) { }
+  constructor(private fb: FormBuilder, private profileService: ProfileService, private imageService: ImageManagementService,
+              private localStorageService:LocalStorageService
+  ) { 
+    this.initializeUser()
+  }
+
+  initializeUser() {
+    this.token = this.localStorageService.getItem('accessToken') || ''
+    const decodedUser = decodeToken(this.token)
+    if(decodedUser) {
+      this.role = decodedUser.role
+    }
+    else {
+      console.error('Failed to decode token')
+    }
+  }
 
   ngOnInit() {
-    this.profileSubscription = this.profileService.getClient().subscribe((client) => {
-      this.client = client
-      this.updateUserForm()
-    })
+    if (this.role[0] === 'ROLE_SEEKER') {
+      this.profileSubscription = this.profileService.getClient().subscribe((client) => {
+        this.client = client
+        this.updateUserForm()
+      })
+    }
   }
 
   userForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
     email: ['', [Validators.required, Validators.email]],
-    phone: ['', [Validators.required,Validators.pattern(/^\d{10}$/)]]
+    phone: ['', [Validators.required]]
   })
 
   accountInfoForm = this.fb.group({
@@ -84,7 +105,6 @@ export class UserProfileComponent implements OnInit {
         next: (client) => {
           this.client = client
           this.isFormActive = false
-          this.updateProfileImage()
           this.notyf.success('Profile updated successfully')
         },
         error: (error) => {

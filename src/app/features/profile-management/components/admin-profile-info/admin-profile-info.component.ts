@@ -12,6 +12,8 @@ import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { ImageManagementService } from '../../services/image-management.service';
 import { SvgService } from '../../../../shared/services/svg.service';
 import { IProfile } from '../../models/profile';
+import { LocalStorageService } from '../../../../shared/services/local-storage.service';
+import { decodeToken } from '../../../../utils/decodeToken';
 @Component({
   selector: 'app-admin-profile-info',
   standalone: true,
@@ -35,25 +37,41 @@ export class AdminProfileInfoComponent implements OnInit, OnDestroy{
   selectedFile: File | Blob | undefined
   defaultImage = 'assets/images/default-avatar.png'
   isUploading = false
+  token!: string
+  role: string[] = []
 
   constructor(private fb: FormBuilder, private profileService: ProfileService, private imageService: ImageManagementService,
-              private svgService: SvgService
-  ) {  }
+              private svgService: SvgService, private localStorageService: LocalStorageService
+  ) {}
+
+  initializeUser() {
+    this.token = this.localStorageService.getItem('accessToken') || ''
+    const decodedUser = decodeToken(this.token)
+    if(decodedUser) {
+      this.role = decodedUser.role
+    }
+    else {
+      console.error('Failed to decode token')
+    }
+  }
 
   togglEditForm(): void {
     this.isFormActive = !this.isFormActive
   }
 
   ngOnInit(): void {
-    this.profileSubscription = this.profileService.getClient().subscribe({
-      next: (client) => {
-        this.client = client;
-        this.updateUserForm();
-      },
-      error: (error) => {
-        console.error('Error fetching client data:', error);
-      }
-    });
+    if(this.role[0] === 'ROLE_ADMIN') {
+      this.profileSubscription = this.profileService.getClient().subscribe({
+        next: (client) => {
+          this.client = client;
+          console.log(client)
+          this.updateUserForm();
+        },
+        error: (error) => {
+          console.error('Error fetching client data:', error);
+        }
+      });
+    }
   }
   
   
