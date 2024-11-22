@@ -11,6 +11,12 @@ form
         @include flex-option($display: flex, $justify-content: null, $align-items: null,$direction: column)
         gap: 6px
 
+
+    .error-message
+        color: $error
+        font-size: 12px
+        margin-top: 5px
+
 .buttons
         @include flex-option($display: flex, $justify-content: null, $align-items: center,$direction: row)
         gap: 16px
@@ -24,5 +30,7 @@ form
         .primary
             background-color: $blue
             border-radius: 4px
+
+
 
         

@@ -16,8 +16,9 @@ import { AdminServiceCreationFormComponent } from '../admin-service-creation-for
   styleUrl: './service-card.component.sass',
 })
 export class ServiceCardComponent {
-  visible: boolean = false;
   @Input() serviceCategory!: ServiceCategory;
+  visible: boolean = false;
+
   menuItems: MenuItem[] = [
     {
       label: 'Edit',

@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  OnChanges,
+  SimpleChanges,
+  Inject,
+} from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -13,11 +21,13 @@ import { ServiceService } from '../../../../core/services/service.service';
 import { ServiceCategory } from '../../../../core/models/IServiceCategory';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { Notyf } from 'notyf';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-admin-service-creation-form',
   standalone: true,
   imports: [
+    CommonModule,
     ReactiveFormsModule,
     DialogModule,
     InputTextModule,
@@ -25,16 +35,19 @@ import { Notyf } from 'notyf';
     ImageUploaderComponent,
   ],
   templateUrl: './admin-service-creation-form.component.html',
-  styleUrl: './admin-service-creation-form.component.sass',
+  styleUrls: ['./admin-service-creation-form.component.sass'],
 })
-export class AdminServiceCreationFormComponent {
-  @Input() serviceCategory: ServiceCategory | null = null;
+export class AdminServiceCreationFormComponent implements OnChanges {
+  @Input() serviceCategoryId!: string | undefined;
+  @Input() serviceCategory?: ServiceCategory;
   @Input() visible: boolean = false;
   @Output() visibleChange = new EventEmitter<boolean>();
 
+  isImageModified: boolean = false;
+
   serviceCategoryForm: FormGroup = this.fb.group({
     categoryName: ['', Validators.required],
-    description: [''],
+    description: ['', Validators.required],
     serviceImage: [null],
   });
 
@@ -44,51 +57,67 @@ export class AdminServiceCreationFormComponent {
     @Inject(NOTYF) private notyf: Notyf
   ) {}
 
-  ngOnInit() {
-    if (this.serviceCategory) {
-      console.log(this.serviceCategory);
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['serviceCategory'] && changes['serviceCategory'].currentValue) {
+      this.serviceCategoryForm.patchValue({
+        categoryName: this.serviceCategory?.name || '',
+        description: this.serviceCategory?.description || '',
+        serviceImage: this.serviceCategory?.image || null,
+      });
     }
   }
 
-  showDialog() {
-    this.visible = true;
-  }
-
   closeDialog() {
+    this.visible = false;
     this.visibleChange.emit(false);
   }
 
   onImageUploaded(file: File) {
+    this.isImageModified = true;
     this.serviceCategoryForm.patchValue({
       serviceImage: file,
     });
-    console.log('Uploaded file', file);
   }
 
   submitForm() {
     if (this.serviceCategoryForm.valid) {
-      this.onSubmit();
-      this.serviceCategoryForm.reset();
-      this.visibleChange.emit(false);
-    } else {
-      console.log('Form is invalid');
+      const formData = this.serviceCategoryForm.value;
+
+      const serviceCategory: Partial<ServiceCategory> = {
+        id: this.serviceCategoryId,
+        name: formData.categoryName,
+        description: formData.description,
+      };
+
+      if (this.isImageModified) {
+        serviceCategory.image = formData.serviceImage;
+      }
+
+      this.onSubmit(serviceCategory as ServiceCategory);
     }
   }
 
-  onSubmit() {
-    const serviceCategory: ServiceCategory = {
-      name: this.serviceCategoryForm.value.categoryName,
-      description: this.serviceCategoryForm.value.description,
-      image: this.serviceCategoryForm.value.serviceImage,
-    };
-
-    this.serviceService.createService(serviceCategory).subscribe({
-      next: (response) => {
-        this.serviceService.getServices();
-        this.notyf.success('Service has been created successfully');
-        console.log('Response:', response);
-      },
-      error: (error) => console.error('Error:', error),
-    });
+  onSubmit(serviceCategory: ServiceCategory) {
+    if (serviceCategory.id) {
+      // Update service
+      this.serviceService.updateService(serviceCategory).subscribe({
+        next: () => {
+          this.notyf.success('Service updated successfully');
+          this.closeDialog();
+          this.serviceService.getServices();
+        },
+        error: () => this.notyf.error('Failed to update service'),
+      });
+    } else {
+      // Create new service
+      this.serviceService.createService(serviceCategory).subscribe({
+        next: () => {
+          this.notyf.success('Service created successfully');
+          this.closeDialog();
+          this.serviceService.getServices();
+        },
+        error: () => this.notyf.error('Failed to create service'),
+      });
+    }
   }
 }

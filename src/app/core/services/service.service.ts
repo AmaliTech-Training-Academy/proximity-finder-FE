@@ -32,6 +32,18 @@ export class ServiceService {
     return this.http.post<ServiceResponse>(this.apiUrl, formData);
   }
 
+  updateService(serviceCategory: ServiceCategory): Observable<ServiceResponse> {
+    const formData = new FormData();
+    formData.append('name', serviceCategory.name);
+    formData.append('description', serviceCategory.description);
+    formData.append('image', serviceCategory.image);
+
+    return this.http.put<ServiceResponse>(
+      `${this.apiUrl}/${serviceCategory.id}`,
+      formData
+    );
+  }
+
   deleteService(id: string) {
     this.http
       .delete<ServiceResponse>(`${this.apiUrl}/${id}`)

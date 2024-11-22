@@ -10,7 +10,7 @@
   <form
     class="service-category-form"
     [formGroup]="serviceCategoryForm"
-    (ngSubmit)="onSubmit()"
+    (ngSubmit)="submitForm()"
   >
     <div class="name">
       <label for="categoryName">Service Category Name</label>
@@ -20,6 +20,15 @@
         formControlName="categoryName"
         placeholder="Enter the name of the service"
       />
+      <p
+        class="error-message"
+        *ngIf="
+          serviceCategoryForm.get('categoryName')?.touched &&
+          serviceCategoryForm.get('categoryName')?.invalid
+        "
+      >
+        Category name is required
+      </p>
     </div>
     <div class="description">
       <label for="description">Description</label>
@@ -29,10 +38,28 @@
         formControlName="description"
         placeholder="Enter a description"
       />
+      <p
+        class="error-message"
+        *ngIf="
+          serviceCategoryForm.get('description')?.touched &&
+          serviceCategoryForm.get('description')?.invalid
+        "
+      >
+        Description is required
+      </p>
     </div>
     <div class="image">
       <label for="serviceImage"> Attach Image </label>
       <app-image-uploader (uploadedImage)="onImageUploaded($event)" />
+      <p
+        class="error-message"
+        *ngIf="
+          serviceCategoryForm.get('image')?.touched &&
+          serviceCategoryForm.get('image')?.invalid
+        "
+      >
+        Image is required
+      </p>
     </div>
   </form>
   <div class="buttons">
@@ -40,7 +67,7 @@
     <p-button
       type="button"
       (onClick)="submitForm()"
-      label="Create"
+      [label]="serviceCategory ? 'Update' : 'Create'"
       class="primary"
     />
   </div>
