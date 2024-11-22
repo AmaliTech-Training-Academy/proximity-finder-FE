@@ -2,9 +2,9 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { environment } from '../../../../../environments/environment.development';
 import { jwtDecode } from 'jwt-decode'; 
 import { LocalStorageService } from '../../../../shared/services/local-storage.service';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',

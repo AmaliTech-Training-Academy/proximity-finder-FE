@@ -9,7 +9,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
 
   if (excludedEndpoints.some(path => req.url.includes(path))) {
-    console.log('hey')
     return next(req);
   }
 
