@@ -4,6 +4,9 @@ export const excludedEndpoints = [
     '/password/reset-request',
     '/password/reset-password',
     '/api/v1/services',
-    '/api/v1/about'
+    '/auth/info',
+    '/auth/update/info',
+    '/auth/public/update-profile-picture'
+
   ];
   

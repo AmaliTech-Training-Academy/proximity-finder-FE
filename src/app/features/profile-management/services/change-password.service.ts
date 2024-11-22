@@ -6,17 +6,28 @@ import { catchError, Observable, retry } from 'rxjs';
 import { ErrorHandlingService } from '../../../core/services/error-handling.service';
 import { jwtDecode } from 'jwt-decode';
 import { LocalStorageService } from '../../../shared/services/local-storage.service';
+import { decodeToken } from '../../../utils/decodeToken';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChangePasswordService {
-  token: string
+  token!: string
   email: string | null | undefined = null
 
   constructor(private http: HttpClient, private errorHandler: ErrorHandlingService, private localStorageService: LocalStorageService) {
+    this.initializeUser()
+  }
+
+  initializeUser() {
     this.token = this.localStorageService.getItem('accessToken') || ''
-    this.decodeToken()
+    const decodedUser = decodeToken(this.token)
+    if(decodedUser) {
+      this.email = decodedUser.sub
+    }
+    else {
+      console.error('Failed to decode token')
+    }
   }
 
   
@@ -31,19 +42,5 @@ export class ChangePasswordService {
       retry(2),
       catchError(error => this.errorHandler.handleError(error))
     )
-  }
-
-  decodeToken(){
-    if(this.token) {
-      try {
-        const decodedToken = jwtDecode(this.token)
-        this.email = decodedToken.sub
-      }
-      catch (error) {
-        console.error('Error decoding token:', error)
-      }
-    } else {
-      console.error('Token not found')
-    }
   }
 }
