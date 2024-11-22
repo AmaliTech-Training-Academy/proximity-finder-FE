@@ -46,7 +46,6 @@ export class ImageManagementService {
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${this.token}`
     });
-
     return this.http.put(`${environment.baseUrl}/auth/public/update-profile-picture`, formData, {
       headers,
       responseType: 'text',

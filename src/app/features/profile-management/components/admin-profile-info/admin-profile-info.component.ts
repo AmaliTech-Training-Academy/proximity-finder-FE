@@ -49,6 +49,7 @@ export class AdminProfileInfoComponent implements OnInit, OnDestroy{
     const decodedUser = decodeToken(this.token)
     if(decodedUser) {
       this.role = decodedUser.role
+      console.log(this.role)
     }
     else {
       console.error('Failed to decode token')
@@ -60,18 +61,15 @@ export class AdminProfileInfoComponent implements OnInit, OnDestroy{
   }
 
   ngOnInit(): void {
-    if(this.role[0] === 'ROLE_ADMIN') {
       this.profileSubscription = this.profileService.getClient().subscribe({
         next: (client) => {
           this.client = client;
-          console.log(client)
           this.updateUserForm();
         },
         error: (error) => {
           console.error('Error fetching client data:', error);
         }
       });
-    }
   }
   
   

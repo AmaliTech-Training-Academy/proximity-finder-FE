@@ -96,21 +96,29 @@ export class UserProfileComponent implements OnInit {
   onSubmit() {
     if (this.userForm.valid) {
       const {name, phone} = this.userForm.value
-      const updatedClient:IProfile = {...this.client,
+      const updatedClient:IProfile = {
+             ...this.client,
              userName: name ?? '',
              mobileNumber: phone ?? ''
       }
       
-      this.profileService.updateClient(updatedClient).subscribe({
-        next: (client) => {
-          this.client = client
-          this.isFormActive = false
-          this.notyf.success('Profile updated successfully')
-        },
-        error: (error) => {
-          this.notyf.error('An error occurred while updating profile')
+      if (updatedClient.userName !== this.client.userName || updatedClient.mobileNumber !== this.client.mobileNumber) {
+        this.profileService.updateClient(updatedClient).subscribe({
+          next: (client) => {
+            this.client = client
+            this.isFormActive = false
+            this.notyf.success('Profile updated successfully')
+          },
+          error: (error) => {
+            this.notyf.error('An error occurred while updating profile')
+          }
+        })
+      }
+      else {
+        if(this.selectedFile) {
+          this.updateProfileImage()
         }
-      })
+      }
     }
   }
 
@@ -140,15 +148,22 @@ export class UserProfileComponent implements OnInit {
   }
 
   updateProfileImage() {
+    if (this.selectedFile) {
     this.imageSubscription = this.imageService.uploadProfileImage(this.selectedFile).subscribe({
       next: (response) => {
         console.log(response)
         this.imageUrl = response
+        this.notyf.success('Profile image uploaded successfully')
       },
       error: (error) => {
         console.error(error)
+        this.notyf.error('An error occurred while uploading profile image')
       }
     })
+    }
+    else {
+      this.notyf.error('Please select an image to upload')
+    }
   }
 
   openDialog(){
