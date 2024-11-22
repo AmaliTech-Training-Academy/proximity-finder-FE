@@ -37,7 +37,7 @@ import { ITime } from '../../../../core/models/ITime';
   styleUrls: ['./service-preference.component.sass'],
 })
 export class ServicePreferenceComponent {
-  serviceCategories = serviceCategories;
+  serviceCategories$ = this.serviceService.serviceCategories$;
   paymentPreferences = accountPreferences;
   days = bookingDays;
   timeOptions: ITime[] = [];

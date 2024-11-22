@@ -6,6 +6,7 @@ import {
   OnChanges,
   SimpleChanges,
   Inject,
+  OnDestroy,
 } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
@@ -22,6 +23,7 @@ import { ServiceCategory } from '../../../../core/models/IServiceCategory';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { Notyf } from 'notyf';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-admin-service-creation-form',
@@ -37,13 +39,14 @@ import { CommonModule } from '@angular/common';
   templateUrl: './admin-service-creation-form.component.html',
   styleUrls: ['./admin-service-creation-form.component.sass'],
 })
-export class AdminServiceCreationFormComponent implements OnChanges {
+export class AdminServiceCreationFormComponent implements OnChanges, OnDestroy {
   @Input() serviceCategoryId!: string | undefined;
   @Input() serviceCategory?: ServiceCategory;
   @Input() visible: boolean = false;
   @Output() visibleChange = new EventEmitter<boolean>();
 
   isImageModified: boolean = false;
+  private subscriptions: Subscription = new Subscription();
 
   serviceCategoryForm: FormGroup = this.fb.group({
     categoryName: ['', Validators.required],
@@ -98,26 +101,34 @@ export class AdminServiceCreationFormComponent implements OnChanges {
   }
 
   onSubmit(serviceCategory: ServiceCategory) {
-    if (serviceCategory.id) {
-      // Update service
-      this.serviceService.updateService(serviceCategory).subscribe({
-        next: () => {
-          this.notyf.success('Service updated successfully');
-          this.closeDialog();
-          this.serviceService.getServices();
-        },
-        error: () => this.notyf.error('Failed to update service'),
-      });
-    } else {
-      // Create new service
-      this.serviceService.createService(serviceCategory).subscribe({
-        next: () => {
-          this.notyf.success('Service created successfully');
-          this.closeDialog();
-          this.serviceService.getServices();
-        },
-        error: () => this.notyf.error('Failed to create service'),
-      });
-    }
+    // Update service
+    const subscription = (
+      serviceCategory.id
+        ? this.serviceService.updateService(serviceCategory)
+        : this.serviceService.createService(serviceCategory)
+    ).subscribe({
+      next: () => {
+        this.notyf.success(
+          serviceCategory.id
+            ? 'Service updated successfully'
+            : 'Service created successfully'
+        );
+        this.closeDialog();
+        this.serviceService.getServices();
+      },
+      error: () => {
+        this.notyf.error(
+          serviceCategory.id
+            ? 'Failed to update service'
+            : 'Failed to create service'
+        );
+      },
+    });
+
+    this.subscriptions.add(subscription);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
   }
 }

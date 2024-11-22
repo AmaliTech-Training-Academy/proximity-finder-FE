@@ -51,15 +51,6 @@
     <div class="image">
       <label for="serviceImage"> Attach Image </label>
       <app-image-uploader (uploadedImage)="onImageUploaded($event)" />
-      <p
-        class="error-message"
-        *ngIf="
-          serviceCategoryForm.get('image')?.touched &&
-          serviceCategoryForm.get('image')?.invalid
-        "
-      >
-        Image is required
-      </p>
     </div>
   </form>
   <div class="buttons">
