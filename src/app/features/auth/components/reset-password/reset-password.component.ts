@@ -1,9 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Inject, OnDestroy } from '@angular/core';
 import { ReactiveFormsModule, FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { passwordValidator } from '../../../../utils/passwordValidator';
 import { InputFieldComponent } from '../input-field/input-field.component';
+import { passwordMatchValidator } from '../../../../utils/passwordMatch';
+import { ResetPasswordService } from '../../services/reset-password/reset-password.service';
+import { Notyf } from 'notyf';
+import { NOTYF } from '../../../../shared/notify/notyf.token';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-reset-password',
@@ -12,32 +17,52 @@ import { InputFieldComponent } from '../input-field/input-field.component';
   templateUrl: './reset-password.component.html',
   styleUrl: './reset-password.component.sass'
 })
-export class ResetPasswordComponent {
+export class ResetPasswordComponent implements OnDestroy{
   passwordForm: FormGroup = this.fb.group({
     password: ['', [Validators.required, Validators.minLength(12), passwordValidator]],
     confirmPassword: ['', Validators.required]
   }, {
-    validators: this.matchPassword
+    validators: passwordMatchValidator()
   });
 
+  private subscription: Subscription = new Subscription(); 
   
-  constructor(private fb: FormBuilder) {}
-  matchPassword(group: FormGroup) {
-    const password = group.get('password')?.value;
-    const confirmPassword = group.get('confirmPassword')?.value;
-
-    if (password !== confirmPassword) {
-      return { mismatchedPassword: true };
-    }
-    return null;
-  }
+  constructor(private fb: FormBuilder,private router:Router,private resetPasswordService:ResetPasswordService,@Inject(NOTYF) private notyf: Notyf,   private route: ActivatedRoute,) {}
 
 
 
   onSubmit() {
+
     if (this.passwordForm.valid) {
+      const {password,confirmPassword} = this.passwordForm.value;
+    
+      this.route.queryParamMap.subscribe((params) => {
+        const token = params.get('token'); 
+        if(token){
+        this.resetPasswordService.resetPassword(password,confirmPassword,token).subscribe({
+          next: (response) => {
+            this.notyf.success('Password Reset Successfully');
+            this.passwordForm.reset();
+            this.router.navigateByUrl('/login');
+          },
   
-    } 
+          error: (error) => {
+            this.notyf.error('Password Reset Failed. Please Try Again');
+          }
+        })
+        
+    
+      } 
+      });
+
   }
+
+}
+
+ngOnDestroy() {
+  if (this.subscription) {
+    this.subscription.unsubscribe();
+  }
+}
 
 }

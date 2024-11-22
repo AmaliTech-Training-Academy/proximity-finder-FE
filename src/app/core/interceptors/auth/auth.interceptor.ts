@@ -3,16 +3,17 @@ import { HttpInterceptorFn } from '@angular/common/http';
 import { switchMap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 import { AuthService } from './../../../features/auth/services/auth/auth.service';
+import { excludedEndpoints } from '../../../utils/endPoints';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
 
-  if (
-    req.url.includes('/auth/public/') ||
-    req.url.includes('/api/v1/services')
-  ) {
+  if (excludedEndpoints.some(path => req.url.includes(path))) {
+    console.log('hey')
     return next(req);
   }
+
+
   if (authService.isTokenExpired()) {
     return authService.refreshAccessToken().pipe(
       switchMap((refreshResponse) => {

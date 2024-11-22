@@ -183,6 +183,11 @@ export const routes: Routes = [
         path: '**',
         redirectTo: '',
       },
+
+      {
+        path: 'profile',
+        loadComponent: () => import('./features/profile-management/pages/admin-profile/admin-profile.component').then((m) => m.AdminProfileComponent),
+      }
     ],
   },
 

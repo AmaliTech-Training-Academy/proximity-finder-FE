@@ -4,6 +4,7 @@
 @use '../../../../../styles/_variables' as *
 
 .user-profile
+    height: calc( 100vh - 127px )
     overflow: scroll
     scroll-behavior: smooth
     scrollbar-width: none
@@ -17,16 +18,40 @@
         height: 100%
         object-fit: cover
 
-.profile-image
-    .avatar
+    .profile-image-container
         position: absolute
-        top: 41%
-        left: 12%
-        width: pxToRem(150)
-        height: pxToRem(150)
-        object-fit: cover
-        border: 5px solid $white
-        border-radius: 50%
+        width: 9.375rem
+        top: 10rem
+        left: 11rem
+        
+    
+    
+        .avatar
+            width: pxToRem(150)
+            height: pxToRem(150)
+            object-fit: cover
+            border: 5px solid $white
+            border-radius: 50%
+
+
+        .overlay
+            position: absolute
+            right: 3rem
+            width: pxToRem(40)
+            height: pxToRem(40)
+            padding: 0.7rem
+            background-color: #F2F4F5
+            bottom: 18px
+            right: 0
+            border-radius: 50%
+            transition: background-color 0.3s ease
+            @include flex-option(flex, center, center,flex)
+            cursor: pointer
+            
+            &:hover
+                img
+                    filter: invert(1)
+
 
 .container
     @include flex-option(flex, null, null, column)
@@ -138,9 +163,6 @@
                             background-color: #FAFBF
                             outline: none
                     
-                    
-                
-                
 
     .account-container
         padding: pxToRem(40) pxToRem(20) pxToRem(16)
@@ -151,3 +173,6 @@
 
 .has-error
     border: 1px solid $red
+
+input[type="file"]
+    display: none
