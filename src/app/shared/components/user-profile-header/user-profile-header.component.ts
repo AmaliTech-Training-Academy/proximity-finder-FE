@@ -5,6 +5,7 @@ import { Observable, Subscription } from 'rxjs';
 import { User } from '../../../features/profile-management/models/user';
 import { IProfile } from '../../../features/profile-management/models/profile';
 import { CommonModule } from '@angular/common';
+import { ROLE_ADMIN, ROLE_PROVIDER, ROLE_SEEKER } from '../../../utils/roles';
 
 @Component({
   selector: 'app-user-profile-header',
@@ -31,13 +32,13 @@ export class UserProfileHeaderComponent implements OnInit{
   
   navigateToProfile(): void {
     const [role] = this.loggedInUser?.role || []
-    if (role === 'ROLE_ADMIN') {
+    if (role === ROLE_ADMIN) {
       this.router.navigate(['/admin/dashboard/profile'])
     }
-    else if (role === 'ROLE_SEEKER') {
+    else if (role === ROLE_SEEKER) {
       this.router.navigate(['/profile'])
     }
-    else if (role === 'ROLE_PROVIDER') {
+    else if (role === ROLE_PROVIDER) {
       this.router.navigate(['/provider/dashboard'])
     }
   }

@@ -15,7 +15,8 @@ import { ImageManagementService } from '../../services/image-management.service'
 import { IProfile } from '../../models/profile';
 import { Subscription } from 'rxjs';
 import { LocalStorageService } from '../../../../shared/services/local-storage.service';
-import { decodeToken } from '../../../../utils/decodeToken';
+import { decodeToken, initializeUser } from '../../../../utils/decodeToken';
+import { ROLE_SEEKER } from '../../../../utils/roles';
 
 @Component({
   selector: 'app-user-profile',
@@ -45,22 +46,13 @@ export class UserProfileComponent implements OnInit {
   constructor(private fb: FormBuilder, private profileService: ProfileService, private imageService: ImageManagementService,
               private localStorageService:LocalStorageService
   ) { 
-    this.initializeUser()
-  }
-
-  initializeUser() {
-    this.token = this.localStorageService.getItem('accessToken') || ''
-    const decodedUser = decodeToken(this.token)
-    if(decodedUser) {
-      this.role = decodedUser.role
-    }
-    else {
-      console.error('Failed to decode token')
-    }
+    const userData = initializeUser(this.localStorageService)
+    this.token = userData.token
+    this.role = userData.role
   }
 
   ngOnInit() {
-    if (this.role[0] === 'ROLE_SEEKER') {
+    if (this.role[0] === ROLE_SEEKER) {
       this.profileSubscription = this.profileService.getClient().subscribe((client) => {
         this.client = client
         this.updateUserForm()
