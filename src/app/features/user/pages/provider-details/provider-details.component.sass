@@ -3,12 +3,20 @@
 @use '../../../../../styles/_functions' as *
 @use '../../../../../styles/_variables' as *
 
+.provider-details
+    overflow: hidden
+    height: 100vh
+
+
 .navbar
     margin-inline: pxToRem(160)
     
 .container
     @include flex-option(flex, null, null,column)
     gap: pxToRem(30)
-    
     background-color: $white
     margin-inline: pxToRem(200)
+    overflow: scroll
+    height: calc( 100vh -  127px)
+    scroll-behavior: smooth
+    scrollbar-width: none
