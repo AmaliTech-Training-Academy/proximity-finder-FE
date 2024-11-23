@@ -8,7 +8,7 @@
     <mat-icon svgIcon="arrow-right" aria-hidden="false" aria-label="arrow right icon"></mat-icon>
 
     @if (currentRoute) {
-        <a [routerLink]="currentRoute | lowercase" routerLinkActive="active-link" 
+        <a [routerLink]="'/' + (currentRoute | lowercase)" routerLinkActive="active-link" 
         >{{currentRoute}}</a>
     }
 

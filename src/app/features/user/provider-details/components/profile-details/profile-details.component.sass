@@ -1,0 +1,83 @@
+@use '../../../../../../styles/_mixins' as *
+@use '../../../../../../styles/_functions' as *
+@use '../../../../../../styles/_typography' as *
+@use '../../../../../../styles/_variables' as *
+
+.container
+    @include flex-option(flex, null, null,column)
+    gap: pxToRem(30)
+
+    h2
+        font-size: 2rem
+        color: $text-main
+    
+    .col-1
+        @include flex-option(flex, space-between, center,row)
+
+        .profile-ratings
+            @include flex-option(flex, space-between, center,row)
+            gap: pxToRem(20)
+
+            img
+                width: pxToRem(140)
+                height: pxToRem(140)
+                border-radius: 50%
+                object-fit: cover
+            
+            .details
+                @include flex-option(flex, null, null,column)
+                gap: pxToRem(10)
+
+                h4
+                    font-size: 1.5rem
+                    font-weight: 600
+                    color: $text-main
+
+                .ratings
+                    @include flex-option(flex, space-between, center,row)
+                    gap: pxToRem(14)
+
+                    p
+                        font-size: 1rem
+                        color: #408EFD
+
+                    .rate
+                        color: #7D7979
+        
+        .actions
+            @include flex-option(flex, null, center,row)
+            gap: pxToRem(10)
+            
+            .btn
+                border-radius: pxToRem(5)
+                padding: pxToRem(10) pxToRem(20)
+                font-size: pxToRem(14)
+                font-weight: 600
+                cursor: pointer
+                border: 2px solid #408EFD
+                outline: none
+
+            .btn-primary
+                background-color: #408EFD
+                color: $white
+
+            .btn-secondary
+                background-color: $white
+                color: #408EFD
+            
+    .col-2
+        @include flex-option(flex, null, null,column)
+        gap: pxToRem(15)
+        
+        h3
+            font-size: 1rem
+            font-weight: 600
+            color: $text-main
+        
+        p
+            font-size: 1rem
+            font-weight: 400
+            color: #676161
+            text-overflow: ellipsis
+        
+    

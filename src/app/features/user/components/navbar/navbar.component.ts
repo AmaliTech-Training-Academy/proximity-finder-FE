@@ -29,6 +29,6 @@ export class NavbarComponent implements OnInit{
 
   private updateRoute() {
     const path = this.router.url.split('/').pop()
-    this.currentRoute = path ? path.charAt(0).toUpperCase() + path.slice(1) : 'Home'
+    this.currentRoute = path ? path.charAt(0).toUpperCase() + path.slice(1) : ''
   }
 }
