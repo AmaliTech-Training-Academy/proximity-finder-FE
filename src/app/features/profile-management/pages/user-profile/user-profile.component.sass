@@ -118,6 +118,20 @@
                         &:active,
                         &:focus-within
                             outline: none
+
+            .no-result
+                @include flex-option(flex, center, center,column)
+                gap: 0.5rem
+
+                img
+                    width: 50%
+                    height: 50%
+                    object-fit: cover
+
+                h2
+                    font-size: 1.5rem
+                    color: $text-secondary
+                
                 
                 .account
                     @include flex-option(flex, space-between, center, row)

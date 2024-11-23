@@ -1,35 +1,54 @@
 <div class="container">
-    <form>
+    <form class="bank-details" [formGroup]="mobileMoneyForm" (ngSubmit)="onSubmit()">
         <div class="input-group">
             <div class="input-field">
                 <label for="provider">Service Provider</label>
-                <select name="provider" id="provider">
-                    <option value="" selected disabled>Choose your preferred network</option>
-                    <option value="mtn">MTN</option>
-                    <option value="telecel">Telecel</option>
-                </select>
+                @if (serviceProviders | async; as providers) {
+                    <p-dropdown
+                            id="provider"
+                            [(ngModel)]="selectedProvider"
+                            [options]="providers" 
+                            placeholder="Choose your preferred network"
+                            formControlName="provider"
+                        />
+                }
             </div>
 
             <div class="input-field">
                 <app-fields label="Account Name"
                 type="text"
                 placeholder="Enter account name"
+                formControlName="accountName"
+                [error]="mobileMoneyForm.get('accountName')?.invalid && (mobileMoneyForm.get('accountName')?.dirty || mobileMoneyForm.get('accountName')?.touched)"
                 [class]="'custom-style'"/>
             </div>
+            @if (mobileMoneyForm.get('accountName')?.invalid && (mobileMoneyForm.get('accountName')?.dirty || mobileMoneyForm.get('accountName')?.touched)) {
+                <small class="error">Account name is required</small>
+            }
 
             <div class="input-field">
-                <app-fields label="Account Akias"
+                <app-fields label="Account Alias"
                 type="text"
                 placeholder="Enter a desired name you wish to attach to your account"
+                formControlName="accountAlias"
+                [error]="mobileMoneyForm.get('accountAlias')?.invalid && (mobileMoneyForm.get('accountAlias')?.dirty || mobileMoneyForm.get('accountAlias')?.touched)"
                 [class]="'custom-style'"/>
             </div>
+            @if (mobileMoneyForm.get('accountAlias')?.invalid && (mobileMoneyForm.get('accountAlias')?.dirty || mobileMoneyForm.get('accountAlias')?.touched)) {
+                <small class="error">Account Alias is required</small>
+            }
 
             <div class="input-field">
                 <app-fields label="Mobile Money"
                 type="number"
                 placeholder="000 000 0000"
+                formControlName="mobileNumber"
+                [error]="mobileMoneyForm.get('mobileNumber')?.invalid && (mobileMoneyForm.get('mobileNumber')?.dirty || mobileMoneyForm.get('mobileNumber')?.touched)"
                 [class]="'custom-style'"/>
             </div>
+            @if (mobileMoneyForm.get('mobileNumber')?.invalid && (mobileMoneyForm.get('mobileNumber')?.dirty || mobileMoneyForm.get('mobileNumber')?.touched)) {
+                <small class="error">Mobile number is required</small>
+            }
         </div>
 
         <div class="form-actions">

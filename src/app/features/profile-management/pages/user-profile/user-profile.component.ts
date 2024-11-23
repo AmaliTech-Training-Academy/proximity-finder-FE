@@ -13,10 +13,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { ImageManagementService } from '../../services/image-management.service';
 import { IProfile } from '../../models/profile';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { LocalStorageService } from '../../../../shared/services/local-storage.service';
 import { decodeToken, initializeUser } from '../../../../utils/decodeToken';
 import { ROLE_SEEKER } from '../../../../utils/roles';
+import { IPaymentAccount } from '../../../../core/models/payment-account';
 
 @Component({
   selector: 'app-user-profile',
@@ -38,6 +39,7 @@ export class UserProfileComponent implements OnInit {
   defaultImage = 'assets/images/default-avatar.png'
   token!: string
   role: string[] = []
+  paymentAccounts!: Observable<IPaymentAccount[]>
 
   private notyf = inject(NOTYF)
   profileSubscription!: Subscription
@@ -58,6 +60,8 @@ export class UserProfileComponent implements OnInit {
         this.updateUserForm()
       })
     }
+
+    this.paymentAccounts = this.profileService.getPaymentAccounts()
   }
 
   userForm = this.fb.group({
