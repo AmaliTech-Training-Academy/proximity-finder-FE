@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
 import {MatIconRegistry, MatIconModule} from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
@@ -15,6 +15,7 @@ import { SvgService } from '../../../../shared/services/svg.service';
 })
 export class NavbarComponent implements OnInit{
   currentRoute!: string
+  @Input() backgroundColor: string = 'initial';
 
   constructor( private router: Router, private activatedRoute: ActivatedRoute, private svgService: SvgService) {}
 

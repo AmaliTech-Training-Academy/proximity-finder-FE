@@ -1,6 +1,7 @@
-<nav>
-    <mat-icon svgIcon="home" aria-hidden="false" aria-label="home SVG icon"></mat-icon>
-
+<nav [style.background-color]="backgroundColor">
+    @if (currentRoute !== 'Pro') {
+        <mat-icon svgIcon="home" aria-hidden="false" aria-label="home SVG icon"></mat-icon>
+    }
     <a routerLink="/" routerLinkActive="active-link" 
     [routerLinkActiveOptions]="{ exact: true }">Home</a>
 
