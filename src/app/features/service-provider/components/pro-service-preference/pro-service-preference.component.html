@@ -4,12 +4,14 @@
       <div class="left">
         <div class="service field">
           <label for="service">Service</label>
+          @if (serviceCategories$ | async; as serviceCategories) {
           <p-dropdown
             id="service"
             formControlName="service"
             [options]="serviceCategories"
             optionLabel="name"
           />
+          }
         </div>
 
         <div class="bookingDays field">
