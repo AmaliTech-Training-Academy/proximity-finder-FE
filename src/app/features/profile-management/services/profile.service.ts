@@ -42,23 +42,17 @@ export class ProfileService {
     if(!this.email) {
       throw new Error('Email not found')
     }
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.token}`
-    });
     const params = new HttpParams().set( 'email', this.email )
 
-    return this.http.put<IProfile>(`${environment.baseUrl}/auth/update/info`, client, {params, headers}).pipe(
+    return this.http.put<IProfile>(`${environment.baseUrl}/auth/update/info`, client, {params}).pipe(
       retry(2),
       catchError((error) => this.errorHandler.handleError(error))
     )
   }
 
   getPaymentAccounts(): Observable<IPaymentAccount[]> {
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.token}`,
-      'Content-Type': 'application/json',
-    });
-    return this.http.get<IPaymentAccount[]>(`${this.apiUrl}/payment-method`, {headers}).pipe(
+
+    return this.http.get<IPaymentAccount[]>(`${this.apiUrl}/payment-method`).pipe(
       retry(2),
       catchError(error => this.errorHandler.handleError(error))
     )
