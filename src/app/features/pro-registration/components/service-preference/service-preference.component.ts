@@ -36,8 +36,8 @@ import { ITime } from '../../../../core/models/ITime';
   templateUrl: './service-preference.component.html',
   styleUrls: ['./service-preference.component.sass'],
 })
-export class ServicePreferenceComponent implements OnInit {
-  serviceCategories = serviceCategories;
+export class ServicePreferenceComponent {
+  serviceCategories$ = this.serviceService.serviceCategories$;
   paymentPreferences = accountPreferences;
   days = bookingDays;
   timeOptions: ITime[] = [];
@@ -59,13 +59,6 @@ export class ServicePreferenceComponent implements OnInit {
     private serviceService: ServiceService
   ) {
     this.generateTimeOptions(15);
-  }
-
-  ngOnInit() {
-    this.serviceService.getServices().subscribe({
-      next: (data) => console.log(data),
-      error: (error) => console.log(error),
-    });
   }
 
   onFilesSelected(files: File[]): void {
