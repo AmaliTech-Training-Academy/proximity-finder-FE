@@ -8,3 +8,4 @@ export const excludedEndpoints = [
   '/auth/public/update-profile-picture',
   '/api/v1/provider-services',
 ];
+

@@ -105,27 +105,22 @@
             </div>
 
             <div class="input-group">
-                <div class="account" (click)="toggleAccountDetails()">
-                    <p>American Express</p>
-                    @if (isAccountClicked) {
-                        <img src="../../../../../assets/check-fill.svg" alt="check icon">
+                @if (paymentAccounts | async; as accounts) {
+                    @for (account of accounts; track $index) {
+                        <div class="account" (click)="toggleAccountDetails()">
+                            <p>{{ account.bankName || account.serviceProvider }}</p>
+                            @if (isAccountClicked) {
+                                <img src="../../../../../assets/check-fill.svg" alt="check icon">
+                            }
+                        </div>
                     }
-                </div>
-
-
-                <div class="account" (click)="toggleAccountDetails()">
-                    <p>Fidelty Bank - EUR</p>
-                    @if (isAccountClicked) {
-                        <img src="../../../../../assets/check-fill.svg" alt="check icon">
-                    }                
-                </div>
-
-                <div class="account" (click)="toggleAccountDetails()">
-                    <p>MTN Mobile Money</p>
-                    @if (isAccountClicked) {
-                        <img src="../../../../../assets/check-fill.svg" alt="check icon">
-                    } 
-                </div>
+                }
+                @else {
+                    <div class="no-result">
+                        <img src="../../../../../assets/no-results.svg" alt="no result found">
+                        <h2>No accounts added</h2>
+                    </div>
+                }
                
             </div>
 
