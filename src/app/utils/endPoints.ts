@@ -6,7 +6,7 @@ export const excludedEndpoints = [
     '/api/v1/services',
     '/auth/info',
     '/auth/update/info',
-    '/auth/public/update-profile-picture'
-
+    '/auth/public/update-profile-picture',
+    '/api/v1/'
   ];
   

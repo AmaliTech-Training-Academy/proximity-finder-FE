@@ -7,6 +7,7 @@ import { LocalStorageService } from '../../../shared/services/local-storage.serv
 import { jwtDecode } from 'jwt-decode';
 import { User } from '../models/user';
 import { IProfile } from '../models/profile';
+import { IPaymentAccount } from '../../../core/models/payment-account';
 
 
 @Injectable({
@@ -15,6 +16,7 @@ import { IProfile } from '../models/profile';
 export class ProfileService {
   token!: string
   email: string | null | undefined = null
+   apiUrl = 'http://34.216.212.142:8888/api/v1'
 
   loggedInUserSubject = new BehaviorSubject<User | null>(null)
   loggedInUser$ = this.loggedInUserSubject.asObservable()
@@ -40,14 +42,19 @@ export class ProfileService {
     if(!this.email) {
       throw new Error('Email not found')
     }
-    const headers = new HttpHeaders({
-      'Authorization': `Bearer ${this.token}`
-    });
     const params = new HttpParams().set( 'email', this.email )
 
-    return this.http.put<IProfile>(`${environment.baseUrl}/auth/update/info`, client, {params, headers}).pipe(
+    return this.http.put<IProfile>(`${environment.baseUrl}/auth/update/info`, client, {params}).pipe(
       retry(2),
       catchError((error) => this.errorHandler.handleError(error))
+    )
+  }
+
+  getPaymentAccounts(): Observable<IPaymentAccount[]> {
+
+    return this.http.get<IPaymentAccount[]>(`${this.apiUrl}/payment-method`).pipe(
+      retry(2),
+      catchError(error => this.errorHandler.handleError(error))
     )
   }
 
