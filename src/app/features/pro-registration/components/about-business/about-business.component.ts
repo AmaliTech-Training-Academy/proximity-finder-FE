@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { FieldsComponent } from "../fields/fields.component";
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -8,6 +8,8 @@ import { FileUploaderComponent } from "../../../service-provider/components/file
 import { AboutService } from '../../services/about/about.service';
 import { HttpHeaders } from '@angular/common/http';
 import { LocalStorageService } from '../../../../shared/services/local-storage.service';
+import { Notyf } from 'notyf';
+import { NOTYF } from '../../../../shared/notify/notyf.token';
 
 @Component({
   selector: 'app-about-business',
@@ -18,6 +20,7 @@ import { LocalStorageService } from '../../../../shared/services/local-storage.s
     SocialsComponent,
     CommonModule,
     FileUploaderComponent,
+    RouterLink
   ],
   templateUrl: './about-business.component.html',
   styleUrls: ['./about-business.component.sass']
@@ -39,10 +42,11 @@ export class AboutBusinessComponent {
     private fb: FormBuilder,
     private router: Router,
     private aboutService: AboutService,
-    private localStorageService:LocalStorageService
+    private localStorageService:LocalStorageService,
+     @Inject(NOTYF) private notyf: Notyf,
   ) {}
 
-  // Handle the validity change from the SocialsComponent
+  
   onSocialsValidStateChange(isValid: boolean) {
     this.isSocialsValid = isValid; 
   }
@@ -83,8 +87,14 @@ export class AboutBusinessComponent {
         'Authorization': token ? `Bearer ${token}` : '',
       });
       this.aboutService.sendAbout(formData, { headers }).subscribe({
-        next: (response) => console.log('Form submitted successfully', response),
-        error: (err) => console.error('Error submitting form', err),
+        next: (response) => {
+          this.notyf.success('About Business Saved');
+          this.router.navigateByUrl('/registration/payment-method');
+        },
+        error: (err) => {
+          this.notyf.error('Failed to save data');
+        }
+
       });
     }
   }
