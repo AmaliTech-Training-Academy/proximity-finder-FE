@@ -12,7 +12,7 @@ import { environment } from '../../../../../environments/environment';
 export class AuthService {
   private url = environment.baseUrl;
   private http = inject(HttpClient);
-  private localStorageService = inject(LocalStorageService); 
+  public localStorageService = inject(LocalStorageService); 
 
   public accessToken = new BehaviorSubject<string>(this.localStorageService.getItem('accessToken') || '');
   public refreshToken = new BehaviorSubject<string>(this.localStorageService.getItem('refreshToken') || '');

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { Notyf } from 'notyf';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { Subscription } from 'rxjs';
+import { LocalStorageService } from '../../../../shared/services/local-storage.service';
 
 @Component({
   selector: 'app-login-input',
@@ -28,7 +29,8 @@ export class LoginInputComponent implements OnDestroy {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    @Inject(NOTYF) private notyf: Notyf
+    @Inject(NOTYF) private notyf: Notyf,
+  
   ) {}
 
  
@@ -45,9 +47,11 @@ export class LoginInputComponent implements OnDestroy {
               console.log('seeker')
               this.router.navigateByUrl('');
             } else if (res.roles[0] === 'ROLE_PROVIDER') {
+              const userData = { email: res.email, userName: res.username };
+              this.authService.localStorageService.setItem('userData',userData);
               this.router.navigateByUrl('/registration');
             } 
-            this.loginForm.reset();
+            
         },
         error: () => {
           this.notyf.error('Login failed. Please check your credentials.');
