@@ -10,3 +10,23 @@ export function decodeToken(token: string): User {
         return {} as User;
     }
 }
+
+export function initializeUser(localStorageService: { getItem: (key: string) => string | null }) {
+    const token = localStorageService.getItem('accessToken') || '';
+    const decodedUser = decodeToken(token);
+  
+    if (decodedUser) {
+      return {
+        token,
+        role: decodedUser.role || [],
+        email: decodedUser.sub || ''
+      };
+    } else {
+      console.error('Failed to decode token');
+      return {
+        token: '',
+        role: [],
+        email: ''
+      };
+    }
+  }

@@ -6,7 +6,11 @@ import { ServiceCategoryCreationComponent } from '../../components/service-categ
 @Component({
   selector: 'app-admin-settings',
   standalone: true,
-  imports: [TabViewModule, ServiceCategoryCreationComponent],
+  imports: [
+    TabViewModule,
+    ServiceCategoryCreationComponent,
+    ServiceListingComponent,
+  ],
   templateUrl: './admin-settings.component.html',
   styleUrl: './admin-settings.component.sass',
 })

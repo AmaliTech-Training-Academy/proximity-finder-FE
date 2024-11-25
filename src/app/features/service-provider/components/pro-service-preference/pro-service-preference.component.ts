@@ -29,7 +29,7 @@ import { ServiceCategory } from '../../../../core/models/IServiceCategory';
 })
 export class ProServicePreferenceComponent {
   isEditing = true;
-  serviceCategories: ServiceCategory[] = [];
+  serviceCategories$ = this.serviceService.serviceCategories$;
   paymentPreferences = accountPreferences;
   days = bookingDays;
   timeOptions: ITime[] = [];
@@ -50,15 +50,6 @@ export class ProServicePreferenceComponent {
 
   constructor(private fb: FormBuilder, private serviceService: ServiceService) {
     this.generateTimeOptions(15);
-  }
-
-  ngOnInit() {
-    this.serviceService.getServices().subscribe({
-      next: (response) => {
-        this.serviceCategories = response;
-      },
-      error: (error) => console.error('Error:', error),
-    });
   }
 
   setEditing() {
