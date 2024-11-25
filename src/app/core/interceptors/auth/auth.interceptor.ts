@@ -8,9 +8,14 @@ import { excludedEndpoints } from '../../../utils/endPoints';
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
 
+  const clonedRequest = req.clone({
+    setHeaders: {
+      Authorization: `Bearer ${authService.accessToken.value}`,
+    },
+  });
+
   if (excludedEndpoints.some(path => req.url.includes(path))) {
-    console.log('hey')
-    return next(req);
+    return next(clonedRequest);
   }
 
 
@@ -30,11 +35,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
       })
     );
   }
-  const clonedRequest = req.clone({
-    setHeaders: {
-      Authorization: `Bearer ${authService.accessToken.value}`,
-    },
-  });
+ 
 
   return next(clonedRequest);
 };

@@ -1,0 +1,26 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_typography' as *
+@use '../../../../../styles/_variables' as *
+
+.container
+    position: absolute
+    top: 7%
+    right: 0
+    background-color: $white
+    width: pxToRem(150)
+    padding: 1rem 1.5rem
+    border-radius: 8px
+    @include flex-option(flex, center, center,row)
+
+    button
+        @include flex-option(flex, center, center,row)
+        gap: 0.5rem
+        border: none
+        outline: none
+        background-color: transparent
+        font-size: 1.125rem
+        font-weight: 600
+        cursor: pointer
+        color: $text-secondary
+    

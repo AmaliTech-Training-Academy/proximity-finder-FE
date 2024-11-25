@@ -26,7 +26,7 @@ export class MobileMoneyDetailsComponent implements OnInit {
     provider: ['', Validators.required],
     accountName: ['', Validators.required],
     accountAlias: ['', Validators.required],
-    mobileNumber: ['', Validators.required],
+    phoneNumber: ['', Validators.required],
   })
 
   ngOnInit() {
@@ -41,12 +41,11 @@ export class MobileMoneyDetailsComponent implements OnInit {
         serviceProvider: this.mobileMoneyForm.value.provider!,
         accountName: this.mobileMoneyForm.value.accountName!,
         accountAlias: this.mobileMoneyForm.value.accountAlias!,
-        mobileNumber: this.mobileMoneyForm.value.mobileNumber!,
+        phoneNumber: this.mobileMoneyForm.value.phoneNumber!,
       }
 
       this.mobileService.addMobileMoney(momoInfo).subscribe({
         next: () => {
-          console.log('Mobile money details added successfully')
           this.notyf.success('Mobile money details added successfully')
         },
         error: (error) => {

@@ -1,6 +1,15 @@
 <main>
-  @if (serviceCategories$ | async; as serviceCategories) { @for (serviceCategory
-  of serviceCategories; track serviceCategory.id) {
+  @if (serviceCategories$ | async; as serviceCategories) { @if
+  (!serviceCategories.length) {
+  <div class="center">
+    <app-loader />
+  </div>
+  } @else { @for (serviceCategory of serviceCategories; track
+  serviceCategory.id) {
   <app-service-card [serviceCategory]="serviceCategory" />
-  } }
+  } } } @else {
+  <div class="center">
+    <app-loader />
+  </div>
+  }
 </main>
