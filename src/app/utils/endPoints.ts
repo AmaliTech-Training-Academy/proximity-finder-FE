@@ -9,3 +9,4 @@ export const excludedEndpoints = [
   '/api/v1/provider-services',
   '/api/v1/service-experiences',
 ];
+

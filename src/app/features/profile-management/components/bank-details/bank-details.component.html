@@ -1,39 +1,56 @@
 <div class="container">
-    <form>
+    <form class="bank-details" [formGroup]="bankForm" (ngSubmit)="onSubmit()">
         <div class="input-group">
             <div class="input-field">
-                <label for="payment">Payment Preference</label>
-                <select name="payment" id="payment">
-                    <option value="" selected disabled>Choose Payment Preference</option>
-                    <option value="fidelty">Fidelty</option>
-                    <option value="cal">Cal</option>
-                </select>
+                <label for="payment">Bank Name</label>
+                
+                    <p-dropdown
+                        id="payment"
+                        [options]="allBankNames" 
+                        placeholder="Select a Bank name"
+                        formControlName="bankName"
+                    />
             </div>
             
             <div class="input-field">
                 <app-fields label="Account Name"
                 type="text"
                 placeholder="Enter account name"
-                [class]="'custom-style'"/>
+                formControlName="accountName"
+                [class]="'custom-style'"
+                [error]="bankForm.get('accountName')?.invalid && (bankForm.get('accountName')?.dirty || bankForm.get('accountName')?.touched)"/>
             </div>
+            @if (bankForm.get('accountName')?.invalid && (bankForm.get('accountName')?.dirty || bankForm.get('accountName')?.touched)) {
+                <small class="error">Account name is required</small>
+            }
 
             <div class="input-field">
                 <app-fields label="Account Alias"
                 type="text"
                 placeholder="Enter a desired name"
-                [class]="'custom-style'"/>
+                formControlName="accountAlias"
+                [class]="'custom-style'"
+                [error]="bankForm.get('accountAlias')?.invalid && (bankForm.get('accountAlias')?.dirty || bankForm.get('accountAlias')?.touched)"/>
             </div>
+            @if (bankForm.get('accountAlias')?.invalid && (bankForm.get('accountAlias')?.dirty || bankForm.get('accountALias')?.touched)) {
+                <small class="error">Account Alias is required</small>
+            }
 
             <div class="input-field">
                 <app-fields label="Account Number"
                 type="number"
+                formControlName="accountNumber"
                 placeholder="0000 0000 00000"
-                [class]="'custom-style'"/>
+                [class]="'custom-style'"
+                [error]="bankForm.get('accountNumber')?.invalid && (bankForm.get('accountNumber')?.dirty || bankForm.get('accountNumber')?.touched)"/>
             </div>
+            @if (bankForm.get('accountNumber')?.invalid && (bankForm.get('accountNumber')?.dirty || bankForm.get('accountNumber')?.touched)) {
+                <small class="error">Account Number is required</small>
+            }
         </div>
 
         <div class="form-actions">
-            <button type="button" class="cancel-btn">Cancel</button>
+            <button type="button" class="cancel-btn" (click)="onCancel()">Cancel</button>
             <button type="submit" class="save-btn">Save</button>
         </div>
     </form>

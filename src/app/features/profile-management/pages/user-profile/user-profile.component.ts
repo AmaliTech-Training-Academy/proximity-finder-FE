@@ -13,7 +13,11 @@ import { MatIconModule } from '@angular/material/icon';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { ImageManagementService } from '../../services/image-management.service';
 import { IProfile } from '../../models/profile';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { LocalStorageService } from '../../../../shared/services/local-storage.service';
+import { decodeToken, initializeUser } from '../../../../utils/decodeToken';
+import { ROLE_SEEKER } from '../../../../utils/roles';
+import { IPaymentAccount } from '../../../../core/models/payment-account';
 
 @Component({
   selector: 'app-user-profile',
@@ -33,24 +37,37 @@ export class UserProfileComponent implements OnInit {
   imageUrl: string | ArrayBuffer | null = null
   selectedFile: File | Blob | undefined
   defaultImage = 'assets/images/default-avatar.png'
+  token!: string
+  role: string[] = []
+  paymentAccounts!: Observable<IPaymentAccount[]>
 
   private notyf = inject(NOTYF)
   profileSubscription!: Subscription
   imageSubscription!: Subscription
 
-  constructor(private fb: FormBuilder, private profileService: ProfileService, private imageService: ImageManagementService) { }
+  constructor(private fb: FormBuilder, private profileService: ProfileService, private imageService: ImageManagementService,
+              private localStorageService:LocalStorageService
+  ) { 
+    const userData = initializeUser(this.localStorageService)
+    this.token = userData.token
+    this.role = userData.role
+  }
 
   ngOnInit() {
-    this.profileSubscription = this.profileService.getClient().subscribe((client) => {
-      this.client = client
-      this.updateUserForm()
-    })
+    if (this.role[0] === ROLE_SEEKER) {
+      this.profileSubscription = this.profileService.getClient().subscribe((client) => {
+        this.client = client
+        this.updateUserForm()
+      })
+    }
+
+    this.paymentAccounts = this.profileService.getPaymentAccounts()
   }
 
   userForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
     email: ['', [Validators.required, Validators.email]],
-    phone: ['', [Validators.required,Validators.pattern(/^\d{10}$/)]]
+    phone: ['', [Validators.required]]
   })
 
   accountInfoForm = this.fb.group({
@@ -75,22 +92,29 @@ export class UserProfileComponent implements OnInit {
   onSubmit() {
     if (this.userForm.valid) {
       const {name, phone} = this.userForm.value
-      const updatedClient:IProfile = {...this.client,
+      const updatedClient:IProfile = {
+             ...this.client,
              userName: name ?? '',
              mobileNumber: phone ?? ''
       }
       
-      this.profileService.updateClient(updatedClient).subscribe({
-        next: (client) => {
-          this.client = client
-          this.isFormActive = false
+      if (updatedClient.userName !== this.client.userName || updatedClient.mobileNumber !== this.client.mobileNumber) {
+        this.profileService.updateClient(updatedClient).subscribe({
+          next: (client) => {
+            this.client = client
+            this.isFormActive = false
+            this.notyf.success('Profile updated successfully')
+          },
+          error: (error) => {
+            this.notyf.error('An error occurred while updating profile')
+          }
+        })
+      }
+      else {
+        if(this.selectedFile) {
           this.updateProfileImage()
-          this.notyf.success('Profile updated successfully')
-        },
-        error: (error) => {
-          this.notyf.error('An error occurred while updating profile')
         }
-      })
+      }
     }
   }
 
@@ -120,15 +144,22 @@ export class UserProfileComponent implements OnInit {
   }
 
   updateProfileImage() {
+    if (this.selectedFile) {
     this.imageSubscription = this.imageService.uploadProfileImage(this.selectedFile).subscribe({
       next: (response) => {
         console.log(response)
         this.imageUrl = response
+        this.notyf.success('Profile image uploaded successfully')
       },
       error: (error) => {
         console.error(error)
+        this.notyf.error('An error occurred while uploading profile image')
       }
     })
+    }
+    else {
+      this.notyf.error('Please select an image to upload')
+    }
   }
 
   openDialog(){

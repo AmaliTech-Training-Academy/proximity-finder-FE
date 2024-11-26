@@ -4,52 +4,18 @@
         <p>Discover our most popular services, trusted by clients for their quality and readability. Find you what you need with ease and confidence.</p>
     </div>
 
-    <div class="services">
-        <div class="card">
-            <img src="../../../../../assets/images/occupation.png" alt="">
-            <div class="details">
-                <p class="title">Plumbing Repairs</p>
-                <p class="description">lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun torem ipsum dolor </p>
-            </div>
+    @if (trendingServices$ | async; as trendingServices) {
+        <div class="services">
+            @for (trendingService of trendingServices | slice:0:6; track $index) {
+                <div class="card">
+                    <img [src]="trendingService.image" alt="{{trendingService.name}}">
+                    <div class="details">
+                        <p class="title">{{trendingService.name}}</p>
+                        <p class="description">{{trendingService.description}}</p>
+                    </div>
+                </div>
+            }
         </div>
-       
-        <div class="card">
-            <img src="../../../../../assets/images/occupation.png" alt="">
-            <div class="details">
-                <p class="title">Plumber</p>
-                <p class="description">lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun torem ipsum dolor </p>
-            </div>
-        </div>
-        
-        <div class="card">
-            <img src="../../../../../assets/images/occupation.png" alt="">
-            <div class="details">
-                <p class="title">Plumber</p>
-                <p class="description">lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun torem ipsum dolor </p>
-            </div>
-        </div>
-        <div class="card">
-            <img src="../../../../../assets/images/occupation.png" alt="">
-            <div class="details">
-                <p class="title">Plumber</p>
-                <p class="description">lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun torem ipsum dolor </p>
-            </div>
-        </div>
-       
-        <div class="card">
-            <img src="../../../../../assets/images/occupation.png" alt="">
-            <div class="details">
-                <p class="title">Plumber</p>
-                <p class="description">lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun torem ipsum dolor </p>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="../../../../../assets/images/occupation.png" alt="">
-            <div class="details">
-                <p class="title">Plumber</p>
-                <p class="description">lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididun torem ipsum dolor </p>
-            </div>
-        </div>
+    }
 
 </div>
