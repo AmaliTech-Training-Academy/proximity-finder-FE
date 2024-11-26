@@ -7,11 +7,12 @@ import { ScheduleOverviewComponent } from "../../provider-details/components/sch
 import { FeaturedProjectsComponent } from "../../provider-details/components/featured-projects/featured-projects.component";
 import { ReviewsComponent } from "../../provider-details/components/reviews/reviews.component";
 import { FooterComponent } from "../../components/footer/footer.component";
+import { CredentialsComponent } from "../../provider-details/components/credentials/credentials.component";
 
 @Component({
   selector: 'app-provider-details',
   standalone: true,
-  imports: [NavbarComponent, UserProfileHeaderComponent, ProfileDetailsComponent, ScheduleOverviewComponent, FeaturedProjectsComponent, ReviewsComponent, FooterComponent],
+  imports: [NavbarComponent, UserProfileHeaderComponent, ProfileDetailsComponent, ScheduleOverviewComponent, FeaturedProjectsComponent, ReviewsComponent, FooterComponent, CredentialsComponent],
   templateUrl: './provider-details.component.html',
   styleUrl: './provider-details.component.sass'
 })

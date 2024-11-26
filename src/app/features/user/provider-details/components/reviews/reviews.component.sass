@@ -25,10 +25,16 @@
                 color: $text-secondary
         
         .rate-bars
-
             .bar
                 @include flex-option(flex, center, center,row)
-                gap: 1rem
+                gap: 0.5rem
+                font-size: pxToRem(12)
+
+                .bar-rate
+                    color: $text-main
+
+                .bar-reviews
+                    color: $text-secondary
 
     .col-2
         @include flex-option(flex, null, null,column)
