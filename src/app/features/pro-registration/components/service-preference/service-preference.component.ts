@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { DropdownModule } from 'primeng/dropdown';
 import {
   accountPreferences,
@@ -20,6 +20,8 @@ import { CommonModule, Time } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ServiceService } from '../../../../core/services/service.service';
 import { ITime } from '../../../../core/models/ITime';
+import { Notyf } from 'notyf';
+import { NOTYF } from '../../../../shared/notify/notyf.token';
 
 @Component({
   selector: 'app-service-preference',
@@ -36,8 +38,8 @@ import { ITime } from '../../../../core/models/ITime';
   templateUrl: './service-preference.component.html',
   styleUrls: ['./service-preference.component.sass'],
 })
-export class ServicePreferenceComponent implements OnInit {
-  serviceCategories = serviceCategories;
+export class ServicePreferenceComponent {
+  serviceCategories$ = this.serviceService.serviceCategories$;
   paymentPreferences = accountPreferences;
   days = bookingDays;
   timeOptions: ITime[] = [];
@@ -56,16 +58,10 @@ export class ServicePreferenceComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private serviceService: ServiceService
+    private serviceService: ServiceService,
+    @Inject(NOTYF) private notyf: Notyf
   ) {
     this.generateTimeOptions(15);
-  }
-
-  ngOnInit() {
-    this.serviceService.getServices().subscribe({
-      next: (data) => console.log(data),
-      error: (error) => console.log(error),
-    });
   }
 
   onFilesSelected(files: File[]): void {
@@ -119,30 +115,71 @@ export class ServicePreferenceComponent implements OnInit {
   onSubmit() {
     if (this.servicePreferenceForm.valid) {
       const formData = new FormData();
+      const formValue = this.servicePreferenceForm.value;
 
-      Object.keys(this.servicePreferenceForm.value).forEach((key) => {
-        if (key !== 'documents') {
-          formData.append(key, this.servicePreferenceForm.value[key]);
-        }
-      });
+      const formattedBookingDays = formValue.bookingDays.map((day: any) => ({
+        dayOfWeek: (day.dayOfWeek?.name || day.dayOfWeek)
+          .toString()
+          .toUpperCase(),
+        startTime: this.formatTime(day.startTime),
+        endTime: this.formatTime(day.endTime),
+      }));
+
+      formData.append('userId', '33252a99-ab98-4413-9191-6f93c6df5806');
+
+      formData.append(
+        'serviceName',
+        formValue.service.name || formValue.service
+      );
+
+      formData.append(
+        'paymentPreference',
+        formValue.paymentPreference.name || formValue.paymentPreference
+      );
+
+      formData.append('sameLocation', formValue.sameLocation ? 'yes' : 'no');
+
+      formData.append('location', formValue.location);
+
+      formData.append('bookingDays', JSON.stringify(formattedBookingDays));
+
+      if (formValue.schedulingPolicy) {
+        formData.append('schedulingPolicy', formValue.schedulingPolicy);
+      }
 
       this.uploadedFiles.forEach((file, index) => {
-        formData.append(`documents[${index}]`, file);
+        formData.append('documents', file);
       });
 
       formData.forEach((value, key) => console.log(key, value));
 
-      this.http
-        .post(
-          'https://2ed7-196-61-35-158.ngrok-free.app/api/v1/provider-services',
-          formData
-        )
-        .subscribe({
-          next: (response) => console.log('Response:', response),
-          error: (error) => console.error('Error:', error),
-        });
+      this.serviceService.setServicePreference(formData).subscribe({
+        next: (response) => this.notyf.success('Service preference saved'),
+        error: (error) => this.notyf.error('Failed to save preference'),
+      });
     } else {
       console.error('Form is invalid');
     }
+  }
+
+  private formatTime(time: any): string {
+    const timeString = time?.name || time?.value || time;
+
+    if (typeof timeString === 'string' && timeString.match(/^\d{2}:\d{2}$/)) {
+      return timeString;
+    }
+
+    const [timeStr, period] = timeString.toString().split(' ');
+    let [hours, minutes] = timeStr.split(':').map(Number);
+
+    if (period === 'PM' && hours !== 12) {
+      hours += 12;
+    } else if (period === 'AM' && hours === 12) {
+      hours = 0;
+    }
+
+    return `${hours.toString().padStart(2, '0')}:${minutes
+      .toString()
+      .padStart(2, '0')}`;
   }
 }

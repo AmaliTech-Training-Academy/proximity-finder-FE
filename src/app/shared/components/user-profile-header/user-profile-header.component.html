@@ -5,7 +5,7 @@
     </div>
 
     <div class="nav-container">
-        @if (loggedInUser) {
+        @if (userProfile | async; as user) {
             <a>Help & Support</a>
             <a routerLink="/pro-signup" routerLinkActive="active-link" 
             [routerLinkActiveOptions]="{ exact: true }">Sign up as Pro</a>
@@ -14,11 +14,11 @@
 
             <div class="profile-container">
                 <div class="profile" (click)="navigateToProfile()">
-                    <img src="../../../../assets/images/Avatar.png" alt="user's avatar">
-                    <p>{{loggedInUser.username}}</p>
+                    <img [src]="user.profileImage || defaultImage" alt="user's avatar">
+                    <p>{{user.userName}}</p>
                 </div>
     
-                <img src="../../../../assets/arrow-down.svg" alt="arrow down icon">
+                <img src="../../../../assets/arrow-down.svg" alt="arrow down icon" (click)="toggleLogoutModal()">
             </div>
         }
 
@@ -36,3 +36,7 @@
         }
     </div>
 </header>
+
+@if (showLogoutModal) {
+    <app-logout-modal/>
+}

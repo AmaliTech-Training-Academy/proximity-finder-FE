@@ -8,6 +8,7 @@
   >
     <div>
       <label for="jobTitle">What service do you offer?*</label>
+      @if (serviceCategories$ | async; as serviceCategories) {
       <p-dropdown
         id="service"
         formControlName="service"
@@ -15,6 +16,7 @@
         optionLabel="name"
         placeholder="Please choose"
       />
+      }
       <p
         class="error-message"
         *ngIf="
