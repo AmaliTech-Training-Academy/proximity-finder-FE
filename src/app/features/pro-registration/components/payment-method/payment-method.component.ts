@@ -1,5 +1,5 @@
 import { BankPayment, MobilePayment, paymentPreference, PayPalPayment } from './../../models/payment';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FieldsComponent } from "../fields/fields.component";
 import { Router } from '@angular/router';
 import { DropdownModule } from 'primeng/dropdown';
@@ -9,6 +9,7 @@ import { Bank, Payment, serviceProviders } from '../../models/payment';
 import { PaymentService } from '../../services/payment/payment.service';
 import { Notyf } from 'notyf';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-payment-method',
@@ -17,12 +18,12 @@ import { NOTYF } from '../../../../shared/notify/notyf.token';
   templateUrl: './payment-method.component.html',
   styleUrl: './payment-method.component.sass'
 })
-export class PaymentMethodComponent implements OnInit {
-  paymentMethod: paymentPreference[] = [];
-  banks: Bank[] = [];
+export class PaymentMethodComponent implements OnInit,OnDestroy {
+  banks: string[] = [];
   serviceProviders: serviceProviders[] = [];
+  allPreferences:string[] =[]
 
-  selectedPaymentMethod: paymentPreference | undefined;
+  selectedPaymentMethod!: string;
 
   payPalForm =this.fb.group({
     paymentPreference: ['', Validators.required],
@@ -56,6 +57,10 @@ export class PaymentMethodComponent implements OnInit {
 
   })
 
+  bankSubscription!:Subscription
+  mobileMoneySubscription!:Subscription
+  payPalSubscription!:Subscription
+
 
 
   constructor(
@@ -68,16 +73,17 @@ export class PaymentMethodComponent implements OnInit {
   ngOnInit(): void {
     this.loadPaymentData();
   }
+ 
 
   loadPaymentData(): void {
     this.paymentService.getAllPrefernces().subscribe((preferences) => {
-      this.paymentMethod = preferences;
+      this.allPreferences =preferences.map(pref => pref.paymentPreference)
 
-      this.selectedPaymentMethod = this.paymentMethod.find((pref) => pref.paymentPreference === 'Bank Account');
+      this.selectedPaymentMethod = this.allPreferences[0]; 
     });
 
     this.paymentService.getAllBanks().subscribe((banks) => {
-      this.banks = banks;
+      this.banks = banks.map(bank => bank.bankName)
     });
 
     this.paymentService.getAllProviders().subscribe((providers) => {
@@ -86,70 +92,78 @@ export class PaymentMethodComponent implements OnInit {
   }
   onSubmit(): void {
     if (this.payPalForm.valid) {
-      const formData = {
-        paymentPreference: this.payPalForm.value.paymentPreference,
-        firstName: this.payPalForm.value.firstName,
-        lastName: this.payPalForm.value.lastName,
-        email: this.payPalForm.value.email
+      const formData: PayPalPayment = {
+        paymentPreference: this.payPalForm.value.paymentPreference as string,
+        firstName: this.payPalForm.value.firstName as string,
+        lastName: this.payPalForm.value.lastName as string,
+        email: this.payPalForm.value.email as string,
       };
-  
-      this.paymentService.sendPaymentDetails(formData as PayPalPayment).subscribe(
-        () => {
+
+      this.payPalSubscription = this.paymentService.sendPaymentDetails(formData).subscribe({
+        next: () => {
           this.notyf.success('PayPal payment method submitted successfully!');
           this.navigateTo();
         },
-        (error) => {
-          console.error('PayPal submission failed', error);
-          this.notyf.error('Failed to submit PayPal payment method.');
+        error: (error) => {      
+        this.notyf.error('Failed to submit PayPal payment method.');
         }
-      );
+      });
+      
     } else if (this.bankForm.valid) {
-      console.log(this.bankForm.value)
-      const formData = {
-        paymentPreference: this.bankForm.value.paymentPreference,
-        bankName: this.bankForm.value.bankName,
-        accountName: this.bankForm.value.accountName,
-        accountNumber: this.bankForm.value.accountNumber,
-        accountAlias: this.bankForm.value.accountAlias
+      const formData: BankPayment = {
+        paymentPreference: this.bankForm.value.paymentPreference as string,
+        bankName: this.bankForm.value.bankName as string,
+        accountName: this.bankForm.value.accountName as string,
+        accountNumber: Number(this.bankForm.value.accountNumber),  
+        accountAlias: this.bankForm.value.accountAlias as string,
       };
+   
   
-      this.paymentService.sendPaymentDetails(formData as  BankPayment ).subscribe(
-        () => {
+      this.bankSubscription = this.paymentService.sendPaymentDetails(formData).subscribe({
+        next: () => {
           this.notyf.success('Bank payment method submitted successfully!');
           this.navigateTo();
         },
-        (error) => {
-          console.error('Bank submission failed', error);
-          this.notyf.error('Failed to submit bank payment method.');
-        }
-      );
+        error: (error) => {
+         this.notyf.error('Failed to submit bank payment method.');
+        },
+      });
+      
     } else if (this.mobileForm.valid) {
-      const formData = {
-        paymentPreference: this.mobileForm.value.paymentPreference,
-        serviceProvider: this.mobileForm.value.serviceProvider,
-        accountName: this.mobileForm.value.accountName,
-        accountAlias: this.mobileForm.value.accountAlias,
-        phoneNumber: Number(this.mobileForm.value.phoneNumber)
-       
+      const formData: MobilePayment = {
+        paymentPreference: this.mobileForm.value.paymentPreference as string,
+        serviceProvider: this.mobileForm.value.serviceProvider as string,
+        accountName: this.mobileForm.value.accountName as string,
+        accountAlias: this.mobileForm.value.accountAlias as string,
+        phoneNumber: Number(this.mobileForm.value.phoneNumber), 
       };
   
-      this.paymentService.sendPaymentDetails(formData as MobilePayment ).subscribe(
-        () => {
+      this.mobileMoneySubscription = this.paymentService.sendPaymentDetails(formData).subscribe({
+        next: () => {
           this.notyf.success('Mobile payment method submitted successfully!');
           this.navigateTo();
         },
-        (error) => {
-          console.error('Mobile submission failed', error);
+        error: (error) => {
           this.notyf.error('Failed to submit mobile payment method.');
-        }
-      );
+        },
+
+      });
+      
     } else {
       this.notyf.error('Please fill in the required fields for the selected payment method.');
     }
   }
   
+  
 
   navigateTo(): void {
     this.router.navigateByUrl('/registration/about-business');
+  }
+
+  ngOnDestroy(): void {
+    this.payPalSubscription.unsubscribe()
+    this.bankSubscription.unsubscribe()
+    this.mobileMoneySubscription.unsubscribe()
+    
   }
 }

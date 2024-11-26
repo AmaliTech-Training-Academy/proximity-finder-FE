@@ -4,14 +4,13 @@
         <span>Tell us about the payment method you would like to use.</span>
     </div>
 
-   @if(selectedPaymentMethod?.paymentPreference === 'Bank Account'){
+   @if(selectedPaymentMethod === 'Bank Account'){
     <form [formGroup]="bankForm" class="payment-form" (ngSubmit)="onSubmit()">
         <div class="drop">
          <label>Payment Preference</label>
          <p-dropdown 
          [(ngModel)]="selectedPaymentMethod" 
-         [options]="paymentMethod" 
-         optionLabel="paymentPreference"
+         [options]="allPreferences" 
          placeholder="Select a Payment Method"
          formControlName="paymentPreference"
          />
@@ -24,7 +23,6 @@
          <label>Bank Name</label>
          <p-dropdown 
          [options]="banks"
-         optionLabel="bankName"
          placeholder="Please Choose"
          formControlName="bankName" 
          />
@@ -72,14 +70,13 @@
      </div>  
      </form>
    }
- @else if(selectedPaymentMethod?.paymentPreference === 'Mobile Money'){
+ @else if(selectedPaymentMethod === 'Mobile Money'){
     <form [formGroup]="mobileForm" class="payment-form" (ngSubmit)="onSubmit()">
         <div class="drop">
          <label>Payment Preference</label>
          <p-dropdown 
          [(ngModel)]="selectedPaymentMethod" 
-         [options]="paymentMethod" 
-         optionLabel="paymentPreference" 
+         [options]="allPreferences" 
          placeholder="Select a Payment Method"
          formControlName="paymentPreference"
          />
@@ -146,8 +143,7 @@
          <label>Payment Preference</label>
          <p-dropdown 
          [(ngModel)]="selectedPaymentMethod" 
-         [options]="paymentMethod" 
-         optionLabel="paymentPreference" 
+         [options]="allPreferences" 
          placeholder="Select a Payment Method"
          formControlName="paymentPreference"
          />

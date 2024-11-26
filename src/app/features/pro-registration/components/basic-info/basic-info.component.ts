@@ -9,6 +9,7 @@ import { userInfo } from '../../models/userData';
 import { BasicInfoService } from '../../services/basic-info/basic-info.service';
 import { Notyf } from 'notyf';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
+import { ImageManagementService } from '../../../profile-management/services/image-management.service';
 
 @Component({
   selector: 'app-basic-info',
@@ -25,6 +26,7 @@ export class BasicInfoComponent {
     private basicInfoService: BasicInfoService,
     private localStorageService: LocalStorageService,
     @Inject(NOTYF) private notyf: Notyf,
+   
   ) {
     this.registrationForm = this.formBuilder.group({
       businessOwnerName: ['', Validators.required],

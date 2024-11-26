@@ -33,4 +33,8 @@ private http = inject(HttpClient);
       { headers }
     );
   }
+
+  // uploadPicture():Observable<>{
+
+  // }
 }

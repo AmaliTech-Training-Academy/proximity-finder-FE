@@ -1,7 +1,5 @@
 export interface paymentPreference {
-    paymentPreference: string,
-    id: number;
-
+    paymentPreference: string 
 }
 
 export interface Bank{
@@ -23,7 +21,7 @@ export interface PayPalPayment {
     paymentPreference: string;
     bankName: string;
     accountName: string;
-    accountNumber: string;
+    accountNumber: number;
     accountAlias: string;
   }
   
