@@ -75,11 +75,13 @@ export class AdminServiceCreationFormComponent implements OnChanges, OnDestroy {
     this.visibleChange.emit(false);
   }
 
-  onImageUploaded(file: File) {
-    this.isImageModified = true;
-    this.serviceCategoryForm.patchValue({
-      serviceImage: file,
-    });
+  onImageUploaded(files: File[]) {
+    if (files && files.length > 0) {
+      this.isImageModified = true;
+      this.serviceCategoryForm.patchValue({
+        serviceImage: files[0],
+      });
+    }
   }
 
   submitForm() {
