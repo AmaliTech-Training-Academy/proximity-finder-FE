@@ -5,22 +5,21 @@
 
 .container
     @include flex-option(flex, null, null,column)
-    gap: pxToRem(30)
+    gap: pxToRem(8)
 
-    header
-        @include flex-option(flex, null, null,column)
-        gap: 1rem
-        text-align: center
 
-        h3
-            font-size: 1.5rem
-            font-weight: 600
+    h3
+        font-size: 1.5rem
+        font-weight: 600
+        color: #2D2D2D
 
-        a
-            font-size: 1.125rem
-            color: #408EFD
-            cursor: pointer
-            text-decoration: none
+    a
+        display: flex
+        justify-content: flex-end
+        font-size: 1.125rem
+        color: #408EFD
+        cursor: pointer
+        text-decoration: none
     
     main
         display: grid
