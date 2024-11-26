@@ -1,0 +1,61 @@
+@use '../../../../styles/_functions' as * 
+@use '../../../../styles/_mixins' as * 
+@use '../../../../styles/_variables' as * 
+@use '../../../../styles/_typography' as * 
+
+.card
+    @include flex-option(flex, center, flex-start,column)
+    width: pxToRem(360)
+    gap: 1.5rem
+    padding: 1.5rem
+    border-radius: 4px
+    border: 1px solid #E4E7E9
+
+    img
+        width: 100%
+        height: pxToRem(248)
+        border-radius: 3px
+        object-fit: cover
+
+    .info
+        @include flex-option(flex, null, null, column)
+        gap: 0.75rem
+
+        .col
+            @include flex-option(flex, null, null, column)
+            gap: 0.5rem
+
+            .col-1
+                @include flex-option(flex, space-between, center, row)
+
+                .col-1-1
+                    @include flex-option(flex, flex-start, center, row)
+                    font-size: 0.875rem
+                    gap: 6px
+
+            .name
+                font-size: 1.125rem
+                color: $text-main
+                font-weight: 500
+
+            .col-2
+                @include flex-option(flex, flex-start, center, row)
+                gap: pxToRem(5)
+
+                p
+                    font-size: pxToRem(15)
+                    color: #408EFD
+
+                .rate
+                    font-size: 0.75rem
+                    font-weight: 700
+                    color: #7D7979
+    
+    button
+        padding: 0.875rem 1.5rem
+        border-radius: 2px
+        outline: none
+        background-color: $white
+        border: 2px solid #BBDEFB
+        
+    

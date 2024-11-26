@@ -58,6 +58,7 @@ export class AuthService {
       tap((res: any) => {
         const newAccessToken = res.newAccessToken;
         this.localStorageService.setItem('accessToken', newAccessToken);
+        this.localStorageService.setItem('newAccessToken', newAccessToken);
         this.accessToken.next(newAccessToken);
       })
     );
