@@ -88,7 +88,7 @@ export class AboutBusinessComponent implements OnDestroy {
       const headers = new HttpHeaders({
         'Authorization': token ? `Bearer ${token}` : '',
       });
-      this.aboutService.sendAbout(formData, { headers }).subscribe({
+      this.aboutSubscription = this.aboutService.sendAbout(formData, { headers }).subscribe({
         next: (response) => {
           this.notyf.success('About Business Saved');
           this.router.navigateByUrl('/registration/payment-method');

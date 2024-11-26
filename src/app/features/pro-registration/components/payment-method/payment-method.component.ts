@@ -102,7 +102,7 @@ export class PaymentMethodComponent implements OnInit,OnDestroy {
       this.payPalSubscription = this.paymentService.sendPaymentDetails(formData).subscribe({
         next: () => {
           this.notyf.success('PayPal payment method submitted successfully!');
-          this.navigateTo();
+          this.router.navigateByUrl('/registration/service-preference');
         },
         error: (error) => {      
         this.notyf.error('Failed to submit PayPal payment method.');
@@ -122,7 +122,7 @@ export class PaymentMethodComponent implements OnInit,OnDestroy {
       this.bankSubscription = this.paymentService.sendPaymentDetails(formData).subscribe({
         next: () => {
           this.notyf.success('Bank payment method submitted successfully!');
-          this.navigateTo();
+          this.router.navigateByUrl('/registration/service-preference');
         },
         error: (error) => {
          this.notyf.error('Failed to submit bank payment method.');
@@ -141,7 +141,7 @@ export class PaymentMethodComponent implements OnInit,OnDestroy {
       this.mobileMoneySubscription = this.paymentService.sendPaymentDetails(formData).subscribe({
         next: () => {
           this.notyf.success('Mobile payment method submitted successfully!');
-          this.navigateTo();
+          this.router.navigateByUrl('/registration/service-preference');
         },
         error: (error) => {
           this.notyf.error('Failed to submit mobile payment method.');
@@ -161,9 +161,15 @@ export class PaymentMethodComponent implements OnInit,OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.payPalSubscription.unsubscribe()
-    this.bankSubscription.unsubscribe()
-    this.mobileMoneySubscription.unsubscribe()
-    
+    if (this.payPalSubscription) {
+      this.payPalSubscription.unsubscribe();
+    }
+    if (this.bankSubscription) {
+      this.bankSubscription.unsubscribe();
+    }
+    if (this.mobileMoneySubscription) {
+      this.mobileMoneySubscription.unsubscribe();
+    }
   }
+  
 }
