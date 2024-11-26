@@ -4,20 +4,15 @@
 @use '../../../../../styles/_variables' as *
 
 .provider-details
-    overflow: hidden
-    height: 100vh
-
-
+    scroll-behavior: smooth
+    scrollbar-width: none
 .navbar
     margin-inline: pxToRem(60)
     
 .container
-    max-width: pxToRem(1000)
+    max-width: pxToRem(950)
     @include flex-option(flex, null, null,column)
     gap: pxToRem(30)
     background-color: $white
     margin-inline: pxToRem(100)
-    overflow: scroll
-    height: calc( 100vh -  127px)
-    scroll-behavior: smooth
-    scrollbar-width: none
+    
