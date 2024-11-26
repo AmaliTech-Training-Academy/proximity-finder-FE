@@ -93,23 +93,16 @@ export const routes: Routes = [
         children: [
           {
             path: '',
-            redirectTo: 'quotes',
-            pathMatch: 'full',
-          },
-          {
-            path: 'quotes',
             loadComponent: () =>
-              import(
-                './features/service-provider/pages/quotes/quotes.component'
-              ).then((m) => m.QuotesComponent),
+              import('./features/service-provider/pages/request-table/request-table.component').then(m => m.RequestTableComponent)
           },
-          {
-            path: 'calls',
-            loadComponent: () =>
-              import(
-                './features/service-provider/pages/calls/calls.component'
-              ).then((m) => m.CallsComponent),
-          },
+            {
+              path:'quote-detail',
+              loadComponent: () => 
+              import('./features/service-provider/components/quote-details/quote-details.component').then(m => m.QuoteDetailsComponent)
+
+            }
+          
         ],
       },
       {
