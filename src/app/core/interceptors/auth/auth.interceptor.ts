@@ -15,7 +15,6 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   });
 
   if (excludedEndpoints.some(path => req.url.includes(path))) {
-    console.log('hey')
     return next(clonedRequest);
   }
 

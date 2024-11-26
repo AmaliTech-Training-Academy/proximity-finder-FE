@@ -27,11 +27,7 @@ export class UserBankService {
 
   addBank(bank: IBank): Observable<IBank> {
 
-    const headers = {
-      'Authorization': `Bearer ${this.token}`,
-      'Content-Type': 'application/json',
-    }
-    return this.http.post<IBank>(`${this.apiUrl}/payment-method/new-payment-method`, bank, {headers}).pipe(
+    return this.http.post<IBank>(`${this.apiUrl}/payment-method/new-payment-method`, bank).pipe(
       retry(2),
       catchError(error => this.errorHandler.handleError(error))
     )
