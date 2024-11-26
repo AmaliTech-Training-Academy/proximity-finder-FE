@@ -1,5 +1,7 @@
 <p-dialog
-  header="Create Service Category"
+  [header]="
+    serviceCategory ? 'Edit Service Category' : 'Create Service Category'
+  "
   [modal]="true"
   [(visible)]="visible"
   (visibleChange)="closeDialog()"
