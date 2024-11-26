@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ProfileUpdateComponent } from '../profile-update/profile-update.component';
 import { FieldsComponent } from "../fields/fields.component";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -9,7 +9,7 @@ import { userInfo } from '../../models/userData';
 import { BasicInfoService } from '../../services/basic-info/basic-info.service';
 import { Notyf } from 'notyf';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
-import { ImageManagementService } from '../../../profile-management/services/image-management.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-basic-info',
@@ -18,8 +18,10 @@ import { ImageManagementService } from '../../../profile-management/services/ima
   templateUrl: './basic-info.component.html',
   styleUrl: './basic-info.component.sass'
 })
-export class BasicInfoComponent {
+export class BasicInfoComponent implements OnInit,OnDestroy {
   registrationForm: FormGroup;
+
+  basicInfoSubscription!:Subscription
 
   constructor(
     private formBuilder: FormBuilder,
@@ -60,7 +62,7 @@ export class BasicInfoComponent {
       };
       
 
-      this.basicInfoService.sendInfo(formData).subscribe({
+      this.basicInfoSubscription = this.basicInfoService.sendInfo(formData).subscribe({
         next: (response) => {
           this.notyf.success('Information Saved');
           
@@ -71,6 +73,12 @@ export class BasicInfoComponent {
       });
     }
   }
+
+  ngOnDestroy():void{
+    this.basicInfoSubscription.unsubscribe()
+  }
+
+  
   }
 
 

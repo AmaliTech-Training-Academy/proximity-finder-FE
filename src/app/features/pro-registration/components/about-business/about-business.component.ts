@@ -1,4 +1,4 @@
-import { Component, Inject, ViewChild } from '@angular/core';
+import { Component, Inject, ViewChild,OnDestroy } from '@angular/core';
 import { FieldsComponent } from "../fields/fields.component";
 import { Router, RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -10,6 +10,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { LocalStorageService } from '../../../../shared/services/local-storage.service';
 import { Notyf } from 'notyf';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-about-business',
@@ -20,12 +21,11 @@ import { NOTYF } from '../../../../shared/notify/notyf.token';
     SocialsComponent,
     CommonModule,
     FileUploaderComponent,
-    RouterLink
   ],
   templateUrl: './about-business.component.html',
   styleUrls: ['./about-business.component.sass']
 })
-export class AboutBusinessComponent {
+export class AboutBusinessComponent implements OnDestroy {
   @ViewChild(SocialsComponent) socialsComponent!: SocialsComponent;
 
   aboutForm: FormGroup = this.fb.group({
@@ -37,6 +37,8 @@ export class AboutBusinessComponent {
   });
 
   isSocialsValid: boolean = true; 
+
+  aboutSubscription!:Subscription
 
   constructor(
     private fb: FormBuilder,
@@ -97,5 +99,9 @@ export class AboutBusinessComponent {
 
       });
     }
+  }
+
+  ngOnDestroy():void{
+    this.aboutSubscription.unsubscribe()
   }
 }
