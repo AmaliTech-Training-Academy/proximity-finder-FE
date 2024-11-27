@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { jwtDecode } from 'jwt-decode'; 
@@ -50,11 +50,10 @@ export class AuthService {
       })
     );
   }
-
-  public refreshAccessToken(): Observable<any> {
-    return this.http.post(`${this.url}/auth/refresh-token`, {
-      refreshToken: this.refreshToken.value
-    }).pipe(
+  public refreshAccessToken(){
+    const params = new HttpParams().set('refreshToken', this.refreshToken.value);
+  
+    return this.http.get(`${this.url}/auth/public/refresh-token`, { params }).pipe(
       tap((res: any) => {
         const newAccessToken = res.newAccessToken;
         this.localStorageService.setItem('accessToken', newAccessToken);
@@ -63,6 +62,7 @@ export class AuthService {
       })
     );
   }
+  
 
   public logout(): void {
     this.accessToken.next('');
