@@ -1,0 +1,232 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+
+.container
+    @include flex-option(flex, null, null, column)
+    gap: pxToRem(56)
+    padding: pxToRem(52) pxToRem(80)
+
+    .information
+        margin-top: pxToRem(20)
+
+        .back
+          @include flex-option(flex, null, center, row)
+          gap: pxToRem(10)
+          cursor: pointer
+
+          p
+            color: $primary
+            font-size: pxToRem(14)
+            font-weight: 500
+            
+
+        .task
+            margin-top: pxToRem(24) 
+            @include flex-option(flex, space-between, center, row)
+            border-bottom: 1px solid #EAECF0
+            padding-bottom: pxToRem(16)
+
+            .details
+                @include flex-option(flex, null, null, column)
+                gap: pxToRem(8)
+
+                p
+                 font-size: pxToRem(18)
+                 font-weight: 600
+                 color: $text-main
+
+                span
+                 font-size: pxToRem(14)
+                 font-weight: 400
+                 color: $text-secondary
+   
+
+            .btn-decisions
+                @include flex-option(flex, null, center, row)
+                gap: pxToRem(16)
+
+                .decline
+                    @include flex-option(flex, null, null, row)
+                    gap: pxToRem(10)
+                    border: 1px solid $red
+                    background-color: $white
+                    border-radius: pxToRem(8)
+                    padding: pxToRem(12) pxToRem(16)
+                    cursor: pointer
+
+                    button
+                        font-size: pxToRem(14)
+                        font-weight: 500
+                        color: $red
+                        border: none
+                        background: none
+                        cursor: pointer
+
+                .approve
+                    @include flex-option(flex, null, null, row)
+                    gap: pxToRem(10)
+                    background-color: $primary
+                    border-radius: pxToRem(8)
+                    padding: pxToRem(12) pxToRem(16)
+                    cursor: pointer
+
+                    button
+                        font-size: pxToRem(14)
+                        font-weight: 500
+                        color: $white
+                        border: none
+                        background: none 
+                        cursor: pointer
+
+
+        .detailed
+            @include flex-option(flex, null, null, column)
+            gap: pxToRem(8)
+            margin-top: pxToRem(24) 
+            border-bottom: 1px solid #EAECF0
+            padding-bottom: pxToRem(16)
+
+            p
+             font-size: pxToRem(18)
+             font-weight: 600
+             color: $text-main
+
+            span
+                font-size: pxToRem(14)
+                font-weight: 400
+                color: $text-secondary 
+
+        .add-info
+            margin-top: pxToRem(24)
+            border-bottom: 1px solid #EAECF0
+            padding-bottom: pxToRem(16)
+
+            p
+             font-size: pxToRem(18)
+             font-weight: 600
+             color: $text-main
+
+            span
+                font-size: pxToRem(14)
+                font-weight: 400
+                color: $text-secondary                          
+
+
+form
+    @include flex-option(flex, null, null, column)
+    gap: pxToRem(32)
+    width: 100%                        
+
+
+    ::ng-deep .p-dialog .p-dialog-header
+       border-bottom: none
+       width:839px
+
+    .pricing-details
+      @include flex-option(flex, null, null, column)
+      gap: pxToRem(16)
+
+      label
+        font-size: pxToRem(14)
+        font-weight: 500
+        color: $text-main
+
+      input
+        width: 100%
+        border: 1px solid $grey-lighten-3
+        border-radius: pxToRem(8)
+        background-color: none
+        padding: pxToRem(12) pxToRem(16)
+        font-size: pxToRem(14)
+
+        &::placeholder
+          color: $text-secondary
+          font-size: pxToRem(14)
+
+        &:focus
+          outline: none
+          border-color: 1px solid $grey-lighten-3
+
+    .rich-text
+        @include flex-option(flex, null, null, column)
+        gap: pxToRem(16)
+        margin-top: pxToRem(32) 
+
+
+        p
+           font-size: pxToRem(14)
+           font-weight: 500
+           color: $text-main
+
+    .btns
+        @include flex-option(flex, null, null, row)
+        gap: pxToRem(16)
+        margin-top: pxToRem(32)
+
+        .cancel
+            border: 1px solid $grey-lighten-3
+            background-color: $white
+            width: 100%
+            border-radius: pxToRem(8)
+            padding: pxToRem(12) pxToRem(16)
+            cursor: pointer 
+            color:$text-main
+            font-size: pxToRem(14) 
+            font-weight: 500
+
+        .approve
+            border: none
+            background-color: $primary
+            border-radius: pxToRem(8)
+            width: 100%
+            padding: pxToRem(12) pxToRem(16)
+            cursor: pointer  
+            color:$white
+            font-size: pxToRem(14)  
+            font-weight: 500
+
+.modal
+    @include flex-option(flex, null, null, column)
+    gap: pxToRem(32) 
+
+    .rich-text
+        @include flex-option(flex, null, null, column)
+        gap: pxToRem(16) 
+        margin-top: 0          
+
+    .cancels
+        border: 1px solid $grey-lighten-3
+        background-color: $white
+        width: 100%
+        border-radius: pxToRem(8)
+        padding: pxToRem(12) pxToRem(16)
+        cursor: pointer 
+        color:$text-main
+        font-size: pxToRem(14) 
+        font-weight: 500
+
+    .approves
+        border: none
+        background-color: $red
+        border-radius: pxToRem(8)
+        width: 100%
+        padding: pxToRem(12) pxToRem(16)
+        cursor: pointer  
+        color:$white
+        font-size: pxToRem(14)  
+        font-weight: 500                   
+
+
+
+  
+        
+       
+                             
+
+
+
+
+        
+
+

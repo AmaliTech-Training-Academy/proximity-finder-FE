@@ -1,0 +1,36 @@
+<div class="card">
+    <img src="../../../../assets/images/occupation.png" alt="service image">
+
+    <div class="info">
+        <div class="col">
+            <div class="col-1">
+                <div class="col-1-1">
+                    <mat-icon svgIcon="shield"></mat-icon>
+                    Top Pro
+                </div>
+                <div class="col-1-1">
+                    <mat-icon svgIcon="map-pin"></mat-icon>
+                    Ashanti Region
+                </div>
+                <div class="col-1-1">
+                    <mat-icon svgIcon="trophy"></mat-icon>
+                    7 hires
+                </div>
+            </div>
+
+            <p class="name">Strive Studios Cleaning Service.</p>
+
+            <div class="col-2">
+                <p>Exceptional 5.0</p>
+                <p-rating [(ngModel)]="value" [readonly]="true" [cancel]="false" />
+                <p class="rate">(4.5)</p>
+            </div>
+        </div>
+
+        <p>Mauris scelerisque odio id rutrum volutpat.
+           Pellentesque urna odio, vulputate at tortor vitae, hendrerit blandit lorem.
+        </p>
+    </div>
+
+    <button (click)="viewProfile()" type="button">View Profile</button>
+</div>

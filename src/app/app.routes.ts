@@ -206,6 +206,12 @@ export const routes: Routes = [
     ).then((m) => m.ProviderDetailsComponent),
   },
 
+  {path: 'search',
+    loadComponent: () => import(
+      './features/user/pages/pro-search/pro-search.component'
+    ).then((m) => m.ProSearchComponent),
+  },
+
   {
     path: 'registration',
     loadComponent: () =>
