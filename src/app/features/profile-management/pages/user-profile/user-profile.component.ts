@@ -41,6 +41,7 @@ export class UserProfileComponent implements OnInit {
   role: string[] = []
   paymentAccounts!: Observable<IPaymentAccount[]>
   selectedAccount:IPaymentAccount | null = null
+  timestamp: number = new Date().getTime()
 
   private notyf = inject(NOTYF)
   profileSubscription!: Subscription
@@ -126,6 +127,7 @@ export class UserProfileComponent implements OnInit {
       else {
         if(this.selectedFile) {
           this.updateProfileImage()
+          
         }
       }
     }
@@ -160,7 +162,8 @@ export class UserProfileComponent implements OnInit {
     if (this.selectedFile) {
     this.imageSubscription = this.imageService.uploadProfileImage(this.selectedFile).subscribe({
       next: (response) => {
-        this.imageUrl = response
+        this.client.profileImage = response
+        this.timestamp = new Date().getTime();
         this.notyf.success('Profile image uploaded successfully')
       },
       error: (error) => {
@@ -252,7 +255,12 @@ export class UserProfileComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.profileSubscription.unsubscribe()
-    this.imageSubscription.unsubscribe()
+    if (this.profileSubscription) {
+      this.profileSubscription.unsubscribe();
+    }
+  
+    if (this.imageSubscription) {
+      this.imageSubscription.unsubscribe();
+    }
   }
 }

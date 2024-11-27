@@ -6,8 +6,7 @@
 
     <div class="profile-image-container">
         @if (client) {
-            <img [src]= "client.profileImage || defaultImage" alt="user's avatar" class="avatar">
-            <div class="overlay" (click)="triggerFileInput()">
+            <img [src]="client.profileImage ? client.profileImage + '?timestamp=' + timestamp : defaultImage" alt="user's avatar" class="avatar">            <div class="overlay" (click)="triggerFileInput()">
                 <img src="../../../../../assets/Vector.png" alt="camera icon">
             </div>
         }
