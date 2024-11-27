@@ -58,6 +58,7 @@ export class ProfileService {
     )
   }
 
+
   decodeToken(){
     if(this.token) {
       try {
@@ -71,5 +72,10 @@ export class ProfileService {
     } else {
       console.error('Token not found')
     }
+  }
+
+  refreshUserData() {
+    this.token = this.localStorageService.getItem('accessToken') || '';
+    this.decodeToken();
   }
 }
