@@ -20,7 +20,7 @@ export const excludedEndpoints = [
   '/auth/public/update-profile-picture',
   '/api/v1/provider-services',
   '/api/v1/service-experiences',
-  'auth/refresh-token'
+  '/api/auth/public/refresh-token',
 
 ];
 
