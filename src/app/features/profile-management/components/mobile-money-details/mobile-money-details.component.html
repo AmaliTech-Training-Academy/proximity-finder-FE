@@ -42,11 +42,11 @@
                 <app-fields label="Mobile Money"
                 type="number"
                 placeholder="000 000 0000"
-                formControlName="mobileNumber"
-                [error]="mobileMoneyForm.get('mobileNumber')?.invalid && (mobileMoneyForm.get('mobileNumber')?.dirty || mobileMoneyForm.get('mobileNumber')?.touched)"
+                formControlName="phoneNumber"
+                [error]="mobileMoneyForm.get('phoneNumber')?.invalid && (mobileMoneyForm.get('phoneNumber')?.dirty || mobileMoneyForm.get('phoneNumber')?.touched)"
                 [class]="'custom-style'"/>
             </div>
-            @if (mobileMoneyForm.get('mobileNumber')?.invalid && (mobileMoneyForm.get('mobileNumber')?.dirty || mobileMoneyForm.get('mobileNumber')?.touched)) {
+            @if (mobileMoneyForm.get('phoneNumber')?.invalid && (mobileMoneyForm.get('phoneNumber')?.dirty || mobileMoneyForm.get('phoneNumber')?.touched)) {
                 <small class="error">Mobile number is required</small>
             }
         </div>

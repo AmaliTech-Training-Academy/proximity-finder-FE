@@ -4,38 +4,42 @@
         <span>Tell us about the payment method you would like to use.</span>
     </div>
 
-   @if(selectedPaymentMethod.name === 'Bank Account'){
-    <form [formGroup]="paymentForm" class="payment-form">
+   @if(selectedPaymentMethod === 'Bank Account'){
+    <form [formGroup]="bankForm" class="payment-form" (ngSubmit)="onSubmit()">
         <div class="drop">
          <label>Payment Preference</label>
          <p-dropdown 
          [(ngModel)]="selectedPaymentMethod" 
-         [options]="paymentMethod" 
-         optionLabel="name" 
+         [options]="allPreferences" 
          placeholder="Select a Payment Method"
          formControlName="paymentPreference"
          />
         </div>
+        <div class="error-message" *ngIf="bankForm.get('paymentPreference')?.invalid && (bankForm.get('paymentPreference')?.dirty || bankForm.get('paymentPreference')?.touched)">
+            Payment Preference is required
+         </div>
  
         <div class="drop">
          <label>Bank Name</label>
          <p-dropdown 
-         [options]="paymentMethod"
-         optionLabel="name"
+         [options]="banks"
          placeholder="Please Choose"
          formControlName="bankName" 
          />
         </div>
+        <div class="error-message" *ngIf="bankForm.get('bankName')?.invalid && (bankForm.get('bankName')?.dirty || bankForm.get('bankName')?.touched)">
+            Bank Name is required
+         </div>
  
         <app-fields
         label="Account Name"
         type="text"
         placeholder="Enter your account name"
          formControlName="accountName" 
-         [error]="paymentForm.get('accountName')?.invalid && (paymentForm.get('accountName')?.dirty || paymentForm.get('accountName')?.touched)"
+         [error]="bankForm.get('accountName')?.invalid && (bankForm.get('accountName')?.dirty || bankForm.get('accountName')?.touched)"
     />
-    <div class="error-message" *ngIf="paymentForm.get('accountName')?.invalid && (paymentForm.get('businessAddress')?.dirty || paymentForm.get('accountName')?.touched)">
-       Account name is required
+    <div class="error-message" *ngIf="bankForm.get('accountName')?.invalid && (bankForm.get('businessAddress')?.dirty || bankForm.get('accountName')?.touched)">
+       Account Name is required
       </div>
          
          <app-fields
@@ -43,9 +47,9 @@
          type="text"
          placeholder="Enter a desired name you wish to attach to your account"
          formControlName="accountAlias" 
-         [error]="paymentForm.get('accountAlias')?.invalid && (paymentForm.get('accountAlias')?.dirty || paymentForm.get('accountAlias')?.touched)"
+         [error]="bankForm.get('accountAlias')?.invalid && (bankForm.get('accountAlias')?.dirty || bankForm.get('accountAlias')?.touched)"
          />
-         <div class="error-message" *ngIf="paymentForm.get('accountAlias')?.invalid && (paymentForm.get('accountAlias')?.dirty || paymentForm.get('accountAlias')?.touched)">
+         <div class="error-message" *ngIf="bankForm.get('accountAlias')?.invalid && (bankForm.get('accountAlias')?.dirty || bankForm.get('accountAlias')?.touched)">
             Account Alias is required
          </div>
  
@@ -54,51 +58,54 @@
          type="number"
          placeholder="0000 0000 0000 0000"
          formControlName="accountNumber" 
-         [error]="paymentForm.get('accountNumber')?.invalid && (paymentForm.get('accountNumber')?.dirty || paymentForm.get('accountNumber')?.touched)"
+         [error]="bankForm.get('accountNumber')?.invalid && (bankForm.get('accountNumber')?.dirty || bankForm.get('accountNumber')?.touched)"
          />
-         <div class="error-message" *ngIf="paymentForm.get('accountNumber')?.invalid && (paymentForm.get('accountNumber')?.dirty || paymentForm.get('accountNumber')?.touched)">
+         <div class="error-message" *ngIf="bankForm.get('accountNumber')?.invalid && (bankForm.get('accountNumber')?.dirty || bankForm.get('accountNumber')?.touched)">
             Account Number is required
          </div>
  
      <div class="btns">
-         <button type="submit" class="btn-back" (click)="navigateTo()">Back</button>
-         <button type="button" class="btn-continue">Continue</button>
+         <button type="button" class="btn-back" (click)="navigateTo()">Back</button>
+         <button type="submit" class="btn-continue">Continue</button>
      </div>  
      </form>
    }
- @else if(selectedPaymentMethod.name === 'Mobile Money'){
-    <form [formGroup]="paymentForm" class="payment-form">
+ @else if(selectedPaymentMethod === 'Mobile Money'){
+    <form [formGroup]="mobileForm" class="payment-form" (ngSubmit)="onSubmit()">
         <div class="drop">
          <label>Payment Preference</label>
          <p-dropdown 
          [(ngModel)]="selectedPaymentMethod" 
-         [options]="paymentMethod" 
-         optionLabel="name" 
+         [options]="allPreferences" 
          placeholder="Select a Payment Method"
          formControlName="paymentPreference"
-
          />
         </div>
+        <div class="error-message" *ngIf="mobileForm.get('paymentPreference')?.invalid && (mobileForm.get('paymentPreference')?.dirty || mobileForm.get('paymentPreference')?.touched)">
+            Payment Preference is required
+         </div>
  
         <div class="drop">
          <label>Service Provider</label>
          <p-dropdown 
-         [options]="paymentMethod"
-         optionLabel="name"
+         [options]="serviceProviders" 
          placeholder="Please Choose"
          formControlName="serviceProvider" 
          />
         </div>
+        <div class="error-message" *ngIf="mobileForm.get('serviceProvider')?.invalid && (mobileForm.get('serviceProvider')?.dirty || mobileForm.get('serviceProvider')?.touched)">
+            Service provider is required
+         </div>
  
         <app-fields
         label="Account Name"
         type="text"
         placeholder="Enter your account name"
         formControlName="accountName"
-         [error]="paymentForm.get('accountName')?.invalid && (paymentForm.get('accountName')?.dirty || paymentForm.get('accountName')?.touched)"
+         [error]="mobileForm.get('accountName')?.invalid && (mobileForm.get('accountName')?.dirty || mobileForm.get('accountName')?.touched)"
  
         />
-        <div class="error-message" *ngIf="paymentForm.get('accountName')?.invalid && (paymentForm.get('accountName')?.dirty || paymentForm.get('accountName')?.touched)">
+        <div class="error-message" *ngIf="mobileForm.get('accountName')?.invalid && (mobileForm.get('accountName')?.dirty || mobileForm.get('accountName')?.touched)">
             Account name is required
          </div>
          
@@ -107,49 +114,51 @@
          type="text"
          placeholder="Enter a desired name you wish to attach to your account"
          formControlName="accountAlias"
-         [error]="paymentForm.get('accountAlias')?.invalid && (paymentForm.get('accountAlias')?.dirty || paymentForm.get('accountAlias')?.touched)"
+         [error]="mobileForm.get('accountAlias')?.invalid && (mobileForm.get('accountAlias')?.dirty || mobileForm.get('accountAlias')?.touched)"
          />
-         <div class="error-message" *ngIf="paymentForm.get('accountAlias')?.invalid && (paymentForm.get('accountAlias')?.dirty || paymentForm.get('accountAlias')?.touched)">
+         <div class="error-message" *ngIf="mobileForm.get('accountAlias')?.invalid && (mobileForm.get('accountAlias')?.dirty || mobileForm.get('accountAlias')?.touched)">
             Account Alias is required
          </div>
  
          <app-fields
-         label="Account Number"
+         label="Mobile Number"
          type="number"
-         placeholder="0000 0000 0000 0000"
+         placeholder="Enter your mobile number"
          formControlName="phoneNumber"
-         [error]="paymentForm.get('phoneNumber')?.invalid && (paymentForm.get('phoneNumber')?.dirty || paymentForm.get('phoneNumber')?.touched)"
+         [error]="mobileForm.get('phoneNumber')?.invalid && (mobileForm.get('phoneNumber')?.dirty || mobileForm.get('phoneNumber')?.touched)"
          />
-         <div class="error-message" *ngIf="paymentForm.get('phoneNumber')?.invalid && (paymentForm.get('phoneNumber')?.dirty || paymentForm.get('phoneNumber')?.touched)">
+         <div class="error-message" *ngIf="mobileForm.get('phoneNumber')?.invalid && (mobileForm.get('phoneNumber')?.dirty || mobileForm.get('phoneNumber')?.touched)">
             Phone number is required
          </div>
  
      <div class="btns">
-         <button type="submit" class="btn-back" (click)="navigateTo()">Back</button>
-         <button type="button" class="btn-continue">Continue</button>
+         <button type="button" class="btn-back" (click)="navigateTo()">Back</button>
+         <button type="submit" class="btn-continue">Continue</button>
      </div>  
      </form>
  }
  @else (){
-    <form [formGroup]="paymentForm" class="payment-form">
+    <form [formGroup]="payPalForm" class="payment-form" (ngSubmit)="onSubmit()">
         <div class="drop">
          <label>Payment Preference</label>
          <p-dropdown 
          [(ngModel)]="selectedPaymentMethod" 
-         [options]="paymentMethod" 
-         optionLabel="name" 
+         [options]="allPreferences" 
          placeholder="Select a Payment Method"
          formControlName="paymentPreference"
          />
         </div>
+        <div class="error-message" *ngIf="payPalForm.get('paymentPreference')?.invalid && (payPalForm.get('paymentPreference')?.dirty || payPalForm.get('paymentPreference')?.touched)">
+            Payment Preference is required
+         </div>
         <app-fields
         label="First Name"
         type="text"
         placeholder="Enter your first name"
         formControlName="firstName"
-        [error]="paymentForm.get('firstName')?.invalid && (paymentForm.get('firstName')?.dirty || paymentForm.get('firstName')?.touched)"
+        [error]="payPalForm.get('firstName')?.invalid && (payPalForm.get('firstName')?.dirty || payPalForm.get('firstName')?.touched)"
         />
-        <div class="error-message" *ngIf="paymentForm.get('firstName')?.invalid && (paymentForm.get('firstName')?.dirty || paymentForm.get('firstName')?.touched)">
+        <div class="error-message" *ngIf="payPalForm.get('firstName')?.invalid && (payPalForm.get('firstName')?.dirty || payPalForm.get('firstName')?.touched)">
             First name is required
          </div>
          
@@ -157,10 +166,10 @@
          label="Last Name"
          type="text"
          placeholder="Enter your Last name"
-         formControlName="firstName"
-         [error]="paymentForm.get('lastName')?.invalid && (paymentForm.get('lastName')?.dirty || paymentForm.get('lastName')?.touched)"
+         formControlName="lastName"
+         [error]="payPalForm.get('lastName')?.invalid && (payPalForm.get('lastName')?.dirty || payPalForm.get('lastName')?.touched)"
          />
-         <div class="error-message" *ngIf="paymentForm.get('lastName')?.invalid && (paymentForm.get('lastName')?.dirty || paymentForm.get('lastName')?.touched)">
+         <div class="error-message" *ngIf="payPalForm.get('lastName')?.invalid && (payPalForm.get('lastName')?.dirty || payPalForm.get('lastName')?.touched)">
             Last name is required
          </div>
  
@@ -169,15 +178,15 @@
          type="email"
          placeholder="Enter your email"
          formControlName="email"
-         [error]="paymentForm.get('email')?.invalid && (paymentForm.get('email')?.dirty || paymentForm.get('email')?.touched)"
+         [error]="payPalForm.get('email')?.invalid && (payPalForm.get('email')?.dirty || payPalForm.get('email')?.touched)"
          />
-         <div class="error-message" *ngIf="paymentForm.get('email')?.invalid && (paymentForm.get('email')?.dirty || paymentForm.get('email')?.touched)">
+         <div class="error-message" *ngIf="payPalForm.get('email')?.invalid && (payPalForm.get('email')?.dirty || payPalForm.get('email')?.touched)">
             Email is required and must be valid
          </div>
  
      <div class="btns">
-         <button type="submit" class="btn-back" (click)="navigateTo()">Back</button>
-         <button type="button" class="btn-continue">Continue</button>
+         <button type="button" class="btn-back" (click)="navigateTo()">Back</button>
+         <button type="submit" class="btn-continue">Continue</button>
      </div>  
      </form>
  }

@@ -3,5 +3,5 @@ export interface IMobileMoney {
     serviceProvider: string
     accountName: string
     accountAlias: string
-    mobileNumber: string
+    phoneNumber: string
 }

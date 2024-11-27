@@ -1,0 +1,92 @@
+@use '../../../../../../styles/_mixins' as *
+@use '../../../../../../styles/_functions' as *
+@use '../../../../../../styles/_typography' as *
+@use '../../../../../../styles/_variables' as *
+
+.container
+    @include flex-option(flex, null, null,column)
+    gap: pxToRem(30)
+    
+    h2
+        font-size: 1.5rem
+
+    .col-1
+        @include flex-option(flex, null, null,row)
+        gap: 2rem
+
+        .rate
+            h1
+                font-size: pxToRem(43)
+                color: $text-main
+
+            p
+                font-size: pxToRem(14)
+                color: $text-secondary
+        
+        .rate-bars
+            .bar
+                @include flex-option(flex, center, center,row)
+                gap: 0.5rem
+                font-size: pxToRem(12)
+
+                .bar-rate
+                    color: $text-main
+
+                .bar-reviews
+                    color: $text-secondary
+
+    .col-2
+        @include flex-option(flex, null, null,column)
+        gap: 1rem
+        padding: pxToRem(11)
+        border-bottom: 2px solid #EFF1F3
+        margin-bottom: pxToRem(8)
+
+        .profile
+            @include flex-option(flex, space-between, center,row)
+
+
+            .left, .right
+                @include flex-option(flex, null, center,row)
+                gap: pxToRem(6)
+                padding: pxToRem(11)
+
+                img
+                    width: 2rem
+                    height: 2rem
+                    border-radius: 50%
+                    object-fit: cover
+
+                .name
+                    font-size: pxToRem(15)
+                    font-weight: 700
+                    color: $text-main
+
+                .time
+                    font-size: pxToRem(12)
+                    font-weight: 700
+                    color: $text-secondary
+
+                .rate
+                    font-size: 1rem
+                    color: #7D7979
+
+        .message
+            font-size: pxToRem(18)
+            color: $text-secondary
+
+        .images
+            @include flex-option(flex, flex-start, center,row)
+            gap: pxToRem(10)
+
+            img
+                width: pxToRem(50)
+                height: pxToRem(50)
+                object-fit: cover
+                border-radius: 8px
+            
+
+        
+                
+                
+        
