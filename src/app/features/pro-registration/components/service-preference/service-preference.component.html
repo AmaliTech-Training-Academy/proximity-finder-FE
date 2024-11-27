@@ -26,6 +26,12 @@
       >
         Service is required
       </p>
+      <p-button
+        class="add-btn"
+        label="+ Add New Service"
+        [text]="true"
+        (onClick)="showDialog()"
+      />
     </div>
     <div>
       <label for="paymentPreference">Payment Preference*</label>
@@ -188,3 +194,28 @@
     </div>
   </form>
 </div>
+
+<p-dialog
+  header="Add New Service"
+  [modal]="true"
+  [(visible)]="visible"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '27.75rem' }"
+>
+  <form>
+    <div class="service-name">
+      <label for="serviceName">Service Name</label>
+      <input
+        type="text"
+        pInputText
+        formControlName="serviceName"
+        placeholder="Enter your service name"
+      />
+    </div>
+  </form>
+  <div class="buttons">
+    <p-button label="Cancel" severity="secondary" (onClick)="visible = false" />
+    <p-button label="Add" class="primary" />
+  </div>
+</p-dialog>

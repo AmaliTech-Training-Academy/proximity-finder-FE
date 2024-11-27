@@ -9,6 +9,8 @@ import { FileUploaderComponent } from '../../../service-provider/components/file
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MultiSelectModule } from 'primeng/multiselect';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
 import {
   FormBuilder,
   FormGroup,
@@ -34,6 +36,8 @@ import { NOTYF } from '../../../../shared/notify/notyf.token';
     InputTextareaModule,
     MultiSelectModule,
     ReactiveFormsModule,
+    ButtonModule,
+    DialogModule,
   ],
   templateUrl: './service-preference.component.html',
   styleUrls: ['./service-preference.component.sass'],
@@ -42,6 +46,7 @@ export class ServicePreferenceComponent {
   serviceCategories$ = this.serviceService.serviceCategories$;
   paymentPreferences = accountPreferences;
   days = bookingDays;
+  visible: boolean = false;
   timeOptions: ITime[] = [];
   uploadedFiles: File[] = [];
 
@@ -181,5 +186,9 @@ export class ServicePreferenceComponent {
     return `${hours.toString().padStart(2, '0')}:${minutes
       .toString()
       .padStart(2, '0')}`;
+  }
+
+  showDialog() {
+    this.visible = true;
   }
 }
