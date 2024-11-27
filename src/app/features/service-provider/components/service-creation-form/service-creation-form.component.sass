@@ -20,9 +20,39 @@ form
             width: 100%
     
     .section-booking
-        .bookingTimes
-            @include flex-option($display: flex, $justify-content: null, $align-items: center, $direction: row)
-            gap: 32px
+            @include flex-option($display: flex, $justify-content: null, $align-items: null, $direction: column)
+            gap: 20px
+
+            .booking
+                @include flex-option($display: flex, $justify-content: null, $align-items: null,$direction: row)
+                gap: 20px
+
+            input
+                width: 100%
+
+            .bookingTimes
+                @include flex-option($display: flex, $justify-content: null, $align-items: center, $direction: row)
+                gap: 10px
+
+            .bookingFields
+                @include flex-option(flex, null, null, column)
+                gap: 20px
+
+                .booking
+                    .remove-booking-day
+                        border: none
+                        cursor: pointer
+                        background: none
+
+            .add-booking-day
+                padding: 15px 0
+                border: none
+                cursor: pointer
+                border-radius: 999px
+                background-color: $blue-lighten-5
+
+                &:hover
+                    background-color: $blue-lighten-4
 
     .section-two
         width: 100%
