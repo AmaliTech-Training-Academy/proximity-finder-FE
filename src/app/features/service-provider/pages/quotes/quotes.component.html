@@ -7,24 +7,18 @@
   >
     <ng-template pTemplate="header">
       <tr>
-        <th>Service Details</th>
-        <th>Requirements</th>
-        <th>Timeframe</th>
+        <th>CLIENT NAME</th>
+        <th>DESCRIPTION</th>
+        <th>EMAIL</th>
+        <th>REQUEST DATE</th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-quote>
-      <tr>
-        <td>{{ quote.serviceName }}</td>
+      <tr (click)="openDetails()">
+        <td>{{ quote.clientName }}</td>
         <td>{{ quote.requirements }}</td>
+        <td>{{ quote.email }}</td>
         <td>{{ quote.dateTime | date : "MMMM d, y" }}</td>
-        <td>
-          <button>
-            <i
-              class="pi pi-ellipsis-v"
-              style="color: rgba(119, 135, 143, 1)"
-            ></i>
-          </button>
-        </td>
       </tr>
     </ng-template>
   </p-table>

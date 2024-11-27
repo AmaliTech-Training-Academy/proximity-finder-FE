@@ -1,0 +1,18 @@
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_typography' as *
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_variables' as *
+
+.provider-details
+    scroll-behavior: smooth
+    scrollbar-width: none
+.navbar
+    margin-inline: pxToRem(60)
+    
+.container
+    max-width: pxToRem(950)
+    @include flex-option(flex, null, null,column)
+    gap: pxToRem(30)
+    background-color: $white
+    margin-inline: pxToRem(100)
+    

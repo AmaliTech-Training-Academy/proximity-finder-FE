@@ -8,7 +8,9 @@ import { ServiceCategory } from '../models/IServiceCategory';
   providedIn: 'root',
 })
 export class ServiceService {
-  apiUrl = 'http://3.136.48.244:8080/api/v1/services';
+  servicesUrl = 'http://3.136.48.244:8080/api/v1/services';
+  proServicesUrl = 'http://3.136.48.244:8080/api/v1/provider-services';
+  serviceExperienceUrl = 'http://3.136.48.244:8080/api/v1/service-experiences';
   servicesSubject = new BehaviorSubject<ServiceCategory[]>([]);
   serviceCategories$ = this.servicesSubject.asObservable();
 
@@ -18,7 +20,7 @@ export class ServiceService {
 
   getServices() {
     this.http
-      .get<ServiceResponse>(this.apiUrl)
+      .get<ServiceResponse>(this.servicesUrl)
       .pipe(map((response) => this.servicesSubject.next(response.result)))
       .subscribe();
   }
@@ -29,7 +31,7 @@ export class ServiceService {
     formData.append('description', serviceCategory.description);
     formData.append('image', serviceCategory.image);
 
-    return this.http.post<ServiceResponse>(this.apiUrl, formData);
+    return this.http.post<ServiceResponse>(this.servicesUrl, formData);
   }
 
   updateService(serviceCategory: ServiceCategory): Observable<ServiceResponse> {
@@ -39,14 +41,22 @@ export class ServiceService {
     formData.append('image', serviceCategory.image);
 
     return this.http.put<ServiceResponse>(
-      `${this.apiUrl}/${serviceCategory.id}`,
+      `${this.servicesUrl}/${serviceCategory.id}`,
       formData
     );
   }
 
   deleteService(id: string) {
     this.http
-      .delete<ServiceResponse>(`${this.apiUrl}/${id}`)
+      .delete<ServiceResponse>(`${this.servicesUrl}/${id}`)
       .subscribe(() => this.getServices());
+  }
+
+  setServicePreference(servicePreferenceData: FormData) {
+    return this.http.post(this.proServicesUrl, servicePreferenceData);
+  }
+
+  createServiceExperience(serviceExperienceData: FormData) {
+    return this.http.post(this.serviceExperienceUrl, serviceExperienceData);
   }
 }

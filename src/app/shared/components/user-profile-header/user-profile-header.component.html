@@ -18,7 +18,7 @@
                     <p>{{user.userName}}</p>
                 </div>
     
-                <img src="../../../../assets/arrow-down.svg" alt="arrow down icon">
+                <img src="../../../../assets/arrow-down.svg" alt="arrow down icon" (click)="toggleLogoutModal()">
             </div>
         }
 
@@ -36,3 +36,7 @@
         }
     </div>
 </header>
+
+@if (showLogoutModal) {
+    <app-logout-modal/>
+}

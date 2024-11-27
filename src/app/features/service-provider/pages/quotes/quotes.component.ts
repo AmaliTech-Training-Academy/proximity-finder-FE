@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { CommonModule, DatePipe } from '@angular/common';
 import { quotes } from '../../data';
+import { Router } from '@angular/router';
 
 interface PageEvent {
   first: number;
@@ -19,4 +20,10 @@ interface PageEvent {
 })
 export class QuotesComponent {
   quotes = quotes;
+
+  constructor(private router:Router){}
+
+  openDetails(){
+   this.router.navigateByUrl('/provider/dashboard/requests/quote-detail')
+  }
 }

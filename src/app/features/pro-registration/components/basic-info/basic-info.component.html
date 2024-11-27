@@ -10,7 +10,7 @@
     label="Business Name"
     type="text"
     placeholder="Enter your business name"
-    formControlName="businessName"
+    formControlName="userName"
     />
 
     <app-fields
@@ -28,13 +28,13 @@
     label="Business Email"
     type="text"
     placeholder="Enter your email "
-    formControlName="businessEmail"
+    formControlName="email"
     />
     <app-fields
     label="Phone Number"
     type="text"
     placeholder="Enter your mobile number"
-    formControlName="phoneNumber"
+    formControlName="mobileNumber"
     [error]=" registrationForm.get('phoneNumber')?.invalid && (registrationForm.get('phoneNumber')?.dirty || registrationForm.get('phoneNumber')?.touched)"
     />
     <div class="error-message" *ngIf="registrationForm.get('phoneNumber')?.invalid && (registrationForm.get('phoneNumber')?.dirty || registrationForm.get('phoneNumber')?.touched)">

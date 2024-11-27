@@ -127,5 +127,10 @@ export class SvgService {
       'arrow-right-feedback',
       sanitizer.bypassSecurityTrustResourceUrl('assets/arrow-right-feedback.svg')
     );
+
+    iconRegistry.addSvgIcon(
+      'service-check',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/circle-check.svg')
+    );
   }
 }

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { Notyf } from 'notyf';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { Subscription } from 'rxjs';
+import { LocalStorageService } from '../../../../shared/services/local-storage.service';
 
 @Component({
   selector: 'app-login-input',
@@ -28,31 +29,29 @@ export class LoginInputComponent implements OnDestroy {
     private formBuilder: FormBuilder,
     private authService: AuthService,
     private router: Router,
-    @Inject(NOTYF) private notyf: Notyf
+    @Inject(NOTYF) private notyf: Notyf,
+  
   ) {}
 
+ 
   onSubmit() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value; 
       this.authService.login(email, password).subscribe({
         next: (res) => {
-          let redirectPath = '';
-          switch(res.role) {
-            case 'ADMIN':
-              redirectPath = 'admin/dashboard';
-              break;
-            case 'SEEKER':
-              redirectPath = '';
-              break;
-            case 'PROVIDER':
-              redirectPath = 'provider/dashboard';
-              break;
-          }
           this.notyf.success('Login Successful');
-          setTimeout(() => {
-            this.loginForm.reset();
-            this.router.navigateByUrl(redirectPath);
-          }, 500); 
+            if (res.roles[0] === 'ROLE_ADMIN') {
+              console.log('Admin')
+              this.router.navigateByUrl('admin/dashboard');
+            } else if (res.roles[0] === 'ROLE_SEEKER') {
+              console.log('seeker')
+              this.router.navigateByUrl('');
+            } else if (res.roles[0] === 'ROLE_PROVIDER') {
+              const userData = { email: res.email, userName: res.username };
+              this.authService.localStorageService.setItem('userData',userData);
+              this.router.navigateByUrl('/registration');
+            } 
+            
         },
         error: () => {
           this.notyf.error('Login failed. Please check your credentials.');
@@ -60,7 +59,7 @@ export class LoginInputComponent implements OnDestroy {
       });
     }
   }
-
+  
   ngOnDestroy() {
     if (this.subscription) {
       this.subscription.unsubscribe();
