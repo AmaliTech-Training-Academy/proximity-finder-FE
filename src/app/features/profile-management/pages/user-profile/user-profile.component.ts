@@ -76,7 +76,7 @@ export class UserProfileComponent implements OnInit {
     bankName: ['', Validators.required],
     accountName: ['', Validators.required],
     accountAlias: [''],
-    accountNumber: ['', [Validators.required, Validators.minLength(13)]],
+    accountNumber: ['', [Validators.required, Validators.maxLength(13)]],
     phoneNumber: ['', Validators.required],
     serviceProvider: ['', Validators.required]
   });
@@ -193,7 +193,7 @@ export class UserProfileComponent implements OnInit {
       }
     )
     dialogRef.afterClosed().subscribe((results) => {
-      if(results) {
+      if(results && this.isDeleteModal) {
         this.deleteAccount()
       }
     })
@@ -213,6 +213,7 @@ export class UserProfileComponent implements OnInit {
   toggleEdit() {
     this.isFormActive = !this.isFormActive
   }
+
 
   updateAccount() {
     if (this.accountInfoForm.valid) {
