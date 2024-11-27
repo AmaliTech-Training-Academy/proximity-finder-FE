@@ -132,5 +132,20 @@ export class SvgService {
       'service-check',
       sanitizer.bypassSecurityTrustResourceUrl('assets/circle-check.svg')
     );
+    
+    iconRegistry.addSvgIcon(
+      'shield',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/shield.svg')
+    );
+
+    iconRegistry.addSvgIcon(
+      'map-pin',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/pin.svg')
+    );
+
+    iconRegistry.addSvgIcon(
+      'trophy',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/trophy.svg')
+    );
   }
 }
