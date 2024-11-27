@@ -5,8 +5,7 @@
 
 .card
     @include flex-option(flex, center, flex-start,column)
-    width: pxToRem(360)
-    gap: 1.5rem
+    gap: 1rem
     padding: 1.5rem
     border-radius: 4px
     border: 1px solid #E4E7E9
@@ -32,6 +31,7 @@
                     @include flex-option(flex, flex-start, center, row)
                     font-size: 0.875rem
                     gap: 6px
+                    color: #475156
 
             .name
                 font-size: 1.125rem
@@ -50,6 +50,10 @@
                     font-size: 0.75rem
                     font-weight: 700
                     color: #7D7979
+        
+        p
+            font-size: 1rem
+            color: #77878F
     
     button
         padding: 0.875rem 1.5rem
@@ -57,5 +61,10 @@
         outline: none
         background-color: $white
         border: 2px solid #BBDEFB
+        font-size: 0.875rem
+        font-weight: 700
+        text-transform: uppercase
+        color: #408EFD
+        cursor: pointer
         
     
