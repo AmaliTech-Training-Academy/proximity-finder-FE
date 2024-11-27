@@ -3,11 +3,14 @@ import { Component } from '@angular/core';
 import { Router, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { TabViewModule } from 'primeng/tabview';
+import { QuotesComponent } from "../quotes/quotes.component";
+import { CallsComponent } from "../calls/calls.component";
 
 @Component({
   selector: 'app-requests',
   standalone: true,
-  imports: [RouterOutlet, TabMenuModule, CommonModule, RouterLinkActive],
+  imports: [TabMenuModule, CommonModule, TabViewModule, QuotesComponent, CallsComponent],
   templateUrl: './requests.component.html',
   styleUrl: './requests.component.sass',
 })
