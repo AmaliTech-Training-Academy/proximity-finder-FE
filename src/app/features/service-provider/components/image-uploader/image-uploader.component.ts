@@ -13,7 +13,7 @@ export class ImageUploaderComponent {
   files: File[] = [];
   imagePreviews: { url: string; name: string }[] = [];
 
-  @Output() uploadedImage = new EventEmitter<File>();
+  @Output() uploadedImages = new EventEmitter<File[]>();
 
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -52,9 +52,9 @@ export class ImageUploaderComponent {
         const imageUrl = URL.createObjectURL(file);
         this.imagePreviews.push({ url: imageUrl, name: file.name });
         this.files.push(file);
-        this.uploadedImage.emit(file);
       }
     });
+    this.uploadedImages.emit(this.files);
   }
 
   removeImage(index: number): void {

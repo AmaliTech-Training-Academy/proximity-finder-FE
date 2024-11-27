@@ -10,6 +10,7 @@ import { ServiceCategory } from '../models/IServiceCategory';
 export class ServiceService {
   servicesUrl = 'http://3.136.48.244:8080/api/v1/services';
   proServicesUrl = 'http://3.136.48.244:8080/api/v1/provider-services';
+  serviceExperienceUrl = 'http://3.136.48.244:8080/api/v1/service-experiences';
   servicesSubject = new BehaviorSubject<ServiceCategory[]>([]);
   serviceCategories$ = this.servicesSubject.asObservable();
 
@@ -53,5 +54,9 @@ export class ServiceService {
 
   setServicePreference(servicePreferenceData: FormData) {
     return this.http.post(this.proServicesUrl, servicePreferenceData);
+  }
+
+  createServiceExperience(serviceExperienceData: FormData) {
+    return this.http.post(this.serviceExperienceUrl, serviceExperienceData);
   }
 }

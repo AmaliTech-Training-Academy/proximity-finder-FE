@@ -2,9 +2,9 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { environment } from '../../../../../environments/environment.development';
 import { jwtDecode } from 'jwt-decode'; 
 import { LocalStorageService } from '../../../../shared/services/local-storage.service';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ import { LocalStorageService } from '../../../../shared/services/local-storage.s
 export class AuthService {
   private url = environment.baseUrl;
   private http = inject(HttpClient);
-  private localStorageService = inject(LocalStorageService); 
+  public localStorageService = inject(LocalStorageService); 
 
   public accessToken = new BehaviorSubject<string>(this.localStorageService.getItem('accessToken') || '');
   public refreshToken = new BehaviorSubject<string>(this.localStorageService.getItem('refreshToken') || '');

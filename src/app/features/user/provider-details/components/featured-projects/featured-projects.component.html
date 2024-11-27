@@ -1,0 +1,12 @@
+<div class="container">
+    <h3>Featured Projects</h3>
+    <a>208 photos</a>
+
+    <main>
+        @for (image of images; track $index) {
+            <div class="card">
+                <img [src]="image" alt="project image">
+            </div>
+        }
+    </main>
+</div>

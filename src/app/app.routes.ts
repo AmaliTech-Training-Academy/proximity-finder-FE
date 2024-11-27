@@ -200,6 +200,12 @@ export const routes: Routes = [
       ).then((m) => m.UserProfileComponent),
   },
 
+  {path: 'pro',
+    loadComponent: () => import(
+      './features/user/pages/provider-details/provider-details.component'
+    ).then((m) => m.ProviderDetailsComponent),
+  },
+
   {
     path: 'registration',
     loadComponent: () =>
