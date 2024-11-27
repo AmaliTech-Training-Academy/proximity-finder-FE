@@ -58,6 +58,19 @@ export class ProfileService {
     )
   }
 
+  editPaymentAccount(paymentAccount: IPaymentAccount, accountId: number): Observable<IPaymentAccount> {
+    return this.http.patch<IPaymentAccount>(`${this.apiUrl}/payment-method/id=${accountId}`, paymentAccount).pipe(
+      retry(2),
+      catchError(error => this.errorHandler.handleError(error))
+    )
+  }
+
+  deletePaymentAccount(accountId: number): Observable<IPaymentAccount> {
+    return this.http.delete<IPaymentAccount>(`${this.apiUrl}/payment-method/id=${accountId}`).pipe(
+      retry(2),
+      catchError(error => this.errorHandler.handleError(error))
+    )
+  }
 
   decodeToken(){
     if(this.token) {

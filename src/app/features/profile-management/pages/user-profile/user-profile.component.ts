@@ -15,11 +15,9 @@ import { ImageManagementService } from '../../services/image-management.service'
 import { IProfile } from '../../models/profile';
 import { Observable, Subscription } from 'rxjs';
 import { LocalStorageService } from '../../../../shared/services/local-storage.service';
-import { decodeToken, initializeUser } from '../../../../utils/decodeToken';
+import { initializeUser } from '../../../../utils/decodeToken';
 import { ROLE_SEEKER } from '../../../../utils/roles';
 import { IPaymentAccount } from '../../../../core/models/payment-account';
-import { IBank } from '../../models/bank';
-import { IMobileMoney } from '../../models/mobile-money';
 
 @Component({
   selector: 'app-user-profile',
@@ -77,7 +75,7 @@ export class UserProfileComponent implements OnInit {
     bankName: ['', Validators.required],
     accountName: ['', Validators.required],
     accountAlias: [''],
-    accountNumber: ['', Validators.required],
+    accountNumber: ['', [Validators.required, Validators.minLength(13)]],
     phoneNumber: ['', Validators.required],
     serviceProvider: ['', Validators.required]
   });
@@ -191,7 +189,11 @@ export class UserProfileComponent implements OnInit {
           : {}
       }
     )
-    dialogRef.afterClosed().subscribe((results) => console.log(results))
+    dialogRef.afterClosed().subscribe((results) => {
+      if(results) {
+        this.deleteAccount()
+      }
+    })
   }
 
 
@@ -209,6 +211,45 @@ export class UserProfileComponent implements OnInit {
     this.isFormActive = !this.isFormActive
   }
 
+  updateAccount() {
+    if (this.accountInfoForm.valid) {
+      const { bankName, accountName, accountAlias, accountNumber, phoneNumber, serviceProvider } = this.accountInfoForm.value
+      const updatedAccount: IPaymentAccount = {
+        bankName: bankName || 'none',
+        accountName: accountName || 'none',
+        accountAlias: accountAlias!,
+        accountNumber: accountNumber || 'none',
+        phoneNumber: phoneNumber  || 'none',
+        serviceProvider: serviceProvider || 'none',
+        id: this.selectedAccount?.id || 0,
+        paymentPreference: this.selectedAccount?.paymentPreference!,
+      }
+      console.log(updatedAccount)
+      if (this.selectedAccount) {
+        this.profileService.editPaymentAccount(updatedAccount, this.selectedAccount.id).subscribe({
+          next: () => {
+            this.notyf.success('Account updated successfully')
+          },
+          error: () => {
+            this.notyf.error('An error occurred while updating account')
+          }
+        })
+      }
+    }
+  }
+
+  deleteAccount() {
+    if (this.selectedAccount) {
+      this.profileService.deletePaymentAccount(this.selectedAccount.id).subscribe({
+        next: (account) => {
+          this.notyf.success('Account deleted successfully')
+        },
+        error: (error) => {
+          this.notyf.error('An error occurred while deleting account')
+        }
+      })
+    }
+  }
 
   ngOnDestroy() {
     this.profileSubscription.unsubscribe()
