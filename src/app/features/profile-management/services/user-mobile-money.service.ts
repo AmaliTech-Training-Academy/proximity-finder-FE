@@ -27,12 +27,7 @@ export class UserMobileMoneyService {
 
   addMobileMoney(momo: IMobileMoney): Observable<IMobileMoney> {
 
-    const headers = {
-          'Authorization': `Bearer ${this.token}`,
-          'Content-Type': 'application/json',
-        }
-
-    return this.http.post<IMobileMoney>(`${this.apiUrl}/payment-method/new-payment-method`, momo, {headers}).pipe(
+    return this.http.post<IMobileMoney>(`${this.apiUrl}/payment-method/new-payment-method`, momo).pipe(
       retry(2),
       catchError(error => this.errorHandler.handleError(error))
     )

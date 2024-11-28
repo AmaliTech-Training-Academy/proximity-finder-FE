@@ -1,0 +1,84 @@
+<section class="container">
+    <h1 class="page-title">Requests</h1>
+
+    <div class="information">
+        <div class="back" (click)="goBack()">
+            <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M13.4753 6.89193H1.80859M1.80859 6.89193L7.64193 12.7253M1.80859 6.89193L7.64193 1.05859" stroke="#065AD8" stroke-width="1.67" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <p>back</p>
+           
+          </div>
+
+          <div class="task">
+            <div class="details">
+                <p>Interior Painter</p>
+                <span>Short description of the currently viewed quotas</span>
+            </div>
+
+            <div class="btn-decisions">
+                <div class="decline" (click)="showDialog('decline')">
+                    <img src="assets/wrong.svg" alt="wrong">
+                    <button>Decline Request</button>
+                </div>
+
+                <div class="approve" (click)="showDialog('approve')">
+                    <img src="assets/correct.svg" alt="mark">
+                    <button>Approve</button>
+                </div>
+            </div>
+
+          </div>
+
+          <div class="detailed">
+            <p>Details</p>
+            <span>Lorem ipsum dolor sit amet consectetur. Nunc purus ut posuere pharetra ut sagittis dolor bibendum. Suspendisse tellus tellus iaculis ipsum varius pretium. Consequat sagittis eget sit tortor magnis lorem viverra lacus amet. Congue lorem consectetur nunc in at quis eu.</span>
+          </div>
+
+          <div class="add-info">
+            <p>Additional Information (Special Instructions)</p>
+            <span>Lorem ipsum dolor sit amet consectetur. Nunc purus ut posuere pharetra ut sagittis dolor bibendum. Suspendisse tellus tellus iaculis ipsum varius pretium. Consequat sagittis eget sit tortor magnis lorem viverra lacus amet. Congue lorem consectetur nunc in at quis eu.</span>
+          </div>
+</div>
+
+</section>
+
+<form class="modal">
+    <p-dialog header="Request Approval" [modal]="true" [(visible)]="modals.approve">
+        <div class="pricing-details">
+            <label>Pricing Details</label>
+            <input type="text">
+        </div>
+
+        <div class="rich-text">
+            <p>Additional Information</p>
+            <p-editor  [style]="{ height: '200px' }" />
+
+        </div>
+       
+         <div class="btns">
+            <button class="cancel" (click)="closeDialog('approve')">Cancel</button>
+            <button class="approve" (click)="closeDialog('approve')">Approve</button>
+         </div>
+           
+    </p-dialog>
+
+</form>
+
+<form class="modal">
+    <p-dialog header="Decline Request" [modal]="true" [(visible)]="modals.decline">
+        
+        <div class="rich-text">
+            <p>Reasons for declining</p>
+            <p-editor  [style]="{ height: '200px' }" />
+
+        </div>
+       
+         <div class="btns">
+            <button class="cancels" (click)="closeDialog('approve')">Cancel</button>
+            <button class="approves" (click)="closeDialog('approve')">Approve</button>
+         </div>
+           
+    </p-dialog>
+
+</form>

@@ -6,11 +6,12 @@ import { User } from '../../../features/profile-management/models/user';
 import { IProfile } from '../../../features/profile-management/models/profile';
 import { CommonModule } from '@angular/common';
 import { ROLE_ADMIN, ROLE_PROVIDER, ROLE_SEEKER } from '../../../utils/roles';
+import { LogoutModalComponent } from "../../../features/user/components/logout-modal/logout-modal.component";
 
 @Component({
   selector: 'app-user-profile-header',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, CommonModule],
+  imports: [RouterLink, RouterLinkActive, CommonModule, LogoutModalComponent],
   templateUrl: './user-profile-header.component.html',
   styleUrl: './user-profile-header.component.sass'
 })
@@ -19,10 +20,13 @@ export class UserProfileHeaderComponent implements OnInit{
   loggedInSubcription!: Subscription
   userProfile!: Observable<IProfile>
   defaultImage = 'assets/images/default-avatar.png'
+  showLogoutModal = false
 
   constructor(private profileService: ProfileService, private router: Router) {}
 
   ngOnInit(): void {
+    this.profileService.refreshUserData()
+    
     this.loggedInSubcription = this.profileService.loggedInUser$.subscribe((user) => {
       this.loggedInUser = user
     })
@@ -41,6 +45,10 @@ export class UserProfileHeaderComponent implements OnInit{
     else if (role === ROLE_PROVIDER) {
       this.router.navigate(['/provider/dashboard'])
     }
+  }
+
+  toggleLogoutModal(): void {
+    this.showLogoutModal = !this.showLogoutModal
   }
 
   ngOnDestroy(): void {

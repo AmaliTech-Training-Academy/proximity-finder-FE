@@ -6,6 +6,9 @@
 
 @import "primeicons/primeicons.css"
 
+@import "../node_modules/quill/dist/quill.core.css"
+@import "../node_modules/quill/dist/quill.snow.css"
+
 body, button, input, textarea
     font-family: $font-stack
 
@@ -258,6 +261,19 @@ app-fields.custom .inputs input
         
         &:focus
             border-color: $primary
+
+.p-rating .p-rating-item .p-rating-icon.p-icon
+    color: #FBBC05
+
+.p-rating .p-rating-item.p-rating-item-active .p-rating-icon
+    color: #FBBC05
+
+.p-metergroup .p-metergroup-labels.p-metergroup-labels-horizontal
+    display: none
+
+.p-metergroup
+    gap: 0 
+    
 .p-tabview-panels
     background: none
 
@@ -278,6 +294,7 @@ app-fields.custom .inputs input
 .p-button-label
     font-size: 14px
 
+
 .chat-input
     .p-inputtext
         width: 100%
@@ -286,3 +303,18 @@ app-fields.custom .inputs input
 
         &:focus
             outline: none
+
+.service
+    .p-inputtext
+        border: none
+        padding-left: 0.5rem
+        width: pxToRem(250)
+
+.p-inputtext:enabled:hover
+    border: none
+
+.p-inputtext:enabled:focus
+    outline: 0 none
+    outline-offset: 0
+    box-shadow: none
+
