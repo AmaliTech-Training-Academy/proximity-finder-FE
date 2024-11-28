@@ -14,6 +14,9 @@ import { FileUploaderComponent } from '../file-uploader/file-uploader.component'
 import { ServiceService } from '../../../../core/services/service.service';
 import { ServiceResponse } from '../../../../core/models/IServiceResponse';
 import { ServiceCategory } from '../../../../core/models/IServiceCategory';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'app-pro-service-preference',
@@ -23,6 +26,9 @@ import { ServiceCategory } from '../../../../core/models/IServiceCategory';
     ReactiveFormsModule,
     CommonModule,
     FileUploaderComponent,
+    InputTextModule,
+    ButtonModule,
+    DialogModule,
   ],
   templateUrl: './pro-service-preference.component.html',
   styleUrl: './pro-service-preference.component.sass',
@@ -31,6 +37,8 @@ export class ProServicePreferenceComponent {
   isEditing = true;
   serviceCategories$ = this.serviceService.serviceCategories$;
   paymentPreferences = accountPreferences;
+  visible: boolean = false;
+
   days = bookingDays;
   timeOptions: ITime[] = [];
 
@@ -116,5 +124,9 @@ export class ProServicePreferenceComponent {
       }
     }
     this.timeOptions = times;
+  }
+
+  showDialog() {
+    this.visible = true;
   }
 }
