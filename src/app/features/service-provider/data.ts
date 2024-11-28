@@ -255,7 +255,6 @@ export const calls = [
     clientName: 'Missy Cooper',
     phoneNumber:'(234) 567-8910',
     email: 'VYmO1@example.com',
-    location:'Kumasi',
     status:'pending'
    
   },
@@ -263,84 +262,72 @@ export const calls = [
     clientName: 'Isabella Hill',
     phoneNumber:'(234) 567-8910',
     email: 'VYmO1@example.com',
-    location:'Kumasi',
-    status:'declined'
+    status:'completed'
   },
   {
     clientName: 'Missy Cooper',
     phoneNumber:'(234) 567-8910',
     email: 'VYmO1@example.com',
-    location:'Kumasi',
-    status:'scheduled'
-  },
-  {
-    clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
-    email: 'VYmO1@example.com',
-    location:'Kumasi',
     status:'pending'
   },
   {
     clientName: 'Missy Cooper',
     phoneNumber:'(234) 567-8910',
     email: 'VYmO1@example.com',
-    location:'Kumasi',
     status:'pending'
   },
   {
     clientName: 'Missy Cooper',
     phoneNumber:'(234) 567-8910',
     email: 'VYmO1@example.com',
-    location:'Kumasi',
-    status:'declined'
-  },
-  {
-    clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
-    email: 'VYmO1@example.com',
-    location:'Kumasi',
-    status:'scheduled'
-  },
-  {
-    clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
-    email: 'VYmO1@example.com',
-    location:'Kumasi',
     status:'pending'
   },
   {
     clientName: 'Missy Cooper',
     phoneNumber:'(234) 567-8910',
     email: 'VYmO1@example.com',
-    location:'Kumasi',
+    status:'completed'
+  },
+  {
+    clientName: 'Missy Cooper',
+    phoneNumber:'(234) 567-8910',
+    email: 'VYmO1@example.com',
+    status:'completed'
+  },
+  {
+    clientName: 'Missy Cooper',
+    phoneNumber:'(234) 567-8910',
+    email: 'VYmO1@example.com',
     status:'pending'
   },
   {
     clientName: 'Missy Cooper',
     phoneNumber:'(234) 567-8910',
     email: 'VYmO1@example.com',
-    location:'Kumasi',
     status:'pending'
   },
   {
     clientName: 'Missy Cooper',
     phoneNumber:'(234) 567-8910',
     email: 'VYmO1@example.com',
-    location:'Kumasi',
     status:'pending'
   },
   {
     clientName: 'Missy Cooper',
     phoneNumber:'(234) 567-8910',
     email: 'VYmO1@example.com',
-    location:'Kumasi',
     status:'pending'
   },
   {
     clientName: 'Missy Cooper',
     phoneNumber:'(234) 567-8910',
     email: 'VYmO1@example.com',
-    location:'Kumasi',
+    status:'pending'
+  },
+  {
+    clientName: 'Missy Cooper',
+    phoneNumber:'(234) 567-8910',
+    email: 'VYmO1@example.com',
     status:'pending'
   },
   {
@@ -348,48 +335,45 @@ export const calls = [
     phoneNumber:'(234) 567-8910',
     email: 'VYmO1@example.com',
     status:'pending',
-    location:'Kumasi'
+    
   },
   {
     clientName: 'Missy Cooper',
     phoneNumber:'(234) 567-8910',
     email: 'VYmO1@example.com',
     status:'pending',
-    location:'Kumasi',
+   
   },
   {
     clientName: 'Missy Cooper',
     phoneNumber:'(234) 567-8910',
     email: 'VYmO1@example.com',
     status:'pending',
-    location:'Kumasi',
+    
   },
   {
     clientName: 'Missy Cooper',
     phoneNumber:'(234) 567-8910',
     email: 'VYmO1@example.com',
     status:'pending',
-    location:'Kumasi',
   },
   {
     clientName: 'Missy Cooper',
     phoneNumber:'(234) 567-8910',
     email: 'VYmO1@example.com',
     status:'pending',
-    location:'Kumasi',
-  },
-  {
-    clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
-    email: 'VYmO1@example.com',
-    status:'pending',
-    location:'Kumasi',
+    
   },
   {
     clientName: 'Missy Cooper',
     phoneNumber:'(234) 567-8910',
     email: 'VYmO1@example.com',
     location:'Kumasi',
+  },
+  {
+    clientName: 'Missy Cooper',
+    phoneNumber:'(234) 567-8910',
+    email: 'VYmO1@example.com',
     status:'pending'
   },
 ];
