@@ -1,10 +1,10 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { environment } from '../../../../../environments/environment.development';
 import { jwtDecode } from 'jwt-decode'; 
 import { LocalStorageService } from '../../../../shared/services/local-storage.service';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -12,7 +12,7 @@ import { LocalStorageService } from '../../../../shared/services/local-storage.s
 export class AuthService {
   private url = environment.baseUrl;
   private http = inject(HttpClient);
-  private localStorageService = inject(LocalStorageService); 
+  public localStorageService = inject(LocalStorageService); 
 
   public accessToken = new BehaviorSubject<string>(this.localStorageService.getItem('accessToken') || '');
   public refreshToken = new BehaviorSubject<string>(this.localStorageService.getItem('refreshToken') || '');
@@ -50,18 +50,19 @@ export class AuthService {
       })
     );
   }
-
-  public refreshAccessToken(): Observable<any> {
-    return this.http.post(`${this.url}/auth/refresh-token`, {
-      refreshToken: this.refreshToken.value
-    }).pipe(
+  public refreshAccessToken(){
+    const params = new HttpParams().set('refreshToken', this.refreshToken.value);
+  
+    return this.http.get(`${this.url}/auth/public/refresh-token`, { params }).pipe(
       tap((res: any) => {
         const newAccessToken = res.newAccessToken;
         this.localStorageService.setItem('accessToken', newAccessToken);
+        this.localStorageService.setItem('newAccessToken', newAccessToken);
         this.accessToken.next(newAccessToken);
       })
     );
   }
+  
 
   public logout(): void {
     this.accessToken.next('');

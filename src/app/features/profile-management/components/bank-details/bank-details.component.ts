@@ -30,7 +30,7 @@ export class BankDetailsComponent implements OnInit, OnDestroy {
     bankName: ['', Validators.required],
     accountName: ['', Validators.required],
     accountAlias: ['', Validators.required],
-    accountNumber: ['', Validators.required],
+    accountNumber: ['', [Validators.required, Validators.maxLength(13)]],
   })
 
   ngOnInit() {
@@ -53,7 +53,6 @@ export class BankDetailsComponent implements OnInit, OnDestroy {
 
       this.bankService.addBank(bankInfo).subscribe({
         next: () => {
-          console.log('Bank details added successfully')
           this.notyf.success('Bank details added successfully')
         },
         error: (error) => {

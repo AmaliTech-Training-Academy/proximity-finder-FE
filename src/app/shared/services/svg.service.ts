@@ -127,5 +127,25 @@ export class SvgService {
       'arrow-right-feedback',
       sanitizer.bypassSecurityTrustResourceUrl('assets/arrow-right-feedback.svg')
     );
+
+    iconRegistry.addSvgIcon(
+      'service-check',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/circle-check.svg')
+    );
+    
+    iconRegistry.addSvgIcon(
+      'shield',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/shield.svg')
+    );
+
+    iconRegistry.addSvgIcon(
+      'map-pin',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/pin.svg')
+    );
+
+    iconRegistry.addSvgIcon(
+      'trophy',
+      sanitizer.bypassSecurityTrustResourceUrl('assets/trophy.svg')
+    );
   }
 }

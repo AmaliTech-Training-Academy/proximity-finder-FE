@@ -10,13 +10,19 @@
             <div class="col-2">
                 <p>The best platform for finding top service providers for your needs. Easily search, book, and manage services like cleaning, painting, plumbing, and more.</p>
                 <div class="input">
-                    <app-fields placeholder="What do you need help with?" 
-                    [class]="'custom'"
-                    class="custom"/>
+                    <form [formGroup]="formGroup" class="service">
+                        <p-autoComplete
+                            formControlName="selectedService"
+                            [suggestions]="filteredCategories"
+                            (completeMethod)="filterCategories($event)"
+                            placeholder="What do you need help with?" 
+                        />
+                    </form>
+
                     <div></div>
-                    <button class="location-btn">
-                        <mat-icon svgIcon="location" aria-hidden="false"></mat-icon>
-                        location</button>
+                    <mat-icon svgIcon="location" aria-hidden="false"></mat-icon>
+                    
+                    <app-locations (placeSelected)="placeValue=$event"/>
                     <button class="search-btn">Search</button>
                 </div>
             </div>

@@ -1,0 +1,490 @@
+@use '../../../../../../styles/_mixins' as *
+@use '../../../../../../styles/_functions' as *
+@use '../../../../../../styles/_typography' as *
+@use '../../../../../../styles/_variables' as *
+
+.container
+    @include flex-option(flex, space-between, null,row)
+    gap: pxToRem(120)
+
+    .left
+        @include flex-option(flex, flex-start, null,column)
+        gap: 1rem
+        flex: 2
+        
+
+        h2
+            font-size: 2rem
+            color: $text-main
+        
+        .col-1
+            @include flex-option(flex, space-between, center,row)
+
+            .profile-ratings
+                @include flex-option(flex, space-between, center,row)
+                gap: pxToRem(20)
+
+                img
+                    width: pxToRem(160)
+                    height: pxToRem(160)
+                    border-radius: 8px
+                    object-fit: cover
+                
+                .details
+                    @include flex-option(flex, null, null,column)
+                    gap: pxToRem(10)
+
+                    h4
+                        font-size: 1.5rem
+                        font-weight: 600
+                        color: $text-main
+
+                    .ratings
+                        @include flex-option(flex, space-between, center,row)
+                        gap: pxToRem(4)
+                        font-size: 1rem
+
+                        p
+                            color: #408EFD
+
+                        .rate
+                            color: #7D7979
+            
+                    .actions
+                        @include flex-option(flex, null, center,row)
+                        gap: pxToRem(10)
+                        
+                        .btn
+                            width: pxToRem(137)
+                            border-radius: pxToRem(5)
+                            padding: pxToRem(10) pxToRem(20)
+                            font-size: pxToRem(14)
+                            font-weight: 600
+                            cursor: pointer
+                            border: 2px solid #408EFD
+                            outline: none
+
+                        .btn-primary
+                            background-color: #408EFD
+                            color: $white
+
+                        .btn-secondary
+                            background-color: $white
+                            color: #408EFD
+                
+        .col-2
+            p
+                font-size: 1rem
+                font-weight: 400
+                color: #676161
+                text-overflow: ellipsis
+                letter-spacing: 0.35px
+
+                span
+                  font-size: 1rem
+                  font-weight: 600
+                  color: $text-main
+                 
+    .right
+        flex: 1
+
+
+.quote-request
+    @include flex-option(flex, space-between, center,column)
+    gap: pxToRem(32) 
+
+    ::ng-deep .p-dialog 
+        width:700px
+         
+
+    form
+        @include flex-option(flex, null, null, column)
+        gap: pxToRem(32)
+
+        .name
+            @include flex-option(flex, null, null, column)
+            gap: pxToRem(8)
+
+            label
+                font-size: pxToRem(14)
+                font-weight: 500
+                color: $black-darken-1
+
+            input
+                width: 100%
+                border-radius: pxToRem(5)
+                border: 2px solid #EFF1F3
+                padding: pxToRem(10)
+                font-size: pxToRem(14)
+                font-weight: 400
+                color: $text-main
+
+                ::placeholder
+                    font-size: pxToRem(14)
+                    color: $grey-lighten-3
+
+                &:focus
+                    border-color:2px solid #EFF1F3
+                    outline: none
+
+                &.has-error
+                  border:1px solid $error
+
+        .error-message
+            color: $error
+            margin-top: pxToRem(8)     
+
+        .location
+            @include flex-option(flex, null, null, column)
+            gap: pxToRem(8)
+
+            label
+                font-size: pxToRem(14)
+                font-weight: 500
+                color: $black-darken-1
+
+            input
+                width: 100%
+                border-radius: pxToRem(5)
+                border: 2px solid #EFF1F3
+                padding: pxToRem(10)
+                font-size: pxToRem(14)
+                font-weight: 400
+                color: $text-main
+
+                ::placeholder
+                    font-size: pxToRem(14)
+                    color: $grey-lighten-3
+
+                &:focus
+                    border-color:2px solid #EFF1F3
+                    outline: none 
+
+                &.has-error
+                  border:1px solid $error
+
+        .error-message
+            color: $error
+            margin-top: pxToRem(8)     
+
+
+        .date
+            @include flex-option(flex, null, null, row)
+            gap: pxToRem(8) 
+            
+
+            .start-date
+                @include flex-option(flex, null, null, column)
+                gap: pxToRem(8) 
+                width: 100%  
+
+                label
+                  font-size: pxToRem(14)
+                  font-weight: 500
+                  color: $black-darken-1
+
+                input
+                  width: 100%
+                  border-radius: pxToRem(5)
+                  border: 2px solid #EFF1F3
+                  padding: pxToRem(10)
+                  font-size: pxToRem(14)
+                  font-weight: 400
+                  color: $text-main
+
+                  ::placeholder
+                    font-size: pxToRem(14)
+                    color: $grey-lighten-3
+
+                  &:focus
+                    border-color:2px solid #EFF1F3
+                    outline: none
+                    
+
+
+            .end-time
+                @include flex-option(flex, null, null, column)
+                gap: pxToRem(8)
+                width: 100%   
+
+                label
+                  font-size: pxToRem(14)
+                  font-weight: 500
+                  color: $black-darken-1
+
+                input
+                  width: 100%
+                  border-radius: pxToRem(5)
+                  border: 2px solid #EFF1F3
+                  padding: pxToRem(10)
+                  font-size: pxToRem(14)
+                  font-weight: 400
+                  color: $text-main 
+
+                  ::placeholder
+                    font-size: pxToRem(14)
+                    color: $grey-lighten-3
+
+                  &:focus
+                    border-color:2px solid #EFF1F3
+                    outline: none
+
+        
+        .date-time
+            @include flex-option(flex, null, null, row)
+            gap: pxToRem(8) 
+            
+
+            .start-date
+                @include flex-option(flex, null, null, column)
+                gap: pxToRem(8) 
+                width: 100%  
+
+                label
+                  font-size: pxToRem(14)
+                  font-weight: 500
+                  color: $black-darken-1
+
+                input
+                  width: 100%
+                  border-radius: pxToRem(5)
+                  border: 2px solid #EFF1F3
+                  padding: pxToRem(10)
+                  font-size: pxToRem(14)
+                  font-weight: 400
+                  color: $text-main
+
+                  ::placeholder
+                    font-size: pxToRem(14)
+                    color: $grey-lighten-3
+                  &:focus
+                    border-color:2px solid #EFF1F3
+                    outline: none 
+                     
+
+
+            .end-time
+                @include flex-option(flex, null, null, column)
+                gap: pxToRem(8)
+                width: 100%   
+
+                label
+                  font-size: pxToRem(14)
+                  font-weight: 500
+                  color: $black-darken-1
+
+                input
+                  width: 100%
+                  border-radius: pxToRem(5)
+                  border: 2px solid #EFF1F3
+                  padding: pxToRem(10)
+                  font-size: pxToRem(14)
+                  font-weight: 400
+                  color: $text-main
+
+                  ::placeholder
+                    font-size: pxToRem(14)
+                    color: $grey-lighten-3
+                  &:focus
+                     border-color:2px solid #EFF1F3
+                     outline: none 
+
+        .description
+            @include flex-option(flex, null, null, column)
+            gap: pxToRem(8)  
+
+
+            label
+                font-size: pxToRem(14)
+                font-weight: 500
+                color: $black-darken-1
+
+
+            textarea
+                width: 100%
+                height: pxToRem(126)
+                border-radius: pxToRem(5)
+                border: 2px solid #EFF1F3
+                padding: pxToRem(10)
+                font-size: pxToRem(14)
+                font-weight: 400
+                color: $text-main
+
+                ::placeholder
+                    font-size: pxToRem(14)
+                    color: $grey-lighten-3
+
+                &:focus
+                    border-color:2px solid #EFF1F3
+                    outline: none 
+
+            &.has-error
+                  border:1px solid $error
+
+        .error-message
+            color: $error
+            margin-top: pxToRem(8)     
+
+
+        .info
+            @include flex-option(flex, null, null, column)
+            gap: pxToRem(8)  
+
+
+            label
+                font-size: pxToRem(14)
+                font-weight: 500
+                color: $black-darken-1
+
+
+            textarea
+                width: 100%
+                height: pxToRem(126)
+                border-radius: pxToRem(5)
+                border: 2px solid #EFF1F3
+                padding: pxToRem(10)
+                font-size: pxToRem(14)
+                font-weight: 400
+                color: $text-main
+
+                ::placeholder
+                    font-size: pxToRem(14)
+                    color: $grey-lighten-3
+
+                &:focus
+                    border-color:2px solid #EFF1F3
+                    outline: none  
+
+        .images
+            @include flex-option(flex, null, null, column)
+            gap: pxToRem(8)  
+            
+            label
+                font-size: pxToRem(14)
+                font-weight: 500
+                color: $black-darken-1
+
+
+        .action-buttons
+            @include flex-option(flex, flex-end, center, row)
+            gap: pxToRem(8)
+
+            .cancel-btn
+                width:100%
+                background: none
+                padding: pxToRem(10) pxToRem(20)
+                border-radius: pxToRem(5)
+                border: 2px solid #EFF1F3
+                font-size: pxToRem(14)
+                font-weight: 500
+                color: $black-darken-1
+                cursor: pointer
+
+            .submit-btn
+                width:100%
+                padding: pxToRem(10) pxToRem(20)
+                border-radius: pxToRem(5)
+                background-color: $primary
+                border: none
+                font-size: pxToRem(14)
+                font-weight: 500
+                color: $white
+                cursor: pointer
+
+.call-request
+    @include flex-option(flex, null, null, column)
+    gap: pxToRem(8)
+    width: 100%  
+
+    ::ng-deep .p-dialog 
+        width:700px 
+
+    form
+        @include flex-option(flex, null, null, column)
+        gap: pxToRem(32)        
+
+        .mobile
+            @include flex-option(flex, null, null, column)
+            gap: pxToRem(8)
+            width: 100%
+
+            label
+               font-size: pxToRem(14)
+               font-weight: 500
+               color: $black-darken-1  
+
+
+            input
+               width: 100%
+               border-radius: pxToRem(5)
+               border: 2px solid #EFF1F3
+               padding: pxToRem(10)
+               font-size: pxToRem(14)
+               font-weight: 400
+               color: $text-main
+
+               ::placeholder
+                  font-size: pxToRem(14)
+                  color: $grey-lighten-3
+
+               &:focus
+                 border-color:2px solid #EFF1F3
+                 outline: none 
+
+               &.has-error
+                  border:1px solid $error
+
+        .error-message
+            color: $error
+            margin-top: pxToRem(8)        
+
+        .call-buttons
+            @include flex-option(flex, flex-end, center, row)
+            gap: pxToRem(8)
+            margin-top: pxToRem(20)
+
+            .cancel-btn
+                width:100%
+                background: none
+                padding: pxToRem(10) pxToRem(20)
+                border-radius: pxToRem(5)
+                border: 2px solid #EFF1F3
+                font-size: pxToRem(14)
+                font-weight: 500
+                color: $black-darken-1
+                cursor: pointer
+
+            .request-btn
+                width:100%
+                width:100%
+                padding: pxToRem(10) pxToRem(20)
+                border-radius: pxToRem(5)
+                background-color: $primary
+                border: none
+                font-size: pxToRem(14)
+                font-weight: 500
+                color: $white
+                cursor: pointer
+    
+
+
+
+
+
+
+                                                                             
+
+                                             
+
+                                                
+
+                                             
+
+                 
+
+            
+
+
+                
+            
+    
