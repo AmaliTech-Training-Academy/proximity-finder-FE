@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { calls } from '../../data';
+import { Statuses } from '../../../../utils/status';
 
 @Component({
   selector: 'app-calls',
@@ -13,7 +14,8 @@ import { calls } from '../../data';
 export class CallsComponent {
   calls = calls
 
-  statuses = ['Pending', 'Declined', 'Scheduled']; 
+   statuses = Statuses
+
   activeQuote: any = null; 
 
   toggleMenu(quote: any) {
