@@ -179,8 +179,11 @@ export const routes: Routes = [
 
       {
         path: 'profile',
-        loadComponent: () => import('./features/profile-management/pages/admin-profile/admin-profile.component').then((m) => m.AdminProfileComponent),
-      }
+        loadComponent: () =>
+          import(
+            './features/profile-management/pages/admin-profile/admin-profile.component'
+          ).then((m) => m.AdminProfileComponent),
+      },
     ],
   },
 
@@ -267,5 +270,12 @@ export const routes: Routes = [
           ).then((m) => m.PreviewComponent),
       },
     ],
+  },
+  {
+    path: 'chat',
+    loadComponent: () =>
+      import('./features/chat/pages/chat/chat.component').then(
+        (c) => c.ChatComponent
+      ),
   },
 ];
