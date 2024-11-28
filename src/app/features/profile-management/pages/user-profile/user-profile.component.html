@@ -6,8 +6,7 @@
 
     <div class="profile-image-container">
         @if (client) {
-            <img [src]= "client.profileImage || defaultImage" alt="user's avatar" class="avatar">
-            <div class="overlay" (click)="triggerFileInput()">
+            <img [src]="client.profileImage ? client.profileImage + '?timestamp=' + timestamp : defaultImage" alt="user's avatar" class="avatar">            <div class="overlay" (click)="triggerFileInput()">
                 <img src="../../../../../assets/Vector.png" alt="camera icon">
             </div>
         }
@@ -93,7 +92,7 @@
     </div>
 
     <div class="info-container account-container">
-        <form [formGroup]="accountInfoForm">
+        <form [formGroup]="accountInfoForm" (ngSubmit)="updateAccount()">
             <div class="header">
                 <div class="info">
                     <h4>Account Info</h4>
@@ -140,106 +139,108 @@
                     </div>
                 </div>
 
-                    <div class="details">
-                        @if (selectedAccount?.serviceProvider) {
-                            <div class="column">
-                            <app-fields type="text"
-                            label="Service Provider:"
-                            placeholder="Paypal"
-                            formControlName="serviceProvider"
-                            [readOnly]="!isFormActive"
-                            [class]="'custom-input-style'"
-                            />
+                <div class="details">
+                    @if (selectedAccount?.serviceProvider) {
+                        <div class="column">
+                        <app-fields type="text"
+                        label="Service Provider:"
+                        placeholder="Paypal"
+                        formControlName="serviceProvider"
+                        [readOnly]="!isFormActive"
+                        [class]="'custom-input-style'"
+                        />
 
-                            @if (isFormActive && accountInfoForm.get('serviceProvider')?.touched && accountInfoForm.get('serviceProvider')?.invalid) {
-                                @if (accountInfoForm.get('serviceProvider')?.hasError('required')) {
-                                    <small class="error">Service provider is required.</small>
-                                }
+                        @if (isFormActive && accountInfoForm.get('serviceProvider')?.touched && accountInfoForm.get('serviceProvider')?.invalid) {
+                            @if (accountInfoForm.get('serviceProvider')?.hasError('required')) {
+                                <small class="error">Service provider is required.</small>
                             }
-                            </div>
-
-                            <div class="column">
-                                <app-fields type="text"
-                                label="Mobile Number:"
-                                placeholder="0200000000"
-                                formControlName="phoneNumber"
-                                [readOnly]="!isFormActive"
-                                [class]="'custom-input-style'"
-                                [error]="accountInfoForm.get('phoneNumber')?.invalid && (accountInfoForm.get('phoneNumber')?.touched || accountInfoForm.get('phoneNumber')?.dirty)"
-                                />
-                                @if (isFormActive && accountInfoForm.get('phoneNumber')?.touched && accountInfoForm.get('phoneNumber')?.invalid) {
-                                    @if (accountInfoForm.get('phoneNumber')?.hasError('required')) {
-                                        <small class="error">Phone number is required.</small>
-                                    }
-                                    @if (accountInfoForm.get('phoneNumber')?.hasError('pattern')) {
-                                        <small class="error">Please enter a valid account number.</small>
-                                    }
-                                }
-                            </div>
                         }
-                        @else {
-                            <div class="column">
-                                <app-fields type="text"
-                                label="Bank Name:"
-                                placeholder="Fidelty"
-                                formControlName="bankName"
-                                [readOnly]="!isFormActive"
-                                [error]="accountInfoForm.get('bankName')?.invalid && (accountInfoForm.get('bankName')?.touched || accountInfoForm.get('bankName')?.dirty)"
-                                [class]="'custom-input-style'"
-                                />
-                                @if (isFormActive && accountInfoForm.get('bankName')?.touched && accountInfoForm.get('bankName')?.invalid) {
-                                    @if (accountInfoForm.get('bankName')?.hasError('required')) {
-                                        <small class="error">Bank name is required.</small>
-                                    }
-                                }
-                            </div>
+                        </div>
 
-                            <div class="column">
-                                <app-fields type="text"
-                                label="Account Number:"
-                                placeholder="45341287975437"
-                                formControlName="accountNumber"
-                                [readOnly]="!isFormActive"
-                                [class]="'custom-input-style'"
-                                [error]="accountInfoForm.get('accountNumber')?.invalid && (accountInfoForm.get('accountNumber')?.touched || accountInfoForm.get('accountNumber')?.dirty)"
-                                />
-                                @if (isFormActive && accountInfoForm.get('accountNumber')?.touched && accountInfoForm.get('accountNumber')?.invalid) {
-                                    @if (accountInfoForm.get('accountNumber')?.hasError('required')) {
-                                        <small class="error">Account number is required.</small>
-                                    }
-                                    @if (accountInfoForm.get('accountNumber')?.hasError('pattern')) {
-                                        <small class="error">Please enter a valid account number.</small>
-                                    }
-                                }
-                            </div>
-                        }
                         <div class="column">
                             <app-fields type="text"
-                            label="Account Name:"
-                            placeholder="John Doe"
-                            formControlName="accountName"
+                            label="Mobile Number:"
+                            placeholder="0200000000"
+                            formControlName="phoneNumber"
                             [readOnly]="!isFormActive"
                             [class]="'custom-input-style'"
-                            [error]="accountInfoForm.get('accountName')?.invalid && (accountInfoForm.get('accountName')?.touched || accountInfoForm.get('accountName')?.dirty)"
+                            [error]="accountInfoForm.get('phoneNumber')?.invalid && (accountInfoForm.get('phoneNumber')?.touched || accountInfoForm.get('phoneNumber')?.dirty)"
                             />
-                            @if (isFormActive && accountInfoForm.get('accountName')?.touched && accountInfoForm.get('accountName')?.invalid) {
-                                @if (accountInfoForm.get('accountName')?.hasError('required')) {
-                                    <small class="error">Account name is required.</small>
+                            @if (isFormActive && accountInfoForm.get('phoneNumber')?.touched && accountInfoForm.get('phoneNumber')?.invalid) {
+                                @if (accountInfoForm.get('phoneNumber')?.hasError('required')) {
+                                    <small class="error">Phone number is required.</small>
+                                }
+                                @if (accountInfoForm.get('phoneNumber')?.hasError('pattern')) {
+                                    <small class="error">Please enter a valid account number.</small>
                                 }
                             }
-                            
                         </div>
+                    }
+                    @else {
                         <div class="column">
                             <app-fields type="text"
-                            label="Account Alias:"
-                            placeholder="EUR"
-                            formControlName="accountAlias"
+                            label="Bank Name:"
+                            placeholder="Fidelty"
+                            formControlName="bankName"
                             [readOnly]="!isFormActive"
+                            [error]="accountInfoForm.get('bankName')?.invalid && (accountInfoForm.get('bankName')?.touched || accountInfoForm.get('bankName')?.dirty)"
                             [class]="'custom-input-style'"
                             />
+                            @if (isFormActive && accountInfoForm.get('bankName')?.touched && accountInfoForm.get('bankName')?.invalid) {
+                                @if (accountInfoForm.get('bankName')?.hasError('required')) {
+                                    <small class="error">Bank name is required.</small>
+                                }
+                            }
                         </div>
+
+                        <div class="column">
+                            <app-fields type="text"
+                            label="Account Number:"
+                            placeholder="45341287975437"
+                            formControlName="accountNumber"
+                            [readOnly]="!isFormActive"
+                            [class]="'custom-input-style'"
+                            [error]="accountInfoForm.get('accountNumber')?.invalid && (accountInfoForm.get('accountNumber')?.touched || accountInfoForm.get('accountNumber')?.dirty)"
+                            />
+                            @if (isFormActive && accountInfoForm.get('accountNumber')?.touched && accountInfoForm.get('accountNumber')?.invalid) {
+                                @if (accountInfoForm.get('accountNumber')?.hasError('required')) {
+                                    <small class="error">Account number is required.</small>
+                                }
+                                @if (accountInfoForm.get('accountNumber')?.hasError('pattern')) {
+                                    <small class="error">Please enter a valid account number.</small>
+                                }
+                            }
+                        </div>
+                    }
+                    <div class="column">
+                        <app-fields type="text"
+                        label="Account Name:"
+                        placeholder="John Doe"
+                        formControlName="accountName"
+                        [readOnly]="!isFormActive"
+                        [class]="'custom-input-style'"
+                        [error]="accountInfoForm.get('accountName')?.invalid && (accountInfoForm.get('accountName')?.touched || accountInfoForm.get('accountName')?.dirty)"
+                        />
+                        @if (isFormActive && accountInfoForm.get('accountName')?.touched && accountInfoForm.get('accountName')?.invalid) {
+                            @if (accountInfoForm.get('accountName')?.hasError('required')) {
+                                <small class="error">Account name is required.</small>
+                            }
+                        }
+                        
                     </div>
+                    <div class="column">
+                        <app-fields type="text"
+                        label="Account Alias:"
+                        placeholder="EUR"
+                        formControlName="accountAlias"
+                        [readOnly]="!isFormActive"
+                        [class]="'custom-input-style'"
+                        />
                     </div>
+                </div>
+
+                <button type="submit" [disabled]="accountInfoForm.invalid">Save Changes</button>
+            </div>
             }
         </form>
 

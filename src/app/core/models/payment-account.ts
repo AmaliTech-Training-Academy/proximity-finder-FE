@@ -7,7 +7,7 @@ export interface IPaymentAccount {
   accountNumber: string;
   serviceProvider: string;
   phoneNumber: string;
-  firstName: string;
-  lastName: string;
-  email: string;
+  firstName?: string;
+  lastName?: string;
+  email?: string;
 }
