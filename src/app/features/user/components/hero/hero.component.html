@@ -21,15 +21,8 @@
 
                     <div></div>
                     <mat-icon svgIcon="location" aria-hidden="false"></mat-icon>
-
-                    <form [formGroup]="formGroup" class="location">
-                        <p-autoComplete
-                            formControlName="selectedCountry"
-                            [suggestions]="filteredCountries"
-                            (completeMethod)="filterCountry($event)"
-                            placeholder="location"
-                            optionLabel="name" />
-                    </form>
+                    
+                    <app-locations (placeSelected)="placeValue=$event"/>
                     <button class="search-btn">Search</button>
                 </div>
             </div>
