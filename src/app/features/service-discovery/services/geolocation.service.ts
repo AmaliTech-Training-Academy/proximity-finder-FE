@@ -22,6 +22,9 @@ export class GeolocationService {
         })
       },
       (error) => {
+        if(error.code === error.PERMISSION_DENIED) {
+          this.showPermissionDeniedMessage()
+        }
         reject(this.handleError(error))
       }
     )
@@ -39,5 +42,11 @@ export class GeolocationService {
       default:
         return 'An unknown error occurred.';
     }
+  }
+
+  showPermissionDeniedMessage() {
+    alert(
+      `Location access is required to use this feature. Please enable location permissions in your browser or device settings.`
+    );
   }
 }

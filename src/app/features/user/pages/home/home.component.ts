@@ -31,10 +31,9 @@ export class HomeComponent implements OnInit {
   async getLocation() {
     try {
       this.currentLocation = await this.locationService.getCurrentLocation()
-    }
-    catch (error) {
+      console.log('Current location:', this.currentLocation)
+    } catch (error) {
       console.error(error)
-    }
   }
-
+}
 }
