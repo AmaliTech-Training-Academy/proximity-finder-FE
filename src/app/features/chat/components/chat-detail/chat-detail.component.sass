@@ -1,0 +1,85 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+
+main
+    height: 100%
+    position: relative
+
+    .chat-header
+        background-color: $white
+        border: solid 1px #EAECF0
+        border-radius: 8px
+        padding: 10px
+
+        .profile
+            @include flex-option($display: flex, $justify-content: null, $align-items: center, $direction: row)
+            gap: 10px
+
+    .messages
+        padding: 20px 0
+        height: 84%
+        @include flex-option($display: flex, $justify-content: null, $align-items: null, $direction: column)
+        gap: 20px
+        
+        .message
+            @include flex-option($display: flex, $justify-content: null, $align-items: flex-end, $direction: row)
+            gap: 15px
+
+            .message-content
+                max-width: 540px
+                line-height: 23px
+                background-color: #DCE0E7
+                padding: 20px
+                border-top-left-radius: 20px
+                border-top-right-radius: 20px
+
+        .other
+            .message-content
+                border-bottom-right-radius: 20px
+
+        .mine
+            flex-direction: row-reverse
+
+            .message-content
+                color: $white
+                background: $blue
+                border-top-left-radius: 20px
+                border-top-right-radius: 20px
+                border-bottom-left-radius: 20px
+            
+            
+
+    .chat-input
+        @include flex-option($display: flex, $justify-content: space-between, $align-items: center, $direction: row)
+        background-color: $white
+        width: 100%
+        position: absolute
+        bottom: 0
+        left: 0
+
+        .options
+            padding: 0 24px 0 0
+            @include flex-option($display: flex, $justify-content: null, $align-items: center, $direction: row)
+            gap: 10px
+
+            button
+                cursor: pointer
+                border: none
+                background: none
+
+            .emoji, .attach
+                width: 24px
+                height: 24px
+
+            .send
+                font-size: 14px
+                background-color: $blue
+                color: $white
+                padding: 8px 10px
+                border-radius: 8px
+
+            
+
+
+        
