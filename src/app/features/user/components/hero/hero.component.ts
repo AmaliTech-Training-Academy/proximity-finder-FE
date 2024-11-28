@@ -14,6 +14,7 @@ import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { Subscription } from 'rxjs';
 import { ProviderDataService } from '../../../service-discovery/services/provider-data.service';
 import { ProDetails } from '../../../service-discovery/models/pro-details';
+import { filterItemsByQuery } from '../../../../utils/filterCategories';
 
 interface AutoCompleteCompleteEvent {
   originalEvent: Event;
@@ -72,17 +73,7 @@ export class HeroComponent implements OnInit, OnDestroy {
   }
 
   filterCategories(event: AutoCompleteCompleteEvent) {
-    let filtered: string[] = []
-    let query = event.query
-
-    for (let i = 0; i < this.categories.length; i++) {
-      let category = this.categories[i]
-      if (category.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        filtered.push(category)
-      }
-    }
-
-    this.filteredCategories = filtered
+    this.filteredCategories = filterItemsByQuery(this.categories, event.query);
   }
 
   onSearch() {
