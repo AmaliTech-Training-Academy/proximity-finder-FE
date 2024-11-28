@@ -35,50 +35,86 @@
             <span>Lorem ipsum dolor sit amet consectetur. Nunc purus ut posuere pharetra ut sagittis dolor bibendum. Suspendisse tellus tellus iaculis ipsum varius pretium. Consequat sagittis eget sit tortor magnis lorem viverra lacus amet. Congue lorem consectetur nunc in at quis eu.</span>
           </div>
 
+          <div class="time-frame">
+            <p>Time Frame</p>
+            <span>Start : 12/12/2022 <br> End : 12/12/2022</span>
+          </div>
+          <div class="location">
+            <p>Location</p>
+            <span>Kumasi, Ghana</span>
+          </div>
           <div class="add-info">
             <p>Additional Information (Special Instructions)</p>
             <span>Lorem ipsum dolor sit amet consectetur. Nunc purus ut posuere pharetra ut sagittis dolor bibendum. Suspendisse tellus tellus iaculis ipsum varius pretium. Consequat sagittis eget sit tortor magnis lorem viverra lacus amet. Congue lorem consectetur nunc in at quis eu.</span>
+          </div>
+
+          <div class="uploads">
+            <p>Uploaded Images</p>
+          <div class="pictures">
+            <img src="assets/avatar.jpeg" alt="image1">
+            <img src="assets/avatar.jpeg" alt="image1">
+            <img src="assets/avatar.jpeg" alt="image1">
+            <img src="assets/avatar.jpeg" alt="image1">
+            <img src="assets/avatar.jpeg" alt="image1">
+            <img src="assets/avatar.jpeg" alt="image1">
+            
+          </div>
+
           </div>
 </div>
 
 </section>
 
-<form class="modal">
-    <p-dialog header="Request Approval" [modal]="true" [(visible)]="modals.approve">
-        <div class="pricing-details">
-            <label>Pricing Details</label>
-            <input type="text">
-        </div>
+<p-dialog header="Request Approval" [modal]="true" [(visible)]="modals.approve">
+ <form [formGroup]="approveForm">
+    <div class="pricing-details">
+        <label>Pricing Details</label>
+        <input 
+        type="number"
+        placeholder="Enter your price "
+        formControlName="price"
+        >
+    </div>
+    <div class="error-message" *ngIf="approveForm.get('price')?.invalid && (approveForm.get('price')?.dirty || approveForm.get('price')?.touched)">
+        Price is required
+      </div>
 
-        <div class="rich-text">
-            <p>Additional Information</p>
-            <p-editor  [style]="{ height: '200px' }" />
-
-        </div>
+    <div class="rich-text">
+        <p>Additional Information</p>
+        <p-editor
+        [style]="{ height: '200px' }" 
+        formControlName="info" 
+         />
+    </div>
+    <div class="error-message" *ngIf="approveForm.get('info')?.invalid && (approveForm.get('info')?.dirty || approveForm.get('info')?.touched)">
+        Information is required
+      </div>
+   
+     <div class="btns">
+        <button class="cancel" (click)="closeDialog('approve')">Cancel</button>
+        <button class="approve" (click)="closeDialog('approve')" [disabled]="approveForm.invalid">Approve</button>
+     </div>
+ </form>
        
-         <div class="btns">
-            <button class="cancel" (click)="closeDialog('approve')">Cancel</button>
-            <button class="approve" (click)="closeDialog('approve')">Approve</button>
-         </div>
-           
-    </p-dialog>
+</p-dialog>
 
-</form>
-
-<form class="modal">
-    <p-dialog header="Decline Request" [modal]="true" [(visible)]="modals.decline">
-        
-        <div class="rich-text">
-            <p>Reasons for declining</p>
-            <p-editor  [style]="{ height: '200px' }" />
-
-        </div>
+<p-dialog header="Decline Request" [modal]="true" [(visible)]="modals.decline">       
+  <form class="modal" [formGroup]="declineForm">
+    <div class="rich-text">
+        <p>Reasons for declining</p>
+        <p-editor
+         [style]="{ height: '200px' }" 
+         formControlName="reason"
+         />
+    </div>
+    <div class="error-message" *ngIf="declineForm.get('reason')?.invalid && (declineForm.get('reason')?.dirty || declineForm.get('reason')?.touched)">
+        Reason is required
+      </div>
+   
+     <div class="btns">
+        <button class="cancels" (click)="closeDialog('approve')">Cancel</button>
+        <button class="approves" (click)="closeDialog('approve')" [disabled]="declineForm.invalid">Decline</button>
+     </div>
+  </form>
        
-         <div class="btns">
-            <button class="cancels" (click)="closeDialog('approve')">Cancel</button>
-            <button class="approves" (click)="closeDialog('approve')">Approve</button>
-         </div>
-           
-    </p-dialog>
-
-</form>
+</p-dialog>
