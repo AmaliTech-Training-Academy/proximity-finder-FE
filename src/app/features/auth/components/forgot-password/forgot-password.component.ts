@@ -33,11 +33,10 @@ export class ForgotPasswordComponent implements OnDestroy {
 
         next: (response) => {
           this.notyf.success('Password Reset Mail Sent Successfully');
-          this.resetForm.reset();
           this.router.navigateByUrl('/confirmation', {
             state: { email }, 
           });
-          
+          this.resetForm.reset();
         },
         error: (error) => {
           this.notyf.error('Password Reset Failed. Please Try Again');

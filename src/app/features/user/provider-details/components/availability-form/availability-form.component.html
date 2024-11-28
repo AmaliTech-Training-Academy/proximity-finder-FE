@@ -1,0 +1,37 @@
+<div class="container">
+    <header>
+        <div class="col">
+            <p>$45/hour</p>
+            <p class="text">estimated price</p>
+        </div>
+
+        <div class="col">
+            <p>17 open slots</p>
+            <p class="text">in the next week</p>
+            
+        </div>
+    </header>
+
+    <form>
+        <div class="input">
+            <label for="date">Scheduling Date</label>
+            <app-password-input type="date" id="date"/>
+        </div>
+
+        <div class="input">
+            <label for="hours">Estimated Hours</label>
+            <app-password-input type="number"
+            placeholder="Please choose" id="hours"/>
+        </div>
+
+        <button type="submit">Check Availability</button>
+    </form>
+
+    @if (isProAvailable) {
+        <div class="no-pro">
+            <p>Sorry, this pro can’t do your job, let’s get you a pro. </p>
+            <a>Check out for others</a>
+        </div>
+    }
+
+</div>

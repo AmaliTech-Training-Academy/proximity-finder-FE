@@ -18,6 +18,8 @@ import { LocalStorageService } from '../../../../shared/services/local-storage.s
 import { decodeToken, initializeUser } from '../../../../utils/decodeToken';
 import { ROLE_SEEKER } from '../../../../utils/roles';
 import { IPaymentAccount } from '../../../../core/models/payment-account';
+import { IBank } from '../../models/bank';
+import { IMobileMoney } from '../../models/mobile-money';
 
 @Component({
   selector: 'app-user-profile',
@@ -40,6 +42,7 @@ export class UserProfileComponent implements OnInit {
   token!: string
   role: string[] = []
   paymentAccounts!: Observable<IPaymentAccount[]>
+  selectedAccount:IPaymentAccount | null = null
 
   private notyf = inject(NOTYF)
   profileSubscription!: Subscription
@@ -74,7 +77,9 @@ export class UserProfileComponent implements OnInit {
     bankName: ['', Validators.required],
     accountName: ['', Validators.required],
     accountAlias: [''],
-    accountNumber: ['', [Validators.required, Validators.pattern(/^\d{13}$/)]]
+    accountNumber: ['', Validators.required],
+    phoneNumber: ['', Validators.required],
+    serviceProvider: ['', Validators.required]
   });
 
   updateUserForm() {
@@ -84,9 +89,19 @@ export class UserProfileComponent implements OnInit {
       phone: this.client.mobileNumber
     })
   }
-  
-  toggleAccountDetails() {
-    this.isAccountClicked = !this.isAccountClicked
+
+  selectAccount(account: IPaymentAccount): void {
+    this.selectedAccount = account;
+    this.isAccountClicked = true;
+    this.accountInfoForm.patchValue({
+      bankName: account.bankName,
+      accountName: account.accountName,
+      accountAlias: account.accountAlias,
+      accountNumber: account.accountNumber,
+      serviceProvider: account.serviceProvider,
+      phoneNumber: account.phoneNumber
+      
+    });
   }
 
   onSubmit() {
@@ -147,7 +162,6 @@ export class UserProfileComponent implements OnInit {
     if (this.selectedFile) {
     this.imageSubscription = this.imageService.uploadProfileImage(this.selectedFile).subscribe({
       next: (response) => {
-        console.log(response)
         this.imageUrl = response
         this.notyf.success('Profile image uploaded successfully')
       },
@@ -180,6 +194,7 @@ export class UserProfileComponent implements OnInit {
     dialogRef.afterClosed().subscribe((results) => console.log(results))
   }
 
+
   openAccountDialog() {
     this.isDeleteModal = false
     this.openDialog()
@@ -189,6 +204,11 @@ export class UserProfileComponent implements OnInit {
     this.isDeleteModal = true
     this.openDialog()
   } 
+
+  toggleEdit() {
+    this.isFormActive = !this.isFormActive
+  }
+
 
   ngOnDestroy() {
     this.profileSubscription.unsubscribe()
