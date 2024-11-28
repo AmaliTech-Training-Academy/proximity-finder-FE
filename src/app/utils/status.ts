@@ -1,1 +1,1 @@
-export const Statuses = ['Pending', 'Declined', 'Scheduled']
+export const Statuses = ['Pending', 'Completed']
