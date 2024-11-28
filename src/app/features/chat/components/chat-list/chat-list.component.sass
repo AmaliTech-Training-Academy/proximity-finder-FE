@@ -1,0 +1,10 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+
+.sidebar
+    padding: 24px
+    height: 100%
+    @include flex-option($display: flex, $justify-content: space-between, $align-items: null, $direction: column)
+    border-right: solid 1px $grey-lighten-3
+    background-color: $white
