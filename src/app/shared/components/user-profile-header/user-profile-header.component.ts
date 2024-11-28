@@ -25,6 +25,8 @@ export class UserProfileHeaderComponent implements OnInit{
   constructor(private profileService: ProfileService, private router: Router) {}
 
   ngOnInit(): void {
+    this.profileService.refreshUserData()
+    
     this.loggedInSubcription = this.profileService.loggedInUser$.subscribe((user) => {
       this.loggedInUser = user
     })
