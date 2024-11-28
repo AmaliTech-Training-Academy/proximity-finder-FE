@@ -23,7 +23,9 @@
         <div class="bookingDays field">
           <label for="bookingDays">Booking Days</label>
           <div formArrayName="bookingDays" class="bookingFields">
-            <div class="booking">
+            @for (bookingDay of bookingDaysFormArray.controls; let i = $index;
+            track i) {
+            <div [formGroupName]="i" class="booking">
               <div class="day">
                 <p-dropdown
                   id=""
@@ -54,6 +56,7 @@
                 </div>
               </div>
             </div>
+            }
           </div>
         </div>
         <div class="extraDocuments field">
@@ -121,7 +124,7 @@
   [resizable]="false"
   [style]="{ width: '27.75rem' }"
 >
-  <form>
+  <form [formGroup]="newServiceForm">
     <div class="service-name">
       <label for="serviceName">Service Name</label>
       <input
