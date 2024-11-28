@@ -56,6 +56,10 @@ export class ProServicePreferenceComponent {
     ],
   });
 
+  newServiceForm = this.fb.group({
+    serviceName: ['', Validators.required],
+  });
+
   constructor(private fb: FormBuilder, private serviceService: ServiceService) {
     this.generateTimeOptions(15);
   }
