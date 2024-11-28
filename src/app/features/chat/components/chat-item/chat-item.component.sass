@@ -1,0 +1,31 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+
+.chat
+    border-bottom: solid 1px #EAECF0
+    padding: 10px 0
+
+    .info
+        @include flex-option($display: flex, $justify-content: space-between, $align-items: center, $direction: row)
+        margin: 0 0 10px 0
+
+        .profile
+            @include flex-option($display: flex, $justify-content: null, $align-items: center, $direction: row)
+            gap: 5px
+
+            .avatar
+                width: 30px
+                height: 30px
+                background-color: #ccc
+                border-radius: 50%
+                overflow: hidden
+
+                img
+                    width: 100%
+                    height: 100%
+                    object-fit: cover
+
+        .timestamp
+            font-size: 11px
+            color: $text-secondary

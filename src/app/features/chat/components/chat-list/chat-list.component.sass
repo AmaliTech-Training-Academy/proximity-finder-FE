@@ -5,6 +5,11 @@
 .sidebar
     padding: 24px
     height: 100%
-    @include flex-option($display: flex, $justify-content: space-between, $align-items: null, $direction: column)
+    @include flex-option($display: flex, $justify-content: null, $align-items: null, $direction: column)
     border-right: solid 1px $grey-lighten-3
     background-color: $white
+
+    .chat-list
+        @include flex-option($display: flex, $justify-content: null, $align-items: null, $direction: column)
+        gap: 10px
+        margin: 24px 0 
