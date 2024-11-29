@@ -1,12 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { SvgService } from '../../../../shared/services/svg.service';
 import { AutoCompleteModule } from 'primeng/autocomplete';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ServiceService } from '../../../../core/services/service.service';
 import { CommonModule } from '@angular/common';
 import { LocationsComponent } from "../../../../shared/components/locations/locations.component";
 import { PlaceSearchResult } from '../../../../core/models/place-search-result';
+import { GeolocationService } from '../../../service-discovery/services/geolocation.service';
+import { Position } from '../../../service-discovery/models/position';
+import { Router } from '@angular/router';
+import { NOTYF } from '../../../../shared/notify/notyf.token';
+import { Subscription } from 'rxjs';
+import { ProviderDataService } from '../../../service-discovery/services/provider-data.service';
+import { ProDetails } from '../../../service-discovery/models/pro-details';
+import { filterItemsByQuery } from '../../../../utils/filterCategories';
 
 interface AutoCompleteCompleteEvent {
   originalEvent: Event;
@@ -20,16 +28,22 @@ interface AutoCompleteCompleteEvent {
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.sass'
 })
-export class HeroComponent implements OnInit {
+export class HeroComponent implements OnInit, OnDestroy {
   categories: string[] = []
   filteredCategories: string[] = []
-  placeValue: PlaceSearchResult | undefined;
+  placeValue!: PlaceSearchResult | null
+  currentLocation: Position | null = null
+  private notyf = inject(NOTYF)
+  serviceSubscription: Subscription | null = null
 
-  constructor(private svgService: SvgService, private service: ServiceService, private fb: FormBuilder) {}
+
+  constructor(private svgService: SvgService, private service: ServiceService, private fb: FormBuilder,
+              private locationService: GeolocationService, private router: Router,
+              private providerService: ProviderDataService) {}
 
   formGroup: FormGroup = this.fb.group({
-      selectedCountry: [''],
-      selectedService: ['']
+      selectedService: ['', Validators.required],
+      selectedLocation: [null]
   })
 
     
@@ -37,19 +51,64 @@ export class HeroComponent implements OnInit {
     this.service.serviceCategories$.subscribe(serviceCategory => {
       this.categories = serviceCategory.map(category => category.name)
     })
+
+    this.getLocation()
+  }
+
+    async getLocation() {
+      try {
+        this.currentLocation = await this.locationService.getCurrentLocation()
+      } catch (error) {
+        console.error(error)
+    }
+  }
+
+  onLocationSelected(place: PlaceSearchResult) {
+    this.placeValue = place;
+    
+    this.formGroup.patchValue({
+      selectedLocation: this.placeValue.coordinates
+    });
+
   }
 
   filterCategories(event: AutoCompleteCompleteEvent) {
-    let filtered: string[] = []
-    let query = event.query
-
-    for (let i = 0; i < this.categories.length; i++) {
-      let category = this.categories[i]
-      if (category.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        filtered.push(category)
-      }
-    }
-
-    this.filteredCategories = filtered
+    this.filteredCategories = filterItemsByQuery(this.categories, event.query);
   }
+
+  onSearch() {
+    if (this.formGroup.valid) {  
+      const { selectedService, selectedLocation } = this.formGroup.value;
+      const serviceName = selectedService.toLowerCase();
+  
+      const location = selectedLocation || { lng: this.currentLocation?.longitude, lat: this.currentLocation?.latitude};
+  
+      if (!location.lat || !location.lng) {
+        console.error('Unable to determine location for the search.');
+        this.notyf.error('Location is required to search for providers.');
+        return;
+      }
+  
+      const { lat, lng } = location;
+  
+      this.locationService.getNearbyProviders(serviceName, lng, lat).subscribe({
+        next: (response: ProDetails[]) => {
+          this.providerService.setProviders(response);
+          this.router.navigate(['/search']);
+        },
+        error: (error) => {
+          console.error(error);
+          this.notyf.error('An error occurred while searching for providers. Please try again.');
+        }
+      });
+    } else {
+      console.error('Form is invalid');
+      this.notyf.error('Please complete the form before searching.');
+    }
+  }
+
+  ngOnDestroy() {
+    this.serviceSubscription?.unsubscribe()
+  }
+  
 }

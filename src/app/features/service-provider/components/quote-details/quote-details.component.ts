@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TabViewModule } from 'primeng/tabview';
@@ -23,7 +23,16 @@ export class QuoteDetailsComponent {
     decline: false
   };
 
-  constructor(private router:Router){}
+  approveForm:FormGroup = this.fb.group({
+   price: ['', Validators.required],
+   info: ['', Validators.required],
+  });
+
+  declineForm:FormGroup = this.fb.group({
+    reason: ['', Validators.required]
+  })
+
+  constructor(private router:Router,private fb:FormBuilder){}
 
 
 
