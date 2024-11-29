@@ -175,7 +175,7 @@ export const routes: Routes = [
       },
 
       {
-        path: 'reviews',
+        path: 'manage-reviews',
         loadComponent: () =>
           import(
             './features/admin/pages/admin-reviews/admin-reviews.component'
