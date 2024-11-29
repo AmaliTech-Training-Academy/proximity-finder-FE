@@ -5,8 +5,15 @@
 
     <header>
         <div class="search-container">
-            <input type="text" placeholder="Search...">
             <img src="../../../../../assets/search.svg" alt="search">
+            <div class="bar"></div>
+            <p-autoComplete class="service"
+                formControlName="selectedService"
+                [suggestions]="filteredCategories"
+                [showClear]="true"
+                (completeMethod)="filterCategories($event)"
+                placeholder="Search for project..." 
+            />
         </div>
         <div class="sort-container">
             <p>Sort by: </p>
