@@ -37,7 +37,29 @@
 
         .error-message
           color: $error
-          margin-top: pxToRem(8)  
+          margin-top: pxToRem(8) 
+
+        .address
+          @include flex-option(flex, null, null, column)
+          gap: pxToRem(8)  
+
+          label
+            font-size: pxToRem(14)
+            font-weight: 500
+            color: $text-main
+
+          .location
+            padding: pxToRem(16) pxToRem(21)
+            border: 1px solid #EAECF0
+            border-radius: pxToRem(8)
+            width: 100% 
+
+            &.invalid
+              border-color: $error
+
+          .error-message
+             color: $error
+             margin-top: pxToRem(8)          
 
         .continue
             padding: pxToRem(10) pxToRem(21) 
