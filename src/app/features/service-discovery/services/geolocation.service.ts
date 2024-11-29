@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
 import { Position } from '../models/position';
+import { HttpClient } from '@angular/common/http';
+import { catchError, Observable, retry } from 'rxjs';
+import { ErrorHandlingService } from '../../../core/services/error-handling.service';
+import { ProDetails } from '../models/pro-details';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GeolocationService {
 
-  constructor() { }
+  constructor(private http: HttpClient, private errorhandler: ErrorHandlingService) { }
 
   getCurrentLocation(): Promise<Position> {
     return new Promise((resolve, reject) => {
@@ -31,6 +35,14 @@ export class GeolocationService {
     })
   }
 
+  getNearbyProviders(serviceName:string, longitude: number, latitude: number): Observable<ProDetails[]> {
+    const radius = 1000
+    return this.http.get<ProDetails[]>(`https://b4b6-154-161-142-122.ngrok-free.app/api/v1/service-discovery/search?serviceName=${serviceName}&latitude=${latitude}&longitude=${longitude}&radius=${radius}`).pipe(
+      retry(2),
+      catchError((error) => this.errorhandler.handleError(error))
+    )
+  }
+
   private handleError(error: GeolocationPositionError): string {
     switch (error.code) {
       case error.PERMISSION_DENIED:
@@ -49,4 +61,5 @@ export class GeolocationService {
       `Location access is required to use this feature. Please enable location permissions in your browser or device settings.`
     );
   }
+
 }
