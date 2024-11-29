@@ -35,6 +35,7 @@ export class HeroComponent implements OnInit, OnDestroy {
   currentLocation: Position | null = null
   private notyf = inject(NOTYF)
   serviceSubscription: Subscription | null = null
+  providers: ProDetails[] = [];
 
 
   constructor(private svgService: SvgService, private service: ServiceService, private fb: FormBuilder,
@@ -53,6 +54,11 @@ export class HeroComponent implements OnInit, OnDestroy {
     })
 
     this.getLocation()
+
+    this.providerService.providers$.subscribe((providers) => {
+      this.providers = providers;
+    });
+  
   }
 
     async getLocation() {
@@ -93,6 +99,8 @@ export class HeroComponent implements OnInit, OnDestroy {
   
       this.locationService.getNearbyProviders(serviceName, lng, lat).subscribe({
         next: (response: ProDetails[]) => {
+
+          console.log('Providers:', response);
           this.providerService.setProviders(response);
           this.router.navigate(['/search']);
         },
