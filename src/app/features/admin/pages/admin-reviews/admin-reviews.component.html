@@ -1,0 +1,28 @@
+<div class="table">
+    <p-table
+      [paginator]="true"
+      [rows]="10"
+      [value]="reviews"
+      [tableStyle]="{ 'min-width': '50rem' }"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th>REVIEW'S NAME</th>
+          <th>PROVIDER'S NAME</th>
+          <th>MESSAGE</th>
+          <th>RATINGS</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-review>
+        <tr>
+          <td>{{ review.reviewerName }}</td>
+          <td>{{ review.providerName }}</td>
+          <td>{{ review.message }}</td>
+          <td>
+            <p-rating [(ngModel)]="review.rating" [readonly]="true" [cancel]="false" />
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+  
