@@ -37,7 +37,7 @@ export class GeolocationService {
   }
 
   getNearbyProviders(serviceName:string, longitude: number, latitude: number): Observable<ProDetails[]> {
-    const radius = 1000
+    const radius = 10000
     return this.http.get<ProDetails[]>(`${environment.searchUrl}/service-discovery/search?serviceName=${serviceName}&latitude=${latitude}&longitude=${longitude}&radius=${radius}`).pipe(
       retry(2),
       catchError((error) => this.errorhandler.handleError(error))

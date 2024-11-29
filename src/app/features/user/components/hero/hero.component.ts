@@ -84,36 +84,36 @@ export class HeroComponent implements OnInit, OnDestroy {
 
   onSearch() {
     if (this.formGroup.valid) {  
-      const { selectedService, selectedLocation } = this.formGroup.value;
-      const serviceName = selectedService.toLowerCase();
+      const { selectedService, selectedLocation } = this.formGroup.value
+      const serviceName = selectedService
   
-      const location = selectedLocation || { lng: this.currentLocation?.longitude, lat: this.currentLocation?.latitude};
+      const location = selectedLocation || { lng: this.currentLocation?.longitude, lat: this.currentLocation?.latitude }
   
       if (!location.lat || !location.lng) {
-        console.error('Unable to determine location for the search.');
-        this.notyf.error('Location is required to search for providers.');
-        return;
+        console.error('Unable to determine location for the search.')
+        this.notyf.error('Location is required to search for providers.')
+        return
       }
   
-      const { lat, lng } = location;
+      const lat = location.lng
+      const lng = location.lat
   
       this.locationService.getNearbyProviders(serviceName, lng, lat).subscribe({
         next: (response: ProDetails[]) => {
-
-          console.log('Providers:', response);
-          this.providerService.setProviders(response);
-          this.router.navigate(['/search']);
+          this.providerService.setProviders(response)
+          this.router.navigate(['/search'])
         },
         error: (error) => {
-          console.error(error);
-          this.notyf.error('An error occurred while searching for providers. Please try again.');
+          console.error(error)
+          this.notyf.error('An error occurred while searching for providers. Please try again.')
         }
       });
     } else {
-      console.error('Form is invalid');
-      this.notyf.error('Please complete the form before searching.');
+      console.error('Form is invalid')
+      this.notyf.error('Please complete the form before searching.')
     }
   }
+  
 
   ngOnDestroy() {
     this.serviceSubscription?.unsubscribe()
