@@ -1,19 +1,31 @@
 import { Injectable } from '@angular/core';
 import { ProDetails } from '../models/pro-details';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProviderDataService {
-  providers: ProDetails[] = []
+  private providersSubject = new BehaviorSubject<ProDetails[]>([]);
+  providers$ = this.providersSubject.asObservable();
 
-  constructor() { }
+  private selectedProviderSubject = new BehaviorSubject<ProDetails | null>(null);
+  selectedProvider$ = this.selectedProviderSubject.asObservable();
 
-  setProviders(data: ProDetails[]) {
-    this.providers = data
+  setProviders(providers: ProDetails[]): void {
+    this.providersSubject.next(providers);
   }
 
-  getProviders() {
-    return this.providers
+  getProviders(): ProDetails[] {
+    return this.providersSubject.getValue();
   }
+
+  setSelectedProvider(provider: ProDetails): void {
+    this.selectedProviderSubject.next(provider);
+  }
+
+  getSelectedProvider(): ProDetails | null {
+    return this.selectedProviderSubject.getValue();
+  }
+
 }

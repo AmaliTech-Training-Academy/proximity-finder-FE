@@ -5,6 +5,7 @@ export interface ProDetails {
     userId: string,
     service: ServiceCategory,
     paymentPreference: string,
+    placeName: string,
     schedulingPolicy: string,
     bookingDays: [],
     documents: [],
