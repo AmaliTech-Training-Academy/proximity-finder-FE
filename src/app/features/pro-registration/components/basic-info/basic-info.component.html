@@ -40,17 +40,21 @@
     <div class="error-message" *ngIf="registrationForm.get('phoneNumber')?.invalid && (registrationForm.get('phoneNumber')?.dirty || registrationForm.get('phoneNumber')?.touched)">
        Phone number is required
       </div>
-    <app-fields
-    label="Business Address"
-    type="text"
-    placeholder="Enter your address "
-    formControlName="businessAddress"
-    [error]="registrationForm.get('businessAddress')?.invalid && (registrationForm.get('businessAddress')?.dirty || registrationForm.get('businessAddress')?.touched)"
-    />
+      <div class="address">
+         <label>Business Address</label>
+         <app-business-address
+         class="location"
+         formControlName="businessAddress"
+         [ngClass]="{
+            'invalid': registrationForm.get('businessAddress')?.invalid && 
+                       (registrationForm.get('businessAddress')?.dirty || 
+                        registrationForm.get('businessAddress')?.touched)
+          }"
+         />
+      </div>
     <div class="error-message" *ngIf="registrationForm.get('businessAddress')?.invalid && (registrationForm.get('businessAddress')?.dirty || registrationForm.get('businessAddress')?.touched)">
        Business Address is required
       </div>
-
     <button class="continue" [disabled]="registrationForm.invalid" [routerLink]="['/registration/about-business']">Continue</button>
     
    </form>
