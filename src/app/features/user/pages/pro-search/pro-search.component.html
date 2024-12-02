@@ -1,25 +1,46 @@
 <app-user-profile-header/>
-<app-navbar [backgroundColor]="'#F2F4F5'"/>
 
-<div class="container">
+@if(providers){
+    @if (providers.length > 0) {
+        <app-navbar [backgroundColor]="'#F2F4F5'"/>
+        <div class="container">
 
-    <header>
-        <div class="search-container">
-            <input type="text" placeholder="Search...">
-            <img src="../../../../../assets/search.svg" alt="search">
+            <header>
+                <div class="search-container">
+                    <img src="../../../../../assets/search.svg" alt="search">
+                    <div class="bar"></div>
+                    <p-autoComplete class="service"
+                        formControlName="selectedService"
+                        [suggestions]="filteredCategories"
+                        [showClear]="true"
+                        (completeMethod)="filterCategories($event)"
+                        placeholder="Search for project..." 
+                    />
+                </div>
+                <div class="sort-container">
+                    <p>Sort by: </p>
+                    <select>
+                        <option>Most Popular</option>
+                        <option>Most Recent</option>
+                    </select>
+                </div>
+            </header>
+        
+            <div class="cards">
+                @for (provider of providers; track $index) {
+                    <app-pro-info-card [provider]="provider"/>
+                } 
+            </div>
         </div>
-        <div class="sort-container">
-            <p>Sort by: </p>
-            <select>
-                <option>Most Popular</option>
-                <option>Most Recent</option>
-            </select>
+    }
+    @else {
+        <div class="no-result">
+            <div class="image">
+                <img src="../../../../../assets/no-results.svg" alt="no result found">
+            </div>
+            <h2>No Results</h2>
+            <p>Sorry, we couldn’t find pros that match your exact search. Try another <a [routerLink]="'/'">Search</a></p>
         </div>
-    </header>
+    }
+}
 
-    <div class="cards">
-        <app-pro-info-card/>
-        <app-pro-info-card/>
-        <app-pro-info-card/>
-    </div>
-</div>

@@ -15,6 +15,6 @@ import { FooterComponent } from "../../components/footer/footer.component";
   templateUrl: './home.component.html',
   styleUrl: './home.component.sass'
 })
-export class HomeComponent {
-
+export class HomeComponent{
+ 
 }

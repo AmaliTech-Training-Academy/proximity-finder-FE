@@ -12,12 +12,20 @@
             optionLabel="name"
           />
           }
+          <p-button
+            class="add-btn"
+            label="+ Add New Service"
+            [text]="true"
+            (onClick)="showDialog()"
+          />
         </div>
 
         <div class="bookingDays field">
           <label for="bookingDays">Booking Days</label>
           <div formArrayName="bookingDays" class="bookingFields">
-            <div class="booking">
+            @for (bookingDay of bookingDaysFormArray.controls; let i = $index;
+            track i) {
+            <div [formGroupName]="i" class="booking">
               <div class="day">
                 <p-dropdown
                   id=""
@@ -48,6 +56,7 @@
                 </div>
               </div>
             </div>
+            }
           </div>
         </div>
         <div class="extraDocuments field">
@@ -106,3 +115,28 @@
     </section>
   </form>
 </main>
+
+<p-dialog
+  header="Add New Service"
+  [modal]="true"
+  [(visible)]="visible"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '27.75rem' }"
+>
+  <form [formGroup]="newServiceForm">
+    <div class="service-name">
+      <label for="serviceName">Service Name</label>
+      <input
+        type="text"
+        pInputText
+        formControlName="serviceName"
+        placeholder="Enter your service name"
+      />
+    </div>
+  </form>
+  <div class="buttons">
+    <p-button label="Cancel" severity="secondary" (onClick)="visible = false" />
+    <p-button label="Add" class="primary" />
+  </div>
+</p-dialog>

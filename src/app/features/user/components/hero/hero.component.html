@@ -9,22 +9,20 @@
 
             <div class="col-2">
                 <p>The best platform for finding top service providers for your needs. Easily search, book, and manage services like cleaning, painting, plumbing, and more.</p>
-                <div class="input">
-                    <form [formGroup]="formGroup" class="service">
-                        <p-autoComplete
-                            formControlName="selectedService"
-                            [suggestions]="filteredCategories"
-                            (completeMethod)="filterCategories($event)"
-                            placeholder="What do you need help with?" 
-                        />
-                    </form>
+                <form class="input" [formGroup]="formGroup" (ngSubmit)="onSearch()">
+                    <p-autoComplete class="service"
+                        formControlName="selectedService"
+                        [suggestions]="filteredCategories"
+                        (completeMethod)="filterCategories($event)"
+                        placeholder="What do you need help with?" 
+                    />
 
                     <div></div>
                     <mat-icon svgIcon="location" aria-hidden="false"></mat-icon>
                     
-                    <app-locations (placeSelected)="placeValue=$event"/>
+                    <app-locations (placeSelected)="onLocationSelected($event)" formControlName="selectedLocation"/>
                     <button class="search-btn">Search</button>
-                </div>
+                </form>
             </div>
         </div>
 

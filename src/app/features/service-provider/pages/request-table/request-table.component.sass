@@ -3,7 +3,7 @@
 @use '../../../../../styles/_variables' as *
 
 .content
-    padding: 40px
+    padding: 30px
 
 
     .page-title
@@ -17,6 +17,16 @@
 
     .main-content
         margin: 64px 0
+
+        .filter
+            margin-top: 20px
+            @include flex-option(flex, null, center, row)
+            gap: 16px
+
+            label
+                font-size: 14px
+                font-weight: 500
+                color: $text-secondary
        
 
         .tab-content
