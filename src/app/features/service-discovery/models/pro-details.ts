@@ -10,5 +10,7 @@ export interface ProDetails {
     bookingDays: [],
     documents: [],
     createdAt: string,
-    updatedAt: string
+    updatedAt: string,
+    email:string
+
 }
