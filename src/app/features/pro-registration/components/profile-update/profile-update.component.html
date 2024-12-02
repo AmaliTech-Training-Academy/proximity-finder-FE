@@ -1,6 +1,6 @@
 <form class="image-container">
     <div class="image">
-        <img [src]="imageUrl || '../../../../../assets/images/Avatar.png'" alt="user's profile image">
+        <img [src]="imageUrl ||'assets/images/default-avatar.png'  " alt="user's profile image">
         <div class="overlay" (click)="triggerFileInput()">
             <mat-icon svgIcon="uploads" aria-hidden="false" aria-label="upload icon"></mat-icon>
             <span class="overlay-text">Upload Image</span>
@@ -18,13 +18,13 @@
         <p>Click to update or remove  your profile picture</p>
 
         <div class="info-actions">
-            <button type="submit" class="upload-btn">
+            <button type="button" class="upload-btn" (click)="updateProfileImage()">
                 <img src="../../../../../assets/upload.svg" alt="">
                 Upload
             </button>
 
             <input type="file" name="file" id="file" class="file-input" accept="image/*">
-            <button class="delete-btn" (click)="openDialog()">
+            <button class="delete-btn" (click)="openDialog()" type="button">
                 <img src="../../../../../assets/Cancel.svg" alt="cancel icon">
                 Delete
             </button>

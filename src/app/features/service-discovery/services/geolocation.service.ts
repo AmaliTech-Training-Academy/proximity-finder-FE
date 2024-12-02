@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, retry } from 'rxjs';
 import { ErrorHandlingService } from '../../../core/services/error-handling.service';
 import { ProDetails } from '../models/pro-details';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -36,8 +37,8 @@ export class GeolocationService {
   }
 
   getNearbyProviders(serviceName:string, longitude: number, latitude: number): Observable<ProDetails[]> {
-    const radius = 1000
-    return this.http.get<ProDetails[]>(`https://b4b6-154-161-142-122.ngrok-free.app/api/v1/service-discovery/search?serviceName=${serviceName}&latitude=${latitude}&longitude=${longitude}&radius=${radius}`).pipe(
+    const radius = 10000
+    return this.http.get<ProDetails[]>(`${environment.searchUrl}/service-discovery/search?serviceName=${serviceName}&latitude=${latitude}&longitude=${longitude}&radius=${radius}`).pipe(
       retry(2),
       catchError((error) => this.errorhandler.handleError(error))
     )
