@@ -165,6 +165,22 @@ export const routes: Routes = [
             './features/admin/pages/admin-dashboard-home/admin-dashboard-home.component'
           ).then((m) => m.AdminDashboardHomeComponent),
       },
+      
+      {
+        path: 'profile',
+        loadComponent: () =>
+          import(
+            './features/profile-management/pages/admin-profile/admin-profile.component'
+          ).then((m) => m.AdminProfileComponent),
+      },
+
+      {
+        path: 'manage-reviews',
+        loadComponent: () =>
+          import(
+            './features/admin/pages/admin-reviews/admin-reviews.component'
+          ).then((m) => m.AdminReviewsComponent),
+      },
       {
         path: 'pro-accounts',
         loadComponent: () =>
@@ -184,13 +200,6 @@ export const routes: Routes = [
         redirectTo: '',
       },
 
-      {
-        path: 'profile',
-        loadComponent: () =>
-          import(
-            './features/profile-management/pages/admin-profile/admin-profile.component'
-          ).then((m) => m.AdminProfileComponent),
-      },
     ],
   },
 

@@ -1,13 +1,15 @@
 <div class="container">
   <div class="left">
-    <h2>Esthera Agent</h2>
+    @if (provider) {
+
+    <h2>{{provider.service.name}}</h2>
   
     <section class="col-1">
       <figure class="profile-ratings">
-        <img src="../../../../../../assets/images/Avatar.png" alt="service's picture">
+        <img [src]="provider.service.image" alt="service's picture">
 
         <figcaption class="details">
-          <h4>Esthera Agent</h4>
+          <h4>{{provider.service.name}}</h4>
 
           <div class="ratings">
             <p>Exceptional 5.0</p>
@@ -25,13 +27,10 @@
   
     <section class="col-2">
       <p>
-        <span>Introduction: </span>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. 
-        Velit officia consequat duis enim velit mollit. Exercitation veniam consequat 
-        sunt nostrud amet. Amet minim mollit non deserunt ullamco est sit aliqua dolor 
-        do amet sint. Velit officia consequat duis enim velit mollit. Exercitation 
-        veniam consequat sunt nostrud amet.
+        <span>Introduction: </span>{{provider.service.description}}
       </p>
     </section>
+  }
   </div>
 
   <div class="right">
