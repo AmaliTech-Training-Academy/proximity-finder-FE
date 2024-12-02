@@ -111,11 +111,14 @@ onQuoteSubmit() {
     }
 
     this.quoteService.createQuote(formData).subscribe({
+      
       next: (quote: Quote) => {
+        console.log(quote)
         this.notyf.success("Quote Sent Successfully");
         this.modals.quote = false;
       },
       error: (error) => {
+        console.log(error)
         this.notyf.error("Failed to send quote");
       },
     });

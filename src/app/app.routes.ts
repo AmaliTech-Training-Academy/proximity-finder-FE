@@ -278,4 +278,11 @@ export const routes: Routes = [
         (c) => c.ChatComponent
       ),
   },
+  {
+    path:'quote',
+    loadComponent: () =>
+      import('./features/seeker/components/quote-created/quote-created.component').then(
+        (m) => m.QuoteCreatedComponent
+      ),
+  }
 ];
