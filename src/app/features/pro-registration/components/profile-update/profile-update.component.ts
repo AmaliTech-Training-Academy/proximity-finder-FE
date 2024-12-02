@@ -95,7 +95,7 @@ export class ProfileUpdateComponent {
   ngOnDestroy() {
     if (this.imageSubscription) {
       this.imageSubscription.unsubscribe();
-      this.imageSubscription = null; // Optional: reset to null for safety
+      this.imageSubscription = null;
     }
   }
   
