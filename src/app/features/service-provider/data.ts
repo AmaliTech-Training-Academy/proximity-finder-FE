@@ -573,3 +573,67 @@ export const bookingDays = [
   { name: 'Friday' },
   { name: 'Saturday' },
 ];
+
+
+export const reviews = [
+  {
+    reviewerName: 'John Doe',
+    providerName: 'Ama Yawson',
+    message: 'Great service, I will definitely use this service again!',
+    ratings: 5,
+  },
+  {
+    reviewerName: 'Jane Smith',
+    providerName: 'Kojo Mensah',
+    message: 'Quick response time and very professional.',
+    ratings: 4,
+  },
+  {
+    reviewerName: 'Michael Brown',
+    providerName: 'Kwame Agyeman',
+    message: 'Satisfactory service, but there is room for improvement.',
+    ratings: 3,
+  },
+  {
+    reviewerName: 'Emily Davis',
+    providerName: 'Efua Asantewaa',
+    message: 'Excellent experience! Highly recommended.',
+    ratings: 5,
+  },
+  {
+    reviewerName: 'Daniel Wilson',
+    providerName: 'Yaw Kofi',
+    message: 'Affordable and efficient. I’m really impressed!',
+    ratings: 4,
+  },
+  {
+    reviewerName: 'Sophia Taylor',
+    providerName: 'Adwoa Sarfo',
+    message: 'The service was good, but it took longer than expected.',
+    ratings: 3,
+  },
+  {
+    reviewerName: 'Liam Johnson',
+    providerName: 'Esi Oforiwaa',
+    message: 'Absolutely amazing! Exceeded my expectations.',
+    ratings: 5,
+  },
+  {
+    reviewerName: 'Olivia Anderson',
+    providerName: 'Kweku Baah',
+    message: 'Fairly decent service for the price paid.',
+    ratings: 3,
+  },
+  {
+    reviewerName: 'William Martinez',
+    providerName: 'Ama Agyapong',
+    message: 'The provider was friendly and very helpful.',
+    ratings: 4,
+  },
+  {
+    reviewerName: 'Isabella White',
+    providerName: 'Kojo Antwi',
+    message: 'Fantastic! I’ll definitely recommend to my friends.',
+    ratings: 5,
+  },
+];
