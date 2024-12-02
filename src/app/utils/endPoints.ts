@@ -6,11 +6,11 @@ export const excludedEndpoints = [
     '/auth/info',
     '/auth/update/info',
     '/auth/public/update-profile-picture',
-    '/api/v1/about',
-    '/api/v1/payment-preferences',
-    '/api/v1/payment-method/providers/mobile-money-providers',
-    '/api/v1/banks',
-    '/api/v1/payment-method',
+    '/api/v1/provider-service/about',
+    '/api/v1/provider-service/payment-preferences',
+    '/api/v1/provider-service/payment-method/providers/mobile-money-providers',
+    '/api/v1/provider-service/banks',
+    '/api/v1/provider-service/payment-method',
   '/auth/public/',
   '/password/reset-request',
   '/password/reset-password',
@@ -21,8 +21,11 @@ export const excludedEndpoints = [
   '/api/v1/provider-services',
   '/api/v1/service-experiences',
   '/api/auth/public/refresh-token',
-  '/api/v1/quote-service',
+  '/api/v1/quote-service/quote',
+  '/api/v1/quote-service/call-request',
   '/api/v1/provider-service',
+  '/api/v1/provider-service',
+  
 
 ];
 

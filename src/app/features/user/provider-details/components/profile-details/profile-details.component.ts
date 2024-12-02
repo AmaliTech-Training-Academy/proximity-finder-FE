@@ -9,6 +9,10 @@ import { ProDetails } from '../../../../service-discovery/models/pro-details';
 import { NOTYF } from '../../../../../shared/notify/notyf.token';
 import { ProviderDataService } from '../../../../service-discovery/services/provider-data.service';
 import { Subscription } from 'rxjs';
+import { QuoteService } from '../../../../service-provider/services/quote/quote.service';
+import { callData } from '../../../../service-provider/models/callData';
+import { Quote } from '../../../../service-provider/models/quoteData';
+import { CallService } from '../../../../service-provider/services/call/call.service';
 
 @Component({
   selector: 'app-profile-details',
@@ -45,7 +49,7 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy{
     
   })
 
-  constructor(private formBuilder:FormBuilder, private providerService: ProviderDataService){}
+  constructor(private formBuilder:FormBuilder, private providerService: ProviderDataService,private quoteService:QuoteService,private callService:CallService){}
 
   
   showDialog(type: 'quote' | 'call') {
@@ -72,8 +76,94 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy{
     }
   }
 
-
   ngOnDestroy(): void {
     this.providerSubscription?.unsubscribe();
   }
+
+  onImagesChange(event: Event) {
+    const input = event.target as HTMLInputElement; HTMLInputElement
+    if (input?.files) {
+      const fileList = input.files; 
+      const files: File[] = Array.from(fileList);
+      this.quoteForm.patchValue({ images: files });
+    }
+  }
+  
+  
+onQuoteSubmit() {
+  if (this.quoteForm.valid) {
+    const { title, location, date, time, endDate, endTime, description, info, images } = this.quoteForm.value;
+
+    
+    const selectedProvider = this.providerService.getSelectedProvider();
+
+    const email = selectedProvider ? selectedProvider.email : null;
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("location", location);
+    formData.append("startDate", date);
+    formData.append("startTime", time);
+    formData.append("endDate", endDate);
+    formData.append("endTime", endTime);
+    formData.append("description", description);
+    formData.append("info", info || "");
+    
+    if (email) {
+      formData.append("email", email);
+    }
+
+    if (images) {
+      for (const image of images) {
+        formData.append("images", image);
+      }
+    }
+
+    this.quoteService.createQuote(formData).subscribe({
+      
+      next: (quote: Quote) => {
+        console.log(quote)
+        this.notyf.success("Quote Sent Successfully");
+        this.modals.quote = false;
+      },
+      error: (error) => {
+        console.log(error)
+        this.notyf.error("Failed to send quote");
+      },
+    });
+  }
+}
+
+
+  onCallRequest() {
+    const { phoneNumber } = this.callForm.value;
+  
+
+    const selectedProvider = this.providerService.getSelectedProvider();
+  
+    if (selectedProvider) {
+      const { email } = selectedProvider; 
+  
+      const data: callData = {
+        phoneNumber,
+        email, 
+      };
+  
+      this.callService.sendCallRequest(data).subscribe({
+       
+        next: (response) => {
+          console.log(response)
+          this.notyf.success("Call Request Sent Successfully");
+          this.modals.call = false;
+        },
+        error: (error) => {
+          console.log(error)
+          this.notyf.error("Failed to send call request");
+        },
+      });
+    } else {
+      this.notyf.error("No provider selected");
+    }
+
+}
 }
