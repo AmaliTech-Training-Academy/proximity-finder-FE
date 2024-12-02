@@ -10,11 +10,13 @@ import { BasicInfoService } from '../../services/basic-info/basic-info.service';
 import { Notyf } from 'notyf';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { Subscription } from 'rxjs';
+import { BusinessAddressComponent } from "../business-address/business-address.component";
+
 
 @Component({
   selector: 'app-basic-info',
   standalone: true,
-  imports: [ProfileUpdateComponent, FieldsComponent,CommonModule,ReactiveFormsModule,RouterLink],
+  imports: [ProfileUpdateComponent, FieldsComponent, CommonModule, ReactiveFormsModule, RouterLink, BusinessAddressComponent],
   templateUrl: './basic-info.component.html',
   styleUrl: './basic-info.component.sass'
 })
@@ -74,6 +76,7 @@ export class BasicInfoComponent implements OnInit,OnDestroy {
     }
   }
 
+  
   ngOnDestroy():void{
     this.basicInfoSubscription.unsubscribe()
   }

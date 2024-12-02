@@ -36,7 +36,7 @@ export class ProfileUpdateComponent {
     })
     dialogRef.afterClosed().subscribe((results) => {
       if(results) {
-        // this.deleteProfileImage()
+        this.deleteProfileImage()
       }
     })
   }
@@ -65,35 +65,34 @@ export class ProfileUpdateComponent {
     }
   }
 
-  // updateProfileImage() {
-  //   this.isUploading = true
-  //   this.imageSubscription = this.imageService.uploadProfileImage(this.selectedFile).subscribe({
-  //     next: (response) => {
-  //       this.imageUrl = response
-  //       this.isUploading = false
-  //     },
-  //     error: (error) => {
-  //       console.error(error)
-  //       this.isUploading = false
-  //     }
-  //   })
-  // }
+  updateProfileImage() {
+    this.isUploading = true
+    this.imageSubscription = this.imageService.uploadProfileImage(this.selectedFile).subscribe({
+      next: (response) => {
+        this.imageUrl = response
+        this.isUploading = false
+      },
+      error: (error) => {
+        console.error(error)
+        this.isUploading = false
+      }
+    })
+  }
 
-  // deleteProfileImage() {
-  //   this.imageService.deleteProfileImage().subscribe({
-  //     next: () => {
-  //       // this.client.profileImage = '';
-  //       this.notyf.success('Profile image deleted successfully');
-  //     },
-  //     error: (error) => {
-  //       console.error('Error deleting profile image:', error);
-  //       this.notyf.error('Error deleting profile image');
-  //     },
-  //   });
-  // }
+  deleteProfileImage() {
+    this.imageService.deleteProfileImage().subscribe({
+      next: () => {
+        this.notyf.success('Profile image deleted successfully');
+      },
+      error: (error) => {
+        console.error('Error deleting profile image:', error);
+        this.notyf.error('Error deleting profile image');
+      },
+    });
+  }
 
-  // ngOnDestroy(): void {
-  //   this.imageSubscription.unsubscribe()
-  // }
+  ngOnDestroy(): void {
+    this.imageSubscription.unsubscribe()
+  }
   
 }
