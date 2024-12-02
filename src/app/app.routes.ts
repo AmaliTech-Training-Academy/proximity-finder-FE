@@ -166,6 +166,13 @@ export const routes: Routes = [
           ).then((m) => m.AdminDashboardHomeComponent),
       },
       {
+        path: 'pro-accounts',
+        loadComponent: () =>
+          import(
+            './features/admin/pages/admin-pro-account/admin-pro-account.component'
+          ).then((m) => m.AdminProAccountComponent),
+      },
+      {
         path: 'settings',
         loadComponent: () =>
           import(
