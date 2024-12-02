@@ -172,7 +172,12 @@ export class AdminProfileInfoComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    this.profileSubscription.unsubscribe()
-    this.imageSubscription.unsubscribe()
+    if(this.profileSubscription) {
+      this.profileSubscription.unsubscribe
+    }
+
+    if(this.imageSubscription) {
+      this.imageSubscription.unsubscribe
+    }
   }
 }

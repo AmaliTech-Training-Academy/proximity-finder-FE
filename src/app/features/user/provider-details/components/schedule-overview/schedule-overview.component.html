@@ -1,4 +1,5 @@
 <div class="container">
+  @if (provider) {
         <div class="col">
 
           <div class="overview">
@@ -43,36 +44,16 @@
                 <h6>Services</h6>
                 <div class="services">
                     <div class="service">
-                        <img src="../../../../../../assets/circle-check.svg" alt="">
-                        <p>Repairs</p>
+                        <img src="../../../../../../assets/circle-check.svg" alt="check icon">
+                        <p>{{provider.service.name}}</p>
                     </div>
-                    <div class="service">
-                        <img src="../../../../../../assets/circle-check.svg" alt="">
-                        <p>Installation</p>
-                    </div>
-                    <div class="service">
-                        <img src="../../../../../../assets/circle-check.svg" alt="">
-                        <p>Service 1</p>
-                    </div>
-                    <div class="service">
-                        <img src="../../../../../../assets/circle-check.svg" alt="">
-                        <p>Service 1</p>
-                    </div>
-                    <div class="service">
-                        <img src="../../../../../../assets/circle-check.svg" alt="">
-                        <p>Service 1</p>
-                    </div>
-                    <div class="service">
-                        <img src="../../../../../../assets/circle-check.svg" alt="">
-                        <p>Service 1</p>
-                    </div>
+                    
                 </div>
             </div>
             <div class="payment">
                 <h6>Payment Methods</h6>
-                <p>MTN</p>
-                <p>Paypal</p>
-                <p>Bank Transfer</p>
+                <p>{{provider.paymentPreference}}</p>
             </div>
         </div>
+  }
 </div>
