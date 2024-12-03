@@ -24,6 +24,7 @@ import { ServiceService } from '../../../../core/services/service.service';
 import { ITime } from '../../../../core/models/ITime';
 import { Notyf } from 'notyf';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-service-preference',
@@ -64,7 +65,8 @@ export class ServicePreferenceComponent {
     private fb: FormBuilder,
     private http: HttpClient,
     private serviceService: ServiceService,
-    @Inject(NOTYF) private notyf: Notyf
+    @Inject(NOTYF) private notyf: Notyf,
+    private router:Router
   ) {
     this.generateTimeOptions(15);
   }
@@ -190,5 +192,10 @@ export class ServicePreferenceComponent {
 
   showDialog() {
     this.visible = true;
+  }
+
+
+  navigateTo() {
+    this.router.navigateByUrl('/registration/payment-method');
   }
 }
