@@ -1,0 +1,130 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+
+.container
+    @include flex-option(flex, null, null, column)
+    padding: 2.5rem 5rem 1.25rem
+    gap: 1rem
+
+    header
+        background-color: $white
+        @include flex-option(flex, space-between, center, row)
+        padding: pxToRem(10) pxToRem(20)
+        border-radius: 10px
+        border: 2px solid #EAECF0
+
+        .info
+            @include flex-option(flex, flex-start, center, row)
+            gap: pxToRem(10)
+
+            .avatar
+                width: pxToRem(65)
+                height: pxToRem(65)
+                border-radius: 50%
+                background-color: #F0F2F5
+                overflow: hidden
+
+                img
+                    width: 100%
+                    height: 100%
+                    object-fit: cover
+
+            .details
+                @include flex-option(flex, null, null, column)
+                padding: pxToRem(10) 0
+                gap: 0.5rem
+
+                .col
+                    @include flex-option(flex, space-between, center, row)
+                    gap: pxToRem(10)
+
+                    .status-label
+                        @include flex-option(flex, null, center, row)
+                        gap: 6px
+                        padding: 4px 12px
+                        font-size: 14px
+                        font-weight: 500
+                        border-radius: 16px
+                        text-transform: capitalize
+                        white-space: nowrap 
+                        cursor: pointer
+
+                        .status-icon
+                            width: 8px
+                            height: 8px
+                            border-radius: 50%
+
+                        &.pending
+                            background-color: #FFFDE7
+                            color: #FBC02D
+
+                            .status-icon
+                                background-color: #FBC02D
+
+                        &.rejected
+                            background-color: #FEF3F2
+                            color: #B42318
+
+                            .status-icon
+                                background-color: #B42318
+
+                        &.active
+                            background-color: #ECFDF3
+                            color: #027A48
+                            .status-icon
+                                background-color: #027A48
+
+                        &.inactive
+                            background-color: #ECECEC
+                            color: #374151
+                            .status-icon
+                                background-color: #374151
+
+                .col-1
+                    @include flex-option(flex, null, center, row)
+                    gap: pxToRem(10)
+
+                    .role
+                        @include flex-option(flex, space-between, center, row)
+                        gap: pxToRem(4)
+
+                        p
+                            font-size: pxToRem(12)
+                            font-weight: 700
+                            text-transform: uppercase
+                            color: #408EFD
+                    
+                    ::ng-deep .p-rating
+                        @include flex-option(flex, null, center,row)
+                        gap: pxToRem(5)
+
+                    ::ng-deep .p-rating .p-rating-item .p-rating-icon.p-icon
+                        width: pxToRem(13)
+                        height: pxToRem(12)                       
+
+                    .rate
+                        color: #7D7979
+                        font-size: pxToRem(12)
+                        font-weight: 700
+
+        .email
+            button
+                outline: none
+                background-color: $white
+                border-radius: 5px
+                padding: 0.625rem 1.25rem
+                border: 1px solid #EAECF0
+                color: $black
+                font-size: 0.875rem
+                    
+    main
+        background-color: $white
+        padding: 0.5rem 1.25rem 1.25rem
+        border-radius: 10px   
+        border: 2px solid #EAECF0                         
+                        
+
+                    
+        
+    

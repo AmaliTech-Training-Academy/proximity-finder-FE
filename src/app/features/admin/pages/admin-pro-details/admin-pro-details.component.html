@@ -1,1 +1,64 @@
-<p>admin-pro-details works!</p>
+<div class="container">
+    <header>
+        <div class="info">
+            <div class="avatar">
+                <img src=".././../../../../assets/images/core.png" alt="avatar">
+            </div>
+
+            <div class="details">
+                <div class="col">
+                    <p>Esthera Jackson</p>
+                    <span class="status-label" [ngClass]="status | lowercase">
+                        <i class="status-icon"></i>
+                        pending
+                    </span>
+                </div>
+
+                <div class="col-1">
+                    <div class="role">
+                        <i class="pi pi-shield" style="color: #408EFD;"></i>
+                        <p>pro</p>
+                    </div>
+
+                    <p-rating [(ngModel)]="value" [readonly]="true" [cancel]="false" />
+
+                    <p class="rate">(5.0)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="email">
+            <button type="button">Send an Email</button>
+        </div>
+    </header>
+
+    <main>
+            <p-tabView>
+              
+          <p-tabPanel header="About">
+            <div class="tab-content">
+                <app-about/>
+            </div>
+          </p-tabPanel>
+
+          <p-tabPanel header="Photos">
+            <div class="tab-content">
+              <app-photos/>
+            </div>
+          </p-tabPanel>
+
+          <p-tabPanel header="Reviews">
+            <div class="tab-content">
+              <app-photos/>
+            </div>
+          </p-tabPanel>
+
+          <p-tabPanel header="Credentials">
+            <div class="tab-content">
+              <app-photos/>
+            </div>
+          </p-tabPanel>
+
+        </p-tabView>
+    </main>
+</div>
