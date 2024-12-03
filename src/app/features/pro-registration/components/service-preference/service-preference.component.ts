@@ -27,6 +27,8 @@ import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { LocationsComponent } from '../../../../shared/components/locations/locations.component';
 import { PlaceSearchResult } from '../../../../core/models/place-search-result';
 import { BusinessAddressComponent } from '../business-address/business-address.component';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-service-preference',
@@ -67,7 +69,8 @@ export class ServicePreferenceComponent {
     private fb: FormBuilder,
     private http: HttpClient,
     private serviceService: ServiceService,
-    @Inject(NOTYF) private notyf: Notyf
+    @Inject(NOTYF) private notyf: Notyf,
+    private router:Router
   ) {
     this.generateTimeOptions(15);
   }
@@ -203,5 +206,10 @@ export class ServicePreferenceComponent {
 
   showDialog() {
     this.visible = true;
+  }
+
+
+  navigateTo() {
+    this.router.navigateByUrl('/registration/payment-method');
   }
 }
