@@ -7,7 +7,9 @@
       </p>
     </div>
     <!-- <p-button label="Add account" icon="pi pi-plus" /> -->
-    <button class="add-account"><i class="pi pi-plus"></i>Add account</button>
+    <button (click)="showDialog()" class="add-account">
+      <i class="pi pi-plus"></i>Add account
+    </button>
   </header>
 
   <section class="account-list">
@@ -75,3 +77,20 @@
     </ul>
   </section>
 </main>
+
+<p-dialog
+  [modal]="true"
+  [(visible)]="isDialogVisible"
+  [draggable]="false"
+  [resizable]="false"
+  [showHeader]="false"
+  [style]="{ width: '32.75rem' }"
+  class="addAccount"
+>
+  <p-tabView>
+    <p-tabPanel header="Bank Details"
+      ><app-bank-details-form (closeModalEvent)="closeModal($event)"
+    /></p-tabPanel>
+    <p-tabPanel header="Mobile Money"><app-mobile-money-form /></p-tabPanel>
+  </p-tabView>
+</p-dialog>

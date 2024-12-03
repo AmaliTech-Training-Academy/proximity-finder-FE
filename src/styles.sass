@@ -20,7 +20,7 @@ body, button, input, textarea
 .p-dropdown
     border: solid 1px rgba(234, 236, 240, 1)
     border-radius: 8px
-    padding: 5px
+    padding: 5px 0 5px 5px
     
 .p-dropdown-label
     margin: 0 10px 0 0
@@ -311,7 +311,7 @@ app-fields.custom .inputs input
         width: pxToRem(250)
 
 .p-inputtext:enabled:hover
-    border: none
+    // border: none
 
 .p-inputtext:enabled:focus
     outline: 0 none
@@ -323,3 +323,17 @@ app-fields.custom .inputs input
         background: none
         border: none
         color: $text-main
+
+.addAccount
+    .p-tabview-nav
+        li
+            flex: 1
+
+.bankName
+    .p-dropdown
+        width: 100%
+        padding: 10px 0 10px 8px
+
+.accountName, .accountAlias, .accountNumber
+    .p-inputtext
+        padding: 10px 0 10px 8px
