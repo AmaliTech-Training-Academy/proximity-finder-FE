@@ -91,6 +91,8 @@
     <p-tabPanel header="Bank Details"
       ><app-bank-details-form (closeModalEvent)="closeModal($event)"
     /></p-tabPanel>
-    <p-tabPanel header="Mobile Money"><app-mobile-money-form /></p-tabPanel>
+    <p-tabPanel header="Mobile Money"
+      ><app-mobile-money-form (closeModalEvent)="closeModal($event)"
+    /></p-tabPanel>
   </p-tabView>
 </p-dialog>

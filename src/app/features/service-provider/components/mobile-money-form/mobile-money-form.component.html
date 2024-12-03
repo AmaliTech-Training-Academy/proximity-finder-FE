@@ -1,1 +1,45 @@
-<p>mobile-money-form works!</p>
+<form>
+  <div class="serviceProvider">
+    <label for="serviceProvider">Service Provider</label>
+    <p-dropdown
+      formControlName="selectedProvider"
+      [options]=""
+      optionLabel="name"
+      placeholder="Choose Service Provider"
+    />
+  </div>
+  <div class="accountName">
+    <label for="accountName">Account Name</label>
+    <input
+      type="text"
+      pInputText
+      formControlName="accountName"
+      placeholder="Enter account name"
+    />
+  </div>
+
+  <div class="accountAlias">
+    <label for="accountAlias">Account Alias</label>
+    <input
+      type="text"
+      pInputText
+      formControlName="accountAlias"
+      placeholder="Enter a desired name"
+    />
+  </div>
+
+  <div class="mobileNumber">
+    <label for="mobileNumber">Mobile Number</label>
+    <input
+      type="text"
+      pInputText
+      formControlName="accountNumber"
+      placeholder="0000 0000 0000"
+    />
+  </div>
+
+  <div class="buttons">
+    <p-button label="Cancel" severity="secondary" (onClick)="closeDialog()" />
+    <p-button label="Save" />
+  </div>
+</form>
