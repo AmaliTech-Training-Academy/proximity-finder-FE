@@ -23,7 +23,8 @@ export class ProfileUpdateComponent {
   defaultImage = 'assets/images/default-avatar.png'
   isUploading = false
 
-  imageSubscription!: Subscription
+  private imageSubscription: Subscription | null = null;
+
 
   constructor(private svgService:SvgService,  private imageService:ImageManagementService,@Inject(NOTYF) private notyf: Notyf,) { }
   openDialog(){
@@ -91,8 +92,12 @@ export class ProfileUpdateComponent {
     });
   }
 
-  ngOnDestroy(): void {
-    this.imageSubscription.unsubscribe()
+  ngOnDestroy() {
+    if (this.imageSubscription) {
+      this.imageSubscription.unsubscribe();
+      this.imageSubscription = null;
+    }
   }
+  
   
 }

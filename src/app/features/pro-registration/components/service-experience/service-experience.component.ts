@@ -12,6 +12,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { ServiceService } from '../../../../core/services/service.service';
 import { Notyf } from 'notyf';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-service-experience',
@@ -38,7 +39,8 @@ export class ServiceExperienceComponent {
   constructor(
     private fb: FormBuilder,
     private serviceService: ServiceService,
-    @Inject(NOTYF) private notyf: Notyf
+    @Inject(NOTYF) private notyf: Notyf,
+   private router:Router
   ) {}
 
   onImageUploaded(files: File[]) {
@@ -78,5 +80,9 @@ export class ServiceExperienceComponent {
         error: (error) => this.notyf.error('Failed to add service experience'),
       });
     }
+  }
+  
+  navigateTo() {
+    this.router.navigateByUrl('/registration/service-preference');
   }
 }

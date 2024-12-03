@@ -52,6 +52,10 @@ export class BasicInfoComponent implements OnInit,OnDestroy {
         userName: savedUserData.userName || '',  
         email: savedUserData.email || ''
       }, { emitEvent: false });
+      this.registrationForm.get('userName')?.disable();
+      this.registrationForm.get('email')?.disable();
+
+      
     } 
   }
   onSubmit(): void {
@@ -78,7 +82,10 @@ export class BasicInfoComponent implements OnInit,OnDestroy {
 
   
   ngOnDestroy():void{
-    this.basicInfoSubscription.unsubscribe()
+    if(this.basicInfoSubscription){
+      this.basicInfoSubscription.unsubscribe()
+    }
+    
   }
 
   
