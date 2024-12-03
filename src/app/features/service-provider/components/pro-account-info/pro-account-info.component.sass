@@ -6,3 +6,43 @@ main
     border: solid 1px $grey-lighten-3
     border-radius: 6px
     padding: 40px
+
+    header
+        @include flex-option($display: flex, $justify-content: space-between, $align-items: center, $direction: row)
+        
+        .headline
+            @include flex-option($display: flex, $justify-content: null, $align-items: null, $direction: column)
+            gap: 10px
+            
+            h4
+                font-size: 16px
+                color: $text-main
+
+        .add-account
+            @include flex-option($display: flex, $justify-content: null, $align-items: center, $direction: row)
+            gap: 8px
+            border: none
+            background-color: $blue
+            color: $white
+            font-size: 16px 
+            padding: 10px 16px
+            border-radius: 4px
+            cursor: pointer
+
+            &:hover
+                background-color: $blue-darken-2
+
+    .account-list
+        .empty
+            @include flex-option($display: flex, $justify-content: center, $align-items: center, $direction: column)
+            height: 50vh
+
+            h1
+                margin: 20px 0 10px 0
+
+            .empty-message
+                max-width: 426px
+                text-align: center
+                line-height: 18.75px
+        
+        
