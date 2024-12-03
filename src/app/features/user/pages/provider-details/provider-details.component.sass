@@ -6,12 +6,13 @@
 .provider-details
     scroll-behavior: smooth
     scrollbar-width: none
-.navbar
-    margin-inline: pxToRem(60)
+    @include flex-option(flex, null, null, column)
+    gap: pxToRem(48)
+    
     
 .container
     @include flex-option(flex, null, null,column)
-    gap: pxToRem(30)
+    gap: pxToRem(40)
     background-color: $white
     margin-inline: pxToRem(100)
     
