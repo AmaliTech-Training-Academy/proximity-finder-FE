@@ -14,6 +14,7 @@ import { RouterLink } from '@angular/router';
 import { Position } from '../../../service-discovery/models/position';
 import { GeolocationService } from '../../../service-discovery/services/geolocation.service';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
+import { FooterComponent } from "../../components/footer/footer.component";
 
 interface AutoCompleteCompleteEvent {
   originalEvent: Event;
@@ -23,7 +24,7 @@ interface AutoCompleteCompleteEvent {
 @Component({
   selector: 'app-pro-search',
   standalone: true,
-  imports: [ProInfoCardComponent, UserProfileHeaderComponent, NavbarComponent, MatIconModule, AutoCompleteModule, ReactiveFormsModule, CommonModule, RouterLink],
+  imports: [ProInfoCardComponent, UserProfileHeaderComponent, NavbarComponent, MatIconModule, AutoCompleteModule, ReactiveFormsModule, CommonModule, RouterLink, FooterComponent],
   templateUrl: './pro-search.component.html',
   styleUrl: './pro-search.component.sass'
 })
