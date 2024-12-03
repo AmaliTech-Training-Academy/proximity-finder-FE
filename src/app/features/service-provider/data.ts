@@ -637,3 +637,98 @@ export const reviews = [
     ratings: 5,
   },
 ];
+
+
+export const proAccounts = [
+  {
+    businessOwner: "John Smith",
+    businessName: "Smith Tech Solutions",
+    email: "john.smith@example.com",
+    location: "New York, NY",
+    verification: "Yes",
+    status: "Active",
+    action: "Edit/Delete"
+  },
+  {
+    businessOwner: "Emily Johnson",
+    businessName: "Emily's Bakery",
+    email: "emily.johnson@example.com",
+    location: "Los Angeles, CA",
+    verification: "No",
+    status: "Inactive",
+    action: "Verify/Approve"
+  },
+  {
+    businessOwner: "Michael Brown",
+    businessName: "Brown Construction",
+    email: "michael.brown@example.com",
+    location: "Chicago, IL",
+    verification: "Yes",
+    status: "Active",
+    action: "Edit/Delete"
+  },
+  {
+    businessOwner: "Sarah Davis",
+    businessName: "Davis Marketing",
+    email: "sarah.davis@example.com",
+    location: "Houston, TX",
+    verification: "No",
+    status: "Inactive",
+    action: "Resubmit/Delete"
+  },
+  {
+    businessOwner: "David Wilson",
+    businessName: "Wilson Auto Parts",
+    email: "david.wilson@example.com",
+    location: "Miami, FL",
+    verification: "Yes",
+    status: "Active",
+    action: "Edit/Delete"
+  },
+  {
+    businessOwner: "Olivia Martinez",
+    businessName: "Martinez Designs",
+    email: "olivia.martinez@example.com",
+    location: "Austin, TX",
+    verification: "No",
+    status: "Inactive",
+    action: "Verify/Approve"
+  },
+  {
+    businessOwner: "Chris White",
+    businessName: "White's Electronics",
+    email: "chris.white@example.com",
+    location: "San Diego, CA",
+    verification: "Yes",
+    status: "Active",
+    action: "Edit/Delete"
+  },
+  {
+    businessOwner: "Sophia Green",
+    businessName: "Green Landscaping",
+    email: "sophia.green@example.com",
+    location: "Seattle, WA",
+    verification: "Yes",
+    status: "Active",
+    action: "Edit/Delete"
+  },
+  {
+    businessOwner: "James Miller",
+    businessName: "Miller's Garage",
+    email: "james.miller@example.com",
+    location: "Denver, CO",
+    verification: "No",
+    status: "Inactive",
+    action: "Verify/Approve"
+  },
+  {
+    businessOwner: "Isabella Thomas",
+    businessName: "Thomas Art Studio",
+    email: "isabella.thomas@example.com",
+    location: "San Francisco, CA",
+    verification: "No",
+    status: "Inactive",
+    action: "Resubmit/Delete"
+  }
+];
+
