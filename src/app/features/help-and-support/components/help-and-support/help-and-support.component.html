@@ -1,0 +1,160 @@
+<app-user-profile-header/>
+<app-navbar [backgroundColor]="'#F2F4F5'"/>
+
+<div class="page">
+    <div class="hero-section">
+        <div class="empty"></div>
+        <div class="search-container">
+            <p>How can we help?</p>
+            <div class="search">
+                <i class="pi pi-search" style="color: #77878F"></i>
+            <input type="search" placeholder="Enter a question, topic or keyword">
+            </div>
+        </div> 
+    </div>
+
+    <div class="info">
+        <div class="head">
+            <p>Quick Actions</p>
+        </div>
+
+        <div class="actions">
+            <p>Request a Refund <span>(Customer)</span></p>
+            <p>Chat with support</p>
+        </div>
+        <div class="main">
+            <p>Frequently Asked Questions </p>
+        </div>
+
+        <div class="freq">
+            <div class="questions-container">
+                <p-accordion expandIcon="pi pi-plus" collapseIcon="pi pi-minus" class="custom-accordion">
+                  <p-accordionTab header="What is a refund request?">
+                    <div class="accordion-content">
+                      <p>
+                        A refund request is a request from a customer to return or exchange an item. A refund is typically issued after a purchase has been completed and a customer has received their product or service.
+                      </p>
+                      
+                    </div>
+                  </p-accordionTab>
+                </p-accordion>
+
+                <p-accordion expandIcon="pi pi-plus" collapseIcon="pi pi-minus" class="custom-accordion">
+                    <p-accordionTab header="What is a refund request?">
+                      <div class="accordion-content">
+                        <p>
+                          A refund request is a request from a customer to return or exchange an item. A refund is typically issued after a purchase has been completed and a customer has received their product or service.
+                        </p>
+                        
+                      </div>
+                    </p-accordionTab>
+                  </p-accordion>
+              </div>
+              
+              
+
+            <div class="request-form">
+                <p>Don’t find your answer, Ask for support.</p>
+                <span>If you can't find the FAQ that addresses your specific question, don't hesitate to reach out for support. Contact the support team for personalized assistance.They're there to help resolve your concerns quickly and effectively!</span>
+                <form>
+                  <input type="email" placeholder="Email address">
+                  <input type="text" placeholder="Subject">
+                  <textarea placeholder="Message"></textarea>
+                  <div class="buttons">
+                      <button type="submit" class="btn-send">Send Message </button>
+                    <i class="pi pi-arrow-right" style="color: white"></i>
+                  </div>
+                </form>
+
+            </div>
+
+        </div>
+
+        <div class="switcher">
+            <p-selectButton 
+        [options]="stateOptions" 
+        [(ngModel)]="value" 
+        optionLabel="label" 
+        optionValue="value" />
+        </div>
+
+        <div class="icons">
+            <div class="terms">
+                <img src="assets/svgs/documents.svg" alt="icon">
+                <p>Terms and Conditions</p>
+                <span>Terms and Conditions outline the rules, obligations, and responsibilities governing the use of a product, service, or platform. They establish user rights, restrictions, and the provider's liabilities to ensure transparency and legal compliance.</span>
+            </div>
+
+            <div class="imp">
+                <img src="assets/svgs/privacy.svg" alt="icon">
+                <p>Impressum</p>
+                <span>An Impressum is a legally required disclosure on websites, particularly in German-speaking countries, providing information about the site's publisher, including contact details, business address, and legal representatives</span>
+            </div>
+
+            <div class="policy">
+                <img src="assets/svgs/privacy.svg" alt="icon">
+                <p>Privacy Policy</p>
+                <span>A Privacy Policy is a document that explains how an organization collects, uses, stores, and protects personal data, ensuring compliance with privacy laws and transparency with users about their data rights</span>
+            </div>
+
+            <div class="find">
+                <img src="assets/svgs/pro-contact.svg" alt="icon">
+                <p>Find a PRO</p>
+                <span>Find a Provider is a service or tool that helps users locate and connect with professionals, businesses, or service providers based on their needs, preferences, and location.</span>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="footer">
+        <div class="footer-info">
+            <div class="business-info">
+                <div class="address">
+                    <p>ADDRESS :</p>
+                    <span>6391 Elgin St. Celina, Delaware 10299</span>
+                </div>
+
+                <div class="phone">
+                    <p>PHONE:</p>
+                    <span>+84 1102 2703</span>
+                </div>
+
+                <div class="email">
+                    <p>EMAIL:</p>
+                    <span>info&#64;example.com</span>
+                </div>
+
+                <div class="logo">
+                    <img src="assets/svgs/Logo.svg" alt="logo">
+                </div>
+
+
+            </div>
+
+            <div class="socials">
+                <p>NEWSLETTER:</p>
+
+                <div class="letter">
+                    <input type="email" placeholder="Your email here">
+                    <button type="submit">Subscribe</button>
+                </div>
+
+                <div class="media">
+                    <p>SOCIALS:</p>
+                    <div class="media-icons">
+                    <i class="pi pi-facebook" style="color: #3D445C"></i>
+                    <i class="pi pi-linkedin" style="color: #3D445C"></i>
+                    <i class="pi pi-twitter" style="color: #3D445C"></i>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+       
+    </div>
+     <footer>
+            <p>Swift Craft © 2022. All Rights Reserved</p>
+        </footer>
+</div>
