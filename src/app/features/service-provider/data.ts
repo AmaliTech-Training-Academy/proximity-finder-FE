@@ -253,128 +253,123 @@ export const popularSerivcesDataInterval = [
 export const calls = [
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending'
-   
+    status: 'pending',
   },
   {
     clientName: 'Isabella Hill',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'completed'
+    status: 'completed',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending'
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending'
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending'
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'completed'
+    status: 'completed',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'completed'
+    status: 'completed',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending'
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending'
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending'
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending'
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending'
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending'
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending',
-    
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending',
-   
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending',
-    
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending',
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending',
-    
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    location:'Kumasi',
+    location: 'Kumasi',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending'
+    status: 'pending',
   },
 ];
 
@@ -402,7 +397,7 @@ export const quotes = [
     clientName: 'Sophia Turner',
     requirements:
       'iOS and Android support, user authentication, payment gateway',
-      email: 'VYmO1@example.com',
+    email: 'VYmO1@example.com',
     dateTime: '2024-11-11T13:45:00',
   },
   {
@@ -450,7 +445,7 @@ export const quotes = [
     clientName: 'Amanda Garcia',
     requirements:
       'iOS and Android versions, user authentication, in-app payments',
-      email: 'VYmO1@example.com',
+    email: 'VYmO1@example.com',
     dateTime: 'October 5, 2021',
   },
   {
@@ -555,8 +550,6 @@ export const accountPreferences = [
   { name: 'Bank Transfer' },
 ];
 
-
-
 export const serviceCategories = [
   { name: 'Painting' },
   { name: 'Cleaning' },
@@ -573,7 +566,6 @@ export const bookingDays = [
   { name: 'Friday' },
   { name: 'Saturday' },
 ];
-
 
 export const reviews = [
   {
@@ -635,5 +627,20 @@ export const reviews = [
     providerName: 'Kojo Antwi',
     message: 'Fantastic! I’ll definitely recommend to my friends.',
     ratings: 5,
+  },
+];
+
+export const linkedAccounts = [
+  {
+    name: 'American Express',
+  },
+  {
+    name: 'Fidelity Bank - EUR',
+  },
+  {
+    name: 'MTN Mobile Money',
+  },
+  {
+    name: 'Stanbic Bank',
   },
 ];

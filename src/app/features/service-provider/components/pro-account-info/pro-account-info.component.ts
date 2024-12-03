@@ -5,6 +5,7 @@ import { DialogModule } from 'primeng/dialog';
 import { TabViewModule } from 'primeng/tabview';
 import { MobileMoneyFormComponent } from '../mobile-money-form/mobile-money-form.component';
 import { BankDetailsFormComponent } from '../bank-details-form/bank-details-form.component';
+import { linkedAccounts } from '../../data';
 
 @Component({
   selector: 'app-pro-account-info',
@@ -33,20 +34,7 @@ export class ProAccountInfoComponent {
     },
   ];
 
-  linkedAccounts = [
-    {
-      name: 'American Express',
-    },
-    {
-      name: 'Fidelity Bank - EUR',
-    },
-    {
-      name: 'MTN Mobile Money',
-    },
-    {
-      name: 'Stanbic Bank',
-    },
-  ];
+  linkedAccounts = linkedAccounts;
 
   showDialog() {
     this.isDialogVisible = true;
