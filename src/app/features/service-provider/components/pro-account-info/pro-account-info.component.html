@@ -63,5 +63,15 @@
         add new account.
       </p>
     </div>
+
+    <ul>
+      @for (account of linkedAccounts; let i = $index; track i) {
+      <li>
+        <span class="name">{{ account.name }}</span>
+        <p-button (onClick)="menu.toggle($event)" icon="pi pi-ellipsis-v" />
+      </li>
+      <p-menu #menu [model]="items" [popup]="true" />
+      }
+    </ul>
   </section>
 </main>
