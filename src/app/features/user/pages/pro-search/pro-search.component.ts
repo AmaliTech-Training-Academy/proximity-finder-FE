@@ -71,23 +71,33 @@ export class ProSearchComponent implements OnInit{
   onSelectedService() {
     const selectedService = this.formGroup.value.selectedService
 
-    if (this.formGroup.valid && selectedService) {
+    if (this.formGroup.valid) {  
       const serviceName = selectedService
-      const location = { lng: this.currentLocation?.longitude ?? 0,
-                         lat: this.currentLocation?.latitude ?? 0}
-
+      console.log('Service Name:', serviceName)
+  
+      const location = { lng: this.currentLocation?.longitude, lat: this.currentLocation?.latitude }
+  
+      if (!location.lat || !location.lng) {
+        console.error('Unable to determine location for the search.')
+        this.notyf.error('Location is required to search for providers.')
+        return
+      }
+  
       const lat = location.lng
       const lng = location.lat
-      this.locationService.getNearbyProviders(serviceName, lat, lng).subscribe({
-        next: (providers) => {
-          this.providerService.setProviders(providers)
+  
+      this.locationService.getNearbyProviders(serviceName, lng, lat).subscribe({
+        next: (response: ProDetails[]) => {
+          this.providerService.setProviders(response)
         },
-
         error: (error) => {
           console.error(error)
-          this.notyf.error('An error occurred while fetching providers')
+          this.notyf.error('An error occurred while searching for providers. Please try again.')
         }
-    })
+      });
+    } else {
+      console.error('Form is invalid')
+      this.notyf.error('Please complete the form before searching.')
     }
 }
       
