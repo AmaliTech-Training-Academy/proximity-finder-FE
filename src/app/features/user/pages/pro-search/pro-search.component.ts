@@ -69,40 +69,28 @@ export class ProSearchComponent implements OnInit{
   }
 
   onSelectedService() {
-  const selectedService = this.formGroup.value.selectedService;
-  console.log('Selected Service:', selectedService);
+    const selectedService = this.formGroup.value.selectedService
 
-  if (this.formGroup.valid && selectedService) {
-    const serviceName = selectedService;
-    const location = { 
-      lng: this.currentLocation?.longitude ?? 0,
-      lat: this.currentLocation?.latitude ?? 0 
-    };
+    if (this.formGroup.valid && selectedService) {
+      const serviceName = selectedService
+      const location = { lng: this.currentLocation?.longitude ?? 0,
+                         lat: this.currentLocation?.latitude ?? 0}
 
-    const lat = location.lng;
-    const lng = location.lat;
-    console.log('Search Parameters:', { serviceName, lat, lng });
+      const lat = location.lng
+      const lng = location.lat
+      this.locationService.getNearbyProviders(serviceName, lat, lng).subscribe({
+        next: (providers) => {
+          this.providerService.setProviders(providers)
+        },
 
-    this.locationService.getNearbyProviders(serviceName, lat, lng).subscribe({
-      next: (providers) => {
-        console.log('Providers:', providers);
-        if (providers && providers.length > 0) {
-          this.providerService.setProviders(providers);
-          this.providers = providers;
-        } else {
-          console.warn('No providers found');
+        error: (error) => {
+          console.error(error)
+          this.notyf.error('An error occurred while fetching providers')
         }
-      },
-      error: (error) => {
-        console.error('Search Error:', error);
-        this.notyf.error('An error occurred while fetching providers');
-      }
-    });
-  } else {
-    console.warn('Form is invalid or selected service is missing');
-  }
+    })
+    }
 }
-
+      
 
   onSortChange(event: Event): void {
     const selectedOption = (event.target as HTMLSelectElement).value
