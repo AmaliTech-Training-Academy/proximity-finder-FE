@@ -1,1 +1,8 @@
-<p>photos works!</p>
+<div class="container">
+    
+    @for (image of images; track $index) {
+        <div class="card">
+            <img [src]="image" alt="project image">
+        </div>
+    }
+</div>

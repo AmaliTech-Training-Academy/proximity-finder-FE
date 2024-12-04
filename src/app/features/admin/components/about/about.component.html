@@ -1,1 +1,88 @@
-<p>about works!</p>
+<div class="container">
+    <section>
+        <p class="summary">
+            Lorem ipsum dolor sit amet consectetur. Fermentum sit nunc consectetur molestie ultricies dictum id fames.
+            Ultrices curabitur lobortis adipiscing cursus ante. Sapien commodo amet non in iaculis aliquam mauris eget nibh. Aliquet sit lorem nec diam porta duis. Netus aenean urna sit massa facilisi non tempus turpis. Ornare nam mauris scelerisque amet varius urna aliquam tortor.
+            Imperdiet lacus magna venenatis non volutpat metus ac. Quis facilisi adipiscing sed ac.
+        </p>
+
+        <div class="col">
+            <div class="col-1">
+                <div class="col-1-1">
+                    <h5>Services</h5>
+
+                    <div class="services">
+                        <div class="service">
+                            <i class="pi pi-check-circle" style="color: #408EFD;"></i>
+                            <p>Cleaning</p>
+                        </div>
+                        <div class="service">
+                            <i class="pi pi-check-circle" style="color: #408EFD;"></i>
+                            <p>Plumbing</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-1-1">
+                    <h5>Payment Methods</h5>
+
+                    <div class="payments">
+                        <p>MTN</p>
+                        <p>Bank Transfer</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="overview">
+                <h5>Overview</h5>
+
+                <div class="info">
+                    <p>Top Pro</p>
+                    <p>Hired 400 times</p>
+                    <p>Brooklyn, NYC</p>
+                    <p>Background checked</p>
+                    <p>5 employees</p>
+                    <p>2 years in business</p>
+                </div>
+            </div>
+
+            <div class="business">
+                <h5>Business hours</h5>
+
+                <div class="col-2">
+                    <div class="days">
+                      <p>Mon</p>
+                      <p>Tue</p>
+                      <p>Wed</p>
+                      <p>Thu</p>
+                      <p>Fri</p>
+                      <p>Sat</p>
+                      <p>Sun</p>
+                    </div>
+      
+                    <div class="time">
+                      <p>10:00am - 4:00pm</p>
+                      <p>10:00am - 4:00pm</p>
+                      <p>10:00am - 4:00pm</p>
+                      <p>10:00am - 4:00pm</p>
+                      <p>10:00am - 4:00pm</p>
+                      <p>Closed</p>
+                      <p>Closed</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <div class="actions">
+        @if (isApproved) {
+            <button type="button" class="revoked">Revoke Approval</button>
+        }
+        @else {
+            <button type="button" class="secondary">Reject</button>
+            <button type="button" class="primary" (click)="openDialog()">Approve account</button>
+        }
+    </div>
+</div>

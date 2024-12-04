@@ -1,0 +1,18 @@
+<div class="delete-container">
+    <div class="main">
+        <div class="header">
+            <p class="title">{{data.title}}</p>
+
+            <img src="../../../../../assets/regularX.svg" alt="cross icon" (click)="onCancel()">
+        </div>
+
+        <div class="message">
+            <p class="message">{{data.message}}</p>
+        </div>
+    </div>
+
+    <div class="delete-actions">
+        <button type="submit" class="btn cancel" (click)="onCancel()">Cancel</button>
+        <button type="submit" class="btn delete" (click)="onConfirm()">Approve</button>
+    </div>
+</div>

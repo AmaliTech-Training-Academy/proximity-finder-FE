@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-photos',
+  selector: 'app-admin-credentials',
   standalone: true,
   imports: [],
-  templateUrl: './photos.component.html',
-  styleUrl: './photos.component.sass'
+  templateUrl: './admin-credentials.component.html',
+  styleUrl: './admin-credentials.component.sass'
 })
-export class PhotosComponent {
+export class AdminCredentialsComponent {
   images: string[] = [
     'assets/images/core.png',
     'assets/images/occupation.png',
