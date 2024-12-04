@@ -5,7 +5,7 @@
         <p-table
           [paginator]="true"
           [rows]="10"
-          [value]="proAccounts"
+          [value]="allProAccounts"
           [tableStyle]="{ 'min-width': '50rem' }"
         >
           <ng-template pTemplate="header">
@@ -19,26 +19,27 @@
               <th>ACTION</th>
             </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-proAccounts>
+          <ng-template pTemplate="body" let-proAccount>
             <tr routerLink="/admin/dashboard/pro-accounts/details">
-              <td>{{ proAccounts.businessOwner }}</td>
-              <td>{{ proAccounts.businessName | slice:0:15 }}...</td>
-              <td>{{ proAccounts.email | slice:0:10 }}...</td>
-              <td>{{ proAccounts.location | slice:0:10}}...</td>
-              <td>{{ proAccounts.verification}}</td>
+              <td>{{ proAccount.businessOwnerName }}</td>
+              <td>{{ proAccount.userName | slice:0:15 }}...</td>
+              <td>{{ proAccount.email | slice:0:10 }}...</td>
+              <td>{{ proAccount.businessAddress | slice:0:10}}...</td>
+              <td>{{ proAccount.enabled === true ? 'Yes' : 'No'}}
+              </td>
               <td>
 
               <div class="action-container" (click)="$event.stopPropagation()">
-                  <span class="status-label" [ngClass]="proAccounts.status | lowercase" (click)="toggleMenu(proAccounts)">
+                  <span class="status-label" [ngClass]="proAccount.status | lowercase" (click)="toggleMenu(proAccount)">
                     <i class="status-icon"></i>
-                    {{ proAccounts.status }}
+                    {{ proAccount.status }}
                     <i class="pi pi-chevron-down"></i>
                   </span>
 
-                  @if (activeAccount === proAccounts) {
+                  @if (activeAccount === proAccount) {
                     <div class="menu">
                       @for (status of statuses; track $index) {
-                        <span class="status-label" [ngClass]="statusMapping[status] | lowercase" (click)="updateStatus(proAccounts, status)">
+                        <span class="status-label" [ngClass]="statusMapping[status] | lowercase" (click)="updateStatus(proAccount, status)">
                           <i class="status-icon"></i>
                           {{ status }}
                         </span>
@@ -50,9 +51,9 @@
             </td>
             <td>
               <div class="action-container" (click)="$event.stopPropagation()">
-                <i class="pi pi-ellipsis-v" style="color: rgba(119, 135, 143, 1)" (click)="toggleAction(proAccounts)"></i>
+                <i class="pi pi-ellipsis-v" style="color: rgba(119, 135, 143, 1)" (click)="toggleAction(proAccount)"></i>
 
-                @if(showAction[proAccounts.email]){
+                @if(showAction[proAccount.email]){
                   <div class="menu">
                     <div class="action" (click)="openDialog()">
                       <i class="pi pi-trash"></i>

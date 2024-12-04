@@ -1,11 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, inject } from '@angular/core';
+import { Component, HostListener, inject, OnDestroy, OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { proAccounts } from '../../../service-provider/data';
 import { AccountStatuses, statusMapping } from '../../../../utils/accountStatus';
-import { Router, RouterLink } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { DeleteModalComponent } from '../../../profile-management/components/delete-modal/delete-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { UserAccountsService } from '../../services/user-accounts.service';
+import { User, UserResponse } from '../../models/user-response';
+import { Subscription } from 'rxjs';
+import { proAccounts } from '../../../service-provider/data';
+import { NOTYF } from '../../../../shared/notify/notyf.token';
 
 @Component({
   selector: 'app-admin-pro-account',
@@ -14,23 +18,48 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './admin-pro-account.component.html',
   styleUrl: './admin-pro-account.component.sass'
 })
-export class AdminProAccountComponent {
-  proAccounts = proAccounts
+export class AdminProAccountComponent implements OnInit, OnDestroy{
   showAction: { [key: string]: boolean } = {}
   statusMapping = statusMapping
   readonly dialog = inject(MatDialog)
-
+  private notyf = inject(NOTYF)
   statuses = AccountStatuses
+  activeAccount: User | null = null
+  currentPage = 1
+  pageSize = 10
+  allProAccounts: User[] = []
+  userSubscription: Subscription | null = null
 
-  activeAccount: any = null; 
 
-  constructor(private router: Router) {}
+  constructor(private userService: UserAccountsService) {}
 
-  toggleMenu(account: any) {
+  ngOnInit() {
+    this.loadUsers()
+  }
+
+  loadUsers() {
+    this.userService.getAllUsers('ROLE_PROVIDER', this.currentPage, this.pageSize).subscribe({
+      next: (response: UserResponse) => {
+        if (response && response.data) {
+          this.allProAccounts = response.data;
+          this.currentPage++;
+        } else {
+          this.notyf.error('Data not found in the response');
+        }
+      },
+      error: (err) => {
+        console.error('Error fetching users:', err);
+        this.notyf.error('Error fetching users');
+      }
+    });
+  }
+  
+
+  toggleMenu(account: User) {
     this.activeAccount = this.activeAccount === account ? null : account;
   }
 
-  toggleAction(account: any) {
+  toggleAction(account: User) {
     this.showAction[account.email] = !this.showAction[account.email];
 
     if (this.activeAccount === account) {
@@ -63,4 +92,9 @@ export class AdminProAccountComponent {
     })
   }
 
+  ngOnDestroy() {
+    if (this.userSubscription) {
+      this.userSubscription.unsubscribe()
+    }
+  }
 }
