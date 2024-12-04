@@ -96,5 +96,23 @@
             
                 
 
+.no-result
+    @include flex-option(flex, center, center,column)
+    gap: 0.5rem
+    position: absolute
+    top: 50%
+    left: 55%
+    transform: translate(-50%, -50%)
+
+    .image
+        width: pxToRem(300)
+
+        img
+            max-width: 100%
+            object-fit: cover
+
+    h2
+        font-size: 1.5rem
+        color: $text-main
 
 

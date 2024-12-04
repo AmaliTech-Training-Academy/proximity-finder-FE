@@ -1,6 +1,7 @@
 <div class="container">
     <p>User Accounts</p>
 
+    @if (allUsers.length > 0) {
     <div class="table">
         <p-table
           [paginator]="true"
@@ -50,5 +51,14 @@
           </ng-template>
         </p-table>
     </div>
+    }
+    @else {
+        <div class="no-result">
+            <div class="image">
+                <img src="../../../../../assets/no-results.svg" alt="no result found">
+            </div>
+            <h2>No User Accounts</h2>
+        </div>
+    }
 </div>
   
