@@ -1,0 +1,25 @@
+<p-dialog header="Edit FAQ" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+    <form>
+        <div class="question">
+            <label>Question</label>
+            <textarea placeholder="Type here"></textarea>
+        </div>
+        <div class="answer">
+            <label>Answer</label>
+            <textarea placeholder="Type here"></textarea>
+        </div>
+
+        <div class="faq-group">
+            <label>FAQ Group</label>
+            <p-dropdown
+             [options]="" 
+             optionLabel="" 
+             placeholder="Choose FAQ Group"/>
+        </div>
+        <div class="faq-buttons">
+            <button type="button" class="btn-cancel" (click)="onCancel()">Cancel</button>
+            <button type="submit" class="btn-save" (click)="onSave()">Save Changes</button>  
+        </div>
+    </form>
+
+</p-dialog>
