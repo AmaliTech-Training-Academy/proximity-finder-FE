@@ -20,7 +20,7 @@
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-proAccounts>
-            <tr>
+            <tr routerLink="/admin/dashboard/pro-accounts/details">
               <td>{{ proAccounts.businessOwner }}</td>
               <td>{{ proAccounts.businessName | slice:0:15 }}...</td>
               <td>{{ proAccounts.email | slice:0:10 }}...</td>
@@ -54,7 +54,7 @@
 
                 @if(showAction[proAccounts.email]){
                   <div class="menu">
-                    <div class="action">
+                    <div class="action" (click)="openDialog()">
                       <i class="pi pi-trash"></i>
                       <p>Delete</p>
                     </div>

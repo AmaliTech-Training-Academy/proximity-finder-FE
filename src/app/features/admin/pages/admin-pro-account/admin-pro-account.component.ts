@@ -1,9 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { proAccounts } from '../../../service-provider/data';
 import { AccountStatuses, statusMapping } from '../../../../utils/accountStatus';
 import { Router, RouterLink } from '@angular/router';
+import { DeleteModalComponent } from '../../../profile-management/components/delete-modal/delete-modal.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-admin-pro-account',
@@ -16,6 +18,7 @@ export class AdminProAccountComponent {
   proAccounts = proAccounts
   showAction: { [key: string]: boolean } = {}
   statusMapping = statusMapping
+  readonly dialog = inject(MatDialog)
 
   statuses = AccountStatuses
 
@@ -43,6 +46,21 @@ export class AdminProAccountComponent {
   @HostListener('document:click', ['$event'])
   closeMenu(event: Event) {
     this.activeAccount = null;
+  }
+  
+  openDialog(){
+    const dialogRef = this.dialog.open(DeleteModalComponent, {
+            data: {title: 'Delete Account',
+            message: 'Are you sure you want to delete this account? This action cannot be undone.',
+            type: 'delete',
+            confirmText: 'Delete',
+            cancelText: 'Cancel'}
+    })
+    dialogRef.afterClosed().subscribe((results) => {
+      if(results) {
+        
+      }
+    })
   }
 
 }
