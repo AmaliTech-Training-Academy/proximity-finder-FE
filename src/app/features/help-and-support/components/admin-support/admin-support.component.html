@@ -1,0 +1,89 @@
+<div class="support">
+    <div class="button">
+        <button class="btn-create" (click)="showDialog()">Create New FAQ</button>
+    </div>
+
+    <div class="faq">
+        <div class="faq-header">
+            <p>Do I need to tip them?</p>
+
+            <div class="group">
+                <div class="rec">
+                    <p>Provider</p>
+                </div>
+                <button class="options" (click)="menu.toggle($event)">
+                    <i class="pi pi-ellipsis-v"></i>
+                  </button>
+
+                <p-menu #menu [model]="menuItems" [popup]="true" />
+            </div>
+        </div>
+
+        <div class="answer">
+            <p>Yes, you can tip your service provider. However, it's not mandatory. Tipping can be a great way to show appreciation and encourage your customers to return.</p>
+        </div>
+    </div>
+    <div class="faq">
+        <div class="faq-header">
+            <p>Do I need to tip them?</p>
+
+            <div class="group">
+                <div class="rec">
+                    <p>Client</p>
+                </div>
+                <i class="pi pi-ellipsis-v" style="color: #708090"></i>
+            </div>
+        </div>
+
+        <div class="answer">
+            <p>Yes, you can tip your service provider. However, it's not mandatory. Tipping can be a great way to show appreciation and encourage your customers to return.</p>
+        </div>
+    </div>
+    <div class="faq">
+        <div class="faq-header">
+            <p>Do I need to tip them?</p>
+
+            <div class="group">
+                <div class="rec">
+                    <p>All</p>
+                </div>
+                <i class="pi pi-ellipsis-v" style="color: #708090"></i>
+            </div>
+        </div>
+
+        <div class="answer">
+            <p>Yes, you can tip your service provider. However, it's not mandatory. Tipping can be a great way to show appreciation and encourage your customers to return.</p>
+        </div>
+    </div>
+</div>
+
+<p-dialog header="Create New FAQ" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+    <form>
+        <div class="question">
+            <label>Question</label>
+            <textarea placeholder="Type here"></textarea>
+        </div>
+        <div class="answer">
+            <label>Answer</label>
+            <textarea placeholder="Type here"></textarea>
+        </div>
+
+        <div class="faq-group">
+            <label>FAQ Group</label>
+            <p-dropdown
+             [options]="" 
+             optionLabel="" 
+             placeholder="Choose FAQ Group"/>
+        </div>
+        <div class="faq-buttons">
+            <button type="button" class="btn-cancel">Cancel</button>
+            <button type="submit" class="btn-save">Submit</button>  
+        </div>
+    </form>
+
+</p-dialog>
+<app-edit/>
+
+<app-delete/>
+
+
