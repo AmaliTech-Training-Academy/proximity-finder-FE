@@ -1,4 +1,10 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import {
   ReactiveFormsModule,
   FormBuilder,
@@ -16,6 +22,8 @@ import { FileUploaderComponent } from '../file-uploader/file-uploader.component'
 import { ImageUploaderComponent } from '../image-uploader/image-uploader.component';
 import { ServiceService } from '../../../../core/services/service.service';
 import { ITime } from '../../../../core/models/ITime';
+import { PlaceSearchResult } from '../../../../core/models/place-search-result';
+import { BusinessAddressComponent } from '../../../pro-registration/components/business-address/business-address.component';
 
 @Component({
   selector: 'app-service-creation-form',
@@ -34,25 +42,47 @@ import { ITime } from '../../../../core/models/ITime';
   styleUrl: './service-creation-form.component.sass',
 })
 export class ServiceCreationFormComponent {
+  @Output() closeDialogEvent = new EventEmitter<boolean>();
+
   serviceCategories$ = this.serviceService.serviceCategories$;
+
   accountPreferences = accountPreferences;
   days = bookingDays;
   timeOptions: ITime[] = [];
+  businessCertificates: File[] = [];
+  projectPictures: File[] = [];
+  selectedLocation!: PlaceSearchResult;
+  isSameLocation: boolean = true;
 
   serviceForm: FormGroup = this.fb.group({
-    jobTitle: ['', Validators.required],
+    serviceName: ['', Validators.required],
     accountPreference: ['', Validators.required],
     bookingDays: this.fb.array([this.createBookingDay()]),
-    businessCertificate: [null],
-    serviceDescription: ['', Validators.required],
     schedulingPolicy: [''],
-    projectPictures: [[]],
+    projectTitle: ['', Validators.required],
+    serviceDescription: ['', Validators.required],
   });
 
-  constructor(
-    private fb: FormBuilder,
-    private serviceService: ServiceService
-  ) {}
+  constructor(private fb: FormBuilder, private serviceService: ServiceService) {
+    this.generateTimeOptions(15);
+  }
+
+  onFilesSelected(files: File[]) {
+    this.businessCertificates = files;
+  }
+
+  onImagesUploaded(images: File[]) {
+    this.projectPictures = images;
+  }
+
+  onLocationSelected(location: PlaceSearchResult) {
+    this.selectedLocation = location;
+    console.log(this.selectedLocation);
+  }
+
+  setSameLocation(event: any) {
+    this.isSameLocation = event.value.value;
+  }
 
   generateTimeOptions(step: number) {
     const times: ITime[] = [];
@@ -96,5 +126,81 @@ export class ServiceCreationFormComponent {
     if (this.bookingDaysFormArray.length > 1) {
       this.bookingDaysFormArray.removeAt(index);
     }
+  }
+
+  closeDialog() {
+    this.closeDialogEvent.emit(false);
+  }
+
+  onSubmit() {
+    if (this.serviceForm.valid) {
+      const servicePreferenceData = new FormData();
+      const formValue = this.serviceForm.value;
+
+      const formattedBookingDays = formValue.bookingDays.map((day: any) => ({
+        dayOfWeek: (day.dayOfWeek?.name || day.dayOfWeek)
+          .toString()
+          .toUpperCase(),
+        startTime: this.formatTime(day.startTime),
+        endTime: this.formatTime(day.endTime),
+      }));
+
+      servicePreferenceData.append(
+        'serviceName',
+        formValue.serviceName.name || formValue.serviceName
+      );
+      servicePreferenceData.append(
+        'accountPreference',
+        formValue.accountPreference.name || formValue.accountPreference
+      );
+      servicePreferenceData.append('location', formValue.location);
+      servicePreferenceData.append(
+        'bookingDays',
+        JSON.stringify(formattedBookingDays)
+      );
+      servicePreferenceData.append(
+        'schedulingPolicy',
+        formValue.schedulingPolicy
+      );
+
+      this.businessCertificates.forEach((file) => {
+        servicePreferenceData.append('documents', file);
+      });
+
+      servicePreferenceData.forEach((key, value) => {
+        console.log(`${key}: ${value}`);
+      });
+
+      // Send service preference data
+      this.serviceService
+        .setServicePreference(servicePreferenceData)
+        .subscribe({
+          next: (response) => console.log(response),
+          error: (error) => console.log(error),
+        });
+    } else {
+      console.log('Form invalid');
+    }
+  }
+
+  private formatTime(time: any): string {
+    const timeString = time?.name || time?.value || time;
+
+    if (typeof timeString === 'string' && timeString.match(/^\d{2}:\d{2}$/)) {
+      return timeString;
+    }
+
+    const [timeStr, period] = timeString.toString().split(' ');
+    let [hours, minutes] = timeStr.split(':').map(Number);
+
+    if (period === 'PM' && hours !== 12) {
+      hours += 12;
+    } else if (period === 'AM' && hours === 12) {
+      hours = 0;
+    }
+
+    return `${hours.toString().padStart(2, '0')}:${minutes
+      .toString()
+      .padStart(2, '0')}`;
   }
 }

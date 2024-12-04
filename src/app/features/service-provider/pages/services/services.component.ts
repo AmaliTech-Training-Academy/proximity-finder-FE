@@ -35,4 +35,8 @@ export class ServicesComponent {
   showDialog() {
     this.visible = true;
   }
+
+  closeDialog(isVisible: boolean) {
+    this.visible = isVisible;
+  }
 }

@@ -130,6 +130,7 @@ export class ServicePreferenceComponent {
         endTime: this.formatTime(day.endTime),
       }));
 
+      // TODO: Send currently logged in service provider's id
       formData.append('userId', '33252a99-ab98-4413-9191-6f93c6df5806');
 
       formData.append(
@@ -141,8 +142,6 @@ export class ServicePreferenceComponent {
         'paymentPreference',
         formValue.paymentPreference.name || formValue.paymentPreference
       );
-
-      formData.append('sameLocation', formValue.sameLocation ? 'yes' : 'no');
 
       formData.append('location', formValue.location);
 

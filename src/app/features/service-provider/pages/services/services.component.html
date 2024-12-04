@@ -60,14 +60,6 @@
     [draggable]="false"
     [resizable]="false"
   >
-    <app-service-creation-form />
-    <div class="buttons">
-      <p-button
-        label="Cancel"
-        severity="secondary"
-        (onClick)="visible = false"
-      />
-      <p-button label="Create" class="primary" />
-    </div>
+    <app-service-creation-form (closeDialogEvent)="closeDialog($event)" />
   </p-dialog>
 </section>
