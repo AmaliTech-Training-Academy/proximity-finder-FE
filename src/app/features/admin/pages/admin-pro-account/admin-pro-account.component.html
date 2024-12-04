@@ -22,9 +22,9 @@
           <ng-template pTemplate="body" let-proAccount>
             <tr routerLink="/admin/dashboard/pro-accounts/details">
               <td>{{ proAccount.businessOwnerName }}</td>
-              <td>{{ proAccount.userName | slice:0:15 }}...</td>
-              <td>{{ proAccount.email | slice:0:10 }}...</td>
-              <td>{{ proAccount.businessAddress | slice:0:10}}...</td>
+              <td>{{ proAccount.userName | slice:0:15 }}</td>
+              <td>{{ proAccount.email | slice:0:10 }}</td>
+              <td>{{ proAccount.businessAddress | slice:0:10}}</td>
               <td>{{ proAccount.enabled === true ? 'Yes' : 'No'}}
               </td>
               <td>

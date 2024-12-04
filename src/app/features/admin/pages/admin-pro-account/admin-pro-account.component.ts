@@ -8,7 +8,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { UserAccountsService } from '../../services/user-accounts.service';
 import { User, UserResponse } from '../../models/user-response';
 import { Subscription } from 'rxjs';
-import { proAccounts } from '../../../service-provider/data';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
 
 @Component({

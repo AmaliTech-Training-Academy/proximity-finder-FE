@@ -201,6 +201,13 @@ export const routes: Routes = [
           ]
       },
       {
+        path: 'user-accounts',
+        loadComponent: () =>
+          import(
+            './features/admin/pages/admin-user-accounts/admin-user-accounts.component'
+          ).then((m) => m.AdminUserAccountsComponent),
+      },
+      {
         path: 'settings',
         loadComponent: () =>
           import(
