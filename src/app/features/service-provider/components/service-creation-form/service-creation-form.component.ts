@@ -1,4 +1,10 @@
-import { Component, ElementRef, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Inject,
+  Output,
+} from '@angular/core';
 import {
   ReactiveFormsModule,
   FormBuilder,
@@ -18,6 +24,9 @@ import { ServiceService } from '../../../../core/services/service.service';
 import { ITime } from '../../../../core/models/ITime';
 import { PlaceSearchResult } from '../../../../core/models/place-search-result';
 import { LocationsComponent } from '../../../../shared/components/locations/locations.component';
+import { ServiceResponse } from '../../../../core/models/IServiceResponse';
+import { NOTYF } from '../../../../shared/notify/notyf.token';
+import { Notyf } from 'notyf';
 
 @Component({
   selector: 'app-service-creation-form',
@@ -58,7 +67,11 @@ export class ServiceCreationFormComponent {
     serviceDescription: ['', Validators.required],
   });
 
-  constructor(private fb: FormBuilder, private serviceService: ServiceService) {
+  constructor(
+    private fb: FormBuilder,
+    private serviceService: ServiceService,
+    @Inject(NOTYF) private notyf: Notyf
+  ) {
     this.generateTimeOptions(15);
   }
 
@@ -129,7 +142,13 @@ export class ServiceCreationFormComponent {
   onSubmit() {
     if (this.serviceForm.valid) {
       const servicePreferenceData = new FormData();
+      const serviceExperienceData = new FormData();
       const formValue = this.serviceForm.value;
+      const locationData = {
+        placeName: this.selectedLocation.address,
+        latitude: this.selectedLocation.location?.lat(),
+        longitude: this.selectedLocation.location?.lng(),
+      };
 
       const formattedBookingDays = formValue.bookingDays.map((day: any) => ({
         dayOfWeek: (day.dayOfWeek?.name || day.dayOfWeek)
@@ -139,15 +158,26 @@ export class ServiceCreationFormComponent {
         endTime: this.formatTime(day.endTime),
       }));
 
+      // Service Preference Data
       servicePreferenceData.append(
         'serviceName',
         formValue.serviceName.name || formValue.serviceName
       );
       servicePreferenceData.append(
-        'accountPreference',
+        'paymentPreference',
         formValue.accountPreference.name || formValue.accountPreference
       );
-      servicePreferenceData.append('placeName', formValue.location);
+
+      servicePreferenceData.append('placeName', locationData.placeName);
+      servicePreferenceData.append(
+        'latitude',
+        String(locationData.latitude ?? '')
+      );
+      servicePreferenceData.append(
+        'longitude',
+        String(locationData.longitude ?? '')
+      );
+
       servicePreferenceData.append(
         'bookingDays',
         JSON.stringify(formattedBookingDays)
@@ -161,16 +191,33 @@ export class ServiceCreationFormComponent {
         servicePreferenceData.append('documents', file);
       });
 
-      servicePreferenceData.forEach((key, value) => {
-        console.log(`${key}: ${value}`);
+      // Service Experience Data
+      serviceExperienceData.append('projectTitle', formValue.projectTitle);
+      serviceExperienceData.append('description', formValue.serviceDescription);
+
+      this.projectPictures.forEach((file) => {
+        serviceExperienceData.append('images', file);
       });
 
       // Send service preference data
       this.serviceService
         .setServicePreference(servicePreferenceData)
         .subscribe({
-          next: (response) => console.log(response),
-          error: (error) => console.log(error),
+          next: (response: any) => {
+            const serviceId = response.result.id;
+            serviceExperienceData.append('providerServiceId', serviceId);
+
+            // Send service experience data
+            this.serviceService
+              .createServiceExperience(serviceExperienceData)
+              .subscribe({
+                next: () => {
+                  this.notyf.success('Service created successfully'),
+                    this.closeDialog();
+                },
+              });
+          },
+          error: () => this.notyf.error('Failed to create service'),
         });
     } else {
       console.log('Form invalid');
