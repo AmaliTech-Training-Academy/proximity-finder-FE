@@ -7,6 +7,8 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 import { DropdownModule } from 'primeng/dropdown';
 import { IMobileMoney } from '../../models/mobile-money';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
+import { MatDialogRef } from '@angular/material/dialog';
+import { AccountDetailsComponent } from '../../pages/account-details/account-details.component';
 
 @Component({
   selector: 'app-mobile-money-details',
@@ -20,7 +22,7 @@ export class MobileMoneyDetailsComponent implements OnInit {
   selectedProvider!: string
   private notyf = inject(NOTYF)
 
-  constructor(private mobileService: UserMobileMoneyService, private fb: FormBuilder) {}
+  constructor(private mobileService: UserMobileMoneyService, private fb: FormBuilder, private dialogRef: MatDialogRef<AccountDetailsComponent>) {}
 
   mobileMoneyForm = this.fb.group({
     provider: ['', Validators.required],
@@ -47,6 +49,7 @@ export class MobileMoneyDetailsComponent implements OnInit {
       this.mobileService.addMobileMoney(momoInfo).subscribe({
         next: () => {
           this.notyf.success('Mobile money details added successfully')
+          this.dialogRef.close(true)
         },
         error: (error) => {
           this.notyf.error('An error occurred while adding mobile money details')
@@ -55,5 +58,8 @@ export class MobileMoneyDetailsComponent implements OnInit {
     }
   }
 
+  onCancel() {
+    this.dialogRef.close(true)
+  }
 
 }

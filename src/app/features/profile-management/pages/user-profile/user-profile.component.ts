@@ -17,12 +17,13 @@ import { Observable, Subscription } from 'rxjs';
 import { LocalStorageService } from '../../../../shared/services/local-storage.service';
 import { initializeUser } from '../../../../utils/decodeToken';
 import { ROLE_SEEKER } from '../../../../utils/roles';
-import { IPaymentAccount } from '../../../../core/models/payment-account';
+import { IPaymentAccount, IPaymentAccountNoId } from '../../../../core/models/payment-account';
+import { ReversePipe } from "../../../../utils/reverse.pipe";
 
 @Component({
   selector: 'app-user-profile',
   standalone: true,
-  imports: [MatDialogModule, ReactiveFormsModule, NavbarComponent, UserProfileHeaderComponent, FieldsComponent, CommonModule, MatIconModule],
+  imports: [MatDialogModule, ReactiveFormsModule, NavbarComponent, UserProfileHeaderComponent, FieldsComponent, CommonModule, MatIconModule, ReversePipe],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.sass',
   providers: [provideNativeDateAdapter()]
@@ -39,7 +40,7 @@ export class UserProfileComponent implements OnInit {
   defaultImage = 'assets/images/default-avatar.png'
   token!: string
   role: string[] = []
-  paymentAccounts!: Observable<IPaymentAccount[]>
+  paymentAccounts!: IPaymentAccount[]
   selectedAccount:IPaymentAccount | null = null
   timestamp: number = new Date().getTime()
 
@@ -63,7 +64,9 @@ export class UserProfileComponent implements OnInit {
       })
     }
 
-    this.paymentAccounts = this.profileService.getPaymentAccounts()
+    this.loadPaymentAccounts()
+
+    this.profileService.getPaymentAccounts()
   }
 
   userForm = this.fb.group({
@@ -73,12 +76,12 @@ export class UserProfileComponent implements OnInit {
   })
 
   accountInfoForm = this.fb.group({
-    bankName: ['', Validators.required],
-    accountName: ['', Validators.required],
+    bankName: [''],
+    accountName: [''],
     accountAlias: [''],
-    accountNumber: ['', [Validators.required, Validators.maxLength(13)]],
-    phoneNumber: ['', Validators.required],
-    serviceProvider: ['', Validators.required]
+    accountNumber: ['', Validators.maxLength(13)],
+    phoneNumber: [''],
+    serviceProvider: ['']
   });
 
   updateUserForm() {
@@ -218,23 +221,22 @@ export class UserProfileComponent implements OnInit {
   updateAccount() {
     if (this.accountInfoForm.valid) {
       const { bankName, accountName, accountAlias, accountNumber, phoneNumber, serviceProvider } = this.accountInfoForm.value
-      const updatedAccount: IPaymentAccount = {
-        bankName: bankName || 'none',
-        accountName: accountName || 'none',
+      const updatedAccount: IPaymentAccountNoId = {
+        bankName: bankName || '',
+        accountName: accountName || '',
         accountAlias: accountAlias!,
-        accountNumber: accountNumber || 'none',
-        phoneNumber: phoneNumber  || 'none',
-        serviceProvider: serviceProvider || 'none',
-        id: this.selectedAccount?.id || 0,
+        accountNumber: accountNumber || '',
+        phoneNumber: phoneNumber  || '',
+        serviceProvider: serviceProvider || '',
         paymentPreference: this.selectedAccount?.paymentPreference!,
       }
-      console.log(updatedAccount)
       if (this.selectedAccount) {
         this.profileService.editPaymentAccount(updatedAccount, this.selectedAccount.id).subscribe({
           next: () => {
             this.notyf.success('Account updated successfully')
           },
-          error: () => {
+          error: (error) => {
+            console.error(error)
             this.notyf.error('An error occurred while updating account')
           }
         })
@@ -247,12 +249,19 @@ export class UserProfileComponent implements OnInit {
       this.profileService.deletePaymentAccount(this.selectedAccount.id).subscribe({
         next: (account) => {
           this.notyf.success('Account deleted successfully')
+          this.isAccountClicked = false
         },
         error: (error) => {
           this.notyf.error('An error occurred while deleting account')
         }
       })
     }
+  }
+
+  loadPaymentAccounts(): void {
+    this.profileService.paymentAccounts$.subscribe(accounts => {
+      this.paymentAccounts = accounts
+    })
   }
 
   ngOnDestroy() {

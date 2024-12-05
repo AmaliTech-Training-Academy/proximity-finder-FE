@@ -2,12 +2,14 @@ import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FieldsComponent } from "../../../pro-registration/components/fields/fields.component";
 import { UserBankService } from '../../services/user-bank.service';
 import { IBank } from '../../models/bank';
-import { map, Observable, Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { BankName } from '../../models/bank-name';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { AccountDetailsComponent } from '../../pages/account-details/account-details.component';
 
 @Component({
   selector: 'app-bank-details',
@@ -24,7 +26,7 @@ export class BankDetailsComponent implements OnInit, OnDestroy {
   private notyf = inject(NOTYF)
   bankSubscription!: Subscription
 
-  constructor(private bankService: UserBankService, private fb: FormBuilder){}
+  constructor(private bankService: UserBankService, private fb: FormBuilder, private dialogRef: MatDialogRef<AccountDetailsComponent>){}
 
   bankForm = this.fb.group({
     bankName: ['', Validators.required],
@@ -49,11 +51,11 @@ export class BankDetailsComponent implements OnInit, OnDestroy {
         accountName: this.bankForm.value.accountName!,
         accountAlias: this.bankForm.value.accountAlias!,
       }
-      console.log(bankInfo)
 
       this.bankService.addBank(bankInfo).subscribe({
         next: () => {
           this.notyf.success('Bank details added successfully')
+          this.dialogRef.close(true)
         },
         error: (error) => {
           this.notyf.error('An error occurred while adding bank details')
@@ -63,7 +65,7 @@ export class BankDetailsComponent implements OnInit, OnDestroy {
   }
 
   onCancel() {
-    this.bankForm.reset()
+    this.dialogRef.close(true)
   }
 
   ngOnDestroy(): void {
