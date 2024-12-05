@@ -9,7 +9,7 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
 import { CommonModule } from '@angular/common';
 import { filterItemsByQuery } from '../../../../utils/filterCategories';
 import { ProviderDataService } from '../../../service-discovery/services/provider-data.service';
-import { ProDetails } from '../../../service-discovery/models/pro-details';
+import { ProDetails, ProResponse } from '../../../service-discovery/models/pro-details';
 import { RouterLink } from '@angular/router';
 import { Position } from '../../../service-discovery/models/position';
 import { GeolocationService } from '../../../service-discovery/services/geolocation.service';
@@ -74,7 +74,6 @@ export class ProSearchComponent implements OnInit{
 
     if (this.formGroup.valid) {  
       const serviceName = selectedService
-      console.log('Service Name:', serviceName)
   
       const location = { lng: this.currentLocation?.longitude, lat: this.currentLocation?.latitude }
   
@@ -88,8 +87,8 @@ export class ProSearchComponent implements OnInit{
       const lng = location.lat
   
       this.locationService.getNearbyProviders(serviceName, lng, lat).subscribe({
-        next: (response: ProDetails[]) => {
-          this.providerService.setProviders(response)
+        next: (response: ProResponse) => {
+          this.providerService.setProviders(response.content)
         },
         error: (error) => {
           console.error(error)
