@@ -1,10 +1,4 @@
-import {
-  Component,
-  ElementRef,
-  EventEmitter,
-  Output,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output } from '@angular/core';
 import {
   ReactiveFormsModule,
   FormBuilder,
@@ -23,7 +17,7 @@ import { ImageUploaderComponent } from '../image-uploader/image-uploader.compone
 import { ServiceService } from '../../../../core/services/service.service';
 import { ITime } from '../../../../core/models/ITime';
 import { PlaceSearchResult } from '../../../../core/models/place-search-result';
-import { BusinessAddressComponent } from '../../../pro-registration/components/business-address/business-address.component';
+import { LocationsComponent } from '../../../../shared/components/locations/locations.component';
 
 @Component({
   selector: 'app-service-creation-form',
@@ -37,6 +31,7 @@ import { BusinessAddressComponent } from '../../../pro-registration/components/b
     CommonModule,
     FileUploaderComponent,
     ImageUploaderComponent,
+    LocationsComponent,
   ],
   templateUrl: './service-creation-form.component.html',
   styleUrl: './service-creation-form.component.sass',
@@ -77,7 +72,6 @@ export class ServiceCreationFormComponent {
 
   onLocationSelected(location: PlaceSearchResult) {
     this.selectedLocation = location;
-    console.log(this.selectedLocation);
   }
 
   setSameLocation(event: any) {
@@ -153,7 +147,7 @@ export class ServiceCreationFormComponent {
         'accountPreference',
         formValue.accountPreference.name || formValue.accountPreference
       );
-      servicePreferenceData.append('location', formValue.location);
+      servicePreferenceData.append('placeName', formValue.location);
       servicePreferenceData.append(
         'bookingDays',
         JSON.stringify(formattedBookingDays)

@@ -23,14 +23,18 @@ import { linkedAccounts } from '../../data';
 })
 export class ProAccountInfoComponent {
   isDialogVisible: boolean = false;
+  isConfirmDialogVisible: boolean = false;
+
   items = [
     {
       label: 'Edit',
       icon: 'pi pi-pencil',
+      command: () => (this.isDialogVisible = true),
     },
     {
       label: 'Delete',
       icon: 'pi pi-trash',
+      command: () => (this.isConfirmDialogVisible = true),
     },
   ];
 

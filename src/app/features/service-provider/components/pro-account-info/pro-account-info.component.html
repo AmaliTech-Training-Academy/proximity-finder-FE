@@ -96,3 +96,26 @@
     /></p-tabPanel>
   </p-tabView>
 </p-dialog>
+
+<p-dialog
+  [modal]="true"
+  [(visible)]="isConfirmDialogVisible"
+  [draggable]="false"
+  [resizable]="false"
+  header="Delete Account"
+  [style]="{ width: '26.75rem' }"
+  class="confirmDelete"
+>
+  <p>
+    Are you sure you want to delete this account?<br />Deleting account will
+    remove it permanently from your linked accounts.
+  </p>
+  <div class="buttons">
+    <p-button
+      label="Cancel"
+      severity="secondary"
+      (onClick)="isConfirmDialogVisible = false"
+    />
+    <p-button severity="danger" label="Delete" />
+  </div>
+</p-dialog>

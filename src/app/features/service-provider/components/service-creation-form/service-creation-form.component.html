@@ -138,13 +138,13 @@
   @if(!isSameLocation) {
   <div class="location">
     <label for="location">Location</label>
-    <input
-      type="text"
-      pInputText
-      placeholder="Where is your service located?"
+    <app-locations
+      [atHome]="false"
+      (placeSelected)="onLocationSelected($event)"
     />
   </div>
   }
+
   <div class="section-two">
     <div>
       <label for="businessCertificate"
