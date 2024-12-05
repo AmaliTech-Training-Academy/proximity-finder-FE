@@ -1,5 +1,5 @@
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { HelpAndSupportService } from '../../services/help-and-support.service';
@@ -7,6 +7,8 @@ import { CommonModule } from '@angular/common';
 import { Notyf } from 'notyf';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { Faq } from '../../models/faqs';
+import { Subscription } from 'rxjs';
+import { faqGroup } from '../../models/faqGroup';
 
 @Component({
   selector: 'app-edit',
@@ -15,13 +17,15 @@ import { Faq } from '../../models/faqs';
   templateUrl: './edit.component.html',
   styleUrl: './edit.component.sass'
 })
-export class EditComponent {
+export class EditComponent implements OnInit,OnDestroy {
   visible: boolean = false;
-  faqGroups: any[] = []; 
+  faqGroups: faqGroup[] = []; 
   selectedFaqGroup: any; 
   @Input() faq: Faq | null = null;
+  @Output() editFaq = new EventEmitter<Faq>();
 
-@Output() editFaq = new EventEmitter<Faq>();
+  loadFaqGroupSub!:Subscription
+  saveSub!:Subscription
 
 
   
@@ -49,7 +53,7 @@ export class EditComponent {
     onSave() {
       if (this.editForm.valid) {
         const updatedFaq = { ...this.faq, ...this.editForm.value };
-        this.helpAndSupportService.editFaq(updatedFaq).subscribe({
+        this.saveSub=this.helpAndSupportService.editFaq(updatedFaq).subscribe({
           next: () => {
             this.visible = false;
             this.notyf.success('FAQ updated successfully!');
@@ -79,7 +83,7 @@ export class EditComponent {
     }
   
     loadFaqGroups() {
-      this.helpAndSupportService.getFaqGroups().subscribe({
+      this.loadFaqGroupSub=this.helpAndSupportService.getFaqGroups().subscribe({
         next: (data: any) => {
           this.faqGroups = data.map((group: any) => ({
             label: group.name,
@@ -90,6 +94,16 @@ export class EditComponent {
           console.error('Error fetching FAQ groups:', error);
         },
       });
+    }
+
+    ngOnDestroy(){
+      if(this.loadFaqGroupSub){
+        this.loadFaqGroupSub.unsubscribe()
+      }
+
+      if(this.saveSub){
+        this.saveSub.unsubscribe()
+      }
     }
 
 }

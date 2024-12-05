@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { AfterViewInit, Component, Inject, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule,FormsModule} from '@angular/forms';
 import { MenuItem } from 'primeng/api';
 import { DialogModule } from 'primeng/dialog';
@@ -13,6 +13,7 @@ import { groups } from '../../../../utils/faqGroups';
 import { Notyf } from 'notyf';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { faqGroup } from '../../models/faqGroup';
+import { Subscription } from 'rxjs';
 
 
 
@@ -23,13 +24,18 @@ import { faqGroup } from '../../models/faqGroup';
   templateUrl: './admin-support.component.html',
   styleUrl: './admin-support.component.sass'
 })
-export class AdminSupportComponent implements AfterViewInit {
+export class AdminSupportComponent implements AfterViewInit,OnInit,OnDestroy {
   visible: boolean = false;
   faqs: Faq[] = [];
   selectedFaq: Faq | null = null;
   menuOpen = false;
   faqGroups: faqGroup[] = []; 
   selectedFaqGroup!: faqGroup; 
+
+  loadFaqSub!:Subscription
+  loadFaqGroupSub!:Subscription
+  saveSub!:Subscription
+
 
   @ViewChild(DeleteComponent) deleteComponent!: DeleteComponent;
   @ViewChild(EditComponent) editComponent!: EditComponent;
@@ -66,7 +72,7 @@ export class AdminSupportComponent implements AfterViewInit {
     }
 
     loadFaqs() {
-      this.helpAndSupportService.getAllFaqs().subscribe({
+      this.loadFaqSub = this.helpAndSupportService.getAllFaqs().subscribe({
         next: (faqs) => {
           this.faqs = faqs.map(faq => ({
             ...faq,
@@ -80,7 +86,7 @@ export class AdminSupportComponent implements AfterViewInit {
     }
 
     loadFaqGroups() {
-      this.helpAndSupportService.getFaqGroups().subscribe({
+      this.loadFaqGroupSub=this.helpAndSupportService.getFaqGroups().subscribe({
         next: (data: any) => {
           this.faqGroups = data.map((group: any) => ({
             label: group.name, 
@@ -100,7 +106,7 @@ export class AdminSupportComponent implements AfterViewInit {
   onSubmit() {
     if (this.createForm.valid) {
       const newFaq: Faq = this.createForm.value;
-      this.helpAndSupportService.createFaq(newFaq).subscribe({
+      this.saveSub=this.helpAndSupportService.createFaq(newFaq).subscribe({
         next: (response) => {
           this.notyf.success('Faq created successfully');
           this.visible = false; 
@@ -159,4 +165,19 @@ export class AdminSupportComponent implements AfterViewInit {
       },
     });
   }
+
+  ngOnDestroy(){
+    if(this.loadFaqSub){
+      this.loadFaqSub.unsubscribe()
+    }
+
+    if(this.loadFaqGroupSub){
+      this.loadFaqGroupSub.unsubscribe()
+    }
+    if(this.saveSub){
+      this.saveSub.unsubscribe()
+    }
+  }
+
+
 }

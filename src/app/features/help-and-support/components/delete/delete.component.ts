@@ -13,8 +13,8 @@ import { Faq } from '../../models/faqs';
 export class DeleteComponent {
   visible: boolean = false;
   
-  @Input() faqToDelete: Faq | null = null; // Input to receive FAQ to delete
-  @Output() deleteConfirmed = new EventEmitter<Faq>(); // EventEmitter to notify deletion
+  @Input() faqToDelete: Faq | null = null; 
+  @Output() deleteConfirmed = new EventEmitter<Faq>(); 
 
   deleteDialog() {
     this.visible = true;
@@ -22,7 +22,7 @@ export class DeleteComponent {
 
   onConfirm() {
     if (this.faqToDelete) {
-      this.deleteConfirmed.emit(this.faqToDelete); // Emit the FAQ to delete
+      this.deleteConfirmed.emit(this.faqToDelete); 
     }
     this.visible = false;
   }
