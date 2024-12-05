@@ -102,6 +102,9 @@ export class AboutBusinessComponent implements OnDestroy {
   }
 
   ngOnDestroy():void{
-    this.aboutSubscription.unsubscribe()
+    if(this.aboutSubscription){
+      this.aboutSubscription.unsubscribe()
+    }
+    
   }
 }

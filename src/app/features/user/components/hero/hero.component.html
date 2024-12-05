@@ -18,9 +18,8 @@
                     />
 
                     <div></div>
-                    <i class="pi pi-map-marker" style="color: #C9C9C9;"></i>
-
-                    <app-locations (placeSelected)="onLocationSelected($event)" formControlName="selectedLocation"/>
+                    <i class="pi pi-map-marker" style="color: #C9C9C9;"></i>                    
+                    <app-locations (placeSelected)="onLocationSelected($event)" formControlName="selectedLocation" class="location"/>
                     <button class="search-btn">Search</button>
                 </form>
             </div>

@@ -9,17 +9,20 @@
                 <div class="search-container">
                     <img src="../../../../../assets/search.svg" alt="search">
                     <div class="bar"></div>
+                    <form [formGroup]="formGroup">
                     <p-autoComplete class="service"
                         formControlName="selectedService"
                         [suggestions]="filteredCategories"
                         [showClear]="true"
                         (completeMethod)="filterCategories($event)"
+                        (onSelect)="onSelectedService()"
                         placeholder="Search for project..." 
                     />
+                </form>
                 </div>
                 <div class="sort-container">
                     <p>Sort by: </p>
-                    <select>
+                    <select (change)="onSortChange($event)">
                         <option>Most Popular</option>
                         <option>Most Recent</option>
                     </select>
@@ -31,7 +34,9 @@
                     <app-pro-info-card [provider]="provider"/>
                 } 
             </div>
+
         </div>
+        <app-footer/>
     }
     @else {
         <div class="no-result">
