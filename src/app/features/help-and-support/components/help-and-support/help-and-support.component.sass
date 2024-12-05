@@ -94,16 +94,21 @@
             gap: pxToRem(90)
             margin-top: pxToRem(24)
             max-width: pxToRem(1600)
+           
 
             .questions-container
                 @include flex-option(flex, null, null, column)
                 flex: 2
                 gap: pxToRem(16)
+                height: pxToRem(400)
+                overflow-y: scroll
+                scrollbar-width: none
                
                 ::ng-deep .p-accordion p-accordiontab .p-accordion-tab
                     border: 1px solid #E4E7E9    
                     border-radius: pxToRem(8)
                     padding-bottom: 0 
+                    width: pxToRem(800)
 
                 ::ng-deep.p-accordion-tab .p-accordion-header-link
                     padding: 1rem    
