@@ -28,27 +28,17 @@
 
         <div class="freq">
             <div class="questions-container">
-                <p-accordion expandIcon="pi pi-plus" collapseIcon="pi pi-minus" class="custom-accordion">
-                  <p-accordionTab header="What is a refund request?">
-                    <div class="accordion-content">
-                      <p>
-                        A refund request is a request from a customer to return or exchange an item. A refund is typically issued after a purchase has been completed and a customer has received their product or service.
-                      </p>
-                      
-                    </div>
-                  </p-accordionTab>
-                </p-accordion>
-
-                <p-accordion expandIcon="pi pi-plus" collapseIcon="pi pi-minus" class="custom-accordion">
-                    <p-accordionTab header="What is a refund request?">
-                      <div class="accordion-content">
-                        <p>
-                          A refund request is a request from a customer to return or exchange an item. A refund is typically issued after a purchase has been completed and a customer has received their product or service.
-                        </p>
-                        
-                      </div>
-                    </p-accordionTab>
+                @if (faqs.length > 0) {
+                  <p-accordion expandIcon="pi pi-plus" collapseIcon="pi pi-minus" class="custom-accordion">
+                    @for (faq of faqs; track faq.id) {
+                      <p-accordionTab [header]="faq.question">
+                        <div class="accordion-content">
+                          <p>{{ faq.answer }}</p>
+                        </div>
+                      </p-accordionTab>
+                    }
                   </p-accordion>
+                }
               </div>
               
               
@@ -56,15 +46,17 @@
             <div class="request-form">
                 <p>Don’t find your answer, Ask for support.</p>
                 <span>If you can't find the FAQ that addresses your specific question, don't hesitate to reach out for support. Contact the support team for personalized assistance.They're there to help resolve your concerns quickly and effectively!</span>
-                <form>
-                  <input type="email" placeholder="Email address">
-                  <input type="text" placeholder="Subject">
-                  <textarea placeholder="Message"></textarea>
-                  <div class="buttons">
-                      <button type="submit" class="btn-send">Send Message </button>
-                    <i class="pi pi-arrow-right" style="color: white"></i>
-                  </div>
-                </form>
+                <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
+                    <input formControlName="email" type="email" placeholder="Email address">
+                    <input formControlName="subject" type="text" placeholder="Subject">
+                    <textarea formControlName="message" placeholder="Message"></textarea>
+                  
+                    <div class="buttons">
+                      <button type="submit" class="btn-send" [disabled]="messageForm.invalid">Send Message</button>
+                      <i class="pi pi-arrow-right" style="color: white"></i>
+                    </div>
+                  </form>
+                  
 
             </div>
 
@@ -72,11 +64,13 @@
 
         <div class="switcher">
             <p-selectButton 
-        [options]="stateOptions" 
-        [(ngModel)]="value" 
-        optionLabel="label" 
-        optionValue="value" />
-        </div>
+              [options]="stateOptions" 
+              [(ngModel)]="value" 
+              optionLabel="label" 
+              optionValue="value" 
+              (onChange)="onStateChange()">
+            </p-selectButton>
+          </div>
 
         <div class="icons">
             <div class="terms">
