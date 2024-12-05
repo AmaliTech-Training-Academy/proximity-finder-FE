@@ -1,24 +1,33 @@
 <p-dialog header="Edit FAQ" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
-    <form>
-        <div class="question">
-            <label>Question</label>
-            <textarea placeholder="Type here"></textarea>
-        </div>
-        <div class="answer">
-            <label>Answer</label>
-            <textarea placeholder="Type here"></textarea>
-        </div>
-
+    <form [formGroup]="editForm" (ngSubmit)="onSave()">
         <div class="faq-group">
             <label>FAQ Group</label>
             <p-dropdown
-             [options]="" 
-             optionLabel="" 
-             placeholder="Choose FAQ Group"/>
+            id="faqGroupDropdown"
+            [options]="faqGroups"
+            formControlName="groupId"
+            placeholder="Select FAQ Group"
+             />
         </div>
+       
+        <div class="question">
+            <label>Question</label>
+            <textarea
+             placeholder="Type here"
+             formControlName="question"
+             ></textarea>
+        </div>
+        <div class="answer">
+            <label>Answer</label>
+            <textarea 
+            placeholder="Type here"
+            formControlName="answer"
+            ></textarea>
+        </div>
+
         <div class="faq-buttons">
             <button type="button" class="btn-cancel" (click)="onCancel()">Cancel</button>
-            <button type="submit" class="btn-save" (click)="onSave()">Save Changes</button>  
+            <button type="submit" class="btn-save" [disabled]="editForm.invalid">Save Changes</button>  
         </div>
     </form>
 

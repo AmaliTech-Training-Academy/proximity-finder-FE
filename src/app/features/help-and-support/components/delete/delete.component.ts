@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
+import { Faq } from '../../models/faqs';
 
 @Component({
   selector: 'app-delete',
@@ -12,12 +13,17 @@ import { DialogModule } from 'primeng/dialog';
 export class DeleteComponent {
   visible: boolean = false;
   
+  @Input() faqToDelete: Faq | null = null; // Input to receive FAQ to delete
+  @Output() deleteConfirmed = new EventEmitter<Faq>(); // EventEmitter to notify deletion
+
   deleteDialog() {
     this.visible = true;
-}
+  }
 
   onConfirm() {
-    // Perform deletion logic here
+    if (this.faqToDelete) {
+      this.deleteConfirmed.emit(this.faqToDelete); // Emit the FAQ to delete
+    }
     this.visible = false;
   }
 
