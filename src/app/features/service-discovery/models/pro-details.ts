@@ -2,7 +2,7 @@ import { ServiceCategory } from "../../../core/models/IServiceCategory";
 
     export interface ProDetails {
         id: string,
-        userId: string,
+        userEmail: string,
         service: ServiceCategory,
         paymentPreference: string,
         placeName: string,

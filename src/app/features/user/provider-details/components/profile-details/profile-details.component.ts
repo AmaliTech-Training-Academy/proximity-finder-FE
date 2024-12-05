@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormGroup,FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RatingModule } from 'primeng/rating';
 import { AvailabilityFormComponent } from "../availability-form/availability-form.component";
@@ -19,9 +19,9 @@ import { Subscription } from 'rxjs';
 })
 export class ProfileDetailsComponent implements OnInit, OnDestroy{
   value: number = 4;
-  provider!: ProDetails;
   private notyf = inject(NOTYF)
   providerSubscription: Subscription | null = null
+  @Input() provider!: ProDetails;
 
   visible: boolean = false;
   modals = {
@@ -45,7 +45,7 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy{
     
   })
 
-  constructor(private formBuilder:FormBuilder, private providerService: ProviderDataService){}
+  constructor(private formBuilder:FormBuilder){}
 
   
   showDialog(type: 'quote' | 'call') {
@@ -57,19 +57,6 @@ export class ProfileDetailsComponent implements OnInit, OnDestroy{
 
 
   ngOnInit() {
-    const storedProvider = this.providerService.getSelectedProvider();
-  
-    if (storedProvider) {
-      this.provider = storedProvider;
-    } else {
-      this.providerSubscription = this.providerService.selectedProvider$.subscribe((provider) => {
-        if (provider) {
-          this.provider = provider;
-        } else {
-          this.notyf.error('Provider not found');
-        }
-      });
-    }
   }
 
 
