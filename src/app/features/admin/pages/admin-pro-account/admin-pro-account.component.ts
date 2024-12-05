@@ -9,11 +9,12 @@ import { UserAccountsService } from '../../services/user-accounts.service';
 import { User, UserResponse } from '../../models/user-response';
 import { Subscription } from 'rxjs';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
+import { StatusPipe } from "../../pipes/status.pipe";
 
 @Component({
   selector: 'app-admin-pro-account',
   standalone: true,
-  imports: [TableModule, CommonModule, RouterLink],
+  imports: [TableModule, CommonModule, RouterLink, StatusPipe],
   templateUrl: './admin-pro-account.component.html',
   styleUrl: './admin-pro-account.component.sass'
 })
@@ -65,11 +66,29 @@ export class AdminProAccountComponent implements OnInit, OnDestroy{
       this.activeAccount = null;
     }
   }
-
-  updateStatus(account: any, status: string) {
-    account.status = statusMapping[status] || status;
-    this.activeAccount = null; 
+  updateStatus(account: User, status: string) {
+    const backendStatus = statusMapping[status];
+  
+    if (!backendStatus) {
+      console.error('Invalid status:', status);
+      this.notyf.error('Invalid status selected');
+      return;
+    }
+    account.status = backendStatus;
+  
+    this.activeAccount = null;
+    
+    this.userService.getUserStatus(account.userId, backendStatus).subscribe({
+      next: (response: User) => {
+        this.notyf.success('Account status updated successfully');
+      },
+      error: (err) => {
+        console.error('Error updating user status:', err);
+        this.notyf.error('Error updating user status');
+      },
+    });
   }
+  
 
   @HostListener('document:click', ['$event'])
   closeMenu(event: Event) {

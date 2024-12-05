@@ -33,7 +33,7 @@
               <div class="action-container" (click)="$event.stopPropagation()">
                   <span class="status-label" [ngClass]="proAccount.status | lowercase" (click)="toggleMenu(proAccount)">
                     <i class="status-icon"></i>
-                    {{ proAccount.status }}
+                    {{ proAccount.status | status }}
                     <i class="pi pi-chevron-down"></i>
                   </span>
 
@@ -42,7 +42,7 @@
                       @for (status of statuses; track $index) {
                         <span class="status-label" [ngClass]="statusMapping[status] | lowercase" (click)="updateStatus(proAccount, status)">
                           <i class="status-icon"></i>
-                          {{ status }}
+                          {{ status | status }}
                         </span>
                       }
                     </div>
