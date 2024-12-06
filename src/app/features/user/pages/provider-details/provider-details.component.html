@@ -2,8 +2,10 @@
     <app-user-profile-header/>
     
     <div class="container">
-        <app-profile-details [provider]="provider"/>
-        <app-schedule-overview [provider]="provider"/>
+        @if (providerInfo | async; as provider) {
+            <app-profile-details [provider]="provider"/>
+            <app-schedule-overview [provider]="provider"/>
+        }
         <app-featured-projects/>
         <app-reviews/>
         <app-credentials/>

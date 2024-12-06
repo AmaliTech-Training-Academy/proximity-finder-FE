@@ -49,6 +49,6 @@ export interface Role {
   
   export interface ProviderResponse {
     authservice: AuthService;
-    providerService: ProviderService[];
-    businessInfo: BusinessInfo;
+    'provider-service': ProviderService[];
+    'business-info': BusinessInfo;
   }
