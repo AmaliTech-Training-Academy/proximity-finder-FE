@@ -12,7 +12,7 @@ import { CredentialsComponent } from "../../provider-details/components/credenti
 @Component({
   selector: 'app-provider-details',
   standalone: true,
-  imports: [NavbarComponent, UserProfileHeaderComponent, ProfileDetailsComponent, ScheduleOverviewComponent, FeaturedProjectsComponent, ReviewsComponent, FooterComponent, CredentialsComponent],
+  imports: [ UserProfileHeaderComponent, ProfileDetailsComponent, ScheduleOverviewComponent, FeaturedProjectsComponent, ReviewsComponent, FooterComponent, CredentialsComponent],
   templateUrl: './provider-details.component.html',
   styleUrl: './provider-details.component.sass'
 })
