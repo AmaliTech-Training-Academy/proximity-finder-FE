@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Inject, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Inject, OnDestroy, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { UserAccountsService } from '../../services/user-accounts.service';
 import { User } from '../../models/user-response';
@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './approval-modal.component.html',
   styleUrl: './approval-modal.component.sass'
 })
-export class ApprovalModalComponent {
+export class ApprovalModalComponent implements OnDestroy {
   private notyf = inject(NOTYF)
   userSubscription: Subscription | null = null
 
@@ -37,14 +37,16 @@ export class ApprovalModalComponent {
     this.userSubscription = this.userService.getUserStatus(8, 'ACTIVE').subscribe({
       next: (response: User) => {
         this.notyf.success('Account status updated successfully');
+        this.dialogRef.close(true);
       },
       error: (err) => {
         console.error('Error updating user status:', err);
         this.notyf.error('Error updating user status');
+        this.dialogRef.close(false);
+
       },
     });
     this.confirm.emit(true);
-    this.dialogRef.close(true);
   }
 
   onCancel() {
