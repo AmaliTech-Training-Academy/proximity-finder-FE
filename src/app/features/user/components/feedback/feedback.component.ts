@@ -3,11 +3,12 @@ import { MatIconModule } from '@angular/material/icon';
 import { SvgService } from '../../../../shared/services/svg.service';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
+import { ReviewFormComponent } from "../../../reviews-feedback/components/review-form/review-form.component";
 
 @Component({
   selector: 'app-feedback',
   standalone: true,
-  imports: [MatIconModule, RatingModule, FormsModule],
+  imports: [MatIconModule, RatingModule, FormsModule, ReviewFormComponent],
   templateUrl: './feedback.component.html',
   styleUrl: './feedback.component.sass'
 })
