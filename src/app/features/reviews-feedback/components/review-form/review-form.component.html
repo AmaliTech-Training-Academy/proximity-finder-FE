@@ -2,11 +2,11 @@
     <p-button (onClick)="showDialog()" label="Show" />
     <p-dialog header="Add a Public Review" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
         
-        <form>
+        <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
             <div class="col">
                 <p class="rate">Select a Rating</p>
                 <div class="card flex justify-content-center">
-                    <p-rating [(ngModel)]="value" [cancel]="false"/>
+                    <p-rating  formControlName="value" [cancel]="false"/>
                 </div>
             </div>
 
@@ -23,7 +23,7 @@
 
             <div class="actions">
                 <button (click)="visible=false" class="cancel-btn">Cancel</button>
-                <button type="submit" (click)="visible=false" class="submit-btn">Submit</button>
+                <button type="submit" class="submit-btn" [disabled]="reviewForm.invalid">Submit</button>
             </div>
         </form>
         </p-dialog>
