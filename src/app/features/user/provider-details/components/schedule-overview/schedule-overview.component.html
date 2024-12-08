@@ -62,8 +62,11 @@
                   <div class="services">
                     @for (service of services; track $index) {
                       <div class="service">
-                        <i class="pi pi-check-circle" style="color: #408EFD"></i>
-                        <p>{{service.createdAt}}</p>
+
+                        @if (service.service) {
+                          <i class="pi pi-check-circle" style="color: #408EFD"></i>
+                          <p>{{service.service.name || 'NA'}}</p> 
+                        }
                       </div>
                     }
                   </div>
