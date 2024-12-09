@@ -50,7 +50,67 @@
                 font-weight: 400
                 color: $text-secondary
 
-        button
+        .card
+            .request-form
+                @include flex-option(flex, null, null, column)
+                flex: 1
+
+                p
+                    font-size: pxToRem(16)
+                    font-weight: 500
+                    color: $text-main
+
+                span
+                    font-size: pxToRem(12)
+                    font-weight: 400
+                    color: $subtext 
+                    margin-top: pxToRem(16)
+
+                form
+                    @include flex-option(flex, null, null, column)
+                    gap: pxToRem(8) 
+                    margin-top: pxToRem(24)  
+
+                    input
+                        border: 1px solid #E4E7E9
+                        width: 100%
+                        border-radius: pxToRem(4)
+                        padding: pxToRem(16)
+
+                        &:focus
+                            outline: none
+                            border-color: none
+
+                    textarea
+                        border: 1px solid #E4E7E9
+                        width: 100%
+                        border-radius: pxToRem(4)
+                        padding: pxToRem(16)  
+
+                        &:focus
+                            outline: none
+                            border-color: none
+
+                    .buttons
+                        width: pxToRem(181)
+                        @include flex-option(flex, null, center, row)
+                        gap: pxToRem(16)
+                        background-color: $primary
+                        padding: pxToRem(10) 
+                        cursor: pointer
+                        margin-top: pxToRem(10)
+
+                        .btn-send
+                            font-size: pxToRem(14)
+                            font-weight: 500
+                            text-transform: uppercase
+                            color: $white
+                            border: none
+                            background: none
+                            cursor: pointer 
+
+
+        ::ng-deep .p-button
             padding: 0.625rem 1.125rem
             background-color: $primary
             color: $white
@@ -60,3 +120,5 @@
             font-size: 1rem
             font-weight: 500
             cursor: pointer
+
+        

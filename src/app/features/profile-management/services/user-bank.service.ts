@@ -20,6 +20,7 @@ export class UserBankService {
   ) {
     this.token = this.localStorageService.getItem('accessToken') || '';
   }
+
   getAllBanks(): Observable<BankName[]> {
     return this.http.get<BankName[]>(`${this.apiUrl}/banks`).pipe(
       retry(2),
