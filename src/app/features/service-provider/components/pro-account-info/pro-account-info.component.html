@@ -67,17 +67,21 @@
     </div>
 
     <ul>
-      @for (account of linkedAccounts; let i = $index; track i) {
+      @if (linkedAccounts$ | async; as linkedAccounts) { @for (account of
+      linkedAccounts; let i = $index; track i) {
       <li>
         <span class="name">{{
           account.bankName
             ? account.bankName
             : account.paymentPreference + " - " + account.phoneNumber
         }}</span>
-        <p-button (onClick)="menu.toggle($event)" icon="pi pi-ellipsis-v" />
+        <p-button
+          (onClick)="openAccountOptions($event, account)"
+          icon="pi pi-ellipsis-v"
+        />
       </li>
       <p-menu #menu [model]="items" [popup]="true" />
-      }
+      } }
     </ul>
   </section>
 </main>
@@ -118,8 +122,14 @@
   class="confirmDelete"
 >
   <p>
-    Are you sure you want to delete this account?<br />Deleting account will
-    remove it permanently from your linked accounts.
+    Are you sure you want to delete this account? <br /><br />
+    <b>{{
+      selectedAccount?.bankName
+        ? selectedAccount?.bankName
+        : selectedAccount?.accountName
+    }}</b>
+    <br /><br />Deleting account will remove it permanently from your linked
+    accounts.
   </p>
   <div class="buttons">
     <p-button
@@ -127,6 +137,6 @@
       severity="secondary"
       (onClick)="isConfirmDialogVisible = false"
     />
-    <p-button severity="danger" label="Delete" />
+    <p-button severity="danger" label="Delete" (onClick)="deleteAccount()" />
   </div>
 </p-dialog>

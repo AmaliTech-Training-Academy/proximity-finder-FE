@@ -1,6 +1,7 @@
 import {
   Component,
   EventEmitter,
+  Inject,
   OnDestroy,
   OnInit,
   Output,
@@ -17,6 +18,9 @@ import { ButtonModule } from 'primeng/button';
 import { UserBankService } from '../../../profile-management/services/user-bank.service';
 import { Subscription } from 'rxjs';
 import { BankName } from '../../../profile-management/models/bank-name';
+import { Router } from '@angular/router';
+import { Notyf } from 'notyf';
+import { NOTYF } from '../../../../shared/notify/notyf.token';
 
 @Component({
   selector: 'app-bank-details-form',
@@ -37,7 +41,12 @@ export class BankDetailsFormComponent implements OnInit, OnDestroy {
     accountNumber: ['', Validators.required],
   });
 
-  constructor(private bankService: UserBankService, private fb: FormBuilder) {}
+  constructor(
+    private bankService: UserBankService,
+    private fb: FormBuilder,
+    private router: Router,
+    @Inject(NOTYF) private notyf: Notyf
+  ) {}
 
   ngOnInit() {
     this.bankSubscription = this.bankService.getAllBanks().subscribe({
@@ -48,7 +57,24 @@ export class BankDetailsFormComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if (this.bankDetailsForm.valid) {
-      console.log(this.bankDetailsForm.value);
+      const bankData = this.bankDetailsForm.value;
+
+      this.bankService
+        .addBank({
+          ...bankData,
+          bankName: bankData.bankName.bankName,
+          paymentPreference: 'Bank Account',
+        })
+        .subscribe({
+          next: (response) => {
+            this.notyf.success('Account added successfully');
+            this.closeDialog();
+            this.router.navigate(['/provider/dashboard/settings']);
+          },
+          error: (error) => {
+            this.notyf.error('Failed to add account');
+          },
+        });
     }
   }
 

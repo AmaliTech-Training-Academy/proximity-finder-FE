@@ -34,4 +34,11 @@ export class UserBankService {
         catchError((error) => this.errorHandler.handleError(error))
       );
   }
+
+  deleteBankAccount(accountId: number) {
+    return this.http.delete(`${this.apiUrl}/payment-method/${accountId}`).pipe(
+      retry(2),
+      catchError((error) => this.errorHandler.handleError(error))
+    );
+  }
 }

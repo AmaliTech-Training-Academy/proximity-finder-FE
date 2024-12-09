@@ -1,6 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { MenuModule } from 'primeng/menu';
+import { Menu, MenuModule } from 'primeng/menu';
 import { DialogModule } from 'primeng/dialog';
 import { TabViewModule } from 'primeng/tabview';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -16,6 +16,10 @@ import { paymentPreference } from '../../../pro-registration/models/payment';
 import { FormsModule } from '@angular/forms';
 import { ProfileService } from '../../../profile-management/services/profile.service';
 import { IPaymentAccount } from '../../../../core/models/payment-account';
+import { AsyncPipe } from '@angular/common';
+import { UserBankService } from '../../../profile-management/services/user-bank.service';
+import { Notyf } from 'notyf';
+import { NOTYF } from '../../../../shared/notify/notyf.token';
 
 @Component({
   selector: 'app-pro-account-info',
@@ -29,6 +33,7 @@ import { IPaymentAccount } from '../../../../core/models/payment-account';
     MobileMoneyFormComponent,
     BankDetailsFormComponent,
     MatTabsModule,
+    AsyncPipe,
   ],
   templateUrl: './pro-account-info.component.html',
   styleUrl: './pro-account-info.component.sass',
@@ -40,6 +45,10 @@ export class ProAccountInfoComponent implements OnInit, OnDestroy {
   selectedPaymentPreference = 'Bank Account';
   subscription!: Subscription;
   paymentMethod!: IPaymentAccount;
+  linkedAccounts$ = this.profileService.getPaymentAccounts();
+  selectedAccount: IPaymentAccount | undefined;
+
+  @ViewChild('menu') menu!: Menu;
 
   items = [
     {
@@ -50,15 +59,18 @@ export class ProAccountInfoComponent implements OnInit, OnDestroy {
     {
       label: 'Delete',
       icon: 'pi pi-trash',
-      command: () => (this.isConfirmDialogVisible = true),
+      command: () => {
+        this.isConfirmDialogVisible = true;
+        // this.selectedAccountId = accountId;
+      },
     },
   ];
 
-  linkedAccounts!: IPaymentAccount[];
-
   constructor(
     private paymentService: PaymentService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private bankService: UserBankService,
+    @Inject(NOTYF) private notyf: Notyf
   ) {}
 
   ngOnInit(): void {
@@ -66,12 +78,6 @@ export class ProAccountInfoComponent implements OnInit, OnDestroy {
       next: (preferences) => (this.paymentPreferences = preferences),
       error: (error) =>
         console.log('Failed to fetch payment preferences', error),
-    });
-    this.subscription = this.profileService.getPaymentAccounts().subscribe({
-      next: (preferences) => {
-        this.linkedAccounts = preferences;
-        // console.log(preferences);
-      },
     });
   }
 
@@ -85,6 +91,24 @@ export class ProAccountInfoComponent implements OnInit, OnDestroy {
 
   closeModal(notVisible: boolean) {
     this.isDialogVisible = notVisible;
+  }
+
+  openAccountOptions(event: any, account: IPaymentAccount) {
+    this.selectedAccount = account;
+    this.menu.toggle(event);
+    console.log(this.selectedAccount);
+  }
+
+  deleteAccount() {
+    console.log(this.selectedAccount?.id);
+    this.bankService
+      .deleteBankAccount(this.selectedAccount?.id as number)
+      .subscribe({
+        next: () => {
+          this.notyf.success('Account delete successfully');
+          this.isConfirmDialogVisible = false;
+        },
+      });
   }
 
   ngOnDestroy(): void {
