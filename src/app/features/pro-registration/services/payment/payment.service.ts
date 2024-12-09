@@ -20,18 +20,18 @@ export class PaymentService {
   private http = inject(HttpClient);
 
   getAllBanks(): Observable<Bank[]> {
-    return this.http.get<Bank[]>(`${this.apiUrl}/v1/banks`);
+    return this.http.get<Bank[]>(`${this.apiUrl}/banks`);
   }
 
   getAllPrefernces(): Observable<paymentPreference[]> {
     return this.http.get<paymentPreference[]>(
-      `${this.apiUrl}/v1/payment-preferences`
+      `${this.apiUrl}/payment-preferences`
     );
   }
 
   getAllProviders(): Observable<serviceProviders[]> {
     return this.http.get<serviceProviders[]>(
-      `${this.apiUrl}/v1/payment-method/providers/mobile-money-providers`
+      `${this.apiUrl}/payment-method/providers/mobile-money-providers`
     );
   }
 
@@ -42,7 +42,7 @@ export class PaymentService {
     });
 
     return this.http.post<Payment[]>(
-      `${this.apiUrl}/v1/payment-method`,
+      `${this.apiUrl}/payment-method`,
       paymentData,
       { headers }
     );

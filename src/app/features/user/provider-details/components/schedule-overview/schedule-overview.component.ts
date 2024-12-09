@@ -1,34 +1,31 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { NOTYF } from '../../../../../shared/notify/notyf.token';
-import { ProDetails } from '../../../../service-discovery/models/pro-details';
-import { ProviderDataService } from '../../../../service-discovery/services/provider-data.service';
-import { Subscription } from 'rxjs';
+import { Component,Input, OnInit } from '@angular/core';
+import { ProviderResponse } from '../../../../../core/models/provider-response';
+import { CommonModule } from '@angular/common';
+import { getBusinessYears } from '../../../../../utils/yearsCalculator';
+
 
 @Component({
   selector: 'app-schedule-overview',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './schedule-overview.component.html',
   styleUrl: './schedule-overview.component.sass'
 })
-export class ScheduleOverviewComponent implements OnInit, OnDestroy{
-  provider!: ProDetails;
-  private notyf = inject(NOTYF)
-  providerSubscription: Subscription | null = null
-
-  constructor(private providerService: ProviderDataService) {}
+export class ScheduleOverviewComponent implements OnInit {
+  @Input() provider!: ProviderResponse;
+  getBusinessYears: string | undefined;
 
   ngOnInit() {
-    this.providerSubscription = this.providerService.selectedProvider$.subscribe((provider) => {
-      if (provider) {
-        this.provider = provider;
-      } else {
-        this.notyf.error('Provider not found');
-      }
-    })
+    this.getInceptionDate()
   }
 
-  ngOnDestroy() {
-    this.providerSubscription?.unsubscribe()
+  getInceptionDate() {
+    if(this.provider['business-info'].aboutBusinessResponse.inceptionDate){
+
+      const inceptionDate = this.provider['business-info'].aboutBusinessResponse.inceptionDate
+      this.getBusinessYears = getBusinessYears(inceptionDate)
+    }
   }
+
+  
 }
