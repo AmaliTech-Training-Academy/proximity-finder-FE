@@ -14,6 +14,10 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
     },
   });
 
+  if (req.url.includes('/service-discovery/search')) {
+    return next(req);
+  }
+
   if (excludedEndpoints.some(path => req.url.includes(path))) {
     return next(clonedRequest);
   }
