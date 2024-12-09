@@ -18,6 +18,7 @@ export class UserMobileMoneyService {
     private errorHandler: ErrorHandlingService
   ) {
     this.token = this.localStorageService.getItem('accessToken') || '';
+
   }
   getServiceProviders(): Observable<string[]> {
     return this.http

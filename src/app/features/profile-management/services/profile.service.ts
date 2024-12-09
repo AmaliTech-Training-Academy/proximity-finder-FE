@@ -1,22 +1,22 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
-import { BehaviorSubject, catchError, Observable, retry } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, retry, tap } from 'rxjs';
 import { ErrorHandlingService } from '../../../core/services/error-handling.service';
 import { LocalStorageService } from '../../../shared/services/local-storage.service';
 import { jwtDecode } from 'jwt-decode';
 import { User } from '../models/user';
 import { IProfile } from '../models/profile';
-import { IPaymentAccount } from '../../../core/models/payment-account';
+import { IPaymentAccount, IPaymentAccountNoId } from '../../../core/models/payment-account';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfileService {
-  token!: string;
-  email: string | null | undefined = null;
-  apiUrl =
-    'https://api.proximity-finder.amalitech-dev.net/api/v1/provider-service';
+
+  token!: string
+  email: string | null | undefined = null
+   apiUrl = 'https://api.proximity-finder.amalitech-dev.net/api/v1/provider-service'
 
   loggedInUserSubject = new BehaviorSubject<User | null>(null);
   loggedInUser$ = this.loggedInUserSubject.asObservable();
@@ -28,6 +28,7 @@ export class ProfileService {
   ) {
     this.token = this.localStorageService.getItem('accessToken') || '';
     this.decodeToken();
+
   }
 
   getClient(): Observable<IProfile> {
@@ -91,6 +92,7 @@ export class ProfileService {
         retry(2),
         catchError((error) => this.errorHandler.handleError(error))
       );
+
   }
 
   decodeToken() {

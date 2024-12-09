@@ -47,6 +47,7 @@
          <app-business-address
          class="location"
          formControlName="businessAddress"
+         (placeSelected)="onLocationSelected($event)"
          [ngClass]="{
             'invalid': registrationForm.get('businessAddress')?.invalid && 
                        (registrationForm.get('businessAddress')?.dirty || 

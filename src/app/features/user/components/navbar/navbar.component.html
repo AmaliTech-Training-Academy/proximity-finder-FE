@@ -1,12 +1,11 @@
 <nav [style.background-color]="backgroundColor">
     @if (currentRoute !== 'Pro') {
-        <mat-icon svgIcon="home" aria-hidden="false" aria-label="home SVG icon"></mat-icon>
+        <i class="pi pi-home" style="color: #5F6C72; font-size: 1.125rem;"></i>
     }
     <a routerLink="/" routerLinkActive="active-link" 
     [routerLinkActiveOptions]="{ exact: true }">Home</a>
 
-    <mat-icon svgIcon="arrow-right" aria-hidden="false" aria-label="arrow right icon"></mat-icon>
-
+    <i class="pi pi-chevron-right" style="color: #5F6C72;"></i>
     @if (currentRoute) {
         <a [routerLink]="'/' + (currentRoute | lowercase)" routerLinkActive="active-link" 
         >{{currentRoute}}</a>

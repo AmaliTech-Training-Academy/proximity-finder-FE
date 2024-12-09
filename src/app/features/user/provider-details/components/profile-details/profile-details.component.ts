@@ -30,7 +30,7 @@ export class ProfileDetailsComponent{
   })
 
   quoteForm:FormGroup = this.formBuilder.group({
-  name: ["",Validators.required],
+  title: ["",Validators.required],
    location: ["",Validators.required],
     date: ["",Validators.required],
     time: ["",Validators.required],
