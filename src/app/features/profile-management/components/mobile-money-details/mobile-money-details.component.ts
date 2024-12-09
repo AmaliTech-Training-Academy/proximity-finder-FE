@@ -9,6 +9,7 @@ import { IMobileMoney } from '../../models/mobile-money';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { MatDialogRef } from '@angular/material/dialog';
 import { AccountDetailsComponent } from '../../pages/account-details/account-details.component';
+import { ProfileService } from '../../services/profile.service';
 
 @Component({
   selector: 'app-mobile-money-details',
@@ -22,7 +23,8 @@ export class MobileMoneyDetailsComponent implements OnInit {
   selectedProvider!: string
   private notyf = inject(NOTYF)
 
-  constructor(private mobileService: UserMobileMoneyService, private fb: FormBuilder, private dialogRef: MatDialogRef<AccountDetailsComponent>) {}
+  constructor(private mobileService: UserMobileMoneyService, private fb: FormBuilder, private profileService: ProfileService  
+    , private dialogRef: MatDialogRef<AccountDetailsComponent>) {}
 
   mobileMoneyForm = this.fb.group({
     provider: ['', Validators.required],
@@ -49,6 +51,7 @@ export class MobileMoneyDetailsComponent implements OnInit {
       this.mobileService.addMobileMoney(momoInfo).subscribe({
         next: () => {
           this.notyf.success('Mobile money details added successfully')
+          this.profileService.getPaymentAccounts()
           this.dialogRef.close(true)
         },
         error: (error) => {

@@ -8,8 +8,9 @@ import { BankName } from '../../models/bank-name';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { AccountDetailsComponent } from '../../pages/account-details/account-details.component';
+import { ProfileService } from '../../services/profile.service';
 
 @Component({
   selector: 'app-bank-details',
@@ -26,7 +27,8 @@ export class BankDetailsComponent implements OnInit, OnDestroy {
   private notyf = inject(NOTYF)
   bankSubscription!: Subscription
 
-  constructor(private bankService: UserBankService, private fb: FormBuilder, private dialogRef: MatDialogRef<AccountDetailsComponent>){}
+  constructor(private bankService: UserBankService, private fb: FormBuilder, private profileService: ProfileService
+     , private dialogRef: MatDialogRef<AccountDetailsComponent>){}
 
   bankForm = this.fb.group({
     bankName: ['', Validators.required],
@@ -55,6 +57,7 @@ export class BankDetailsComponent implements OnInit, OnDestroy {
       this.bankService.addBank(bankInfo).subscribe({
         next: () => {
           this.notyf.success('Bank details added successfully')
+          this.profileService.getPaymentAccounts()
           this.dialogRef.close(true)
         },
         error: (error) => {
