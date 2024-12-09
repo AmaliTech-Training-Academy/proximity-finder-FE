@@ -86,7 +86,7 @@ export class ServicePreferenceComponent implements OnInit {
     this.loggedInuser$.subscribe({
       next: (user) => console.log(user),
     });
-    this.profileService.getPaymentAccounts().subscribe({
+    this.profileService.paymentAccounts$.subscribe({
       next: (preferences) => {
         this.paymentMethod = preferences[0];
       },

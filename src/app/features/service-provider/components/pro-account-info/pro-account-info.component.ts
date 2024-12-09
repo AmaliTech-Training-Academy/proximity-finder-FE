@@ -9,7 +9,7 @@ import { BankDetailsFormComponent } from '../bank-details-form/bank-details-form
 import { linkedAccounts } from '../../data';
 import { BankDetailsComponent } from '../../../profile-management/components/bank-details/bank-details.component';
 import { MobileMoneyDetailsComponent } from '../../../profile-management/components/mobile-money-details/mobile-money-details.component';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { DropdownModule } from 'primeng/dropdown';
 import { PaymentService } from '../../../pro-registration/services/payment/payment.service';
 import { paymentPreference } from '../../../pro-registration/models/payment';
@@ -45,7 +45,8 @@ export class ProAccountInfoComponent implements OnInit, OnDestroy {
   selectedPaymentPreference = 'Bank Account';
   subscription!: Subscription;
   paymentMethod!: IPaymentAccount;
-  linkedAccounts$ = this.profileService.getPaymentAccounts();
+  linkedAccounts$: Observable<IPaymentAccount[]> =
+    this.profileService.paymentAccounts$;
   selectedAccount: IPaymentAccount | undefined;
 
   @ViewChild('menu') menu!: Menu;
@@ -74,6 +75,7 @@ export class ProAccountInfoComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.profileService.getPaymentAccounts();
     this.subscription = this.paymentService.getAllPrefernces().subscribe({
       next: (preferences) => (this.paymentPreferences = preferences),
       error: (error) =>
