@@ -24,6 +24,24 @@
             <p>Can’t find the answer you’re looking for? Please chat to our friendly team.</p>
         </div>
 
-        <button>Get in touch</button>
+        <div class="card flex justify-content-center">
+            <p-button (onClick)="showDialog()" label="Get in touch" />
+            <p-dialog header="Get in Touch" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem'}">
+                <div class="request-form">
+                    <span>If you can't find the FAQ that addresses your specific question, don't hesitate to reach out for support. Contact the support team for personalized assistance.They're there to help resolve your concerns quickly and effectively!</span>
+                    <form>
+                        <input formControlName="email" type="email" placeholder="Email address">
+                        <input formControlName="subject" type="text" placeholder="Subject">
+                        <textarea formControlName="message" placeholder="Message"></textarea>
+                      
+                        <div class="buttons">
+                          <button type="submit" class="btn-send">Send Message</button>
+                          <i class="pi pi-arrow-right" style="color: white"></i>
+                        </div>
+                      </form>
+                      
+                </div>
+            </p-dialog>
+        </div>
     </div>
 </div>
