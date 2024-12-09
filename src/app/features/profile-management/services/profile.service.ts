@@ -24,6 +24,8 @@ export class ProfileService {
   paymentAccountsSubject = new BehaviorSubject<IPaymentAccount[]>([])
   paymentAccounts$ = this.paymentAccountsSubject.asObservable()
 
+  
+
   constructor(private http: HttpClient, private errorHandler: ErrorHandlingService, private localStorageService: LocalStorageService) {
     this.token = this.localStorageService.getItem('accessToken') || ''
     this.decodeToken()
