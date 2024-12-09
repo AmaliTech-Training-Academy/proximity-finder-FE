@@ -17,6 +17,7 @@ import {
   FormArray,
   ReactiveFormsModule,
   Validators,
+  FormsModule,
 } from '@angular/forms';
 import { CommonModule, Time } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -28,7 +29,9 @@ import { LocationsComponent } from '../../../../shared/components/locations/loca
 import { PlaceSearchResult } from '../../../../core/models/place-search-result';
 import { BusinessAddressComponent } from '../business-address/business-address.component';
 import { Router } from '@angular/router';
-
+import { ProfileService } from '../../../profile-management/services/profile.service';
+import { Payment } from '../../models/payment';
+import { IPaymentAccount } from '../../../../core/models/payment-account';
 
 @Component({
   selector: 'app-service-preference',
@@ -44,11 +47,12 @@ import { Router } from '@angular/router';
     ButtonModule,
     DialogModule,
     BusinessAddressComponent,
+    FormsModule,
   ],
   templateUrl: './service-preference.component.html',
   styleUrls: ['./service-preference.component.sass'],
 })
-export class ServicePreferenceComponent {
+export class ServicePreferenceComponent implements OnInit {
   serviceCategories$ = this.serviceService.serviceCategories$;
   paymentPreferences = accountPreferences;
   days = bookingDays;
@@ -56,6 +60,8 @@ export class ServicePreferenceComponent {
   timeOptions: ITime[] = [];
   uploadedFiles: File[] = [];
   location!: PlaceSearchResult;
+  loggedInuser$ = this.profileService.loggedInUser$;
+  paymentMethod!: IPaymentAccount;
 
   servicePreferenceForm: FormGroup = this.fb.group({
     service: [null, Validators.required],
@@ -70,9 +76,21 @@ export class ServicePreferenceComponent {
     private http: HttpClient,
     private serviceService: ServiceService,
     @Inject(NOTYF) private notyf: Notyf,
-    private router:Router
+    private router: Router,
+    private profileService: ProfileService
   ) {
     this.generateTimeOptions(15);
+  }
+
+  ngOnInit(): void {
+    this.loggedInuser$.subscribe({
+      next: (user) => console.log(user),
+    });
+    this.profileService.getPaymentAccounts().subscribe({
+      next: (preferences) => {
+        this.paymentMethod = preferences[0];
+      },
+    });
   }
 
   onFilesSelected(files: File[]): void {
@@ -146,6 +164,9 @@ export class ServicePreferenceComponent {
         endTime: this.formatTime(day.endTime),
       }));
 
+      // TODO: Send currently logged in service provider's id
+      formData.append('userId', '33252a99-ab98-4413-9191-6f93c6df5806');
+
       formData.append(
         'serviceName',
         formValue.service.name || formValue.service
@@ -155,8 +176,6 @@ export class ServicePreferenceComponent {
         'paymentPreference',
         formValue.paymentPreference.name || formValue.paymentPreference
       );
-
-      formData.append('sameLocation', formValue.sameLocation ? 'yes' : 'no');
 
       formData.append('placeName', locationData.placeName);
       formData.append('latitude', String(locationData.latitude ?? ''));
@@ -207,7 +226,6 @@ export class ServicePreferenceComponent {
   showDialog() {
     this.visible = true;
   }
-
 
   navigateTo() {
     this.router.navigateByUrl('/registration/payment-method');

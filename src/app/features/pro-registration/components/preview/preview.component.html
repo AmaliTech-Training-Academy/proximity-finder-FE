@@ -1,4 +1,4 @@
-<div class="preview">
+<div class="preview" *ngIf="providerInfo$ | async as providerInfo">
     <div class="preview-text">
         <p>Preview</p>
         <span>This is everything you have told us. Kindly make sure everything is right.</span>
@@ -9,16 +9,16 @@
         <p>Basic Information</p>
        <div class="more">
         <div class="profile-img">
-       <img src="assets/images/Avatar.png" alt="profile"> 
+       <img src="providerInfo.profileImageUrl || 'assets/images/default.png'" alt="profile"> 
         </div>
         <div class="business-info">
         <div class="name">
                 <p>Business Owner’s name</p>
-                <div class="field"></div> 
+                <div class="field">{{ providerInfo.authservice.businessOwnerName}}</div> 
             </div>
             <div class="name">
                 <p>Email</p>
-                <div class="field"></div> 
+                <div class="field">{{providerInfo.authservice.email}}</div> 
             </div>
         </div>
        </div>
@@ -26,18 +26,18 @@
      <div class="buzz">
         <div class="name">
             <p>Business Name</p>
-            <div class="field"></div> 
+            <div class="field">{{providerInfo.authservice.userName}}</div> 
         </div>
         <div class="name">
             <p>Phone Number</p>
-            <div class="field"></div> 
+            <div class="field">{{providerInfo.authservice.mobileNumber}}</div> 
         </div>
      </div>
 
      <div class="b-name">
         <div class="name">
             <p>Business Address</p>
-            <div class="field"></div> 
+            <div class="field">{{providerInfo.authservice.placeName}}</div> 
         </div>
      </div>
 
@@ -55,12 +55,11 @@
             <div class="date">
                 <div class="date-info">
                     <p>Inception Date</p>
-                <div class="field">
-                </div>
+                <div class="field">{{providerInfo['business-info'].aboutBusinessResponse. inceptionDate | date: 'yyyy-MM-dd'}}</div>
                 </div>
                <div class="business-doc">
                 <p>Business Certificate</p>
-                <div class="field"></div>
+                <div class="field">{{providerInfo['business-info'].aboutBusinessResponse. businessCertificate}}</div>
                </div>
 
             </div>
@@ -69,13 +68,12 @@
         <div class="employees">
             <div class="count">
                 <p>Number of Employees (Digits only)</p>
-                <div class="field"></div>
+                <div class="field">{{providerInfo['business-info'].aboutBusinessResponse. numberOfEmployees}}</div>
             </div>
 
            <div class="id">
             <p>ID</p>
-            <div class="field"></div>
-            
+            <div class="field">{{providerInfo['business-info'].aboutBusinessResponse. businessIdentityCard}}</div>
            </div>
 
             
@@ -92,7 +90,7 @@
 
             <div class="summary">
                 <p>Summary</p>
-                <div class="sum"></div>
+                <div class="sum">{{providerInfo['business-info'].aboutBusinessResponse. businessSummary}}</div>
             </div>
         </div>
 
@@ -108,7 +106,7 @@
         <div class="payment-pref">
             <div class="payment-info">
                 <p>Payment Preference</p>
-                <div class="field"></div>
+                <div class="field">{{providerInfo['business-info'].paymentMethodResponse. paymentPreference}}</div>
             </div>
 
             <div class="payment-doc">
@@ -140,62 +138,71 @@
       
 
       <div class="preference">
-        <div class="head">
-            <p>Preferences</p>
-        </div>
+        @if(providerInfo['provider-service']; as service){
+            @for(service of service; track $index){
+                <div class="head">
+                    <p>Preferences</p>
+                </div>
 
-        <div class="preference-details">
-            <div class="service">
-                <p>What service do you offer?</p>
-                <div class="field"></div>
+                <div class="preference-details">
+                    <div class="service">
+                        <p>What service do you offer?</p>
+                        <div class="field">{{service.serviceExperience}}</div>
+                    </div>
+                    <div class="experience">
+                        <p>Payment Preference</p>
+                        <div class="field">{{service.paymentPreference}}</div>
+                    </div>
+                </div>
+
+                <div class="documents">
+                    <div class="document">
+                        <p>Extra Document(s)</p>
+                        <div class="field">{{service.documents}}</div>
+                    </div>
+        
+                    <div class="alias">
+                        <p>Account Alias</p>
+                        <div class="field">{{service.id}}</div>
+                    </div>
+              </div>
+
+              <div class="booking">
+                @for(booking of service.bookingDays; track $index){
+                    <div class="days">
+                        <p>Booking Days</p>
+                        <div class="day"></div>
+                        
+                       </div>
+                       <div class="from">
+                        <p>From</p>
+                        <div class="time"></div>
+                        <div class="time"></div>
+                        <div class="time">
+                       </div>
+                    </div>
+
+                    
+             <div class="to">
+                <p>To</p>
+                <div class="time"></div>
+                <div class="time"></div>
+                <div class="time"></div>
             </div>
-            <div class="experience">
-                <p>Payment Preference</p>
-                <div class="field"></div>
-            </div>
-        </div>
+                    
+                }  
+        
+         </div>
+        
+         <div class="scheduling">
+             <p>Scheduling Policy (optional)</p>
+             <div class="field"></div>
+        
+         </div>
+            }
 
-        <div class="documents">
-            <div class="document">
-                <p>Extra Document</p>
-                <div class="field"></div>
-            </div>
-
-            <div class="alias">
-                <p>Account Alias</p>
-                <div class="field"></div>
-            </div>
-      </div>
-
-      <div class="booking">
-        <div class="days">
-         <p>Booking Days</p>
-         <div class="day"></div>
-         <div class="day"></div>
-         <div class="day"></div>
-        </div>
-        <div class="from">
-         <p>From</p>
-         <div class="time"></div>
-         <div class="time"></div>
-         <div class="time">
-        </div>
-     </div>
-
-     <div class="to">
-         <p>To</p>
-         <div class="time"></div>
-         <div class="time"></div>
-         <div class="time"></div>
-     </div>
- </div>
-
- <div class="scheduling">
-     <p>Scheduling Policy (optional)</p>
-     <div class="field"></div>
-
- </div>
-
+        }
+       
     
 </div>
 

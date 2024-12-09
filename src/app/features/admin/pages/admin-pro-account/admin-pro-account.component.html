@@ -24,7 +24,7 @@
             <tr routerLink="/admin/dashboard/pro-accounts/details">
               <td>{{ proAccount.businessOwnerName }}</td>
               <td>{{ proAccount.userName | slice:0:15 }}</td>
-              <td>{{ proAccount.email | slice:0:10 }}</td>
+              <td>{{ proAccount.email | slice:0:18 }}...</td>
               <td>{{ proAccount.businessAddress | slice:0:10}}</td>
               <td>{{ proAccount.enabled === true ? 'Yes' : 'No'}}
               </td>
@@ -33,16 +33,17 @@
               <div class="action-container" (click)="$event.stopPropagation()">
                   <span class="status-label" [ngClass]="proAccount.status | lowercase" (click)="toggleMenu(proAccount)">
                     <i class="status-icon"></i>
-                    {{ proAccount.status }}
+                    {{ proAccount.status === 'DEACTIVATED' ? 'Inactive' : proAccount.status | status | titlecase}}
                     <i class="pi pi-chevron-down"></i>
                   </span>
+                  
 
                   @if (activeAccount === proAccount) {
                     <div class="menu">
                       @for (status of statuses; track $index) {
                         <span class="status-label" [ngClass]="statusMapping[status] | lowercase" (click)="updateStatus(proAccount, status)">
                           <i class="status-icon"></i>
-                          {{ status }}
+                          {{ status | status }}
                         </span>
                       }
                     </div>

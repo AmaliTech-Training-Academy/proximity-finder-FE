@@ -16,6 +16,7 @@ export interface User {
   enabled: boolean;
   profileImage: string | null;
   businessAddress: string | null;
+  status: string
 }
 
 export interface Pagination {

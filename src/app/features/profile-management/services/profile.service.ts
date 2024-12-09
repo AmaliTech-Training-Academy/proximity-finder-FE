@@ -9,22 +9,20 @@ import { User } from '../models/user';
 import { IProfile } from '../models/profile';
 import { IPaymentAccount, IPaymentAccountNoId } from '../../../core/models/payment-account';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ProfileService {
+
   token!: string
   email: string | null | undefined = null
    apiUrl = 'https://api.proximity-finder.amalitech-dev.net/api/v1/provider-service'
 
-  loggedInUserSubject = new BehaviorSubject<User | null>(null)
-  loggedInUser$ = this.loggedInUserSubject.asObservable()
+  loggedInUserSubject = new BehaviorSubject<User | null>(null);
+  loggedInUser$ = this.loggedInUserSubject.asObservable();
 
   paymentAccountsSubject = new BehaviorSubject<IPaymentAccount[]>([])
   paymentAccounts$ = this.paymentAccountsSubject.asObservable()
-
-  
 
   constructor(private http: HttpClient, private errorHandler: ErrorHandlingService, private localStorageService: LocalStorageService) {
     this.token = this.localStorageService.getItem('accessToken') || ''
@@ -32,27 +30,33 @@ export class ProfileService {
   }
 
   getClient(): Observable<IProfile> {
-    if(!this.email) {
-      throw new Error('Email not found')
+    if (!this.email) {
+      throw new Error('Email not found');
     }
-    const params = new HttpParams().set( 'email', this.email )
+    const params = new HttpParams().set('email', this.email);
 
-    return this.http.get<IProfile>(`${environment.baseUrl}/auth/info`, { params }).pipe(
-      retry(2),
-      catchError((error) => this.errorHandler.handleError(error)
-    ))
+    return this.http
+      .get<IProfile>(`${environment.baseUrl}/auth/info`, { params })
+      .pipe(
+        retry(2),
+        catchError((error) => this.errorHandler.handleError(error))
+      );
   }
-  
-  updateClient(client: IProfile): Observable<IProfile> {
-    if(!this.email) {
-      throw new Error('Email not found')
-    }
-    const params = new HttpParams().set( 'email', this.email )
 
-    return this.http.put<IProfile>(`${environment.baseUrl}/auth/update/info`, client, {params}).pipe(
-      retry(2),
-      catchError((error) => this.errorHandler.handleError(error))
-    )
+  updateClient(client: IProfile): Observable<IProfile> {
+    if (!this.email) {
+      throw new Error('Email not found');
+    }
+    const params = new HttpParams().set('email', this.email);
+
+    return this.http
+      .put<IProfile>(`${environment.baseUrl}/auth/update/info`, client, {
+        params,
+      })
+      .pipe(
+        retry(2),
+        catchError((error) => this.errorHandler.handleError(error))
+      );
   }
 
   getPaymentAccounts(): void {
@@ -79,18 +83,17 @@ export class ProfileService {
     )
   }
 
-  decodeToken(){
-    if(this.token) {
+  decodeToken() {
+    if (this.token) {
       try {
-        const decodedToken = jwtDecode(this.token) as User
-        this.email = decodedToken.sub
-        this.loggedInUserSubject.next(decodedToken)
-      }
-      catch (error) {
-        console.error('Error decoding token:', error)
+        const decodedToken = jwtDecode(this.token) as User;
+        this.email = decodedToken.sub;
+        this.loggedInUserSubject.next(decodedToken);
+      } catch (error) {
+        console.error('Error decoding token:', error);
       }
     } else {
-      console.error('Token not found')
+      console.error('Token not found');
     }
   }
 

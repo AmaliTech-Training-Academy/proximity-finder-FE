@@ -47,6 +47,11 @@
                 &:hover
                     background-color: $blue-lighten-4
 
+        .paymentMethod
+            @include flex-option($display: flex, $justify-content: null, $align-items: null, $direction: column)
+            gap: 24px
+            
+
         .form-actions
             @include flex-option(flex, flex-end, center, row)
 
