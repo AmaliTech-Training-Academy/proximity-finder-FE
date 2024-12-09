@@ -7,29 +7,33 @@ import { LocalStorageService } from '../../../shared/services/local-storage.serv
 import { ErrorHandlingService } from '../../../core/services/error-handling.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserBankService {
+  apiUrl = 'http://34.216.212.142:8888/api/v1';
+  token!: string;
 
-  apiUrl = 'http://34.216.212.142:8888/api/v1'
-  token!: string
-
-  constructor(private http: HttpClient, private localStorageService: LocalStorageService, private errorHandler: ErrorHandlingService) {
-    this.token = this.localStorageService.getItem('token') || ''
-   }
+  constructor(
+    private http: HttpClient,
+    private localStorageService: LocalStorageService,
+    private errorHandler: ErrorHandlingService
+  ) {
+    this.token = this.localStorageService.getItem('token') || '';
+  }
 
   getAllBanks(): Observable<BankName[]> {
     return this.http.get<BankName[]>(`${this.apiUrl}/banks`).pipe(
       retry(2),
-      catchError(error => this.errorHandler.handleError(error))
-    )
+      catchError((error) => this.errorHandler.handleError(error))
+    );
   }
 
   addBank(bank: IBank): Observable<IBank> {
-
-    return this.http.post<IBank>(`${this.apiUrl}/payment-method/new-payment-method`, bank).pipe(
-      retry(2),
-      catchError(error => this.errorHandler.handleError(error))
-    )
+    return this.http
+      .post<IBank>(`${this.apiUrl}/payment-method/new-payment-method`, bank)
+      .pipe(
+        retry(2),
+        catchError((error) => this.errorHandler.handleError(error))
+      );
   }
 }
