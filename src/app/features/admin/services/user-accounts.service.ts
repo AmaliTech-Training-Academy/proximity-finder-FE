@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { catchError, Observable, retry } from 'rxjs';
-import { UserResponse } from '../models/user-response';
+import { User, UserResponse } from '../models/user-response';
 import { ErrorHandlingService } from '../../../core/services/error-handling.service';
 
 @Injectable({
@@ -22,5 +22,14 @@ export class UserAccountsService {
       retry(2),
       catchError(error => this.errorHandler.handleError(error))
     )
+  }
+
+  getUserStatus(userId: number, status: string): Observable<User> {
+    return this.http.put<User>(`${environment.baseUrl}/v1/users/${userId}/change-status?status=${status}`, {status})
+    .pipe(
+      retry(2),
+      catchError(error => this.errorHandler.handleError(error))
+    )
+
   }
 }

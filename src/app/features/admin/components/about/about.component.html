@@ -78,10 +78,10 @@
 
     <div class="actions">
         @if (isApproved) {
-            <button type="button" class="revoked">Revoke Approval</button>
+            <button type="button" class="revoked" (click)="revokeAccount()">Revoke Approval</button>
         }
         @else {
-            <button type="button" class="secondary">Reject</button>
+            <button type="button" class="secondary" (click)="rejectAccount()">Reject</button>
             <button type="button" class="primary" (click)="openDialog()">Approve account</button>
         }
     </div>
