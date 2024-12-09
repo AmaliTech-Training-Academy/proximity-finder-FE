@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Inject, Input } from '@angular/core';
 import { FormGroup,FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RatingModule } from 'primeng/rating';
 import { AvailabilityFormComponent } from "../availability-form/availability-form.component";
@@ -6,6 +6,9 @@ import { DialogModule } from 'primeng/dialog';
 import { ImageUploaderComponent } from '../../../../service-provider/components/image-uploader/image-uploader.component';
 import { CommonModule } from '@angular/common';
 import { ProviderResponse } from '../../../../../core/models/provider-response';
+import { CallService } from '../../../../service-provider/services/call/call.service';
+import { Notyf } from 'notyf';
+import { NOTYF } from '../../../../../shared/notify/notyf.token';
 
 @Component({
   selector: 'app-profile-details',
@@ -17,6 +20,8 @@ import { ProviderResponse } from '../../../../../core/models/provider-response';
 export class ProfileDetailsComponent{
   value: number = 4;
   @Input() provider!: ProviderResponse;
+  email = this.provider.authservice.email
+  
 
   visible: boolean = false;
   modals = {
@@ -41,7 +46,7 @@ export class ProfileDetailsComponent{
     
   })
 
-  constructor(private formBuilder:FormBuilder){}
+  constructor(private formBuilder:FormBuilder, private callService:CallService,@Inject(NOTYF) private notyf: Notyf,){}
 
   
   showDialog(type: 'quote' | 'call') {
@@ -51,4 +56,26 @@ export class ProfileDetailsComponent{
     this.modals[type] = false;
   }
 
+  onQuoteSubmit(){}
+
+  onCallRequest() {
+    if (this.callForm.valid) {
+      this.callService.sendCallRequest({
+        ...this.callForm.value, 
+        providerEmail: this.provider.authservice.email 
+      }).subscribe({
+        next: () => {
+          this.notyf.success('Call Request Sent Successfully');
+          this.modals.call = false;
+        },
+        error: (error) => {
+          console.error('Error sending call request:', error);
+          this.notyf.error('Failed to send call request');
+        }
+      });
+    } else {
+      this.notyf.error('Please enter a valid phone number');
+    }
+  }
+  
 }
