@@ -1,0 +1,79 @@
+<div class="support">
+    <div class="button">
+        <button class="btn-create" (click)="showDialog()">Create New FAQ</button>
+    </div>
+
+    @if (faqs.length === 0) {
+        <div class="no-faqs">
+            <p>No FAQs available</p>
+        </div>
+    }
+    
+    @for (faq of faqs; track faq) {
+        <div class="faq">
+            <div class="faq-header">
+                <p>{{ faq.question }}</p>
+    
+                <div class="group">
+                    <div class="rec">
+                        <p>{{ faq.groupName }}</p>
+                    </div>
+                    <button class="options" (click)="selectFaq(faq); menu.toggle($event)">
+                        <i class="pi pi-ellipsis-v"  style="color: #7D7979" ></i>
+                    </button>
+    
+                    <p-menu  #menu [model]="menuItems" [popup]="true" appendTo="body" />
+                </div>
+            </div>
+    
+            <div class="answer">
+                <p>{{ faq.answer }}</p>
+            </div>
+        </div>
+    }
+  
+</div>
+
+<p-dialog header="Create New FAQ" [modal]="true" [(visible)]="visible" [style]="{ width: '30rem' }">
+    <form [formGroup]="createForm" (ngSubmit)="onSubmit()">
+        <div class="faq-group">
+            <label>FAQ Group</label>
+            <p-dropdown
+            id="faqGroupDropdown"
+        [options]="faqGroups"
+        formControlName="groupId"
+        placeholder="Select FAQ Group"
+             />
+        </div>
+        <div class="question">
+            <label>Question</label>
+            <textarea
+             placeholder="Type here"
+             formControlName="question"
+            ></textarea>
+        </div>
+        <div class="answer">
+            <label>Answer</label>
+            <textarea 
+            placeholder="Type here"
+            formControlName="answer"
+
+            ></textarea>
+        </div>
+        <div class="faq-buttons">
+            <button type="button" class="btn-cancel">Cancel</button>
+            <button type="submit" class="btn-save"  [disabled]="createForm.invalid">Submit</button>  
+        </div>
+    </form>
+
+</p-dialog>
+<app-edit
+[faq]="selectedFaq"
+(editFaq)="handleFaqEdit($event)"
+/>
+<app-delete
+[faqToDelete]="selectedFaq"
+  (deleteConfirmed)="handleFaqDelete($event)"
+/>
+
+

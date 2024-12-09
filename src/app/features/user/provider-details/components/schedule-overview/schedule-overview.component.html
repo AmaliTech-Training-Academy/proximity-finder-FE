@@ -2,14 +2,30 @@
   @if (provider) {
         <div class="col">
 
-          <div class="overview">
+          <div class="overview" >
             <h6>Overview</h6>
-            <p>Top Pro</p>
-            <p>Hired 400 times</p>
-            <p>Brooklyn, NYC</p>
-            <p>Background checked</p>
-            <p>5 employees</p>
-            <p>2 years in business</p>
+
+              <p>Top Pro</p>
+              <p>Hired 400 times</p>
+              <p>{{provider.authservice.placeName || 'N/A'}}</p>
+              <p>Background Checked</p>
+              @if (provider['business-info'].aboutBusinessResponse; as about) {
+                <p>{{about.numberOfEmployees}} employees</p>
+              }
+
+              @if (getBusinessYears === '1 year in business') {
+                <p>
+                  1 year in business
+                </p>
+              }
+              
+              @if (getBusinessYears !== '1 year in business') {
+                <p>
+                  {{ getBusinessYears }}
+                </p>
+              }
+              
+              
           </div>
 
           <div class="col-1">
@@ -40,20 +56,26 @@
         </div>
               
         <div class="service-payment">
+          @if (provider['provider-service']; as services) {
             <div class="payment">
                 <h6>Services</h6>
-                <div class="services">
-                    <div class="service">
-                        <img src="../../../../../../assets/circle-check.svg" alt="check icon">
-                        <p>{{provider.service.name}}</p>
-                    </div>
-                    
+                  <div class="services">
+                    @for (service of services; track $index) {
+                      <div class="service">
+                        <i class="pi pi-check-circle" style="color: #408EFD"></i>
+                        <p>{{service.createdAt}}</p>
+                      </div>
+                    }
+                  </div>
                 </div>
-            </div>
-            <div class="payment">
-                <h6>Payment Methods</h6>
-                <p>{{provider.paymentPreference}}</p>
-            </div>
+                
+                <div class="payment">
+                  <h6>Payment Methods</h6>
+                    @for (service of services; track $index) {
+                      <p>{{service.paymentPreference}}</p>
+                    }
+                </div>
+              }
         </div>
   }
 </div>

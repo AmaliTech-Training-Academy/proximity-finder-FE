@@ -1,0 +1,42 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_variables' as *
+@use '../../../../../styles/_mixins' as *
+
+p
+    font-size: pxToRem(14)
+    font-weight: 400
+    color: #667085
+    margin-bottom: pxToRem(8)
+
+span
+    font-size: pxToRem(14)
+    font-weight: 400
+    color: #667085
+    margin-bottom: pxToRem(8)        
+
+.buttons
+    @include flex-option(flex, null, null, row) 
+    gap: pxToRem(8)
+    margin-top: pxToRem(16)
+
+
+    .btn-cancel
+        width: pxToRem(183)
+        padding: pxToRem(12) pxToRem(16) 
+        background: none
+        border: 1px solid #E4E7E9
+        border-radius: pxToRem(4)
+        font-size: pxToRem(14)
+        color: $text-main
+        cursor: pointer
+
+    .btn-delete
+        width: pxToRem(183)
+        padding: pxToRem(12) pxToRem(16) 
+        background-color: $error
+        border: none
+        border-radius: pxToRem(4)
+        font-size: pxToRem(14)
+        color: white
+        cursor: pointer
+

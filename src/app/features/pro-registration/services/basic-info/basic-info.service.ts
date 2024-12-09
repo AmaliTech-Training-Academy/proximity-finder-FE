@@ -34,7 +34,5 @@ private http = inject(HttpClient);
     );
   }
 
-  // uploadPicture():Observable<>{
-
-  // }
+ 
 }

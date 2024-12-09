@@ -314,10 +314,11 @@ export const routes: Routes = [
       ),
   },
   {
-    path:'quote',
+    path: 'help-and-support',
     loadComponent: () =>
-      import('./features/seeker/components/quote-created/quote-created.component').then(
-        (m) => m.QuoteCreatedComponent
-      ),
+      import(
+        './features/help-and-support/components/help-and-support/help-and-support.component'
+      ).then((m) => m.HelpAndSupportComponent),
+    
   }
 ];

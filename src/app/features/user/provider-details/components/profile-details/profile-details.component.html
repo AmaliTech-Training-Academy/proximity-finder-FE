@@ -2,14 +2,14 @@
   <div class="left">
     @if (provider) {
 
-    <h2>{{provider.service.name}}</h2>
+    <h2>{{provider.authservice.userName}}</h2>
   
     <section class="col-1">
       <figure class="profile-ratings">
-        <img [src]="provider.service.image" alt="service's picture">
+        <img [src]="provider.authservice.profileImage" alt="service's picture">
 
         <figcaption class="details">
-          <h4>{{provider.service.name}}</h4>
+          <h4>{{provider.authservice.userName}}</h4>
 
           <div class="ratings">
             <p>Exceptional 5.0</p>
@@ -26,10 +26,13 @@
     </section>
   
     <section class="col-2">
-      <p>
-        <span>Introduction: </span>{{provider.service.description}}
-      </p>
+      @if (provider['business-info'].aboutBusinessResponse) {
+        <p>
+          <span>Introduction: </span>{{ provider['business-info'].aboutBusinessResponse.businessSummary }}
+        </p>
+      }
     </section>
+    
   }
   </div>
 

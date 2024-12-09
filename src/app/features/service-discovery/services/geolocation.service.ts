@@ -3,7 +3,7 @@ import { Position } from '../models/position';
 import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, retry } from 'rxjs';
 import { ErrorHandlingService } from '../../../core/services/error-handling.service';
-import { ProDetails } from '../models/pro-details';
+import { ProDetails, ProResponse } from '../models/pro-details';
 import { environment } from '../../../../environments/environment';
 
 @Injectable({
@@ -36,9 +36,9 @@ export class GeolocationService {
     })
   }
 
-  getNearbyProviders(serviceName:string, longitude: number, latitude: number): Observable<ProDetails[]> {
+  getNearbyProviders(serviceName:string, longitude: number, latitude: number): Observable<ProResponse> {
     const radius = 10000
-    return this.http.get<ProDetails[]>(`${environment.searchUrl}/service-discovery/search?serviceName=${serviceName}&latitude=${latitude}&longitude=${longitude}&radius=${radius}`).pipe(
+    return this.http.get<ProResponse>(`${environment.searchUrl}/service-discovery/search?serviceName=${serviceName}&latitude=${latitude}&longitude=${longitude}&radius=${radius}`).pipe(
       retry(2),
       catchError((error) => this.errorhandler.handleError(error))
     )
