@@ -44,20 +44,24 @@ export class BusinessAddressComponent implements ControlValueAccessor {
     this.autoComplete.addListener('place_changed', () => {
       const place = this.autoComplete.getPlace();
 
-      const result: PlaceSearchResult = {
-        address: this.inputField.nativeElement.value,
-        name: place?.name,
-        location: place?.geometry?.location,
-        iconUrl: place?.icon,
-      };
+      if(place && place.geometry) {
 
-      
-      this.placeSelected.emit(result);
-
-     
-      this._value = this.inputField.nativeElement.value;
-      this.onChange(this._value);
-      this.onTouched();
+        const result: PlaceSearchResult = {
+          address: this.inputField.nativeElement.value,
+          name: place?.name,
+          location: place?.geometry?.location,
+          iconUrl: place?.icon,
+          coordinates: {
+            lng: place.geometry.location.lng(),
+            lat: place.geometry.location.lat()
+          }
+        }
+  
+        this.placeSelected.emit(result);
+      }
+      else {
+        console.warn('No valid place selected.');
+      }
     });
   }
 

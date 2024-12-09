@@ -17,6 +17,8 @@ import { ServiceCategory } from '../../../../core/models/IServiceCategory';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
+import { LocationsComponent } from '../../../../shared/components/locations/locations.component';
+import { PlaceSearchResult } from '../../../../core/models/place-search-result';
 
 @Component({
   selector: 'app-pro-service-preference',
@@ -29,6 +31,7 @@ import { InputTextModule } from 'primeng/inputtext';
     InputTextModule,
     ButtonModule,
     DialogModule,
+    LocationsComponent,
   ],
   templateUrl: './pro-service-preference.component.html',
   styleUrl: './pro-service-preference.component.sass',
@@ -62,6 +65,10 @@ export class ProServicePreferenceComponent {
 
   constructor(private fb: FormBuilder, private serviceService: ServiceService) {
     this.generateTimeOptions(15);
+  }
+
+  onLocationSelected(location: PlaceSearchResult) {
+    console.log(location);
   }
 
   setEditing() {

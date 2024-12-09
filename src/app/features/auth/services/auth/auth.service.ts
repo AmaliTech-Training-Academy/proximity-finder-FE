@@ -50,18 +50,19 @@ export class AuthService {
       })
     );
   }
-  public refreshAccessToken(){
-    const params = new HttpParams().set('refreshToken', this.refreshToken.value);
-  
-    return this.http.get(`${this.url}/auth/public/refresh-token`, { params }).pipe(
+  public refreshAccessToken(): Observable<any> {
+    return this.http.post(`${this.url}/auth/public/refresh-token`, { refreshToken: this.refreshToken.value }).pipe(
       tap((res: any) => {
-        const newAccessToken = res.newAccessToken;
+        const { newAccessToken, jwtRefreshToken } = res;
         this.localStorageService.setItem('accessToken', newAccessToken);
-        this.localStorageService.setItem('newAccessToken', newAccessToken);
+        this.localStorageService.setItem('refreshToken', jwtRefreshToken);
+  
         this.accessToken.next(newAccessToken);
+        this.refreshToken.next(jwtRefreshToken);
       })
     );
   }
+  
   
 
   public logout(): void {

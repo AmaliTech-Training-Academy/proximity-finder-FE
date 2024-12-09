@@ -46,12 +46,12 @@
    <div class="quote-request">
     <p-dialog header="Quote Request" [modal]="true" [(visible)]="modals.quote">
 
-      <form [formGroup]="quoteForm">
+      <form [formGroup]="quoteForm" (ngSubmit)="onQuoteSubmit()">
         <div class="name">
           <label>Name/Title</label>
           <input type="text"
             placeholder="Enter the title of your project"
-            formControlName="name"
+            formControlName="title"
             [class.has-error]="quoteForm.get('name')?.invalid && (quoteForm.get('name')?.dirty || quoteForm.get('name')?.touched)"
             />
       </div>
@@ -135,6 +135,7 @@
       <div class="images">
           <label>Upload some pictures related to the project</label>
           <app-image-uploader
+          (imagesChange)="onImagesChange($event)"
           />
       </div>
   
@@ -149,7 +150,7 @@
 
     <div class="call-request">
     <p-dialog header="Call Request" [modal]="true" [modal]="true" [(visible)]="modals.call">
-      <form [formGroup]="callForm">
+      <form [formGroup]="callForm" (ngSubmit)="onCallRequest()">
         <div class="mobile">
           <label>Mobile Number</label>
           <input type="number"

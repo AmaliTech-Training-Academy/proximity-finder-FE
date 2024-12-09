@@ -20,7 +20,7 @@ body, button, input, textarea
 .p-dropdown
     border: solid 1px rgba(234, 236, 240, 1)
     border-radius: 8px
-    padding: 5px
+    padding: 5px 0 5px 5px
     
 .p-dropdown-label
     margin: 0 10px 0 0
@@ -218,7 +218,7 @@ app-fields.custom .inputs input
     border-radius: 8px !important
     height: 55px !important
 .p-accordion
-    @include flex-option(flex, center, center, column)
+    @include flex-option(flex, center, null, column)
     gap: 1.5rem
 
 .p-accordion p-accordiontab .p-accordion-tab
@@ -311,10 +311,41 @@ app-fields.custom .inputs input
         width: pxToRem(250)
 
 .p-inputtext:enabled:hover
-    border: none
+    // border: none
 
 .p-inputtext:enabled:focus
     outline: 0 none
     outline-offset: 0
     box-shadow: none
 
+.account-list
+    .p-button
+        background: none
+        border: none
+        color: $text-main
+
+.addAccount
+    .p-tabview-nav
+        li
+            flex: 1
+
+.bankName, .serviceProvider, .preferred-account
+    .p-dropdown
+        width: 100%
+        padding: 10px 0 10px 8px
+
+.accountName, .accountAlias, .accountNumber, .mobileNumber
+    .p-inputtext
+        padding: 10px 0 10px 8px
+
+.project
+    .p-inputtext
+        width: 100%
+
+.location
+    .p-inputtext
+        width: 100%
+
+
+.pac-container
+    z-index: 2000

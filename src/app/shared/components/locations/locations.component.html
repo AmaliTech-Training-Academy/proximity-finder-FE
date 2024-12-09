@@ -1,1 +1,10 @@
-<input type="text" #inputField placeholder="location">
+@if (atHome) {
+<input type="text" #inputField placeholder="location" />
+} @else {
+<input
+  class="not-home-location"
+  type="text"
+  #inputField
+  placeholder="Enter a location"
+/>
+}
