@@ -79,22 +79,29 @@
 </main>
 
 <p-dialog
+  header="Add Account"
   [modal]="true"
   [(visible)]="isDialogVisible"
   [draggable]="false"
   [resizable]="false"
-  [showHeader]="false"
-  [style]="{ width: '32.75rem' }"
+  [style]="{ width: '32.75rem', overflow: 'visible' }"
   class="addAccount"
 >
-  <p-tabView>
-    <p-tabPanel header="Bank Details"
-      ><app-bank-details-form (closeModalEvent)="closeModal($event)"
-    /></p-tabPanel>
-    <p-tabPanel header="Mobile Money"
-      ><app-mobile-money-form (closeModalEvent)="closeModal($event)"
-    /></p-tabPanel>
-  </p-tabView>
+  <div class="preferred-account">
+    <label for="preferredAccount">Payment Preference</label>
+    <p-dropdown
+      (onChange)="setPreferredAccount($event)"
+      [options]="paymentPreferences"
+      optionLabel="paymentPreference"
+      placeholder="Select payment preference"
+    />
+  </div>
+
+  @if (selectedPaymentPreference === 'Bank Account') {
+  <app-bank-details-form (closeModalEvent)="closeModal($event)" />
+  } @else if (selectedPaymentPreference === 'Mobile Money') {
+  <app-mobile-money-form (closeModalEvent)="closeModal($event)" />
+  }
 </p-dialog>
 
 <p-dialog

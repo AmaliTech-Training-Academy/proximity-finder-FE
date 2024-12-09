@@ -1,8 +1,8 @@
-<form>
+<form [formGroup]="bankDetailsForm" (ngSubmit)="onSubmit()">
   <div class="bankName">
     <label for="bankName">Bank Name</label>
     <p-dropdown
-      formControlName="selectedBank"
+      formControlName="bankName"
       [options]="banks"
       optionLabel="bankName"
       placeholder="Select a Bank"
@@ -40,6 +40,6 @@
 
   <div class="buttons">
     <p-button label="Cancel" severity="secondary" (onClick)="closeDialog()" />
-    <p-button label="Save" />
+    <p-button type="submit" label="Save" />
   </div>
 </form>
