@@ -1,0 +1,229 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_variables' as *
+@use '../../../../../styles/_mixins' as *
+
+
+.quotes
+    padding: pxToRem(20) pxToRem(100)
+
+
+    h6
+     font-size: pxToRem(30)
+     font-weight: 600
+     color: $text-main
+
+    .search
+        @include flex-option(flex, null, center, row)
+        gap: pxToRem(10)
+        margin-top: pxToRem(20) 
+        border: 1px solid #E4E7E9
+        border-radius: pxToRem(8)
+        width: pxToRem(300)
+        padding: pxToRem(10) pxToRem(16)
+
+        input
+            width: 100%
+            padding: pxToRem(10)
+            border: none
+            background: transparent
+            &:focus
+                outline: none
+                border-color: none
+
+    .all-quotes
+        @include flex-option(flex, null, null, row)
+        gap: pxToRem(20)
+        margin-top: pxToRem(24)
+        
+              
+
+    .quote-container
+        @include flex-option(flex, null, null, column)
+        gap: pxToRem(20)
+        margin-top: pxToRem(24)
+        flex: 2
+       
+
+        .quote-list
+            @include flex-option(flex, null, null, column)
+            gap: pxToRem(16)
+            padding: pxToRem(16) pxToRem(20)
+            border: 1px solid #E4E7E9
+            border-radius: pxToRem(4) 
+
+            .header
+                p
+                 font-size: pxToRem(18)
+                 font-weight: 500
+                 color: $text-main
+
+            .location
+                @include flex-option(flex, null, center, row)
+                gap: pxToRem(8) 
+
+                p
+                    font-size: pxToRem(14)
+                    font-weight: 500
+                    color: $subtext  
+
+            .info
+                @include flex-option(flex, null, center, row) 
+                gap: pxToRem(80)
+                border-bottom: 1px solid #E4E7E9
+                padding-bottom: pxToRem(18)
+
+                .date
+                    @include flex-option(flex, null, null, column) 
+                    gap: pxToRem(6)
+
+                    p
+                        font-size: pxToRem(14)
+                        font-weight: 400
+                        color: $subtext
+
+                .duration
+                    @include flex-option(flex, null, null, column)
+                    gap: pxToRem(6)
+                    p
+                        font-size: pxToRem(14)
+                        font-weight: 400
+                        color: $subtext
+                .price
+                    @include flex-option(flex, null, null, column)
+                    gap: pxToRem(6)
+                   
+                    p
+                        font-size: pxToRem(14)
+                        font-weight: 400
+                        color: $subtext   
+
+            .view-details
+                @include flex-option(flex, null, null, row)
+                align-self: flex-end
+                border: 1px solid $primary
+                width: pxToRem(114) 
+                padding: pxToRem(10) pxToRem(16)
+                cursor: pointer
+
+                .btn-view
+                    border: none
+                    background: none
+                    color: $primary 
+                    font-size: pxToRem(14)
+                    font-weight: 400
+                    cursor: pointer  
+
+    .details-preview
+        @include flex-option(flex, null, null, column)
+        gap: pxToRem(20)
+        margin-top: pxToRem(24)
+        flex:1 
+        border: 1px solid #E4E7E9  
+        border-radius: pxToRem(4)
+
+        .title
+            @include flex-option(flex, space-between, null, row)
+            padding: pxToRem(16) pxToRem(20)
+            background-color: #F2F4F5
+
+            p
+             font-size: pxToRem(18)
+             font-weight: 600
+             color: $text-main
+
+        .status
+            @include flex-option(flex, null, center, row)
+            gap: pxToRem(16)
+            padding: pxToRem(16) pxToRem(20)
+
+            p
+                font-size: pxToRem(16)
+                font-weight: 500
+                color: $subtext
+
+            span
+                font-size: pxToRem(14)
+                font-weight: 500
+                color: $text-main  
+
+        .due-date
+            @include flex-option(flex, null, center, row)
+            gap: pxToRem(16)
+            padding: pxToRem(16) pxToRem(20)
+
+            p
+                font-size: pxToRem(16)
+                font-weight: 500
+                color: $subtext
+
+            span
+                font-size: pxToRem(14)
+                font-weight: 500
+                color: $text-main 
+
+        .provider
+            @include flex-option(flex, null, center, row)
+            gap: pxToRem(16)
+            padding: pxToRem(16) pxToRem(20)
+
+            p
+                font-size: pxToRem(16)
+                font-weight: 500
+                color: $subtext
+
+            .pro
+                @include flex-option(flex, null, center, row)
+                gap: pxToRem(8)  
+
+                img
+                    width: pxToRem(32)
+                    height: pxToRem(32)
+                    border-radius: 50%  
+
+                span
+                   font-size: pxToRem(14)
+                   font-weight: 500
+                   color: $text-main 
+
+        .photos
+            display: grid
+            grid-template-columns: repeat(3, 1fr)
+            gap: pxToRem(16)
+            padding: pxToRem(16) pxToRem(20)
+
+            img
+                width: pxToRem(150)
+                height: pxToRem(150)
+                object-fit: cover            
+
+
+        .reply
+            @include flex-option(flex, null, null, row)
+            gap: pxToRem(16)
+            padding: pxToRem(16) pxToRem(20)
+
+            img
+                width: pxToRem(40)
+                height: pxToRem(40)
+                border-radius: 50%  
+
+            .text
+                @include flex-option(flex, null, null, column)
+                gap: pxToRem(10) 
+
+                p
+                    font-size: pxToRem(16)
+                    font-weight: 600
+                    color: $text-main 
+
+                span
+                    font-size: pxToRem(14)
+                    font-weight: 500
+                    color: $subtext                                
+              
+                                     
+
+
+            
+    
+    
