@@ -108,6 +108,9 @@ export class ProAccountInfoComponent implements OnInit, OnDestroy {
           this.notyf.success('Account delete successfully');
           this.isConfirmDialogVisible = false;
         },
+        error: () => {
+          this.notyf.error('Could not delete account');
+        },
       });
   }
 
