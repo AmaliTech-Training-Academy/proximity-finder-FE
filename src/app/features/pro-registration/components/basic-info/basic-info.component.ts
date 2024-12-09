@@ -11,6 +11,7 @@ import { Notyf } from 'notyf';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { Subscription } from 'rxjs';
 import { BusinessAddressComponent } from "../business-address/business-address.component";
+import { PlaceSearchResult } from '../../../../core/models/place-search-result';
 
 
 @Component({
@@ -20,8 +21,9 @@ import { BusinessAddressComponent } from "../business-address/business-address.c
   templateUrl: './basic-info.component.html',
   styleUrl: './basic-info.component.sass'
 })
-export class BasicInfoComponent implements OnInit,OnDestroy {
+export class BasicInfoComponent implements OnInit {
   registrationForm: FormGroup;
+  placeValue!: PlaceSearchResult | null
 
   basicInfoSubscription!:Subscription
 
@@ -68,9 +70,10 @@ export class BasicInfoComponent implements OnInit,OnDestroy {
       };
       
 
-      this.basicInfoSubscription = this.basicInfoService.sendInfo(formData).subscribe({
+      this.basicInfoService.sendInfo(formData).subscribe({
         next: (response) => {
-          this.notyf.success('Information Saved');
+          console.log(response)
+          this.notyf.success('Basic Information Saved');
         },
         error: (error) => {
           this.notyf.error('Failed to save data');
@@ -79,16 +82,15 @@ export class BasicInfoComponent implements OnInit,OnDestroy {
     }
   }
 
-  
-  ngOnDestroy():void{
-    if(this.basicInfoSubscription){
-      this.basicInfoSubscription.unsubscribe()
-    }
-    
-  }
-
+  onLocationSelected(place: PlaceSearchResult) {
+    console.log('Place selected:', place);
+    this.placeValue = place;
+    this.registrationForm.patchValue({
+      businessAddress: this.placeValue.address
+    });
   
   }
+}
 
 
 

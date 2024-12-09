@@ -1,14 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject, Input, OnInit } from '@angular/core';
-import {MatIconRegistry, MatIconModule} from '@angular/material/icon';
-import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { SvgService } from '../../../../shared/services/svg.service';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [MatIconModule, RouterLink, RouterLinkActive, CommonModule],
+  imports: [RouterLink, RouterLinkActive, CommonModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.sass',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -17,7 +15,7 @@ export class NavbarComponent implements OnInit{
   currentRoute!: string
   @Input() backgroundColor: string = 'initial';
 
-  constructor( private router: Router, private activatedRoute: ActivatedRoute, private svgService: SvgService) {}
+  constructor( private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
     this.updateRoute()
