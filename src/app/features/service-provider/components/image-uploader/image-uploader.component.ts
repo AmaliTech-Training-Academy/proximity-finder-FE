@@ -60,5 +60,6 @@ export class ImageUploaderComponent {
   removeImage(index: number): void {
     this.imagePreviews.splice(index, 1);
     this.files.splice(index, 1);
+    this.uploadedImages.emit(this.files);
   }
 }
