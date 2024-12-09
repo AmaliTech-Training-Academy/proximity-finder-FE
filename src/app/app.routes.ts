@@ -313,4 +313,12 @@ export const routes: Routes = [
         (c) => c.ChatComponent
       ),
   },
+  {
+    path: 'help-and-support',
+    loadComponent: () =>
+      import(
+        './features/help-and-support/components/help-and-support/help-and-support.component'
+      ).then((m) => m.HelpAndSupportComponent),
+    
+  }
 ];
