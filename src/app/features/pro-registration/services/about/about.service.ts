@@ -14,6 +14,6 @@ export class AboutService {
 
   sendAbout(data: FormData,options?: { headers: HttpHeaders }): Observable<About> {
     console.log('Yes')
-    return this.http.post<About>(`${this.apiUrl}/v1/about`, data, options);
+    return this.http.post<About>(`${this.apiUrl}/about`, data, options);
   }
 }

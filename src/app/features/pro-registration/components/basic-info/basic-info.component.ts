@@ -71,7 +71,6 @@ export class BasicInfoComponent implements OnInit,OnDestroy {
       this.basicInfoSubscription = this.basicInfoService.sendInfo(formData).subscribe({
         next: (response) => {
           this.notyf.success('Information Saved');
-          
         },
         error: (error) => {
           this.notyf.error('Failed to save data');

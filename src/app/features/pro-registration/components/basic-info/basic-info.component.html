@@ -57,7 +57,7 @@
     <div class="error-message" *ngIf="registrationForm.get('businessAddress')?.invalid && (registrationForm.get('businessAddress')?.dirty || registrationForm.get('businessAddress')?.touched)">
        Business Address is required
       </div>
-    <button class="continue" [disabled]="registrationForm.invalid" [routerLink]="['/registration/about-business']">Continue</button>
+    <button class="continue" type="submit"  [routerLink]="['/registration/about-business']">Continue</button>
     
    </form>
 

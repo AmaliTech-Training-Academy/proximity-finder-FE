@@ -182,6 +182,32 @@ export const routes: Routes = [
           ).then((m) => m.AdminReviewsComponent),
       },
       {
+        path: 'pro-accounts',
+        loadComponent: () =>
+          import(
+            './features/admin/pages/pro-accounts/pro-accounts.component'
+          ).then((m) => m.ProAccountsComponent),
+          children: [
+            {
+              path: '',
+              loadComponent: () =>
+                import('./features/admin/pages/admin-pro-account/admin-pro-account.component').then(m => m.AdminProAccountComponent)
+            },
+            {
+              path: 'details',
+              loadComponent: () =>
+                import('./features/admin/pages/admin-pro-details/admin-pro-details.component').then(m => m.AdminProDetailsComponent)
+            }
+          ]
+      },
+      {
+        path: 'user-accounts',
+        loadComponent: () =>
+          import(
+            './features/admin/pages/admin-user-accounts/admin-user-accounts.component'
+          ).then((m) => m.AdminUserAccountsComponent),
+      },
+      {
         path: 'settings',
         loadComponent: () =>
           import(
@@ -287,4 +313,12 @@ export const routes: Routes = [
         (c) => c.ChatComponent
       ),
   },
+  {
+    path: 'help-and-support',
+    loadComponent: () =>
+      import(
+        './features/help-and-support/components/help-and-support/help-and-support.component'
+      ).then((m) => m.HelpAndSupportComponent),
+    
+  }
 ];
