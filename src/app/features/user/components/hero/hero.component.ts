@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { Subscription } from 'rxjs';
 import { ProviderDataService } from '../../../service-discovery/services/provider-data.service';
-import { ProDetails } from '../../../service-discovery/models/pro-details';
+import { ProDetails, ProResponse } from '../../../service-discovery/models/pro-details';
 import { filterItemsByQuery } from '../../../../utils/filterCategories';
 import { ReviewFormComponent } from "../../../reviews-feedback/components/review-form/review-form.component";
 
@@ -100,8 +100,8 @@ export class HeroComponent implements OnInit, OnDestroy {
       const lng = location.lat
   
       this.locationService.getNearbyProviders(serviceName, lng, lat).subscribe({
-        next: (response: ProDetails[]) => {
-          this.providerService.setProviders(response)
+        next: (response: ProResponse) => {
+          this.providerService.setProviders(response.content)
           this.router.navigate(['/search'])
         },
         error: (error) => {
