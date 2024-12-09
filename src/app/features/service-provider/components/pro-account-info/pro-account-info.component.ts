@@ -14,6 +14,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { PaymentService } from '../../../pro-registration/services/payment/payment.service';
 import { paymentPreference } from '../../../pro-registration/models/payment';
 import { FormsModule } from '@angular/forms';
+import { ProfileService } from '../../../profile-management/services/profile.service';
+import { IPaymentAccount } from '../../../../core/models/payment-account';
 
 @Component({
   selector: 'app-pro-account-info',
@@ -37,6 +39,7 @@ export class ProAccountInfoComponent implements OnInit, OnDestroy {
   paymentPreferences: paymentPreference[] = [];
   selectedPaymentPreference = 'Bank Account';
   subscription!: Subscription;
+  paymentMethod!: IPaymentAccount;
 
   items = [
     {
@@ -51,15 +54,24 @@ export class ProAccountInfoComponent implements OnInit, OnDestroy {
     },
   ];
 
-  linkedAccounts = linkedAccounts;
+  linkedAccounts!: IPaymentAccount[];
 
-  constructor(private paymentService: PaymentService) {}
+  constructor(
+    private paymentService: PaymentService,
+    private profileService: ProfileService
+  ) {}
 
   ngOnInit(): void {
     this.subscription = this.paymentService.getAllPrefernces().subscribe({
       next: (preferences) => (this.paymentPreferences = preferences),
       error: (error) =>
         console.log('Failed to fetch payment preferences', error),
+    });
+    this.subscription = this.profileService.getPaymentAccounts().subscribe({
+      next: (preferences) => {
+        this.linkedAccounts = preferences;
+        // console.log(preferences);
+      },
     });
   }
 
