@@ -248,8 +248,9 @@
   <div class="bottom">
     <nav>
       <a
-        routerLink="/provider/dashboard/help-support"
+        routerLink="/help-and-support"
         routerLinkActive="active-link"
+        [routerLinkActiveOptions]="{ exact: true }"
       >
         <svg
           width="24"
@@ -276,8 +277,9 @@
         <span>Help & Support</span></a
       >
       <a
-        routerLink="/provider/dashboard/settings"
-        routerLinkActive="active-link"
+      routerLink="/help-and-support"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: true }"
       >
         <svg
           width="24"
