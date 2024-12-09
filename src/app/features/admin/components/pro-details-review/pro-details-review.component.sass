@@ -1,0 +1,136 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+
+.container
+    @include flex-option(flex, null, null,column)
+    gap: 1rem
+
+
+    .col-1
+        @include flex-option(flex, null, center,row)
+        gap: pxToRem(30)
+        padding: pxToRem(28) 0.75rem 0.75rem
+
+        .rate
+            @include flex-option(flex, null, null,column)
+            gap: pxToRem(4)
+
+            h1
+                font-size: 2.5rem
+                color: $text-main
+
+            ::ng-deep .p-rating
+                @include flex-option(flex, null, center,row)
+                gap: pxToRem(5)
+
+            ::ng-deep .p-rating .p-rating-item .p-rating-icon.p-icon
+                width: pxToRem(16)
+                height: pxToRem(16)
+
+            p
+                font-size: pxToRem(14)
+                color: rgba(51, 51, 51, 0.63)
+        
+        .rate-bars
+            @include flex-option(flex, null, null,column)
+            gap: 0.625rem
+
+            .bar
+                @include flex-option(flex, center, center,row)
+                gap: pxToRem(10)
+
+                ::ng-deep .p-metergroup.p-metergroup-horizontal .p-metergroup-meters
+                    height: pxToRem(10)
+
+                .bar-rate
+                    color: #333
+                    font-size: pxToRem(12)
+                    font-weight: 700
+
+                .bar-reviews
+                    color: #7E7E7E
+                    font-size: pxToRem(11)
+                    font-weight: 500
+
+    .col-2
+        @include flex-option(flex, null, null,column)
+        gap: 1rem
+        padding: pxToRem(11)
+        border-bottom: 2px solid #EFF1F3
+
+        .profile
+            @include flex-option(flex, space-between, center,row)
+
+            .left
+                @include flex-option(flex, null, center,row)
+                gap: pxToRem(5)
+                padding: pxToRem(11)
+
+                img
+                    width: pxToRem(30)
+                    height: pxToRem(30)
+                    border-radius: 50%
+                    object-fit: cover
+
+                .name
+                    font-size: pxToRem(14)
+                    font-weight: 700
+                    color: $text-main
+
+                .time
+                    font-size: pxToRem(11)
+                    font-weight: 700
+                    color: $text-secondary
+
+
+
+            .right
+                @include flex-option(flex, null, center,row)
+                gap: pxToRem(10)
+                text-align: center
+
+                ::ng-deep .p-rating
+                    @include flex-option(flex, null, center,row)
+                    gap: pxToRem(5)
+
+                ::ng-deep .p-rating .p-rating-item .p-rating-icon.p-icon
+                    width: pxToRem(14)
+                    height: pxToRem(14)
+
+                .rate
+                    font-size: pxToRem(11)
+                    font-weight: 700
+                    color: $text-main
+
+        .message
+            font-size: 1rem
+            font-weight: 400
+            color: $text-secondary
+            padding-left: 0.6875rem
+
+        .images
+            @include flex-option(flex, flex-start, center,row)
+            gap: pxToRem(10)
+            padding-left: 0.6875rem
+
+            img
+                width: pxToRem(50)
+                height: pxToRem(50)
+                object-fit: cover
+                border-radius: 8px
+            
+
+    a
+        @include flex-option(flex, flex-start, center, row)
+        gap: 6px
+        color: #408EFD
+        cursor: pointer
+
+        span
+            text-decoration: underline
+
+           
+                
+                
+        

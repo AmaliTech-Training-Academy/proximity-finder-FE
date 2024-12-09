@@ -146,25 +146,14 @@
       </button>
     </div>
     <div>
-      <label>Is this the same location as the previous one?*</label>
-      <p-dropdown
-        formControlName="sameLocation"
-        [options]="[
-          { name: 'Yes', value: 'Yes' },
-          { name: 'No', value: 'No' }
-        ]"
-        optionLabel="name"
-        placeholder="Please choose"
-      />
-    </div>
-    <div>
       <label for="location">Location*</label>
-      <input
-        type="text"
-        pInputText
-        formControlName="location"
-        placeholder="Accra, Ghana"
-      />
+      <div class="address">
+        <app-business-address
+          (placeSelected)="onLocationSelected($event)"
+          class="location"
+        />
+      </div>
+
       <p
         class="error-message"
         *ngIf="

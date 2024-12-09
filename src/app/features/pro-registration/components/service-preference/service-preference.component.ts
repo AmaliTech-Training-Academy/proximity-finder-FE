@@ -24,7 +24,11 @@ import { ServiceService } from '../../../../core/services/service.service';
 import { ITime } from '../../../../core/models/ITime';
 import { Notyf } from 'notyf';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
+import { LocationsComponent } from '../../../../shared/components/locations/locations.component';
+import { PlaceSearchResult } from '../../../../core/models/place-search-result';
+import { BusinessAddressComponent } from '../business-address/business-address.component';
 import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-service-preference',
@@ -39,6 +43,7 @@ import { Router } from '@angular/router';
     ReactiveFormsModule,
     ButtonModule,
     DialogModule,
+    BusinessAddressComponent,
   ],
   templateUrl: './service-preference.component.html',
   styleUrls: ['./service-preference.component.sass'],
@@ -50,13 +55,12 @@ export class ServicePreferenceComponent {
   visible: boolean = false;
   timeOptions: ITime[] = [];
   uploadedFiles: File[] = [];
+  location!: PlaceSearchResult;
 
   servicePreferenceForm: FormGroup = this.fb.group({
     service: [null, Validators.required],
     paymentPreference: [null, Validators.required],
     bookingDays: this.fb.array([this.createBookingDay()]),
-    sameLocation: [null, Validators.required],
-    location: ['', Validators.required],
     documents: [null],
     schedulingPolicy: [''],
   });
@@ -119,10 +123,20 @@ export class ServicePreferenceComponent {
     this.timeOptions = times;
   }
 
+  onLocationSelected(location: PlaceSearchResult) {
+    console.log(location.location?.lng());
+    this.location = location;
+  }
+
   onSubmit() {
     if (this.servicePreferenceForm.valid) {
       const formData = new FormData();
       const formValue = this.servicePreferenceForm.value;
+      const locationData = {
+        placeName: this.location.address,
+        latitude: this.location.location?.lat(),
+        longitude: this.location.location?.lng(),
+      };
 
       const formattedBookingDays = formValue.bookingDays.map((day: any) => ({
         dayOfWeek: (day.dayOfWeek?.name || day.dayOfWeek)
@@ -131,8 +145,6 @@ export class ServicePreferenceComponent {
         startTime: this.formatTime(day.startTime),
         endTime: this.formatTime(day.endTime),
       }));
-
-      formData.append('userId', '33252a99-ab98-4413-9191-6f93c6df5806');
 
       formData.append(
         'serviceName',
@@ -146,7 +158,9 @@ export class ServicePreferenceComponent {
 
       formData.append('sameLocation', formValue.sameLocation ? 'yes' : 'no');
 
-      formData.append('location', formValue.location);
+      formData.append('placeName', locationData.placeName);
+      formData.append('latitude', String(locationData.latitude ?? ''));
+      formData.append('longitude', String(locationData.longitude ?? ''));
 
       formData.append('bookingDays', JSON.stringify(formattedBookingDays));
 
