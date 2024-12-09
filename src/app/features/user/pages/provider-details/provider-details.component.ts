@@ -1,4 +1,4 @@
-import { Component, inject, InjectionToken, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { UserProfileHeaderComponent } from "../../../../shared/components/user-profile-header/user-profile-header.component";
 import { ProfileDetailsComponent } from "../../provider-details/components/profile-details/profile-details.component";
 import { ScheduleOverviewComponent } from "../../provider-details/components/schedule-overview/schedule-overview.component";

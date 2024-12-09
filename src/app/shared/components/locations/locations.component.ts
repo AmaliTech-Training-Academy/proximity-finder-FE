@@ -1,5 +1,12 @@
 /// <reference types="googlemaps" />
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { PlaceSearchResult } from '../../../core/models/place-search-result';
 
 @Component({
@@ -7,22 +14,24 @@ import { PlaceSearchResult } from '../../../core/models/place-search-result';
   standalone: true,
   imports: [],
   templateUrl: './locations.component.html',
-  styleUrl: './locations.component.sass'
+  styleUrl: './locations.component.sass',
 })
 export class LocationsComponent {
   @ViewChild('inputField') inputField!: ElementRef;
   autoComplete!: google.maps.places.Autocomplete;
+  @Input() atHome: boolean = true;
   @Output() placeSelected = new EventEmitter<PlaceSearchResult>();
   constructor() {}
 
   ngAfterViewInit() {
-    this.autoComplete = new google.maps.places.Autocomplete(this.inputField.nativeElement);
+    this.autoComplete = new google.maps.places.Autocomplete(
+      this.inputField.nativeElement
+    );
 
     this.autoComplete.addListener('place_changed', () => {
       const place = this.autoComplete.getPlace();
 
-      if(place && place.geometry) {
-
+      if (place && place.geometry) {
         const result: PlaceSearchResult = {
           address: this.inputField.nativeElement.value,
           name: place?.name,
@@ -30,13 +39,12 @@ export class LocationsComponent {
           iconUrl: place?.icon,
           coordinates: {
             lng: place.geometry.location.lng(),
-            lat: place.geometry.location.lat()
-          }
-        }
-  
+            lat: place.geometry.location.lat(),
+          },
+        };
+
         this.placeSelected.emit(result);
-      }
-      else {
+      } else {
         console.warn('No valid place selected.');
       }
     });

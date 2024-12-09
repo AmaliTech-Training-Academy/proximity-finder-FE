@@ -21,8 +21,8 @@ export const excludedEndpoints = [
   '/api/v1/provider-services',
   '/api/v1/service-experiences',
   '/api/auth/public/refresh-token',
-  '/api/v1/support/',
-  '/api/v1/support/quote-service/quotes'
+  'api/v1/provider-service/payment-method',
+  '/api/v1/support/'
   
 
 ];

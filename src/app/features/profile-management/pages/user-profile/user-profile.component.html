@@ -104,9 +104,9 @@
             </div>
 
             <div class="input-group">
-                @if (paymentAccounts | async; as accounts) {
-                    @for (account of accounts; track $index) {
-                        @if (accounts.length > 0) {
+                @if (paymentAccounts) {
+                    @for (account of paymentAccounts | reverse; track $index) {
+                        @if (paymentAccounts.length > 0) {
 
                             <div class="account" (click)="selectAccount(account)">
                                 <p>{{ account.bankName || account.serviceProvider }}</p>
@@ -239,7 +239,7 @@
                     </div>
                 </div>
 
-                <button type="submit" [disabled]="accountInfoForm.invalid">Save Changes</button>
+                <button type="submit" [disabled]="accountInfoForm.invalid" class="save-btn">Save Changes</button>
             </div>
             }
         </form>

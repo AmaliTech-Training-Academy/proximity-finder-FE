@@ -77,12 +77,13 @@
         </div>
         <div class="location field">
           <label for="location">Location</label>
-          <input
+          <!-- <input
             type="text"
             pInputText
             formControlName="location"
             placeholder="Accra, Ghana"
-          />
+          /> -->
+          <app-locations (placeSelected)="onLocationSelected($event)" />
         </div>
         <div class="schedulingPolicy field">
           <label for="schedulingPolicy">Scheduling Policy</label>
