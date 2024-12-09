@@ -21,14 +21,12 @@ export class ProfileService {
   loggedInUserSubject = new BehaviorSubject<User | null>(null);
   loggedInUser$ = this.loggedInUserSubject.asObservable();
 
-  constructor(
-    private http: HttpClient,
-    private errorHandler: ErrorHandlingService,
-    private localStorageService: LocalStorageService
-  ) {
-    this.token = this.localStorageService.getItem('accessToken') || '';
-    this.decodeToken();
+  paymentAccountsSubject = new BehaviorSubject<IPaymentAccount[]>([])
+  paymentAccounts$ = this.paymentAccountsSubject.asObservable()
 
+  constructor(private http: HttpClient, private errorHandler: ErrorHandlingService, private localStorageService: LocalStorageService) {
+    this.token = this.localStorageService.getItem('accessToken') || ''
+    this.decodeToken()
   }
 
   getClient(): Observable<IProfile> {
@@ -61,38 +59,28 @@ export class ProfileService {
       );
   }
 
-  getPaymentAccounts(): Observable<IPaymentAccount[]> {
-    return this.http
-      .get<IPaymentAccount[]>(`${this.apiUrl}/payment-method`)
-      .pipe(
-        retry(2),
-        catchError((error) => this.errorHandler.handleError(error))
-      );
+  getPaymentAccounts(): void {
+    this.http.get<IPaymentAccount[]>(`${this.apiUrl}/payment-method`)
+    .subscribe((accounts) => {
+      this.paymentAccountsSubject.next(accounts)
+    })
   }
 
-  editPaymentAccount(
-    paymentAccount: IPaymentAccount,
-    accountId: number
-  ): Observable<IPaymentAccount> {
-    return this.http
-      .patch<IPaymentAccount>(
-        `${this.apiUrl}/payment-method/id=${accountId}`,
-        paymentAccount
-      )
-      .pipe(
-        retry(2),
-        catchError((error) => this.errorHandler.handleError(error))
-      );
+  editPaymentAccount(paymentAccount: IPaymentAccountNoId, accountId: number): Observable<IPaymentAccount> {
+   
+    return this.http.patch<IPaymentAccount>(`${this.apiUrl}/payment-method/${accountId}`, paymentAccount).pipe(
+      retry(2),
+      tap(() => this.getPaymentAccounts()),
+      catchError(error => this.errorHandler.handleError(error))
+    )
   }
 
   deletePaymentAccount(accountId: number): Observable<IPaymentAccount> {
-    return this.http
-      .delete<IPaymentAccount>(`${this.apiUrl}/payment-method/id=${accountId}`)
-      .pipe(
-        retry(2),
-        catchError((error) => this.errorHandler.handleError(error))
-      );
-
+    return this.http.delete<IPaymentAccount>(`${this.apiUrl}/payment-method/${accountId}`).pipe(
+      retry(2),
+      tap(() => this.getPaymentAccounts()),
+      catchError(error => this.errorHandler.handleError(error))
+    )
   }
 
   decodeToken() {
