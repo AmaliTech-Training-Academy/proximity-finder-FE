@@ -46,7 +46,7 @@
    <div class="quote-request">
     <p-dialog header="Quote Request" [modal]="true" [(visible)]="modals.quote">
 
-      <form [formGroup]="quoteForm" (ngSubmit)="onQuoteSubmit()">
+      <form [formGroup]="quoteForm">
         <div class="name">
           <label>Name/Title</label>
           <input type="text"
@@ -135,7 +135,6 @@
       <div class="images">
           <label>Upload some pictures related to the project</label>
           <app-image-uploader
-          (imagesChange)="onImagesChange($event)"
           />
       </div>
   
@@ -150,7 +149,7 @@
 
     <div class="call-request">
     <p-dialog header="Call Request" [modal]="true" [modal]="true" [(visible)]="modals.call">
-      <form [formGroup]="callForm" (ngSubmit)="onCallRequest()">
+      <form [formGroup]="callForm">
         <div class="mobile">
           <label>Mobile Number</label>
           <input type="number"

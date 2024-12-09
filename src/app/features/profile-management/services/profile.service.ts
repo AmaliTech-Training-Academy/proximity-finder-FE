@@ -68,7 +68,7 @@ export class ProfileService {
 
 
   editPaymentAccount(
-    paymentAccount: IPaymentAccount,
+    paymentAccount: IPaymentAccountNoId,
     accountId: number
   ): Observable<IPaymentAccount> {
     return this.http
@@ -81,6 +81,8 @@ export class ProfileService {
         catchError((error) => this.errorHandler.handleError(error))
       );
   }
+
+  
 
   deletePaymentAccount(accountId: number): Observable<IPaymentAccount> {
     return this.http.delete<IPaymentAccount>(`${this.apiUrl}/payment-method/${accountId}`).pipe(
