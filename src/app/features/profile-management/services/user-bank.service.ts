@@ -10,24 +10,22 @@ import { ErrorHandlingService } from '../../../core/services/error-handling.serv
   providedIn: 'root',
 })
 export class UserBankService {
-  apiUrl = 'http://34.216.212.142:8888/api/v1';
+  apiUrl =
+    'https://api.proximity-finder.amalitech-dev.net/api/v1/provider-service';
   token!: string;
-
   constructor(
     private http: HttpClient,
     private localStorageService: LocalStorageService,
     private errorHandler: ErrorHandlingService
   ) {
-    this.token = this.localStorageService.getItem('token') || '';
+    this.token = this.localStorageService.getItem('accessToken') || '';
   }
-
   getAllBanks(): Observable<BankName[]> {
     return this.http.get<BankName[]>(`${this.apiUrl}/banks`).pipe(
       retry(2),
       catchError((error) => this.errorHandler.handleError(error))
     );
   }
-
   addBank(bank: IBank): Observable<IBank> {
     return this.http
       .post<IBank>(`${this.apiUrl}/payment-method/new-payment-method`, bank)

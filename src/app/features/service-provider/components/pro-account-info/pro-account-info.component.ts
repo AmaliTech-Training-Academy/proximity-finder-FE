@@ -27,11 +27,9 @@ import { Subscription } from 'rxjs';
   templateUrl: './pro-account-info.component.html',
   styleUrl: './pro-account-info.component.sass',
 })
-export class ProAccountInfoComponent implements OnInit {
+export class ProAccountInfoComponent {
   isDialogVisible: boolean = false;
   isConfirmDialogVisible: boolean = false;
-  bankSubscription!: Subscription;
-  allBankNames: string[] = [];
 
   items = [
     {
@@ -50,22 +48,11 @@ export class ProAccountInfoComponent implements OnInit {
 
   constructor(private bankService: UserBankService) {}
 
-  ngOnInit() {
-    this.bankSubscription = this.bankService.getAllBanks().subscribe({
-      next: (banks) => console.log(banks),
-      error: (error) => console.error('Failed to fetch banks', error),
-    });
-  }
-
   showDialog() {
     this.isDialogVisible = true;
   }
 
   closeModal(notVisible: boolean) {
     this.isDialogVisible = notVisible;
-  }
-
-  ngOnDestroy(): void {
-    this.bankSubscription.unsubscribe();
   }
 }
