@@ -2,14 +2,17 @@
   <div class="left">
     @if (provider) {
 
-    <h2>{{provider.authservice.userName}}</h2>
-  
+    <h2>{{ provider.authservice.userName }}</h2>
+
     <section class="col-1">
       <figure class="profile-ratings">
-        <img [src]="provider.authservice.profileImage" alt="service's picture">
+        <img
+          [src]="provider.authservice.profileImage"
+          alt="service's picture"
+        />
 
         <figcaption class="details">
-          <h4>{{provider.authservice.userName}}</h4>
+          <h4>{{ provider.authservice.userName }}</h4>
 
           <div class="ratings">
             <p>Exceptional 5.0</p>
@@ -18,155 +21,266 @@
           </div>
 
           <div class="actions">
-            <button class="btn btn-primary" aria-label="Request a Quote from Esthera Jackson" (click)="showDialog('quote')">Request Quote</button>
-            <button class="btn btn-secondary" aria-label="Request a Call from Esthera Jackson"  (click)="showDialog('call')">Request Call</button>
+            <button
+              class="btn btn-primary"
+              aria-label="Request a Quote from Esthera Jackson"
+              (click)="showDialog('quote')"
+            >
+              Request Quote
+            </button>
+            <button
+              class="btn btn-secondary"
+              aria-label="Request a Call from Esthera Jackson"
+              (click)="showDialog('call')"
+            >
+              Request Call
+            </button>
           </div>
         </figcaption>
       </figure>
     </section>
-  
+
     <section class="col-2">
       @if (provider['business-info'].aboutBusinessResponse) {
-        <p>
-          <span>Introduction: </span>{{ provider['business-info'].aboutBusinessResponse.businessSummary }}
-        </p>
+      <p>
+        <span>Introduction: </span
+        >{{ provider["business-info"].aboutBusinessResponse.businessSummary }}
+      </p>
       }
     </section>
-    
-  }
+
+    }
   </div>
 
   <div class="right">
-    <app-availability-form/>
+    <app-availability-form />
   </div>
+</div>
 
-  </div>
-
-
-   <div class="quote-request">
-    <p-dialog header="Quote Request" [modal]="true" [(visible)]="modals.quote">
-
-      <form [formGroup]="quoteForm">
-        <div class="name">
-          <label>Name/Title</label>
-          <input type="text"
-            placeholder="Enter the title of your project"
-            formControlName="title"
-            [class.has-error]="quoteForm.get('name')?.invalid && (quoteForm.get('name')?.dirty || quoteForm.get('name')?.touched)"
-            />
+<div class="quote-request">
+  <p-dialog header="Quote Request" [modal]="true" [(visible)]="modals.quote">
+    <form [formGroup]="quoteForm">
+      <div class="name">
+        <label>Name/Title</label>
+        <input
+          type="text"
+          placeholder="Enter the title of your project"
+          formControlName="title"
+          [class.has-error]="
+            quoteForm.get('name')?.invalid &&
+            (quoteForm.get('name')?.dirty || quoteForm.get('name')?.touched)
+          "
+        />
       </div>
-      <div class="error-message" *ngIf="quoteForm.get('name')?.invalid && (quoteForm.get('name')?.dirty || quoteForm.get('name')?.touched)">
+      <div
+        class="error-message"
+        *ngIf="
+          quoteForm.get('name')?.invalid &&
+          (quoteForm.get('name')?.dirty || quoteForm.get('name')?.touched)
+        "
+      >
         Name/Title is required
       </div>
       <div class="location">
-          <label>Location</label>
-          <input type="text"
-           placeholder="Enter the location where you want the work done"
-           formControlName="location"
-           [class.has-error]="quoteForm.get('location')?.invalid && (quoteForm.get('location')?.dirty || quoteForm.get('location')?.touched)"
-           />
+        <label>Location</label>
+        <input
+          type="text"
+          placeholder="Enter the location where you want the work done"
+          formControlName="location"
+          [class.has-error]="
+            quoteForm.get('location')?.invalid &&
+            (quoteForm.get('location')?.dirty ||
+              quoteForm.get('location')?.touched)
+          "
+        />
       </div>
-      <div class="error-message" *ngIf="quoteForm.get('location')?.invalid && (quoteForm.get('location')?.dirty || quoteForm.get('location')?.touched)">
+      <div
+        class="error-message"
+        *ngIf="
+          quoteForm.get('location')?.invalid &&
+          (quoteForm.get('location')?.dirty ||
+            quoteForm.get('location')?.touched)
+        "
+      >
         location is required
       </div>
-      
+
       <div class="date">
-          <div class="start-date">
+        <div class="start-date">
           <label>Start Date</label>
-          <input type="date"
-          formControlName="date"
-          [class.has-error]="quoteForm.get('date')?.invalid && (quoteForm.get('date')?.dirty || quoteForm.get('date')?.touched)"
-          >
-      </div>
-      <div class="error-message" *ngIf="quoteForm.get('date')?.invalid && (quoteForm.get('date')?.dirty || quoteForm.get('date')?.touched)">
-        Start Date is required
-      </div>
-      <div class="end-time">
+          <input
+            type="date"
+            formControlName="date"
+            [class.has-error]="
+              quoteForm.get('date')?.invalid &&
+              (quoteForm.get('date')?.dirty || quoteForm.get('date')?.touched)
+            "
+          />
+        </div>
+        <div
+          class="error-message"
+          *ngIf="
+            quoteForm.get('date')?.invalid &&
+            (quoteForm.get('date')?.dirty || quoteForm.get('date')?.touched)
+          "
+        >
+          Start Date is required
+        </div>
+        <div class="end-time">
           <label>Start Time</label>
-          <input type="time"
-          formControlName="time"
-          [class.has-error]="quoteForm.get('time')?.invalid && (quoteForm.get('time')?.dirty || quoteForm.get('time')?.touched)"
-          >
-      </div>
-      <div class="error-message" *ngIf="quoteForm.get('time')?.invalid && (quoteForm.get('time')?.dirty || quoteForm.get('time')?.touched)">
-        End Date is required
-      </div>
+          <input
+            type="time"
+            formControlName="time"
+            [class.has-error]="
+              quoteForm.get('time')?.invalid &&
+              (quoteForm.get('time')?.dirty || quoteForm.get('time')?.touched)
+            "
+          />
+        </div>
+        <div
+          class="error-message"
+          *ngIf="
+            quoteForm.get('time')?.invalid &&
+            (quoteForm.get('time')?.dirty || quoteForm.get('time')?.touched)
+          "
+        >
+          End Date is required
+        </div>
       </div>
       <div class="date-time">
-          <div class="start-date">
+        <div class="start-date">
           <label>End Date</label>
-          <input type="date"
-          formControlName="endDate"
-          >
-      </div>
-      <div class="error-message" *ngIf="quoteForm.get('endDate')?.invalid && (quoteForm.get('endDate')?.dirty || quoteForm.get('endDate')?.touched)">
-       End Date is required
-     </div>
-      <div class="end-time">
+          <input type="date" formControlName="endDate" />
+        </div>
+        <div
+          class="error-message"
+          *ngIf="
+            quoteForm.get('endDate')?.invalid &&
+            (quoteForm.get('endDate')?.dirty ||
+              quoteForm.get('endDate')?.touched)
+          "
+        >
+          End Date is required
+        </div>
+        <div class="end-time">
           <label>End Time</label>
-          <input type="time"
-          formControlName="endTime"
-          [class.has-error]="quoteForm.get('endTime')?.invalid && (quoteForm.get('endTime')?.dirty || quoteForm.get('endTime')?.touched)"
-          >
-      </div>
-      <div class="error-message" *ngIf="quoteForm.get('endTime')?.invalid && (quoteForm.get('endTime')?.dirty || quoteForm.get('endTime')?.touched)">
-       End Time is required
-     </div>
-      </div>
-  
-      <div class="description">
-          <label>Description</label>
-          <textarea placeholder="Type here"
-          formControlName="description"
-          [class.has-error]="quoteForm.get('description')?.invalid && (quoteForm.get('description')?.dirty || quoteForm.get('description')?.touched)"
-          ></textarea>
-      </div>
-      <div class="error-message" *ngIf="quoteForm.get('description')?.invalid && (quoteForm.get('description')?.dirty || quoteForm.get('description')?.touched)">
-        Descripton is required
-     </div>
-  
-      <div class="info">
-          <label>Additional Info(Optional)</label>
-          <textarea placeholder="Type here"
-          formControlName="info"
-          ></textarea>
-      </div>
-  
-      <div class="images">
-          <label>Upload some pictures related to the project</label>
-          <app-image-uploader
+          <input
+            type="time"
+            formControlName="endTime"
+            [class.has-error]="
+              quoteForm.get('endTime')?.invalid &&
+              (quoteForm.get('endTime')?.dirty ||
+                quoteForm.get('endTime')?.touched)
+            "
           />
+        </div>
+        <div
+          class="error-message"
+          *ngIf="
+            quoteForm.get('endTime')?.invalid &&
+            (quoteForm.get('endTime')?.dirty ||
+              quoteForm.get('endTime')?.touched)
+          "
+        >
+          End Time is required
+        </div>
       </div>
-  
+
+      <div class="description">
+        <label>Description</label>
+        <textarea
+          placeholder="Type here"
+          formControlName="description"
+          [class.has-error]="
+            quoteForm.get('description')?.invalid &&
+            (quoteForm.get('description')?.dirty ||
+              quoteForm.get('description')?.touched)
+          "
+        ></textarea>
+      </div>
+      <div
+        class="error-message"
+        *ngIf="
+          quoteForm.get('description')?.invalid &&
+          (quoteForm.get('description')?.dirty ||
+            quoteForm.get('description')?.touched)
+        "
+      >
+        Descripton is required
+      </div>
+
+      <div class="info">
+        <label>Additional Info(Optional)</label>
+        <textarea placeholder="Type here" formControlName="info"></textarea>
+      </div>
+
+      <div class="images">
+        <label>Upload some pictures related to the project</label>
+        <app-image-uploader />
+      </div>
+
       <div class="action-buttons">
-          <button type="button" class="cancel-btn" (click)="closeDialog('quote')">Cancel</button>
-          <button type="submit" class="submit-btn" (click)="closeDialog('quote')" [disabled]="quoteForm.invalid">Submit</button>
+        <button type="button" class="cancel-btn" (click)="closeDialog('quote')">
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="submit-btn"
+          (click)="closeDialog('quote')"
+          [disabled]="quoteForm.invalid"
+        >
+          Submit
+        </button>
       </div>
-         
-      </form>
-    </p-dialog>
-   </div>
+    </form>
+  </p-dialog>
+</div>
 
-    <div class="call-request">
-    <p-dialog header="Call Request" [modal]="true" [modal]="true" [(visible)]="modals.call">
-      <form [formGroup]="callForm">
-        <div class="mobile">
-          <label>Mobile Number</label>
-          <input type="number"
-            placeholder="Please enter your phone number"
-            formControlName="phoneNumber"
-            [class.has-error]="callForm.get('phoneNumber')?.invalid && (callForm.get('phoneNumber')?.dirty || callForm.get('phoneNumber')?.touched)"
-            />
+<div class="call-request">
+  <p-dialog
+    header="Call Request"
+    [modal]="true"
+    [modal]="true"
+    [(visible)]="modals.call"
+  >
+    <form [formGroup]="callForm">
+      <div class="mobile">
+        <label>Mobile Number</label>
+        <input
+          type="number"
+          placeholder="Please enter your phone number"
+          formControlName="phoneNumber"
+          [class.has-error]="
+            callForm.get('phoneNumber')?.invalid &&
+            (callForm.get('phoneNumber')?.dirty ||
+              callForm.get('phoneNumber')?.touched)
+          "
+        />
       </div>
-      <div class="error-message" *ngIf="callForm.get('phoneNumber')?.invalid && (callForm.get('phoneNumber')?.dirty || callForm.get('phoneNumber')?.touched)">
+      <div
+        class="error-message"
+        *ngIf="
+          callForm.get('phoneNumber')?.invalid &&
+          (callForm.get('phoneNumber')?.dirty ||
+            callForm.get('phoneNumber')?.touched)
+        "
+      >
         Phone Number is required
-     </div>
+      </div>
 
-      
       <div class="call-buttons">
-        <button type="button" class="cancel-btn" (click)="closeDialog('call')">Cancel</button>
-        <button type="submit" class="request-btn" (click)="closeDialog('call')" [disabled]="callForm.invalid">Request</button>
-    </div>
-      </form>
-    </p-dialog>
-   </div> 
+        <button type="button" class="cancel-btn" (click)="closeDialog('call')">
+          Cancel
+        </button>
+        <button
+          type="submit"
+          class="request-btn"
+          (click)="closeDialog('call')"
+          [disabled]="callForm.invalid"
+        >
+          Request
+        </button>
+      </div>
+    </form>
+  </p-dialog>
+</div>

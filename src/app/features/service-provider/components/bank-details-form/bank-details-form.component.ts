@@ -21,6 +21,7 @@ import { BankName } from '../../../profile-management/models/bank-name';
 import { Router } from '@angular/router';
 import { Notyf } from 'notyf';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
+import { ProfileService } from '../../../profile-management/services/profile.service';
 
 @Component({
   selector: 'app-bank-details-form',
@@ -45,6 +46,7 @@ export class BankDetailsFormComponent implements OnInit, OnDestroy {
     private bankService: UserBankService,
     private fb: FormBuilder,
     private router: Router,
+    private profileService: ProfileService,
     @Inject(NOTYF) private notyf: Notyf
   ) {}
 
@@ -69,7 +71,7 @@ export class BankDetailsFormComponent implements OnInit, OnDestroy {
           next: (response) => {
             this.notyf.success('Account added successfully');
             this.closeDialog();
-            this.router.navigate(['/provider/dashboard/settings']);
+            this.profileService.getPaymentAccounts();
           },
           error: (error) => {
             this.notyf.error('Failed to add account');
