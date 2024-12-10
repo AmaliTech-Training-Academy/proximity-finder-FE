@@ -3,5 +3,5 @@ export interface Ireview {
     content: string;
     providerServiceId: string;
     isAnonymous: boolean;
-    authorEmail: string;
+    authorEmail?: string;
 }

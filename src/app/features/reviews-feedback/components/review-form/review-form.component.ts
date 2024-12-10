@@ -6,8 +6,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RatingModule } from 'primeng/rating';
 import { ReviewService } from '../../services/review.service';
 import { Ireview } from '../../models/ireview';
-import { ProfileService } from '../../../profile-management/services/profile.service';
-import { Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-review-form',
@@ -16,21 +15,12 @@ import { Subscription } from 'rxjs';
   templateUrl: './review-form.component.html',
   styleUrl: './review-form.component.sass'
 })
-export class ReviewFormComponent implements OnInit{
+export class ReviewFormComponent{
 
   visible: boolean = false;
   value!: number;
-  authorEmail: string | undefined;
-  loggedInSubcription: Subscription | null = null
 
-  constructor(private reviewService: ReviewService, private fb: FormBuilder, private profileService: ProfileService) { }
-
-  ngOnInit() {
-    this.loggedInSubcription = this.profileService.loggedInUser$.subscribe((user) => {
-      this.authorEmail = user?.sub
-      console.log('User:', user)
-    })
-  }
+  constructor(private reviewService: ReviewService, private fb: FormBuilder) { }
 
   reviewForm = this.fb.group({
     value:  [0, Validators.required],
@@ -50,7 +40,6 @@ export class ReviewFormComponent implements OnInit{
         content: text!,
         providerServiceId: '1a2f2173-b3ef-43be-80d6-da8d380c1495',
         isAnonymous: false,
-        authorEmail: this.authorEmail!
       }
 
       this.reviewService.createReview(review).subscribe({
