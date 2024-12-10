@@ -15,7 +15,6 @@ import { Subscription } from 'rxjs';
 import { ProviderDataService } from '../../../service-discovery/services/provider-data.service';
 import { ProDetails, ProResponse } from '../../../service-discovery/models/pro-details';
 import { filterItemsByQuery } from '../../../../utils/filterCategories';
-import { ReviewFormComponent } from "../../../reviews-feedback/components/review-form/review-form.component";
 
 interface AutoCompleteCompleteEvent {
   originalEvent: Event;
@@ -25,7 +24,7 @@ interface AutoCompleteCompleteEvent {
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [MatIconModule, AutoCompleteModule, ReactiveFormsModule, CommonModule, LocationsComponent, ReviewFormComponent],
+  imports: [MatIconModule, AutoCompleteModule, ReactiveFormsModule, CommonModule, LocationsComponent],
   templateUrl: './hero.component.html',
   styleUrl: './hero.component.sass'
 })
