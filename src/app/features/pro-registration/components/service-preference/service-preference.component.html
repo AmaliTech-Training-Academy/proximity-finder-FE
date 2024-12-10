@@ -33,15 +33,68 @@
         (onClick)="showDialog()"
       />
     </div>
-    <div>
-      <label for="paymentPreference">Payment Preference*</label>
-      <p-dropdown
-        id="paymentPreference"
-        formControlName="paymentPreference"
-        [options]="paymentPreferences"
-        optionLabel="name"
-        placeholder="Please choose"
-      />
+    <div class="paymentMethod">
+      <!-- <p-dropdown
+      id="paymentPreference"
+      formControlName="paymentPreference"
+      [options]="paymentPreferences"
+      optionLabel="name"
+      placeholder="Please choose"
+      /> -->
+      @if(paymentMethod.paymentPreference === 'Bank Account') {
+      <div>
+        <label for="paymentPreference">Bank Name</label>
+        <input
+          id="disabled-input"
+          type="text"
+          pInputText
+          [disabled]="true"
+          [value]="paymentMethod.bankName"
+        />
+      </div>
+      <div>
+        <label for="paymentPreference">Account Name</label>
+        <input
+          id="disabled-input"
+          type="text"
+          pInputText
+          [disabled]="true"
+          [value]="paymentMethod.accountName"
+        />
+      </div>
+      } @else if (paymentMethod.paymentPreference === 'Mobile Money') {
+      <div>
+        <label for="paymentPreference">Service Provider</label>
+        <input
+          id="disabled-input"
+          type="text"
+          pInputText
+          [disabled]="true"
+          [value]="paymentMethod.serviceProvider"
+        />
+      </div>
+      <div>
+        <label for="paymentPreference">Mobile Number</label>
+        <input
+          id="disabled-input"
+          type="text"
+          pInputText
+          [disabled]="true"
+          [value]="paymentMethod.phoneNumber"
+        />
+      </div>
+      } @else if (paymentMethod.paymentPreference === 'Paypal') {
+      <div>
+        <label for="paymentPreference">Email</label>
+        <input
+          id="disabled-input"
+          type="text"
+          pInputText
+          [disabled]="true"
+          [value]="paymentMethod.email"
+        />
+      </div>
+      }
       <p
         class="error-message"
         *ngIf="
@@ -146,25 +199,14 @@
       </button>
     </div>
     <div>
-      <label>Is this the same location as the previous one?*</label>
-      <p-dropdown
-        formControlName="sameLocation"
-        [options]="[
-          { name: 'Yes', value: 'Yes' },
-          { name: 'No', value: 'No' }
-        ]"
-        optionLabel="name"
-        placeholder="Please choose"
-      />
-    </div>
-    <div>
       <label for="location">Location*</label>
-      <input
-        type="text"
-        pInputText
-        formControlName="location"
-        placeholder="Accra, Ghana"
-      />
+      <div class="address">
+        <app-business-address
+          (placeSelected)="onLocationSelected($event)"
+          class="location"
+        />
+      </div>
+
       <p
         class="error-message"
         *ngIf="
@@ -189,7 +231,9 @@
       ></textarea>
     </div>
     <div class="form-actions">
-      <button type="button" class="back-btn" (click)="navigateTo()">Back</button>
+      <button type="button" class="back-btn" (click)="navigateTo()">
+        Back
+      </button>
       <button type="submit" class="continue-btn">Continue</button>
     </div>
   </form>

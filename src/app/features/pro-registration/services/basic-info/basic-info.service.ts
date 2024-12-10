@@ -6,35 +6,28 @@ import { userDetails, userInfo } from '../../models/userData';
 import { LocalStorageService } from '../../../../shared/services/local-storage.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BasicInfoService {
-private url = environment.baseUrl
-private http = inject(HttpClient);
+  private url = environment.baseUrl;
+  private http = inject(HttpClient);
 
-  constructor(private localStorageService: LocalStorageService) { }
+  constructor(private localStorageService: LocalStorageService) {}
 
   getBasicInfo(email: string): Observable<userDetails> {
     console.log('Calling API for Basic Info');
     const params = new HttpParams().set('email', email);
     return this.http.get<userDetails>(`${this.url}/auth/info`, { params });
   }
-  
-  
-  sendInfo(data: userInfo): Observable<userInfo> {
+
+  sendInfo(data: FormData): Observable<userInfo> {
     const token = this.localStorageService.getItem('accessToken');
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
     });
 
-    return this.http.put<userInfo>(
-      `${this.url}/auth/update/info`,
-      data,
-      { headers }
-    );
+    return this.http.put<userInfo>(`${this.url}/auth/update/info`, data, {
+      headers,
+    });
   }
-
-  // uploadPicture():Observable<>{
-
-  // }
 }

@@ -1,4 +1,11 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  Inject,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   ReactiveFormsModule,
   FormBuilder,
@@ -16,6 +23,14 @@ import { FileUploaderComponent } from '../file-uploader/file-uploader.component'
 import { ImageUploaderComponent } from '../image-uploader/image-uploader.component';
 import { ServiceService } from '../../../../core/services/service.service';
 import { ITime } from '../../../../core/models/ITime';
+import { PlaceSearchResult } from '../../../../core/models/place-search-result';
+import { LocationsComponent } from '../../../../shared/components/locations/locations.component';
+import { ServiceResponse } from '../../../../core/models/IServiceResponse';
+import { NOTYF } from '../../../../shared/notify/notyf.token';
+import { Notyf } from 'notyf';
+import { ProfileService } from '../../../profile-management/services/profile.service';
+import { IPaymentAccount } from '../../../../core/models/payment-account';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-service-creation-form',
@@ -29,30 +44,66 @@ import { ITime } from '../../../../core/models/ITime';
     CommonModule,
     FileUploaderComponent,
     ImageUploaderComponent,
+    LocationsComponent,
   ],
   templateUrl: './service-creation-form.component.html',
   styleUrl: './service-creation-form.component.sass',
 })
-export class ServiceCreationFormComponent {
+export class ServiceCreationFormComponent implements OnInit {
+  @Output() closeDialogEvent = new EventEmitter<boolean>();
+
   serviceCategories$ = this.serviceService.serviceCategories$;
+  linkedAccounts$: Observable<IPaymentAccount[]> =
+    this.profileService.paymentAccounts$;
+
   accountPreferences = accountPreferences;
   days = bookingDays;
   timeOptions: ITime[] = [];
+  businessCertificates: File[] = [];
+  projectPictures: File[] = [];
+  selectedLocation!: PlaceSearchResult;
+  isSameLocation: boolean = true;
 
   serviceForm: FormGroup = this.fb.group({
-    jobTitle: ['', Validators.required],
+    serviceName: ['', Validators.required],
     accountPreference: ['', Validators.required],
     bookingDays: this.fb.array([this.createBookingDay()]),
-    businessCertificate: [null],
-    serviceDescription: ['', Validators.required],
     schedulingPolicy: [''],
-    projectPictures: [[]],
+    projectTitle: ['', Validators.required],
+    serviceDescription: ['', Validators.required],
   });
 
   constructor(
     private fb: FormBuilder,
-    private serviceService: ServiceService
-  ) {}
+    private serviceService: ServiceService,
+    private profileService: ProfileService,
+    @Inject(NOTYF) private notyf: Notyf
+  ) {
+    this.generateTimeOptions(15);
+  }
+
+  ngOnInit(): void {
+    this.profileService.getPaymentAccounts();
+    this.linkedAccounts$.subscribe({
+      next: (linkedAccounts) => console.log(linkedAccounts),
+    });
+  }
+
+  onFilesSelected(files: File[]) {
+    this.businessCertificates = files;
+  }
+
+  onImagesUploaded(images: File[]) {
+    this.projectPictures = images;
+  }
+
+  onLocationSelected(location: PlaceSearchResult) {
+    this.selectedLocation = location;
+  }
+
+  setSameLocation(event: any) {
+    this.isSameLocation = event.value.value;
+  }
 
   generateTimeOptions(step: number) {
     const times: ITime[] = [];
@@ -96,5 +147,115 @@ export class ServiceCreationFormComponent {
     if (this.bookingDaysFormArray.length > 1) {
       this.bookingDaysFormArray.removeAt(index);
     }
+  }
+
+  closeDialog() {
+    this.closeDialogEvent.emit(false);
+  }
+
+  onSubmit() {
+    if (this.serviceForm.valid) {
+      const servicePreferenceData = new FormData();
+      const serviceExperienceData = new FormData();
+      const formValue = this.serviceForm.value;
+      const locationData = {
+        placeName: this.selectedLocation.address,
+        latitude: this.selectedLocation.location?.lat(),
+        longitude: this.selectedLocation.location?.lng(),
+      };
+
+      const formattedBookingDays = formValue.bookingDays.map((day: any) => ({
+        dayOfWeek: (day.dayOfWeek?.name || day.dayOfWeek)
+          .toString()
+          .toUpperCase(),
+        startTime: this.formatTime(day.startTime),
+        endTime: this.formatTime(day.endTime),
+      }));
+
+      // Service Preference Data
+      servicePreferenceData.append(
+        'serviceName',
+        formValue.serviceName.name || formValue.serviceName
+      );
+      servicePreferenceData.append(
+        'paymentPreference',
+        formValue.accountPreference.name || formValue.accountPreference
+      );
+
+      servicePreferenceData.append('placeName', locationData.placeName);
+      servicePreferenceData.append(
+        'latitude',
+        String(locationData.latitude ?? '')
+      );
+      servicePreferenceData.append(
+        'longitude',
+        String(locationData.longitude ?? '')
+      );
+
+      servicePreferenceData.append(
+        'bookingDays',
+        JSON.stringify(formattedBookingDays)
+      );
+      servicePreferenceData.append(
+        'schedulingPolicy',
+        formValue.schedulingPolicy
+      );
+
+      this.businessCertificates.forEach((file) => {
+        servicePreferenceData.append('documents', file);
+      });
+
+      // Service Experience Data
+      serviceExperienceData.append('projectTitle', formValue.projectTitle);
+      serviceExperienceData.append('description', formValue.serviceDescription);
+
+      this.projectPictures.forEach((file) => {
+        serviceExperienceData.append('images', file);
+      });
+
+      // Send service preference data
+      this.serviceService
+        .setServicePreference(servicePreferenceData)
+        .subscribe({
+          next: (response: any) => {
+            const serviceId = response.result.id;
+            serviceExperienceData.append('providerServiceId', serviceId);
+
+            // Send service experience data
+            this.serviceService
+              .createServiceExperience(serviceExperienceData)
+              .subscribe({
+                next: () => {
+                  this.notyf.success('Service created successfully'),
+                    this.closeDialog();
+                },
+              });
+          },
+          error: () => this.notyf.error('Failed to create service'),
+        });
+    } else {
+      console.log('Form invalid');
+    }
+  }
+
+  private formatTime(time: any): string {
+    const timeString = time?.name || time?.value || time;
+
+    if (typeof timeString === 'string' && timeString.match(/^\d{2}:\d{2}$/)) {
+      return timeString;
+    }
+
+    const [timeStr, period] = timeString.toString().split(' ');
+    let [hours, minutes] = timeStr.split(':').map(Number);
+
+    if (period === 'PM' && hours !== 12) {
+      hours += 12;
+    } else if (period === 'AM' && hours === 12) {
+      hours = 0;
+    }
+
+    return `${hours.toString().padStart(2, '0')}:${minutes
+      .toString()
+      .padStart(2, '0')}`;
   }
 }

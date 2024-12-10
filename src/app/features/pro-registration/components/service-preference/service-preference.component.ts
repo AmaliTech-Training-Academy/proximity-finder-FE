@@ -17,6 +17,7 @@ import {
   FormArray,
   ReactiveFormsModule,
   Validators,
+  FormsModule,
 } from '@angular/forms';
 import { CommonModule, Time } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -24,7 +25,14 @@ import { ServiceService } from '../../../../core/services/service.service';
 import { ITime } from '../../../../core/models/ITime';
 import { Notyf } from 'notyf';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
+import { LocationsComponent } from '../../../../shared/components/locations/locations.component';
+import { PlaceSearchResult } from '../../../../core/models/place-search-result';
+import { BusinessAddressComponent } from '../business-address/business-address.component';
 import { Router } from '@angular/router';
+import { ProfileService } from '../../../profile-management/services/profile.service';
+import { Payment } from '../../models/payment';
+import { IPaymentAccount } from '../../../../core/models/payment-account';
+import { ServiceResponse } from '../../../../core/models/IServiceResponse';
 
 @Component({
   selector: 'app-service-preference',
@@ -39,24 +47,27 @@ import { Router } from '@angular/router';
     ReactiveFormsModule,
     ButtonModule,
     DialogModule,
+    BusinessAddressComponent,
+    FormsModule,
   ],
   templateUrl: './service-preference.component.html',
   styleUrls: ['./service-preference.component.sass'],
 })
-export class ServicePreferenceComponent {
+export class ServicePreferenceComponent implements OnInit {
   serviceCategories$ = this.serviceService.serviceCategories$;
   paymentPreferences = accountPreferences;
   days = bookingDays;
   visible: boolean = false;
   timeOptions: ITime[] = [];
   uploadedFiles: File[] = [];
+  location!: PlaceSearchResult;
+  loggedInuser$ = this.profileService.loggedInUser$;
+  paymentAccounts$ = this.profileService.paymentAccounts$;
+  paymentMethod!: IPaymentAccount;
 
   servicePreferenceForm: FormGroup = this.fb.group({
     service: [null, Validators.required],
-    paymentPreference: [null, Validators.required],
     bookingDays: this.fb.array([this.createBookingDay()]),
-    sameLocation: [null, Validators.required],
-    location: ['', Validators.required],
     documents: [null],
     schedulingPolicy: [''],
   });
@@ -66,9 +77,20 @@ export class ServicePreferenceComponent {
     private http: HttpClient,
     private serviceService: ServiceService,
     @Inject(NOTYF) private notyf: Notyf,
-    private router:Router
+    private router: Router,
+    private profileService: ProfileService
   ) {
     this.generateTimeOptions(15);
+  }
+
+  ngOnInit(): void {
+    this.profileService.getPaymentAccounts();
+    this.loggedInuser$.subscribe({
+      next: (user) => console.log(user),
+    });
+    this.paymentAccounts$.subscribe({
+      next: (paymentAccounts) => (this.paymentMethod = paymentAccounts[0]),
+    });
   }
 
   onFilesSelected(files: File[]): void {
@@ -119,10 +141,20 @@ export class ServicePreferenceComponent {
     this.timeOptions = times;
   }
 
+  onLocationSelected(location: PlaceSearchResult) {
+    console.log(location.location?.lng());
+    this.location = location;
+  }
+
   onSubmit() {
     if (this.servicePreferenceForm.valid) {
       const formData = new FormData();
       const formValue = this.servicePreferenceForm.value;
+      const locationData = {
+        placeName: this.location.address,
+        latitude: this.location.location?.lat(),
+        longitude: this.location.location?.lng(),
+      };
 
       const formattedBookingDays = formValue.bookingDays.map((day: any) => ({
         dayOfWeek: (day.dayOfWeek?.name || day.dayOfWeek)
@@ -132,6 +164,7 @@ export class ServicePreferenceComponent {
         endTime: this.formatTime(day.endTime),
       }));
 
+      // TODO: Send currently logged in service provider's id
       formData.append('userId', '33252a99-ab98-4413-9191-6f93c6df5806');
 
       formData.append(
@@ -139,14 +172,11 @@ export class ServicePreferenceComponent {
         formValue.service.name || formValue.service
       );
 
-      formData.append(
-        'paymentPreference',
-        formValue.paymentPreference.name || formValue.paymentPreference
-      );
+      formData.append('paymentPreference', JSON.stringify(this.paymentMethod));
 
-      formData.append('sameLocation', formValue.sameLocation ? 'yes' : 'no');
-
-      formData.append('location', formValue.location);
+      formData.append('placeName', locationData.placeName);
+      formData.append('latitude', String(locationData.latitude ?? ''));
+      formData.append('longitude', String(locationData.longitude ?? ''));
 
       formData.append('bookingDays', JSON.stringify(formattedBookingDays));
 
@@ -161,8 +191,13 @@ export class ServicePreferenceComponent {
       formData.forEach((value, key) => console.log(key, value));
 
       this.serviceService.setServicePreference(formData).subscribe({
-        next: (response) => this.notyf.success('Service preference saved'),
-        error: (error) => this.notyf.error('Failed to save preference'),
+        next: (response: any) => {
+          const providerServiceId = response.result.id;
+          this.serviceService.setProviderServiceId(providerServiceId);
+          this.notyf.success('Service preference saved');
+          this.navigateTo();
+        },
+        error: () => this.notyf.error('Failed to save preference'),
       });
     } else {
       console.error('Form is invalid');
@@ -194,8 +229,7 @@ export class ServicePreferenceComponent {
     this.visible = true;
   }
 
-
   navigateTo() {
-    this.router.navigateByUrl('/registration/payment-method');
+    this.router.navigateByUrl('/registration/service-experience');
   }
 }

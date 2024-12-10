@@ -1,0 +1,91 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_variables' as *
+@use '../../../../../styles/_mixins' as *
+
+
+::ng-deep .p-dialog .p-dialog-header 
+    border-bottom: none
+
+
+
+form
+    @include flex-option(flex, null, null, column)
+    gap: pxToRem(16)
+
+    .question,
+    .answer
+        @include flex-option(flex, null, null, column)
+        gap: pxToRem(8)
+
+        label
+            font-size: pxToRem(14)
+            font-weight: 400
+            color: $text-main
+
+        textarea
+            width: 100%
+            padding: pxToRem(8)
+            border: 1px solid #E4E7E9
+            border-radius: pxToRem(4)
+
+            ::placeholder
+                font-size: pxToRem(12)
+                font-weight: 400
+                color: $subtext
+
+            &:focus
+                outline: none
+                border-color: none   
+
+    .faq-group
+        @include flex-option(flex, null, null, column)
+        gap: pxToRem(8)
+
+        label
+            font-size: pxToRem(14)
+            font-weight: 400
+            color: $text-main
+
+    ::ng-deep .p-dropdown
+        width: 100%   
+        border: 1px solid #E4E7E9  
+        border-radius: pxToRem(4)
+        padding: pxToRem(8)  
+
+    ::ng-deep .p-dropdown .p-placeholder
+        font-size: pxToRem(12)
+        font-weight: 400
+        color: $subtext    
+
+    .faq-buttons
+        @include flex-option(flex,null, null, row)
+        gap: pxToRem(8)
+        
+
+        .btn-cancel
+            width: 100%
+            padding: pxToRem(12) pxToRem(16)
+            border: 1px solid #E4E7E9
+            border-radius: pxToRem(4)
+            background-color: $white
+            font-size: pxToRem(14)
+            font-weight: 400
+            color: $text-main
+            cursor: pointer
+
+        .btn-save
+            width: 100%
+            padding: pxToRem(12) pxToRem(16)
+            border: none
+            border-radius: pxToRem(4)
+            background-color: $primary
+            font-size: pxToRem(14)
+            font-weight: 400
+            color: $white
+            cursor: pointer       
+
+
+
+
+              
+        

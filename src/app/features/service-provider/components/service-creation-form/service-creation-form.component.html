@@ -1,11 +1,15 @@
-<form [formGroup]="serviceForm" class="service-creation-form">
+<form
+  [formGroup]="serviceForm"
+  class="service-creation-form"
+  (ngSubmit)="onSubmit()"
+>
   <div class="section-one">
     <div>
       <label for="jobTitle">What service do you offer?</label>
       @if (serviceCategories$ | async; as serviceCategories) {
       <p-dropdown
         id="service"
-        formControlName="service"
+        formControlName="serviceName"
         [options]="serviceCategories"
         optionLabel="name"
         placeholder="Please choose"
@@ -14,13 +18,15 @@
     </div>
     <div>
       <label for="accountPreference">Account Preference</label>
+      @if (linkedAccounts$ | async; as linkedAccounts) {
       <p-dropdown
         id="accountPreference"
         formControlName="accountPreference"
-        [options]="accountPreferences"
-        optionLabel="name"
+        [options]="linkedAccounts"
+        optionLabel="paymentPreference"
         placeholder="Please choose"
       />
+      }
     </div>
   </div>
   <div class="section-booking">
@@ -114,25 +120,39 @@
     </button>
   </div>
   <!--Top Section-->
+
+  <div class="same-location">
+    <label for="sameLocation"
+      >Is this service in the same location as your business?</label
+    >
+    <p-dropdown
+      id="sameLocation"
+      [options]="[
+        { name: 'Yes', value: true },
+        { name: 'No', value: false }
+      ]"
+      optionLabel="name"
+      placeholder="Please choose"
+      (onChange)="setSameLocation($event)"
+    />
+  </div>
+
+  @if(!isSameLocation) {
+  <div class="location">
+    <label for="location">Location</label>
+    <app-locations
+      [atHome]="false"
+      (placeSelected)="onLocationSelected($event)"
+    />
+  </div>
+  }
+
   <div class="section-two">
-    <div>
+    <div class="documents-upload">
       <label for="businessCertificate"
         >Upload Business Certificate (Optional)</label
       >
-      <app-file-uploader />
-    </div>
-  </div>
-
-  <div class="section-three">
-    <div>
-      <label for="serviceDescription">Service Description</label>
-      <textarea
-        rows="5"
-        pInputTextarea
-        formControlName="serviceDescription"
-        placeholder="Please describe your service"
-      >
-      </textarea>
+      <app-file-uploader (filesSelected)="onFilesSelected($event)" />
     </div>
   </div>
   <div class="section-four">
@@ -147,10 +167,42 @@
       </textarea>
     </div>
   </div>
-  <div class="section-five">
-    <div>
-      <label for="">Upload some pictures from the project</label>
-      <app-image-uploader />
+
+  <section class="experience">
+    <h1 class="section-title">Service Experience</h1>
+
+    <div class="project">
+      <label for="projectTitle">Title of Project</label>
+      <input
+        type="text"
+        pInputText
+        formControlName="projectTitle"
+        placeholder="Enter the title of your project"
+      />
     </div>
+    <div class="section-three">
+      <div>
+        <label for="serviceDescription">Service Description</label>
+        <textarea
+          rows="5"
+          pInputTextarea
+          formControlName="serviceDescription"
+          placeholder="Please describe your service"
+        >
+        </textarea>
+      </div>
+    </div>
+
+    <div class="section-five">
+      <div>
+        <label for="">Upload some pictures from the project</label>
+        <app-image-uploader (uploadedImages)="onImagesUploaded($event)" />
+      </div>
+    </div>
+  </section>
+
+  <div class="buttons">
+    <p-button (click)="closeDialog()" label="Cancel" severity="secondary" />
+    <p-button type="submit" label="Create" class="primary" />
   </div>
 </form>

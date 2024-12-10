@@ -6,9 +6,14 @@
 
     <div class="nav-container">
         @if (userProfile | async; as user) {
-            <a>Help & Support</a>
+            <a routerLink="/help-and-support" routerLinkActive="active-link" 
+            [routerLinkActiveOptions]="{ exact: true }">Help & Support</a>
             <a routerLink="/pro-signup" routerLinkActive="active-link" 
             [routerLinkActiveOptions]="{ exact: true }">Sign up as Pro</a>
+
+            <a routerLink="/quote" routerLinkActive="active-link" 
+            [routerLinkActiveOptions]="{ exact: true }">Quote</a>
+            
 
             <a>Tasks</a>
 

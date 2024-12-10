@@ -1,0 +1,108 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+
+.container
+    @include flex-option(flex, null, null,column)
+    gap: 1rem
+    padding: 1.25rem 2.5rem
+        
+
+    p
+        font-size: 1.5rem
+        color: $text-main
+        font-weight: 600
+
+    th
+        padding: 0.75rem 1rem
+        background-color: rgba(249, 250, 251, 1)
+        text-align: left
+        font-size: 1rem
+        font-weight: 600
+        color: rgba(119, 135, 143, 1)
+        text-transform: uppercase
+
+    tr
+        cursor: pointer
+    td
+        padding: pxToRem(22) 1rem
+        font-size: 1rem
+        color: $text-main
+
+    .action-container
+        cursor: pointer
+
+        .status-label
+            @include flex-option(flex, null, center, row)
+            gap: 6px
+            padding: 4px 12px
+            font-size: 14px
+            font-weight: 500
+            border-radius: 16px
+            text-transform: capitalize
+            white-space: nowrap 
+            cursor: pointer
+
+            .status-icon
+                width: 8px
+                height: 8px
+                border-radius: 50%
+
+            &.pending
+                background-color: #FFFDE7
+                color: #FBC02D
+
+                .status-icon
+                    background-color: #FBC02D
+
+            &.rejected
+                background-color: #FEF3F2
+                color: #B42318
+
+                .status-icon
+                    background-color: #B42318
+
+            &.active
+                background-color: #ECFDF3
+                color: #027A48
+                .status-icon
+                    background-color: #027A48
+
+            &.inactive
+                background-color: #ECECEC
+                color: #374151
+                .status-icon
+                    background-color: #374151
+
+        .menu
+            @include flex-option(flex, center, center,column)
+            gap: 0.5rem
+            position: absolute
+            padding: 0.5rem 0.875rem
+            border-radius: 8px
+            background-color: $white
+
+                
+            
+                
+.no-result
+    @include flex-option(flex, center, center,column)
+    gap: 0.5rem
+    position: absolute
+    top: 50%
+    left: 55%
+    transform: translate(-50%, -50%)
+
+    .image
+        width: pxToRem(300)
+
+        img
+            max-width: 100%
+            object-fit: cover
+
+    h2
+        font-size: 1.5rem
+        color: $text-main
+
+
+

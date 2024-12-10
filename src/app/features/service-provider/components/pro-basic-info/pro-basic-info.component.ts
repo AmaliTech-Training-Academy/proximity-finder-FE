@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { ProfileService } from '../../../profile-management/services/profile.service';
+import { User } from '../../../profile-management/models/user';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-pro-basic-info',
@@ -13,8 +16,10 @@ import {
   templateUrl: './pro-basic-info.component.html',
   styleUrl: './pro-basic-info.component.sass',
 })
-export class ProBasicInfoComponent {
+export class ProBasicInfoComponent implements OnInit, OnDestroy {
+  loggedInuser!: User | null;
   isEditing = false;
+  subscription!: Subscription;
 
   basicInfoForm: FormGroup = this.fb.group({
     businessName: [
@@ -39,7 +44,16 @@ export class ProBasicInfoComponent {
     ],
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private profileService: ProfileService
+  ) {}
+
+  ngOnInit(): void {
+    this.subscription = this.profileService.loggedInUser$.subscribe({
+      next: (user) => (this.loggedInuser = user),
+    });
+  }
 
   setEditing() {
     this.isEditing = true;
@@ -67,5 +81,9 @@ export class ProBasicInfoComponent {
     if (this.basicInfoForm.valid) {
       console.log(this.basicInfoForm.value);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

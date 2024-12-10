@@ -253,128 +253,123 @@ export const popularSerivcesDataInterval = [
 export const calls = [
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending'
-   
+    status: 'pending',
   },
   {
     clientName: 'Isabella Hill',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'completed'
+    status: 'completed',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending'
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending'
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending'
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'completed'
+    status: 'completed',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'completed'
+    status: 'completed',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending'
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending'
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending'
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending'
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending'
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending'
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending',
-    
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending',
-   
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending',
-    
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending',
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending',
-    
+    status: 'pending',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    location:'Kumasi',
+    location: 'Kumasi',
   },
   {
     clientName: 'Missy Cooper',
-    phoneNumber:'(234) 567-8910',
+    phoneNumber: '(234) 567-8910',
     email: 'VYmO1@example.com',
-    status:'pending'
+    status: 'pending',
   },
 ];
 
@@ -402,7 +397,7 @@ export const quotes = [
     clientName: 'Sophia Turner',
     requirements:
       'iOS and Android support, user authentication, payment gateway',
-      email: 'VYmO1@example.com',
+    email: 'VYmO1@example.com',
     dateTime: '2024-11-11T13:45:00',
   },
   {
@@ -450,7 +445,7 @@ export const quotes = [
     clientName: 'Amanda Garcia',
     requirements:
       'iOS and Android versions, user authentication, in-app payments',
-      email: 'VYmO1@example.com',
+    email: 'VYmO1@example.com',
     dateTime: 'October 5, 2021',
   },
   {
@@ -555,8 +550,6 @@ export const accountPreferences = [
   { name: 'Bank Transfer' },
 ];
 
-
-
 export const serviceCategories = [
   { name: 'Painting' },
   { name: 'Cleaning' },
@@ -573,7 +566,6 @@ export const bookingDays = [
   { name: 'Friday' },
   { name: 'Saturday' },
 ];
-
 
 export const reviews = [
   {
@@ -637,3 +629,113 @@ export const reviews = [
     ratings: 5,
   },
 ];
+
+export const linkedAccounts = [
+  {
+    name: 'American Express',
+  },
+  {
+    name: 'Fidelity Bank - EUR',
+  },
+  {
+    name: 'MTN Mobile Money',
+  },
+  {
+    name: 'Stanbic Bank',
+  },
+];
+
+
+export const proAccounts = [
+  {
+    businessOwner: "John Smith",
+    businessName: "Smith Tech Solutions",
+    email: "john.smith@example.com",
+    location: "New York, NY",
+    verification: "Yes",
+    status: "Active",
+    action: "Edit/Delete"
+  },
+  {
+    businessOwner: "Emily Johnson",
+    businessName: "Emily's Bakery",
+    email: "emily.johnson@example.com",
+    location: "Los Angeles, CA",
+    verification: "No",
+    status: "Inactive",
+    action: "Verify/Approve"
+  },
+  {
+    businessOwner: "Michael Brown",
+    businessName: "Brown Construction",
+    email: "michael.brown@example.com",
+    location: "Chicago, IL",
+    verification: "Yes",
+    status: "Active",
+    action: "Edit/Delete"
+  },
+  {
+    businessOwner: "Sarah Davis",
+    businessName: "Davis Marketing",
+    email: "sarah.davis@example.com",
+    location: "Houston, TX",
+    verification: "No",
+    status: "Inactive",
+    action: "Resubmit/Delete"
+  },
+  {
+    businessOwner: "David Wilson",
+    businessName: "Wilson Auto Parts",
+    email: "david.wilson@example.com",
+    location: "Miami, FL",
+    verification: "Yes",
+    status: "Active",
+    action: "Edit/Delete"
+  },
+  {
+    businessOwner: "Olivia Martinez",
+    businessName: "Martinez Designs",
+    email: "olivia.martinez@example.com",
+    location: "Austin, TX",
+    verification: "No",
+    status: "Inactive",
+    action: "Verify/Approve"
+  },
+  {
+    businessOwner: "Chris White",
+    businessName: "White's Electronics",
+    email: "chris.white@example.com",
+    location: "San Diego, CA",
+    verification: "Yes",
+    status: "Active",
+    action: "Edit/Delete"
+  },
+  {
+    businessOwner: "Sophia Green",
+    businessName: "Green Landscaping",
+    email: "sophia.green@example.com",
+    location: "Seattle, WA",
+    verification: "Yes",
+    status: "Active",
+    action: "Edit/Delete"
+  },
+  {
+    businessOwner: "James Miller",
+    businessName: "Miller's Garage",
+    email: "james.miller@example.com",
+    location: "Denver, CO",
+    verification: "No",
+    status: "Inactive",
+    action: "Verify/Approve"
+  },
+  {
+    businessOwner: "Isabella Thomas",
+    businessName: "Thomas Art Studio",
+    email: "isabella.thomas@example.com",
+    location: "San Francisco, CA",
+    verification: "No",
+    status: "Inactive",
+    action: "Resubmit/Delete"
+  }
+];
+

@@ -1,236 +1,259 @@
-<div class="preview">
-    <div class="preview-text">
-        <p>Preview</p>
-        <span>This is everything you have told us. Kindly make sure everything is right.</span>
-    </div>
+<div class="preview" *ngIf="providerInfo$ | async as providerInfo">
+  <div class="preview-text">
+    <p>Preview</p>
+    <span
+      >This is everything you have told us. Kindly make sure everything is
+      right.</span
+    >
+  </div>
 
-    <div class="basic-information">
-       <div class="info-content">
-        <p>Basic Information</p>
-       <div class="more">
+  <div class="basic-information">
+    <div class="info-content">
+      <p>Basic Information</p>
+      <div class="more">
         <div class="profile-img">
-       <img src="assets/images/Avatar.png" alt="profile"> 
+          <img
+            src="providerInfo.profileImageUrl || 'assets/images/default.png'"
+            alt="profile"
+          />
         </div>
         <div class="business-info">
-        <div class="name">
-                <p>Business Owner’s name</p>
-                <div class="field"></div> 
+          <div class="name">
+            <p>Business Owner’s name</p>
+            <div class="field">
+              {{ providerInfo.authservice.businessOwnerName }}
             </div>
-            <div class="name">
-                <p>Email</p>
-                <div class="field"></div> 
-            </div>
+          </div>
+          <div class="name">
+            <p>Email</p>
+            <div class="field">{{ providerInfo.authservice.email }}</div>
+          </div>
         </div>
-       </div>
-    <!-- business -->
-     <div class="buzz">
-        <div class="name">
-            <p>Business Name</p>
-            <div class="field"></div> 
-        </div>
-        <div class="name">
-            <p>Phone Number</p>
-            <div class="field"></div> 
-        </div>
-     </div>
-
-     <div class="b-name">
-        <div class="name">
-            <p>Business Address</p>
-            <div class="field"></div> 
-        </div>
-     </div>
-
-       </div>
-    </div>
-
-   
-
-    <div class="about-business">
-        <div class="header">
-            <p>About (business name)</p>
-        </div>
-
-        <div class="details">
-            <div class="date">
-                <div class="date-info">
-                    <p>Inception Date</p>
-                <div class="field">
-                </div>
-                </div>
-               <div class="business-doc">
-                <p>Business Certificate</p>
-                <div class="field"></div>
-               </div>
-
-            </div>
-        </div>
-
-        <div class="employees">
-            <div class="count">
-                <p>Number of Employees (Digits only)</p>
-                <div class="field"></div>
-            </div>
-
-           <div class="id">
-            <p>ID</p>
-            <div class="field"></div>
-            
-           </div>
-
-            
-        </div>
-
-
-        <div class="socials">
-            <div class="media">
-                <p>Social Media Links</p>
-                <div class="fields"></div>
-                <div class="fields"></div>
-                <div class="fields"></div>
-            </div>
-
-            <div class="summary">
-                <p>Summary</p>
-                <div class="sum"></div>
-            </div>
-        </div>
-
-    </div>
-
-   
-
-      <div class="payment">
-        <div class="head">
-            <p>Payment Method</p>
-        </div>
-
-        <div class="payment-pref">
-            <div class="payment-info">
-                <p>Payment Preference</p>
-                <div class="field"></div>
-            </div>
-
-            <div class="payment-doc">
-                <p>Service Provider</p>
-                <div class="field"></div>
-            </div>
-        </div>
-
-        <div class="account">
-            <div class="account-info">
-                <p>Account Name</p>
-                <div class="field"></div>
-            </div>
-
-            <div class="account-alias">
-                <p>Account Alias</p>
-                <div class="field"></div>
-            </div>
-        </div>
-
-        <div class="pay-details">
-            <p>Mobile Number</p>
-            <div class="field"></div>
-
-        </div>
-
       </div>
-  
-      
-
-      <div class="preference">
-        <div class="head">
-            <p>Preferences</p>
+      <!-- business -->
+      <div class="buzz">
+        <div class="name">
+          <p>Business Name</p>
+          <div class="field">{{ providerInfo.authservice.userName }}</div>
         </div>
-
-        <div class="preference-details">
-            <div class="service">
-                <p>What service do you offer?</p>
-                <div class="field"></div>
-            </div>
-            <div class="experience">
-                <p>Payment Preference</p>
-                <div class="field"></div>
-            </div>
+        <div class="name">
+          <p>Phone Number</p>
+          <div class="field">{{ providerInfo.authservice.mobileNumber }}</div>
         </div>
-
-        <div class="documents">
-            <div class="document">
-                <p>Extra Document</p>
-                <div class="field"></div>
-            </div>
-
-            <div class="alias">
-                <p>Account Alias</p>
-                <div class="field"></div>
-            </div>
       </div>
 
-      <div class="booking">
-        <div class="days">
-         <p>Booking Days</p>
-         <div class="day"></div>
-         <div class="day"></div>
-         <div class="day"></div>
+      <div class="b-name">
+        <div class="name">
+          <p>Business Address</p>
+          <div class="field">{{ providerInfo.authservice.placeName }}</div>
         </div>
-        <div class="from">
-         <p>From</p>
-         <div class="time"></div>
-         <div class="time"></div>
-         <div class="time">
+      </div>
+    </div>
+  </div>
+
+  <div class="about-business">
+    <div class="header">
+      <p>About (business name)</p>
+    </div>
+
+    <div class="details">
+      <div class="date">
+        <div class="date-info">
+          <p>Inception Date</p>
+          <div class="field">
+            {{
+              providerInfo["business-info"].aboutBusinessResponse.inceptionDate
+                | date : "yyyy-MM-dd"
+            }}
+          </div>
         </div>
-     </div>
+        <div class="business-doc">
+          <p>Business Certificate</p>
+          <div class="field">
+            {{
+              providerInfo["business-info"].aboutBusinessResponse
+                .businessCertificate
+            }}
+          </div>
+        </div>
+      </div>
+    </div>
 
-     <div class="to">
-         <p>To</p>
-         <div class="time"></div>
-         <div class="time"></div>
-         <div class="time"></div>
-     </div>
- </div>
+    <div class="employees">
+      <div class="count">
+        <p>Number of Employees (Digits only)</p>
+        <div class="field">
+          {{
+            providerInfo["business-info"].aboutBusinessResponse
+              .numberOfEmployees
+          }}
+        </div>
+      </div>
 
- <div class="scheduling">
-     <p>Scheduling Policy (optional)</p>
-     <div class="field"></div>
+      <div class="id">
+        <p>ID</p>
+        <div class="field">
+          {{
+            providerInfo["business-info"].aboutBusinessResponse
+              .businessIdentityCard
+          }}
+        </div>
+      </div>
+    </div>
 
- </div>
+    <div class="socials">
+      <div class="media">
+        <p>Social Media Links</p>
+        <div class="fields"></div>
+        <div class="fields"></div>
+        <div class="fields"></div>
+      </div>
 
-    
-</div>
+      <div class="summary">
+        <p>Summary</p>
+        <div class="sum">
+          {{
+            providerInfo["business-info"].aboutBusinessResponse.businessSummary
+          }}
+        </div>
+      </div>
+    </div>
+  </div>
 
-<div class="information">
+  <div class="payment">
     <div class="head">
-        <p>Business Experience</p>
+      <p>Payment Method</p>
+    </div>
+
+    <div class="payment-pref">
+      <div class="payment-info">
+        <p>Payment Preference</p>
+        <div class="field">
+          {{
+            providerInfo["business-info"].paymentMethodResponse
+              .paymentPreference
+          }}
+        </div>
+      </div>
+
+      <div class="payment-doc">
+        <p>Service Provider</p>
+        <div class="field"></div>
+      </div>
+    </div>
+
+    <div class="account">
+      <div class="account-info">
+        <p>Account Name</p>
+        <div class="field"></div>
+      </div>
+
+      <div class="account-alias">
+        <p>Account Alias</p>
+        <div class="field"></div>
+      </div>
+    </div>
+
+    <div class="pay-details">
+      <p>Mobile Number</p>
+      <div class="field"></div>
+    </div>
+  </div>
+
+  <div class="preference">
+    @if(providerInfo['provider-service']; as service){ @for(service of service;
+    track $index){
+    <div class="head">
+      <p>Preferences</p>
+    </div>
+
+    <div class="preference-details">
+      <div class="service">
+        <p>What service do you offer?</p>
+        <div class="field">{{ service.serviceExperience }}</div>
+      </div>
+      <div class="experience">
+        <p>Payment Preference</p>
+        <div class="field">{{ service.paymentPreference }}</div>
+      </div>
+    </div>
+
+    <div class="documents">
+      <div class="document">
+        <p>Extra Document(s)</p>
+        <div class="field">{{ service.documents }}</div>
+      </div>
+
+      <div class="alias">
+        <p>Account Alias</p>
+        <div class="field">{{ service.id }}</div>
+      </div>
+    </div>
+
+    <div class="booking">
+      @for(booking of service.bookingDays; track $index){
+      <div class="days">
+        <p>Booking Days</p>
+        <div class="day"></div>
+      </div>
+      <div class="from">
+        <p>From</p>
+        <div class="time"></div>
+        <div class="time"></div>
+        <div class="time"></div>
+      </div>
+
+      <div class="to">
+        <p>To</p>
+        <div class="time"></div>
+        <div class="time"></div>
+        <div class="time"></div>
+      </div>
+
+      }
+    </div>
+
+    <div class="scheduling">
+      <p>Scheduling Policy (optional)</p>
+      <div class="field"></div>
+    </div>
+    } }
+  </div>
+
+  <div class="information">
+    <div class="head">
+      <p>Business Experience</p>
     </div>
 
     <div class="exp">
-        <div class="exp-info">
-            <p>Title of Project</p>
-            <div class="field"></div>
-        </div>
-        <div class="exp-details">
-            <p>Description</p>
-            <div class="field"></div>
+      <div class="exp-info">
+        <p>Title of Project</p>
+        <div class="field"></div>
+      </div>
+      <div class="exp-details">
+        <p>Description</p>
+        <div class="field"></div>
+      </div>
     </div>
-</div>
+  </div>
 
-</div>
-
-<div class="pic-upload">
+  <div class="pic-upload">
     <p>Uploads</p>
     <div class="uploaded"></div>
     <div class="uploaded"></div>
     <div class="uploaded"></div>
-</div>
+  </div>
 
-<div class="instruction">
-    <p>By clicking on “Register”, you confirm that all provided information is accurate and complete. You acknowledge that you have reviewed and appreved all details for accuracy.</p>
-</div>
+  <div class="instruction">
+    <p>
+      By clicking on “Register”, you confirm that all provided information is
+      accurate and complete. You acknowledge that you have reviewed and appreved
+      all details for accuracy.
+    </p>
+  </div>
 
-<div class="buttons">
+  <div class="buttons">
     <div class="back">Back</div>
     <div class="register">Register</div>
+  </div>
 </div>
-</div>
-

@@ -54,8 +54,17 @@ form
                 &:hover
                     background-color: $blue-lighten-4
 
+
+    .experience
+        @include flex-option($display: flex, $justify-content: null, $align-items: null, $direction: column)
+        gap: 16px
+        
+
     .section-two
         width: 100%
+
+        .documents-upload
+            width: 100%
 
     .section-five
         div
@@ -67,6 +76,20 @@ form
         font-weight: 500
         margin: 0 0 8px 0
         color: $text-main
+
+    .buttons
+        @include flex-option($display: flex, $justify-content: null, $align-items: center,$direction: row)
+        gap: 16px
+        margin: 32px 0 0 0
+        border-top: solid 1px $grey-lighten-3
+        padding: 16px 0 0 0
+
+        p-button
+            flex: 1
+
+        .primary
+            background-color: $blue
+            border-radius: 4px
 
 .p-inputtext
     padding: 12px 14px

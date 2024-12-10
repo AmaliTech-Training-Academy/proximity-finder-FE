@@ -6,7 +6,6 @@
                 @if (serviceProviders | async; as providers) {
                     <p-dropdown
                             id="provider"
-                            [(ngModel)]="selectedProvider"
                             [options]="providers" 
                             placeholder="Choose your preferred network"
                             formControlName="provider"
@@ -35,13 +34,19 @@
                 [class]="'custom-style'"/>
             </div>
             @if (mobileMoneyForm.get('accountAlias')?.invalid && (mobileMoneyForm.get('accountAlias')?.dirty || mobileMoneyForm.get('accountAlias')?.touched)) {
-                <small class="error">Account Alias is required</small>
+                @if (mobileMoneyForm.get('accountAlias')?.hasError('required')) {
+                    <small class="error">Account Alias is required</small>
+                }
+
+                @if (mobileMoneyForm.get('accountAlias')?.hasError('pattern')) {
+                    <small class="error">Account Alias contains no spaces</small>
+                }
             }
 
             <div class="input-field">
                 <app-fields label="Mobile Money"
                 type="number"
-                placeholder="000 000 0000"
+                placeholder="0000000000"
                 formControlName="phoneNumber"
                 [error]="mobileMoneyForm.get('phoneNumber')?.invalid && (mobileMoneyForm.get('phoneNumber')?.dirty || mobileMoneyForm.get('phoneNumber')?.touched)"
                 [class]="'custom-style'"/>
@@ -52,7 +57,7 @@
         </div>
 
         <div class="form-actions">
-            <button type="button" class="cancel-btn">Cancel</button>
+            <button type="button" class="cancel-btn" (click)="onCancel()">Cancel</button>
             <button type="submit" class="save-btn">Save</button>
         </div>
     </form>

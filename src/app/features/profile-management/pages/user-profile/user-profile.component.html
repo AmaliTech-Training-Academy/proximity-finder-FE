@@ -104,9 +104,9 @@
             </div>
 
             <div class="input-group">
-                @if (paymentAccounts | async; as accounts) {
-                    @for (account of accounts; track $index) {
-                        @if (accounts.length > 0) {
+                @if (paymentAccounts) {
+                    @for (account of paymentAccounts | reverse; track $index) {
+                        @if (paymentAccounts.length > 0) {
 
                             <div class="account" (click)="selectAccount(account)">
                                 <p>{{ account.bankName || account.serviceProvider }}</p>
@@ -134,7 +134,6 @@
                     <h5>Account Information</h5>
 
                     <div class="icons">
-                        <img src="../../../../../assets/edit.svg" alt="pen icon" (click)="toggleEdit()">
                         <img src="../../../../../assets/trash.svg" alt="trash icon" (click)="openDeleteDialog()">
                     </div>
                 </div>
@@ -239,7 +238,6 @@
                     </div>
                 </div>
 
-                <button type="submit" [disabled]="accountInfoForm.invalid">Save Changes</button>
             </div>
             }
         </form>

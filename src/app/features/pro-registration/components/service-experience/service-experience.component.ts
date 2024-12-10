@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ImageUploaderComponent } from '../../../service-provider/components/image-uploader/image-uploader.component';
 import {
   FormBuilder,
@@ -27,8 +27,9 @@ import { Router } from '@angular/router';
   templateUrl: './service-experience.component.html',
   styleUrl: './service-experience.component.sass',
 })
-export class ServiceExperienceComponent {
+export class ServiceExperienceComponent implements OnInit {
   isImageModified: boolean = false;
+  providerServiceId = this.serviceService.providerServiceId;
 
   experienceForm: FormGroup = this.fb.group({
     projectTitle: ['', Validators.required],
@@ -40,8 +41,12 @@ export class ServiceExperienceComponent {
     private fb: FormBuilder,
     private serviceService: ServiceService,
     @Inject(NOTYF) private notyf: Notyf,
-   private router:Router
+    private router: Router
   ) {}
+
+  ngOnInit(): void {
+    console.log(this.providerServiceId);
+  }
 
   onImageUploaded(files: File[]) {
     this.isImageModified = true;
@@ -54,10 +59,7 @@ export class ServiceExperienceComponent {
     if (this.experienceForm.valid) {
       const formData = new FormData();
 
-      formData.append(
-        'providerServiceId',
-        '913b5b2e-1de9-436e-a8ae-edc2f2578db9'
-      );
+      formData.append('providerServiceId', this.providerServiceId);
       formData.append(
         'projectTitle',
         this.experienceForm.get('projectTitle')?.value
@@ -75,14 +77,16 @@ export class ServiceExperienceComponent {
       }
 
       this.serviceService.createServiceExperience(formData).subscribe({
-        next: (response) =>
-          this.notyf.success('Service Experience Added Successfully'),
+        next: (response) => {
+          this.notyf.success('Service Experience Added Successfully');
+          this.navigateTo();
+        },
         error: (error) => this.notyf.error('Failed to add service experience'),
       });
     }
   }
-  
+
   navigateTo() {
-    this.router.navigateByUrl('/registration/service-preference');
+    this.router.navigateByUrl('/registration/preview');
   }
 }

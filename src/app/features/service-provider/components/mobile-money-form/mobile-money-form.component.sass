@@ -1,0 +1,21 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+
+form
+    margin: 30px 0 0 0
+    div
+        @include flex-option($display: flex, $justify-content: null, $align-items: null, $direction: column)
+        gap: 4px
+        margin-bottom: 24px
+
+        &:last-child
+            margin: 0
+
+    .buttons
+        @include flex-option($display: flex, $justify-content: null, $align-items: null, $direction: row)
+        gap: 8px
+        margin: 30px 0 0 0
+
+        p-button
+            flex: 1

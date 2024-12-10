@@ -1,0 +1,352 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_variables' as *
+@use '../../../../../styles/_mixins' as *
+
+
+.page
+
+    .hero-section
+        background-image: url('/assets/images/support.jpg')
+        background-size: cover
+        background-position: center
+        height: pxToRem(332)
+        @include flex-option(flex, center, center, column)
+        position: relative
+      
+
+        .empty
+            position: absolute
+            top:0
+            left: 0
+            right: 0
+            bottom: 0
+            background: rgba(0, 0, 0, 0.5)
+            color: $white
+             
+
+        .search-container
+            @include flex-option(flex, center, center, column)
+            gap: pxToRem(20)
+            z-index: 1
+            
+
+            p
+                font-size: pxToRem(36)
+                font-weight: 700
+                color: $white
+
+            .search
+                @include flex-option(flex, null, center, row)
+                gap: pxToRem(16)
+                border: 1px solid #E4E7E9
+                width: pxToRem(720)
+                border-radius: pxToRem(32)
+                padding: pxToRem(16) pxToRem(32)
+                background-color: $white
+
+                input
+                    border: none
+                    background: none
+                    width: 100%
+
+                    &:focus
+                        outline: none
+                        border-color: none
+
+    .info
+        @include flex-option(flex, null, null, column)
+        padding: pxToRem(24) pxToRem(80) 
+
+        .head
+            border-bottom: 1px solid #E4E7E9
+            padding-bottom: pxToRem(20)
+            p
+                font-size: pxToRem(25)
+                font-weight: 600
+                color: $text-main  
+
+        .actions
+            @include flex-option(flex, null, null, row)
+            gap: pxToRem(16)  
+            margin-top: pxToRem(24)
+
+            p
+             font-size: pxToRem(14)
+             font-weight: 400
+             color: $primary
+
+             span
+                font-size: pxToRem(14)
+                font-weight: 400
+                color: $subtext 
+
+        .main
+            margin-top: pxToRem(24)
+            border-bottom: 1px solid #E4E7E9
+            padding-bottom: pxToRem(20)
+            p
+                font-size: pxToRem(25)
+                font-weight: 600
+                 color: $text-main        
+
+        .freq
+            @include flex-option(flex, null, null, row)
+            gap: pxToRem(90)
+            margin-top: pxToRem(24)
+            max-width: pxToRem(1600)
+           
+
+            .questions-container
+                @include flex-option(flex, null, null, column)
+                flex: 2
+                gap: pxToRem(16)
+                height: pxToRem(400)
+                overflow-y: scroll
+                scrollbar-width: none
+               
+                ::ng-deep .p-accordion p-accordiontab .p-accordion-tab
+                    border: 1px solid #E4E7E9    
+                    border-radius: pxToRem(8)
+                    padding-bottom: 0 
+                    
+
+                ::ng-deep.p-accordion-tab .p-accordion-header-link
+                    padding: 1rem  
+
+                ::ng-deep p-accordiontab.p-element 
+                    width: 100%
+      
+
+                ::ng-deep .p-accordion .p-accordion-tab-active .p-accordion-header-link
+                    background-color: $primary 
+                    color: $white
+
+                ::ng-deep .p-accordion .p-accordion-tab-active .p-accordion-header-text
+                    background-color: $primary 
+                    color: $white    
+                   
+
+
+                ::ng-deep .p-accordion-content 
+                    padding-bottom: 1rem
+                    font-size: pxToRem(14)
+
+                    p
+                        font-size: pxToRem(14)
+                        font-weight: 400
+                        color: #475156
+                        margin-top: pxToRem(10)
+                        padding: 1rem
+                    
+                ::ng-deep .p-accordion-header-text
+                    font-size: pxToRem(14)
+                    font-weight: 400
+                    color: $text-main 
+
+                     
+
+            .request-form
+                @include flex-option(flex, null, null, column)
+                flex: 1
+                background-color: #F2F4F5 
+                width: pxToRem(424)
+                padding: pxToRem(32)
+
+                p
+                    font-size: pxToRem(16)
+                    font-weight: 500
+                    color: $text-main
+
+                span
+                    font-size: pxToRem(12)
+                    font-weight: 400
+                    color: $subtext 
+                    margin-top: pxToRem(16)
+
+                form
+                    @include flex-option(flex, null, null, column)
+                    gap: pxToRem(8) 
+                    margin-top: pxToRem(24)  
+
+                    input
+                        border: 1px solid #E4E7E9
+                        width: 100%
+                        border-radius: pxToRem(4)
+                        padding: pxToRem(16)
+
+                        &:focus
+                            outline: none
+                            border-color: none
+
+                    textarea
+                        border: 1px solid #E4E7E9
+                        width: 100%
+                        border-radius: pxToRem(4)
+                        padding: pxToRem(16)  
+
+                        &:focus
+                            outline: none
+                            border-color: none
+
+                    .buttons
+                        width: pxToRem(181)
+                        @include flex-option(flex, null, center, row)
+                        gap: pxToRem(16)
+                        background-color: $primary
+                        padding: pxToRem(10) 
+                        cursor: pointer
+                        margin-top: pxToRem(10)
+
+                        .btn-send
+                            font-size: pxToRem(14)
+                            font-weight: 500
+                            text-transform: uppercase
+                            color: $white
+                            border: none
+                            background: none
+                            cursor: pointer 
+
+        .switcher
+            @include flex-option(flex, center, center, row)
+            margin-top: pxToRem(40)
+
+            ::ng-deep .p-selectbutton
+               width: pxToRem(314)
+               height: pxToRem(50)
+
+        
+            ::ng-deep .p-selectbutton .p-button
+               font-size: pxToRem(14)
+               transition: background-color 0.3s ease
+               border: none
+               box-shadow: none
+
+    
+            ::ng-deep .p-selectbutton .p-button.p-highlight
+             background-color: $primary
+             color: $white
+
+ 
+            ::ng-deep .p-selectbutton .p-button
+                 background-color:#D3D4D5
+                 color: black 
+
+            ::ng-deep .p-ripple
+                height: pxToRem(50)
+                width: 50%      
+  
+
+        .icons
+            margin-top: pxToRem(100)
+            @include flex-option(flex, null, null, row)
+            gap: pxToRem(16)
+            
+            
+
+            .terms,
+            .imp,
+            .policy,
+            .find
+                p
+                    font-size: pxToRem(16)
+                    font-weight: 600
+                    color: $primary 
+                    margin-top: pxToRem(16)
+
+                span
+                    font-size: pxToRem(14)
+                    font-weight: 400
+                    color: $text-main 
+                    margin-top: pxToRem(16)  
+
+    .footer
+        @include flex-option(flex, null, null, column)
+        gap: pxToRem(16)
+        padding: pxToRem(24) 
+        border-top: 1px solid #E4E7E9 
+        margin-top: pxToRem(24)    
+
+        .footer-info
+            @include flex-option(flex, space-between, null, row)
+            gap: pxToRem(16)  
+            padding: pxToRem(24) pxToRem(80) 
+
+            .business-info  
+                @include flex-option(flex, null, null, column)
+                gap: pxToRem(16)
+
+                .address,
+                .phone,
+                .email
+                    @include flex-option(flex, null, center, row)
+                    gap: pxToRem(16)
+
+                    p
+                        font-size: pxToRem(14)
+                        font-weight: 500
+                        color: $primary
+
+                    span
+                        font-size: pxToRem(14)
+                        font-weight: 500
+                        color: $text-main
+
+            .socials
+                @include flex-option(flex, null, null, column)
+                gap: pxToRem(16)
+
+                p
+                    font-size: pxToRem(14)
+                    font-weight: 500
+                    color: $primary
+                   
+                .letter
+                    @include flex-option(flex, null, null, row)
+                    gap: pxToRem(16)
+
+                    input
+                        width: pxToRem(280)
+                        padding: pxToRem(10) pxToRem(8)
+                        border: 1px solid #E4E7E9
+                        border-radius: pxToRem(4)
+
+                        &:focus
+                            outline: none
+                            border-color: none
+
+                    button
+                        width: pxToRem(136)
+                        padding: pxToRem(10) pxToRem(27)
+                        border: none
+                        border-radius: pxToRem(4)
+                        background-color: $primary
+                        color: $white
+                        font-size: pxToRem(14)
+                        font-weight: 500
+                        cursor: pointer
+
+                .media
+                    margin-top: pxToRem(25)
+                    p
+                        font-size: pxToRem(14)
+                        font-weight: 500
+                        color: $primary
+
+                    .media-icons
+                        margin-top: pxToRem(24)
+                        @include flex-option(flex, null, null, row)
+                        gap: pxToRem(16)
+
+    footer
+        background: $primary
+        width: 100%
+        padding: pxToRem(24) pxToRem(80)
+        p
+         font-size: pxToRem(16)
+         font-weight: 400
+         color: $white
+         margin-top: pxToRem(24)                        
+
+
+
+

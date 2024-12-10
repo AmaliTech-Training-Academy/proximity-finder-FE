@@ -8,11 +8,14 @@ import { ServiceCategory } from '../models/IServiceCategory';
   providedIn: 'root',
 })
 export class ServiceService {
-  servicesUrl = 'http://3.136.48.244:8080/api/v1/services';
-  proServicesUrl = 'http://3.136.48.244:8080/api/v1/provider-services';
-  serviceExperienceUrl = 'http://3.136.48.244:8080/api/v1/service-experiences';
+  apiUrl = 'http://3.136.48.244:8080';
+  servicesUrl = '/api/v1/services';
+  proServicesUrl = '/api/v1/provider-services';
+  serviceExperienceUrl = '/api/v1/service-experiences';
   servicesSubject = new BehaviorSubject<ServiceCategory[]>([]);
   serviceCategories$ = this.servicesSubject.asObservable();
+
+  providerServiceId: string = '';
 
   constructor(private http: HttpClient) {
     this.getServices();
@@ -20,7 +23,7 @@ export class ServiceService {
 
   getServices() {
     this.http
-      .get<ServiceResponse>(this.servicesUrl)
+      .get<ServiceResponse>(`${this.apiUrl}${this.servicesUrl}`)
       .pipe(map((response) => this.servicesSubject.next(response.result)))
       .subscribe();
   }
@@ -41,22 +44,32 @@ export class ServiceService {
     formData.append('image', serviceCategory.image);
 
     return this.http.put<ServiceResponse>(
-      `${this.servicesUrl}/${serviceCategory.id}`,
+      `${this.apiUrl}${this.servicesUrl}/${serviceCategory.id}`,
       formData
     );
   }
 
   deleteService(id: string) {
     this.http
-      .delete<ServiceResponse>(`${this.servicesUrl}/${id}`)
+      .delete<ServiceResponse>(`${this.apiUrl}${this.servicesUrl}/${id}`)
       .subscribe(() => this.getServices());
   }
 
   setServicePreference(servicePreferenceData: FormData) {
-    return this.http.post(this.proServicesUrl, servicePreferenceData);
+    return this.http.post(
+      `${this.apiUrl}${this.proServicesUrl}`,
+      servicePreferenceData
+    );
   }
 
   createServiceExperience(serviceExperienceData: FormData) {
-    return this.http.post(this.serviceExperienceUrl, serviceExperienceData);
+    return this.http.post(
+      `${this.apiUrl}${this.serviceExperienceUrl}`,
+      serviceExperienceData
+    );
+  }
+
+  setProviderServiceId(providerServiceId: string) {
+    this.providerServiceId = providerServiceId;
   }
 }
