@@ -97,7 +97,6 @@ export class ProAccountInfoComponent implements OnInit, OnDestroy {
   openAccountOptions(event: any, account: IPaymentAccount) {
     this.selectedAccount = account;
     this.menu.toggle(event);
-    console.log(this.selectedAccount);
   }
 
   deleteAccount() {
