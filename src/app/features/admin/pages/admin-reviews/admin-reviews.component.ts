@@ -54,8 +54,10 @@ export class AdminReviewsComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSearchInputChange(event: any) {
-    this.searchSubject.next(event.target.value);
+  onSearchInputChange(event: Event) {
+    const inputEvent = event as InputEvent
+    const target = inputEvent.target as HTMLInputElement
+    this.searchSubject.next(target.value)
   }
 
   ngOnDestroy() {
