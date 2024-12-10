@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Ireview } from '../models/ireview';
+import { Ireview, reviewResponse } from '../models/ireview';
 import { environment } from '../../../../environments/environment';
 import { BehaviorSubject, catchError, Observable, retry, tap } from 'rxjs';
 import { ErrorHandlingService } from '../../../core/services/error-handling.service';
@@ -9,7 +9,7 @@ import { ErrorHandlingService } from '../../../core/services/error-handling.serv
   providedIn: 'root'
 })
 export class ReviewService {
-  private reviewsSubject = new BehaviorSubject<Ireview[]>([]);
+  private reviewsSubject = new BehaviorSubject<reviewResponse>({ status: '', result: [] });
   reviews$ = this.reviewsSubject.asObservable();
 
   constructor(private http: HttpClient, private errorHandler: ErrorHandlingService) { }
@@ -22,10 +22,12 @@ export class ReviewService {
   }
 
   getReviews(): void {
-    this.http.get<Ireview[]>(`${environment.searchUrl}/reviews`).pipe(
+    this.http.get<reviewResponse>(`${environment.searchUrl}/reviews`).pipe(
       retry(2),
       catchError(error => this.errorHandler.handleError(error)),
-      tap(reviews => this.reviewsSubject.next(reviews))
-    )
+      tap(reviews => this.reviewsSubject.next(reviews)),
+      catchError(error => this.errorHandler.handleError(error))
+    ).subscribe()
   }
 }
+
