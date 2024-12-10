@@ -29,7 +29,7 @@ export class MobileMoneyDetailsComponent implements OnInit {
   mobileMoneyForm = this.fb.group({
     provider: ['', Validators.required],
     accountName: ['', Validators.required],
-    accountAlias: ['', Validators.required],
+    accountAlias: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
     phoneNumber: ['', Validators.required],
   })
 

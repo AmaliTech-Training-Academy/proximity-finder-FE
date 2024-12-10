@@ -33,8 +33,8 @@ export class BankDetailsComponent implements OnInit, OnDestroy {
   bankForm = this.fb.group({
     bankName: ['', Validators.required],
     accountName: ['', Validators.required],
-    accountAlias: ['', Validators.required],
-    accountNumber: ['', [Validators.required, Validators.maxLength(13)]],
+    accountAlias: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
+    accountNumber: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(13)]],
   })
 
   ngOnInit() {
