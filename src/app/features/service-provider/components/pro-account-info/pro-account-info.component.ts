@@ -62,7 +62,6 @@ export class ProAccountInfoComponent implements OnInit, OnDestroy {
       icon: 'pi pi-trash',
       command: () => {
         this.isConfirmDialogVisible = true;
-        // this.selectedAccountId = accountId;
       },
     },
   ];

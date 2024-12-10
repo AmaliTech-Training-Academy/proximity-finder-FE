@@ -18,13 +18,15 @@
     </div>
     <div>
       <label for="accountPreference">Account Preference</label>
+      @if (linkedAccounts$ | async; as linkedAccounts) {
       <p-dropdown
         id="accountPreference"
         formControlName="accountPreference"
-        [options]="accountPreferences"
-        optionLabel="name"
+        [options]="linkedAccounts"
+        optionLabel="paymentPreference"
         placeholder="Please choose"
       />
+      }
     </div>
   </div>
   <div class="section-booking">

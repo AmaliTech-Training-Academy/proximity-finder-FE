@@ -32,6 +32,7 @@ import { Router } from '@angular/router';
 import { ProfileService } from '../../../profile-management/services/profile.service';
 import { Payment } from '../../models/payment';
 import { IPaymentAccount } from '../../../../core/models/payment-account';
+import { ServiceResponse } from '../../../../core/models/IServiceResponse';
 
 @Component({
   selector: 'app-service-preference',
@@ -61,11 +62,11 @@ export class ServicePreferenceComponent implements OnInit {
   uploadedFiles: File[] = [];
   location!: PlaceSearchResult;
   loggedInuser$ = this.profileService.loggedInUser$;
+  paymentAccounts$ = this.profileService.paymentAccounts$;
   paymentMethod!: IPaymentAccount;
 
   servicePreferenceForm: FormGroup = this.fb.group({
     service: [null, Validators.required],
-    paymentPreference: [null, Validators.required],
     bookingDays: this.fb.array([this.createBookingDay()]),
     documents: [null],
     schedulingPolicy: [''],
@@ -83,13 +84,12 @@ export class ServicePreferenceComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.profileService.getPaymentAccounts();
     this.loggedInuser$.subscribe({
       next: (user) => console.log(user),
     });
-    this.profileService.paymentAccounts$.subscribe({
-      next: (preferences) => {
-        this.paymentMethod = preferences[0];
-      },
+    this.paymentAccounts$.subscribe({
+      next: (paymentAccounts) => (this.paymentMethod = paymentAccounts[0]),
     });
   }
 
@@ -172,10 +172,7 @@ export class ServicePreferenceComponent implements OnInit {
         formValue.service.name || formValue.service
       );
 
-      formData.append(
-        'paymentPreference',
-        formValue.paymentPreference.name || formValue.paymentPreference
-      );
+      formData.append('paymentPreference', JSON.stringify(this.paymentMethod));
 
       formData.append('placeName', locationData.placeName);
       formData.append('latitude', String(locationData.latitude ?? ''));
@@ -194,8 +191,13 @@ export class ServicePreferenceComponent implements OnInit {
       formData.forEach((value, key) => console.log(key, value));
 
       this.serviceService.setServicePreference(formData).subscribe({
-        next: (response) => this.notyf.success('Service preference saved'),
-        error: (error) => this.notyf.error('Failed to save preference'),
+        next: (response: any) => {
+          const providerServiceId = response.result.id;
+          this.serviceService.setProviderServiceId(providerServiceId);
+          this.notyf.success('Service preference saved');
+          this.navigateTo();
+        },
+        error: () => this.notyf.error('Failed to save preference'),
       });
     } else {
       console.error('Form is invalid');
@@ -228,6 +230,6 @@ export class ServicePreferenceComponent implements OnInit {
   }
 
   navigateTo() {
-    this.router.navigateByUrl('/registration/payment-method');
+    this.router.navigateByUrl('/registration/service-experience');
   }
 }

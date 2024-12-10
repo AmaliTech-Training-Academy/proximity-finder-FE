@@ -3,6 +3,7 @@ import {
   ElementRef,
   EventEmitter,
   Inject,
+  OnInit,
   Output,
 } from '@angular/core';
 import {
@@ -27,6 +28,9 @@ import { LocationsComponent } from '../../../../shared/components/locations/loca
 import { ServiceResponse } from '../../../../core/models/IServiceResponse';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { Notyf } from 'notyf';
+import { ProfileService } from '../../../profile-management/services/profile.service';
+import { IPaymentAccount } from '../../../../core/models/payment-account';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-service-creation-form',
@@ -45,10 +49,12 @@ import { Notyf } from 'notyf';
   templateUrl: './service-creation-form.component.html',
   styleUrl: './service-creation-form.component.sass',
 })
-export class ServiceCreationFormComponent {
+export class ServiceCreationFormComponent implements OnInit {
   @Output() closeDialogEvent = new EventEmitter<boolean>();
 
   serviceCategories$ = this.serviceService.serviceCategories$;
+  linkedAccounts$: Observable<IPaymentAccount[]> =
+    this.profileService.paymentAccounts$;
 
   accountPreferences = accountPreferences;
   days = bookingDays;
@@ -70,9 +76,17 @@ export class ServiceCreationFormComponent {
   constructor(
     private fb: FormBuilder,
     private serviceService: ServiceService,
+    private profileService: ProfileService,
     @Inject(NOTYF) private notyf: Notyf
   ) {
     this.generateTimeOptions(15);
+  }
+
+  ngOnInit(): void {
+    this.profileService.getPaymentAccounts();
+    this.linkedAccounts$.subscribe({
+      next: (linkedAccounts) => console.log(linkedAccounts),
+    });
   }
 
   onFilesSelected(files: File[]) {
