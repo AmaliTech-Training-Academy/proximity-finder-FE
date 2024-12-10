@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { SvgService } from '../../../../shared/services/svg.service';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
 import { ReviewFormComponent } from "../../../reviews-feedback/components/review-form/review-form.component";
@@ -14,5 +13,4 @@ import { ReviewFormComponent } from "../../../reviews-feedback/components/review
 })
 export class FeedbackComponent {
   value: number = 4;
-  constructor(private svgService: SvgService) {}
 }
