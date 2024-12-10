@@ -1,3 +1,4 @@
+import { ServiceCategory } from './IServiceCategory';
 import { IPaymentAccount } from './payment-account';
 
 export interface Role {
@@ -26,6 +27,7 @@ export interface ProviderService {
   placeName: string | null;
   serviceExperience: string | null;
   schedulingPolicy: string;
+  service: ServiceCategory
   bookingDays: [];
   documents: [];
   createdAt: string;
