@@ -79,7 +79,7 @@ export class UserProfileComponent implements OnInit {
     bankName: [''],
     accountName: [''],
     accountAlias: [''],
-    accountNumber: ['', Validators.maxLength(13)],
+    accountNumber: ['', [Validators.minLength(13),Validators.maxLength(13)]],
     phoneNumber: [''],
     serviceProvider: ['']
   });
@@ -212,10 +212,6 @@ export class UserProfileComponent implements OnInit {
     this.isDeleteModal = true
     this.openDialog()
   } 
-
-  toggleEdit() {
-    this.isFormActive = !this.isFormActive
-  }
 
 
   updateAccount() {

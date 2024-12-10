@@ -34,7 +34,13 @@
                 [class]="'custom-style'"/>
             </div>
             @if (mobileMoneyForm.get('accountAlias')?.invalid && (mobileMoneyForm.get('accountAlias')?.dirty || mobileMoneyForm.get('accountAlias')?.touched)) {
-                <small class="error">Account Alias is required</small>
+                @if (mobileMoneyForm.get('accountAlias')?.hasError('required')) {
+                    <small class="error">Account Alias is required</small>
+                }
+
+                @if (mobileMoneyForm.get('accountAlias')?.hasError('pattern')) {
+                    <small class="error">Account Alias contains no spaces</small>
+                }
             }
 
             <div class="input-field">
