@@ -1,7 +1,9 @@
-import { Component, Input } from '@angular/core';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { Component, inject, Input } from '@angular/core';
+import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ProfileService } from '../../../profile-management/services/profile.service';
 import { User } from '../../../profile-management/models/user';
+import { AuthService } from '../../../auth/services/auth/auth.service';
+import { NOTYF } from '../../../../shared/notify/notyf.token';
 
 @Component({
   selector: 'app-sidebar',
@@ -13,13 +15,20 @@ import { User } from '../../../profile-management/models/user';
 export class SidebarComponent {
   loggedInUser!: User | null;
   @Input() role!: string;
+  private notyf = inject(NOTYF);
 
-  constructor(private profileService: ProfileService) {}
+  constructor(private profileService: ProfileService,private authService:AuthService,private router:Router) {}
 
   ngOnInit() {
     this.profileService.loggedInUser$.subscribe({
       next: (user) => (this.loggedInUser = user),
       error: (error) => console.error('Could not get user'),
     });
+  }
+
+  logout() {
+    this.authService.logout();
+    this.notyf.success('You have successfully logged out');
+    this.router.navigate(['/login']);
   }
 }

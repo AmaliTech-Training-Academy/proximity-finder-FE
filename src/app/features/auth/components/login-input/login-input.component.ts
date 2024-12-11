@@ -24,6 +24,7 @@ import { ProfileService } from '../../../profile-management/services/profile.ser
   styleUrls: ['./login-input.component.sass'],
 })
 export class LoginInputComponent implements OnDestroy {
+  provider:string | null=''
   loginForm: FormGroup = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
@@ -46,31 +47,36 @@ export class LoginInputComponent implements OnDestroy {
         next: (res) => {
           this.notyf.success('Login Successful');
           if (res.roles[0] === 'ROLE_ADMIN') {
-            console.log('Admin');
             this.router.navigateByUrl('admin/dashboard');
           } else if (res.roles[0] === 'ROLE_SEEKER') {
-            console.log('seeker');
             this.router.navigateByUrl('');
           } else if (res.roles[0] === 'ROLE_PROVIDER') {
             const userData = { email: res.email, userName: res.username };
             this.authService.localStorageService.setItem('userData', userData);
             this.profileService.getClient().subscribe({
               next: (client) => {
+               this.provider= this.authService.localStorageService.getItem(userData.email) as string;
                 if (client.status === 'ACTIVE') {
                   this.router.navigateByUrl('');
+                } else if (client.status === 'PENDING') {
+                  this.router.navigateByUrl('/registration');
+                  return
                 } else {
                   this.router.navigateByUrl('/registration');
                 }
               },
+              error: (err) => {
+              },
             });
           }
         },
-        error: () => {
+        error: (err) => {
           this.notyf.error('Login failed. Please check your credentials.');
         },
       });
     }
   }
+
 
   ngOnDestroy() {
     if (this.subscription) {
