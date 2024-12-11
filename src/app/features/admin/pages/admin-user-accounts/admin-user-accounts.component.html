@@ -36,7 +36,7 @@
                   @if (activeAccount === proAccount) {
                     <div class="menu">
                       @for (status of statuses; track $index) {
-                        <span class="status-label" [ngClass]="statusMapping[status] | lowercase" (click)="updateStatus(proAccount, status)">
+                        <span class="status-label menu-label" [ngClass]="statusMapping[status] | lowercase" (click)="updateStatus(proAccount, status)">
                           <i class="status-icon"></i>
                           {{ status }}
                         </span>
