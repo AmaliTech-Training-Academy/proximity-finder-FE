@@ -9,7 +9,7 @@ import { LocalStorageService } from '../../../../shared/services/local-storage.s
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, AsyncPipe],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.sass',
 })
