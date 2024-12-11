@@ -24,6 +24,7 @@ import { ProfileService } from '../../../profile-management/services/profile.ser
   styleUrls: ['./login-input.component.sass'],
 })
 export class LoginInputComponent implements OnDestroy {
+  provider:string | null=''
   loginForm: FormGroup = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
@@ -45,43 +46,37 @@ export class LoginInputComponent implements OnDestroy {
       this.authService.login(email, password).subscribe({
         next: (res) => {
           this.notyf.success('Login Successful');
-          console.log('User roles:', res.roles);
-  
           if (res.roles[0] === 'ROLE_ADMIN') {
-            console.log('Redirecting to admin dashboard');
             this.router.navigateByUrl('admin/dashboard');
           } else if (res.roles[0] === 'ROLE_SEEKER') {
-            console.log('Redirecting to home page');
             this.router.navigateByUrl('');
           } else if (res.roles[0] === 'ROLE_PROVIDER') {
             const userData = { email: res.email, userName: res.username };
             this.authService.localStorageService.setItem('userData', userData);
-            console.log('Fetching client status...');
             this.profileService.getClient().subscribe({
               next: (client) => {
-                console.log('Client status:', client.status);
+               this.provider= this.authService.localStorageService.getItem(userData.email) as string;
                 if (client.status === 'ACTIVE') {
-                  console.log('Redirecting to home page');
                   this.router.navigateByUrl('');
+                } else if (client.status === 'PENDING') {
+                  this.router.navigateByUrl('/registration');
+                  return
                 } else {
-                  console.log('Redirecting to registration page');
                   this.router.navigateByUrl('/registration');
                 }
               },
               error: (err) => {
-                console.error('Error fetching client status:', err);
               },
             });
           }
         },
         error: (err) => {
-          console.error('Login failed:', err);
           this.notyf.error('Login failed. Please check your credentials.');
         },
       });
     }
   }
-  
+
 
   ngOnDestroy() {
     if (this.subscription) {
