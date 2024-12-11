@@ -103,6 +103,21 @@
                 height: pxToRem(400)
                 overflow-y: scroll
                 scrollbar-width: none
+
+                .no-search
+                    @include flex-option(flex, center, center, column)
+                    gap: pxToRem(16)
+                    
+
+                    img
+                        width: pxToRem(300)
+                        height: pxToRem(300)
+
+                    p
+                      font-size: pxToRem(20)
+                      font-weight: 600
+                      color: $text-main  
+
                
                 ::ng-deep .p-accordion p-accordiontab .p-accordion-tab
                     border: 1px solid #E4E7E9    

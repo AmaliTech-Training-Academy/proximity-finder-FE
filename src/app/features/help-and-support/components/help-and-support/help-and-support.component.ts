@@ -28,6 +28,8 @@ export class HelpAndSupportComponent implements OnInit, OnDestroy {
 
   value: string = 'seeker';  
   faqs: Faqs[] = [];
+  searchResults: Faqs[] = [];
+isSearching: boolean = false;
   loadFaqSub!:Subscription
   sendSub!:Subscription
 
@@ -62,12 +64,33 @@ export class HelpAndSupportComponent implements OnInit, OnDestroy {
     this.loadFaqs(this.value);  
   }
 
+  onSearch(event: Event): void {
+    const searchKeyword = (event.target as HTMLInputElement).value.toLowerCase().trim();
+    this.isSearching = !!searchKeyword; // Set searching state based on input
+  
+    if (this.isSearching) {
+      this.searchResults = this.faqs.filter(faq =>
+        faq.question.toLowerCase().includes(searchKeyword) ||
+        faq.answer.toLowerCase().includes(searchKeyword)
+      );
+    } else {
+      // Clear search and reset results if input is empty
+      this.searchResults = [];
+    }
+  }
+  
+
+  resetForm(){
+    this.messageForm.reset();
+  }
+
   onSubmit(): void {
     if (this.messageForm.valid) {
       const formData: Support = this.messageForm.value;
       this.sendSub=this.supportService.sendSupport(formData).subscribe({
         next: (response) => {
           this.notyf.success('Message sent successfully');
+          this.resetForm()
         },
         error: (error) => {
           this.notyf.error('Error sending message');
