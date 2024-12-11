@@ -194,7 +194,7 @@ export const routes: Routes = [
                 import('./features/admin/pages/admin-pro-account/admin-pro-account.component').then(m => m.AdminProAccountComponent)
             },
             {
-              path: 'details',
+              path: 'details/:email',
               loadComponent: () =>
                 import('./features/admin/pages/admin-pro-details/admin-pro-details.component').then(m => m.AdminProDetailsComponent)
             }
@@ -320,5 +320,12 @@ export const routes: Routes = [
         './features/help-and-support/components/help-and-support/help-and-support.component'
       ).then((m) => m.HelpAndSupportComponent),
     
+  },
+  {
+    path: 'quote',
+    loadComponent: () =>
+      import(
+        './features/seeker/components/quote-created/quote-created.component'
+      ).then((m) => m.QuoteCreatedComponent),
   }
 ];

@@ -1,10 +1,18 @@
+
 import { Component, Input } from '@angular/core';
+
+import { Component, inject, Input } from '@angular/core';
+
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ProfileService } from '../../../profile-management/services/profile.service';
 import { User } from '../../../profile-management/models/user';
 import { AuthService } from '../../../auth/services/auth/auth.service';
+
 import { AsyncPipe } from '@angular/common';
 import { LocalStorageService } from '../../../../shared/services/local-storage.service';
+
+import { NOTYF } from '../../../../shared/notify/notyf.token';
+
 
 @Component({
   selector: 'app-sidebar',
@@ -16,6 +24,7 @@ import { LocalStorageService } from '../../../../shared/services/local-storage.s
 export class SidebarComponent {
   loggedInUser!: User | null;
   @Input() role!: string;
+
   userRole: string = '';
 
   constructor(
@@ -24,6 +33,11 @@ export class SidebarComponent {
     private router: Router,
     public localStorageService: LocalStorageService
   ) {}
+
+  private notyf = inject(NOTYF);
+
+  constructor(private profileService: ProfileService,private authService:AuthService,private router:Router) {}
+
 
   ngOnInit() {
     this.profileService.loggedInUser$.subscribe({
@@ -39,5 +53,11 @@ export class SidebarComponent {
   onLogout() {
     this.authService.logout();
     this.router.navigateByUrl('');
+  }
+
+  logout() {
+    this.authService.logout();
+    this.notyf.success('You have successfully logged out');
+    this.router.navigate(['/login']);
   }
 }

@@ -5,8 +5,8 @@
         <div class="image-container">
             <div class="image">
                     @if (client) {
-                    <img [src]="client.profileImage || defaultImage" alt="user's profile image">
-                    <div class="overlay" (click)="triggerFileInput()">
+                        <img [src]="client.profileImage ? client.profileImage + '?timestamp=' + timestamp : defaultImage" alt="user's profile image">
+                        <div class="overlay" (click)="triggerFileInput()">
                         <mat-icon svgIcon="uploads" aria-hidden="false" aria-label="upload icon"></mat-icon>
                         <span class="overlay-text">Upload Image</span>
                     </div>
