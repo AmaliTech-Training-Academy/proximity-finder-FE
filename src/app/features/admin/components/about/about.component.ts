@@ -5,11 +5,14 @@ import { UserAccountsService } from '../../services/user-accounts.service';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { Subscription } from 'rxjs';
 import { User } from '../../models/user-response';
+import { DialogModule } from 'primeng/dialog';
+import { InputTextModule } from 'primeng/inputtext';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [],
+  imports: [DialogModule, ReactiveFormsModule, InputTextModule],
   templateUrl: './about.component.html',
   styleUrl: './about.component.sass'
 })
@@ -18,8 +21,16 @@ export class AboutComponent implements OnDestroy {
   private notyf = inject(NOTYF)
   userSubscription: Subscription | null = null
   isApproved = false
+  visible: boolean = false;
+
   
-  constructor (private userService: UserAccountsService) {}
+  constructor (private userService: UserAccountsService, private fb: FormBuilder) {}
+
+  messageForm: FormGroup = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    message: ['', Validators.required]
+  })
+
 
   openDialog(){
     const dialogRef = this.dialog.open(ApprovalModalComponent, {
@@ -58,6 +69,18 @@ export class AboutComponent implements OnDestroy {
         this.notyf.error('Error updating user status');
       }
   })
+  }
+
+  showDialog() {
+    this.visible = true
+  }
+
+  onSubmit() {
+    if (this.messageForm.valid) {
+      console.log('Form submitted', this.messageForm.value);
+    } else {
+      console.log('Form is invalid');
+    }
   }
 
   ngOnDestroy() {

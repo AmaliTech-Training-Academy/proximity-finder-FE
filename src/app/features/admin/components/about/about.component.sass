@@ -80,10 +80,6 @@
                         font-weight: 400
                         color: #676161
 
-                            
-
-
-
 
     .actions
         @include flex-option(flex, flex-end, center, row)
@@ -112,8 +108,63 @@
             border: 1px solid #C5292A
             background-color: $white
             color: #C5292A
+    
+    .card
+        .request-form
+            @include flex-option(flex, null, null, column)
+            flex: 1
+
+            p
+                font-size: pxToRem(16)
+                font-weight: 500
+                color: $text-main
+
+            form
+                @include flex-option(flex, null, null, column)
+                gap: pxToRem(8) 
+
+                input, .subject
+                    border: 1px solid #E4E7E9
+                    width: 100%
+                    border-radius: pxToRem(4)
+                    padding: pxToRem(16)
+
+                    &:focus
+                        outline: none
+                        border-color: none
+
+                textarea
+                    border: 1px solid #E4E7E9
+                    width: 100%
+                    border-radius: pxToRem(4)
+                    padding: pxToRem(16)  
+
+                    &:focus
+                        outline: none
+                        border-color: none
+
+                button
+                    @include flex-option(flex, flex-start, center, row)
+                    cursor: pointer
+                    align-self: flex-start
+                    gap: pxToRem(16)
+                    background-color: #408EFD
+                    margin-top: pxToRem(10)
+                    font-size: pxToRem(14)
+                    font-weight: 500
+                    text-transform: uppercase
+                    color: $white
+                    border: none
+
+                small
+                    font-weight: 600
+                    color: #FFC107
+                .error
+                    color: $red
+ 
         
 h5
     font-size: 1rem
     font-weight: 600
     color: #2D2D2D   
+
