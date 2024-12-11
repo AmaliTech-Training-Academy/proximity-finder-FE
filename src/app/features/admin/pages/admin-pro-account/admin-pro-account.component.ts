@@ -110,6 +110,17 @@ export class AdminProAccountComponent implements OnInit, OnDestroy{
     })
   }
 
+  getUsername(name: string): string {
+    if (!name) return '';
+    const words = name.trim().split(' ')
+    const firstName = words[0] || ''
+    const lastName = words[1] || ''
+    return `${firstName}+${lastName}`
+  }
+  
+  
+  
+
   ngOnDestroy() {
     if (this.userSubscription) {
       this.userSubscription.unsubscribe()
