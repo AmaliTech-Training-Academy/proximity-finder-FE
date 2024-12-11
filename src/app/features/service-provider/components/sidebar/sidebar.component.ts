@@ -1,6 +1,3 @@
-
-import { Component, Input } from '@angular/core';
-
 import { Component, inject, Input } from '@angular/core';
 
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
@@ -12,7 +9,6 @@ import { AsyncPipe } from '@angular/common';
 import { LocalStorageService } from '../../../../shared/services/local-storage.service';
 
 import { NOTYF } from '../../../../shared/notify/notyf.token';
-
 
 @Component({
   selector: 'app-sidebar',
@@ -35,9 +31,6 @@ export class SidebarComponent {
   ) {}
 
   private notyf = inject(NOTYF);
-
-  constructor(private profileService: ProfileService,private authService:AuthService,private router:Router) {}
-
 
   ngOnInit() {
     this.profileService.loggedInUser$.subscribe({
