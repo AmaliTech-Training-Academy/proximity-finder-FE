@@ -40,6 +40,7 @@ export class AdminProfileInfoComponent implements OnInit, OnDestroy{
   isUploading = false
   token!: string
   role: string[] = []
+  timestamp: number = new Date().getTime()
 
   constructor(private fb: FormBuilder, private profileService: ProfileService, private imageService: ImageManagementService,
               private svgService: SvgService, private localStorageService: LocalStorageService
@@ -150,6 +151,9 @@ export class AdminProfileInfoComponent implements OnInit, OnDestroy{
       next: (response) => {
         this.imageUrl = response
         this.isUploading = false
+        this.client.profileImage = response
+        this.timestamp = new Date().getTime()
+        this.notyf.success('Profile image uploaded successfully')
       },
       error: (error) => {
         console.error(error)

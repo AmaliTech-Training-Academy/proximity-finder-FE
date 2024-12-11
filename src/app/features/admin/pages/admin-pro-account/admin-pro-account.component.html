@@ -21,12 +21,20 @@
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-proAccount>
-            <tr routerLink="/admin/dashboard/pro-accounts/details">
-              <td>{{ proAccount.businessOwnerName }}</td>
+            <tr [routerLink]="['/admin/dashboard/pro-accounts/details', proAccount.email]">
+              <td class="business-owner">
+                @if (proAccount.profileImage) {
+                  <img [src]="proAccount.profileImage" alt="business owner's avatar">
+                }
+                @else {
+                  <img [src]="'https://avatar.iran.liara.run/username?username=' + getUsername(proAccount.businessOwnerName)" alt="business owner's initials" class="initials">
+                }
+                {{ proAccount.businessOwnerName }}
+              </td>
               <td>{{ proAccount.userName | slice:0:15 }}</td>
               <td>{{ proAccount.email | slice:0:18 }}...</td>
-              <td>{{ proAccount.businessAddress | slice:0:10}}</td>
-              <td>{{ proAccount.enabled === true ? 'Yes' : 'No'}}
+              <td>{{ proAccount.placeName | slice:0:13}}...</td>
+              <td>{{ proAccount.status === 'ACTIVE' ? 'Yes' : 'No'}}
               </td>
               <td>
 

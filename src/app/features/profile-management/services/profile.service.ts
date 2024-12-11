@@ -74,21 +74,32 @@ export class ProfileService {
       });
   }
 
+
+
+
+
+
   editPaymentAccount(
     paymentAccount: IPaymentAccountNoId,
     accountId: number
   ): Observable<IPaymentAccount> {
     return this.http
       .patch<IPaymentAccount>(
-        `${this.apiUrl}/payment-method/${accountId}`,
+
+        `${this.apiUrl}/payment-method/id=${accountId}`,
+
         paymentAccount
       )
       .pipe(
         retry(2),
+
         tap(() => this.getPaymentAccounts()),
+
         catchError((error) => this.errorHandler.handleError(error))
       );
   }
+
+  
 
   deletePaymentAccount(accountId: number): Observable<IPaymentAccount> {
     return this.http

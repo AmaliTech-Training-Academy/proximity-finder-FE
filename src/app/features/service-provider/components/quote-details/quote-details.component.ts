@@ -1,11 +1,14 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TabViewModule } from 'primeng/tabview';
 import { EditorModule } from 'primeng/editor';
 import { Router } from '@angular/router';
+import { QuoteService } from '../../../service-discovery/services/quote/quote.service';
+import { Notyf } from 'notyf';
+import { NOTYF } from '../../../../shared/notify/notyf.token';
 
 @Component({
   selector: 'app-quote-details',
@@ -32,8 +35,7 @@ export class QuoteDetailsComponent {
     reason: ['', Validators.required]
   })
 
-  constructor(private router:Router,private fb:FormBuilder){}
-
+  constructor(private router:Router,private fb:FormBuilder,private quoteService:QuoteService,@Inject(NOTYF) private notyf: Notyf){}
 
 
   

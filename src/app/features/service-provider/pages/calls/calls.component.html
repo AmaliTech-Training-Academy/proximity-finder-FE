@@ -1,46 +1,47 @@
 <div class="table">
-    <p-table
-      [paginator]="true"
-      [rows]="10"
-      [value]="calls"
-      [tableStyle]="{ 'min-width': '50rem' }"
-    >
-      <ng-template pTemplate="header">
-        <tr>
-          <th>CLIENT NAME</th>
-          <th>PHONE NUMBER</th>
-          <th>EMAIL</th>
-          <th>STATUS</th>
-          <th>ACTIONS</th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-quote>
-        <tr>
-          <td>{{ quote.clientName }}</td>
-          <td>{{ quote.phoneNumber }}</td>
-          <td>{{ quote.email }}</td>
-          <td>
-            <span class="status-label" [ngClass]="quote.status | lowercase">
-              <i class="status-icon"></i>
-              {{ quote.status }}
-            </span>
-          </td>
-          <td>
-            <div class="action-container" (click)="$event.stopPropagation()">
-              <button (click)="toggleMenu(quote)">
-                <i class="pi pi-ellipsis-v" style="color: rgba(119, 135, 143, 1)"></i>
-              </button>
-              <div class="menu" *ngIf="activeQuote === quote">
-                <ul>
-                  <li *ngFor="let status of statuses" (click)="updateStatus(quote, status)">
+  <p-table
+    [paginator]="true"
+    [rows]="10"
+    [value]="calls"
+    [tableStyle]="{ 'min-width': '50rem' }"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>CLIENT NAME</th>
+        <th>PHONE NUMBER</th>
+        <th>EMAIL</th>
+        <th>STATUS</th>
+        <th>ACTIONS</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-call>
+      <tr>
+        <td>{{ call.clientName }}</td>
+        <td>{{ call.phoneNumber }}</td>
+        <td>{{ call.email }}</td>
+        <td>
+          <span class="status-label" [ngClass]="call.status | lowercase">
+            <i class="status-icon"></i>
+            {{ call.status }}
+          </span>
+        </td>
+        <td>
+          <div class="action-container" (click)="$event.stopPropagation()">
+            <button (click)="toggleMenu(call)">
+              <i class="pi pi-ellipsis-v" style="color: rgba(119, 135, 143, 1)"></i>
+            </button>
+            <div class="menu" *ngIf="activeCall === call">
+              <ul>
+                @for (status of statuses; track status) {
+                  <li (click)="updateStatus(call, status)">
                     {{ status }}
                   </li>
-                </ul>
-              </div>
+                }
+              </ul>
             </div>
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>
-  
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
