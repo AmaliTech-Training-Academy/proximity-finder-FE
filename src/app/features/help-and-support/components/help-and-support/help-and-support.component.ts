@@ -66,7 +66,7 @@ isSearching: boolean = false;
 
   onSearch(event: Event): void {
     const searchKeyword = (event.target as HTMLInputElement).value.toLowerCase().trim();
-    this.isSearching = !!searchKeyword; // Set searching state based on input
+    this.isSearching = !!searchKeyword; 
   
     if (this.isSearching) {
       this.searchResults = this.faqs.filter(faq =>
@@ -74,7 +74,6 @@ isSearching: boolean = false;
         faq.answer.toLowerCase().includes(searchKeyword)
       );
     } else {
-      // Clear search and reset results if input is empty
       this.searchResults = [];
     }
   }
