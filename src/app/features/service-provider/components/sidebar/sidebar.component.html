@@ -1,5 +1,5 @@
 <aside class="sidebar">
-  @if (loggedInUser?.role?.[0] === 'ROLE_PROVIDER') {
+  @if (userRole === 'ROLE_PROVIDER') {
   <div class="top">
     <nav>
       <a
@@ -343,7 +343,7 @@
       </button>
     </div>
   </div>
-  } @else {
+  } @else if (userRole === 'ROLE_ADMIN') {
   <div class="top">
     <nav>
       <a

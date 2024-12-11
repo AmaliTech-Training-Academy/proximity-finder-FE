@@ -106,6 +106,8 @@ export class ProAccountInfoComponent implements OnInit, OnDestroy {
       .subscribe({
         next: () => {
           this.notyf.success('Account delete successfully');
+          this.profileService.getPaymentAccounts();
+
           this.isConfirmDialogVisible = false;
         },
         error: () => {
