@@ -47,9 +47,56 @@
                 <p>Don’t find your answer, Ask for support.</p>
                 <span>If you can't find the FAQ that addresses your specific question, don't hesitate to reach out for support. Contact the support team for personalized assistance.They're there to help resolve your concerns quickly and effectively!</span>
                 <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
-                    <input formControlName="email" type="email" placeholder="Email address">
-                    <input formControlName="subject" type="text" placeholder="Subject">
-                    <textarea formControlName="message" placeholder="Message"></textarea>
+                    <input
+                     formControlName="email" 
+                     type="email" 
+                     placeholder="Email address"
+                     [class.has-error]="
+                      messageForm.get('email')?.invalid &&
+                      (messageForm.get('email')?.dirty ||
+                      messageForm.get('email')?.touched)
+                       ">
+                     <div
+                     class="error-message"
+                     *ngIf="
+                       messageForm.get('email')?.invalid &&
+                       (messageForm.get('email')?.dirty ||
+                       messageForm.get('email')?.touched)
+                     ">
+                     Email is required
+                   </div>
+
+                    <input
+                     formControlName="subject" 
+                     type="text"
+                     placeholder="Subject"
+                     [class.has-error]="messageForm.get('subject')?.invalid && (messageForm.get('subject')?.dirty || messageForm.get('subject')?.touched)"
+                     >
+                     <div
+                     class="error-message"
+                     *ngIf="
+                       messageForm.get('subject')?.invalid &&
+                       (messageForm.get('subject')?.dirty ||
+                       messageForm.get('subject')?.touched)
+                     ">
+                     Subject is required
+                   </div>
+                     
+                    <textarea
+                     formControlName="message" 
+                     placeholder="Message"
+                     [class.has-error]="messageForm.get('message')?.invalid && (messageForm.get('message')?.dirty || messageForm.get('message')?.touched)"
+                     >
+                    </textarea>
+                    <div
+                    class="error-message"
+                    *ngIf="
+                      messageForm.get('message')?.invalid &&
+                      (messageForm.get('message')?.dirty ||
+                      messageForm.get('message')?.touched)
+                    ">
+                    Message is required
+                  </div>
                   
                     <div class="buttons">
                       <button type="submit" class="btn-send" [disabled]="messageForm.invalid">Send Message</button>
