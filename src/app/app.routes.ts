@@ -194,7 +194,7 @@ export const routes: Routes = [
                 import('./features/admin/pages/admin-pro-account/admin-pro-account.component').then(m => m.AdminProAccountComponent)
             },
             {
-              path: 'details',
+              path: 'details/:email',
               loadComponent: () =>
                 import('./features/admin/pages/admin-pro-details/admin-pro-details.component').then(m => m.AdminProDetailsComponent)
             }

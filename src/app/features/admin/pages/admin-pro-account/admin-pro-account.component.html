@@ -21,8 +21,11 @@
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-proAccount>
-            <tr routerLink="/admin/dashboard/pro-accounts/details">
-              <td>{{ proAccount.businessOwnerName }}</td>
+            <tr [routerLink]="['/admin/dashboard/pro-accounts/details', proAccount.email]">
+              <td class="business-owner">
+                <img [src]="proAccount.profileImage" alt="business owner's avatar">
+                {{ proAccount.businessOwnerName }}
+              </td>
               <td>{{ proAccount.userName | slice:0:15 }}</td>
               <td>{{ proAccount.email | slice:0:18 }}...</td>
               <td>{{ proAccount.businessAddress | slice:0:10}}</td>

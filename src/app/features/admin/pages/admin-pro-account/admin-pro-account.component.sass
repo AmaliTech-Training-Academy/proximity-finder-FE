@@ -29,6 +29,16 @@
         font-size: 1rem
         color: $text-main
 
+    .business-owner
+        @include flex-option(flex, flex-start, center, row)
+        gap: 0.5rem
+        
+        img
+            width: pxToRem(40)
+            height: pxToRem(40)
+            border-radius: 8px
+            object-fit: cover
+
     .action-container
         cursor: pointer
 
