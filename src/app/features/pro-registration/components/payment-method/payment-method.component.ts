@@ -36,7 +36,7 @@ export class PaymentMethodComponent implements OnInit,OnDestroy {
     paymentPreference: ['', Validators.required],
     bankName: ['', Validators.required],
     accountName: ['', Validators.required],
-    accountNumber: ['', [Validators.required, Validators.minLength(13)]],
+    accountNumber: ['', [Validators.required, Validators.minLength(13), Validators.maxLength(13)]],
     accountAlias: ['', Validators.required],
   })
 

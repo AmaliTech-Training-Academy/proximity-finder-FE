@@ -13,7 +13,7 @@
       <div class="more">
         <div class="profile-img">
           <img
-            src="providerInfo.profileImageUrl || 'assets/images/default.png'"
+            [src]="providerInfo.authservice.profileImage || 'assets/images/default-avatar.png' "
             alt="profile"
           />
         </div>
@@ -104,9 +104,9 @@
     <div class="socials">
       <div class="media">
         <p>Social Media Links</p>
-        <div class="fields"></div>
-        <div class="fields"></div>
-        <div class="fields"></div>
+        @for(socialMediaLinks of providerInfo["business-info"].aboutBusinessResponse.socialMediaLinks; track $index ){
+          <div class="fields">{{socialMediaLinks}}</div>
+        }
       </div>
 
       <div class="summary">
@@ -161,36 +161,36 @@
   </div>
 
   <div class="preference">
-    @if(providerInfo['provider-service']; as service){ @for(service of service;
+       @for(service of services;
     track $index){
     <div class="head">
       <p>Preferences</p>
     </div>
 
     <div class="preference-details">
-      <div class="service">
+      <!-- <div class="service">
         <p>What service do you offer?</p>
         <div class="field">{{ service.serviceExperience }}</div>
-      </div>
-      <div class="experience">
+      </div> -->
+      <!-- <div class="experience">
         <p>Payment Preference</p>
         <div class="field">{{ service.paymentPreference }}</div>
-      </div>
+      </div> -->
     </div>
 
     <div class="documents">
       <div class="document">
         <p>Extra Document(s)</p>
-        <div class="field">{{ service.documents }}</div>
+        <!-- <div class="field">{{ service.documents }}</div> -->
       </div>
 
       <div class="alias">
         <p>Account Alias</p>
-        <div class="field">{{ service.id }}</div>
+        <!-- <div class="field">{{ service.id }}</div> -->
       </div>
     </div>
 
-    <div class="booking">
+    <!-- <div class="booking">
       @for(booking of service.bookingDays; track $index){
       <div class="days">
         <p>Booking Days</p>
@@ -211,13 +211,13 @@
       </div>
 
       }
-    </div>
+    </div> -->
 
     <div class="scheduling">
       <p>Scheduling Policy (optional)</p>
       <div class="field"></div>
     </div>
-    } }
+    } 
   </div>
 
   <div class="information">
@@ -254,6 +254,6 @@
 
   <div class="buttons">
     <div class="back">Back</div>
-    <div class="register" (click)="onContinue()">Rester</div>
+    <div class="register" (click)="onContinue()">Register</div>
   </div>
 </div>

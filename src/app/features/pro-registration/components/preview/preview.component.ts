@@ -1,10 +1,13 @@
 import { Component, inject } from '@angular/core';
 import { PreviewService } from '../../../../core/services/preview.service';
-import { Observable, catchError, EMPTY } from 'rxjs';
+import { Observable, catchError, EMPTY, tap } from 'rxjs';
 import { ProviderResponse } from '../../../../core/models/provider-response';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { CommonModule } from '@angular/common';
 import { ProfileService } from '../../../profile-management/services/profile.service';
+import { UserAccountsService } from '../../../admin/services/user-accounts.service';
+
+
 
 @Component({
   selector: 'app-preview',
@@ -18,10 +21,14 @@ export class PreviewComponent {
   private notyf = inject(NOTYF);
   loggedInUser$ = this.profileService.loggedInUser$;
   showSuccessMessage = false;
+  services:string[] = []
+  parsedSocialMediaLinks: string[] = [];
+ 
 
   constructor(
     private previewService: PreviewService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private userAccountsService:UserAccountsService
   ) {}
  
   ngOnInit(): void {
@@ -32,6 +39,7 @@ export class PreviewComponent {
         const email = loggedInUser?.sub;
         if (email) {
           this.providerInfo$ = this.previewService.getPreview(email).pipe(
+            tap((data) => console.log('Provider Info:', data)),
             catchError((error) => {
               console.error('Error loading provider info:', error);
               return EMPTY;

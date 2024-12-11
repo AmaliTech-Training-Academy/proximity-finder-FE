@@ -55,10 +55,11 @@ export class LoginInputComponent implements OnDestroy {
             this.authService.localStorageService.setItem('userData', userData);
             this.profileService.getClient().subscribe({
               next: (client) => {
-               this.provider= this.authService.localStorageService.getItem(userData.email) as string;
+               this.provider= this.authService.localStorageService.getItem('userData') ;
                 if (client.status === 'ACTIVE') {
                   this.router.navigateByUrl('');
                 } else if (client.status === 'PENDING') {
+                  console.log('come home')
                   this.router.navigateByUrl('/registration');
                   return
                 } else {

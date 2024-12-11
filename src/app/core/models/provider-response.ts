@@ -32,6 +32,8 @@ export interface ProviderService {
   updatedAt: string;
 }
 
+
+
 export interface AboutBusinessResponse {
   businessId: number;
   inceptionDate: string;
