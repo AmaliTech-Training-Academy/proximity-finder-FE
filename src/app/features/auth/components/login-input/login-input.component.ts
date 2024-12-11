@@ -45,32 +45,43 @@ export class LoginInputComponent implements OnDestroy {
       this.authService.login(email, password).subscribe({
         next: (res) => {
           this.notyf.success('Login Successful');
+          console.log('User roles:', res.roles);
+  
           if (res.roles[0] === 'ROLE_ADMIN') {
-            console.log('Admin');
+            console.log('Redirecting to admin dashboard');
             this.router.navigateByUrl('admin/dashboard');
           } else if (res.roles[0] === 'ROLE_SEEKER') {
-            console.log('seeker');
+            console.log('Redirecting to home page');
             this.router.navigateByUrl('');
           } else if (res.roles[0] === 'ROLE_PROVIDER') {
             const userData = { email: res.email, userName: res.username };
             this.authService.localStorageService.setItem('userData', userData);
+            console.log('Fetching client status...');
             this.profileService.getClient().subscribe({
               next: (client) => {
+                console.log('Client status:', client.status);
                 if (client.status === 'ACTIVE') {
+                  console.log('Redirecting to home page');
                   this.router.navigateByUrl('');
                 } else {
+                  console.log('Redirecting to registration page');
                   this.router.navigateByUrl('/registration');
                 }
+              },
+              error: (err) => {
+                console.error('Error fetching client status:', err);
               },
             });
           }
         },
-        error: () => {
+        error: (err) => {
+          console.error('Login failed:', err);
           this.notyf.error('Login failed. Please check your credentials.');
         },
       });
     }
   }
+  
 
   ngOnDestroy() {
     if (this.subscription) {
