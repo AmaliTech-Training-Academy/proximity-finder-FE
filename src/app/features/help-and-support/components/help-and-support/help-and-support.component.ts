@@ -10,12 +10,13 @@ import { Notyf } from 'notyf';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { Faqs } from '../../models/faqs';
 import { Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-help-and-support',
   standalone: true,
-  imports: [UserProfileHeaderComponent, NavbarComponent, AccordionModule, FormsModule, SelectButtonModule,ReactiveFormsModule],
+  imports: [UserProfileHeaderComponent, NavbarComponent, AccordionModule, FormsModule, SelectButtonModule,ReactiveFormsModule,CommonModule],
   templateUrl: './help-and-support.component.html',
   styleUrl: './help-and-support.component.sass'
 })
@@ -52,7 +53,6 @@ export class HelpAndSupportComponent implements OnInit, OnDestroy {
         this.faqs = response;
       },
       error: (error) => {
-        console.error('Error loading FAQs', error);
         this.notyf.error('Error loading FAQs');
       }
     });
@@ -67,16 +67,13 @@ export class HelpAndSupportComponent implements OnInit, OnDestroy {
       const formData: Support = this.messageForm.value;
       this.sendSub=this.supportService.sendSupport(formData).subscribe({
         next: (response) => {
-          console.log('Message sent successfully', response);
           this.notyf.success('Message sent successfully');
         },
         error: (error) => {
-          console.error('Error sending message', error);
           this.notyf.error('Error sending message');
         }
       });
     } else {
-      console.log('Form is invalid');
       this.notyf.error('Form is invalid');
     }
   }
