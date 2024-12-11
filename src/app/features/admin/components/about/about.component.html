@@ -78,36 +78,26 @@
 
     <div class="actions">
         @if (isApproved) {
-            <button type="button" class="revoked" (click)="revokeAccount()">Revoke Approval</button>
+            <button type="button" class="revoked" (click)="showDialog()">Revoke Approval</button>
+            <p-dialog header="Revoke Pro Account" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem'}">
+                <app-message-form
+                    [emailPlaceholder]="'Enter email address'"
+                    [messagePlaceholder]="'Enter reason for account revocation'"
+                    [showWarning]="true"
+                    (formSubmit)="handleFormSubmit($event, 'revoke')"
+                ></app-message-form>
+            </p-dialog>
         }
         @else {
             <div class="card flex justify-center">
                 <button type="button" class="secondary" (click)="showDialog()">Reject</button>
                 <p-dialog header="Reject Pro Account" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem'}">
-                    <div class="request-form">
-                        <form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
-                            <input formControlName="email" type="email" placeholder="Email address">
-                            @if (messageForm.get('email')?.invalid && (messageForm.get('email')?.dirty || messageForm.get('email')?.touched)) {
-                                <small class="error">Please enter a valid email address.</small>
-                            }
-                             
-                            <p class="subject">Subject</p>
-                            <textarea formControlName="message" placeholder="Message"></textarea>
-                            @if (messageForm.get('message')?.invalid && (messageForm.get('message')?.dirty || messageForm.get('message')?.touched)) {
-                                <small class="error">Please enter a message.</small>
-                            }
-
-                            <button class="btn-send" type="submit" [disabled]="messageForm.invalid">
-                                Send Message
-                                <i class="pi pi-arrow-right" style="color: white"></i>
-                            </button>
-                            <small>
-                                <i class="pi pi-exclamation-triangle" style="color: #FFC107"></i>
-                                Sending email automatically changes account status to rejected</small>
-
-                        </form>
-                        
-                    </div>
+                    <app-message-form
+                        [emailPlaceholder]="'Enter email address'"
+                        [messagePlaceholder]="'Enter reason for rejection'"
+                        [showWarning]="true"
+                        (formSubmit)="handleFormSubmit($event, 'reject')"
+                    ></app-message-form>
                 </p-dialog>
             </div>
             <button type="button" class="primary" (click)="openDialog()">Approve account</button>

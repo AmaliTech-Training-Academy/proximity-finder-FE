@@ -8,11 +8,12 @@ import { User } from '../../models/user-response';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MessageFormComponent } from "../message-form/message-form.component";
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [DialogModule, ReactiveFormsModule, InputTextModule],
+  imports: [DialogModule, ReactiveFormsModule, InputTextModule, MessageFormComponent],
   templateUrl: './about.component.html',
   styleUrl: './about.component.sass'
 })
@@ -21,14 +22,14 @@ export class AboutComponent implements OnDestroy {
   private notyf = inject(NOTYF)
   userSubscription: Subscription | null = null
   isApproved = false
-  visible: boolean = false;
+  visible: boolean = false
 
   
   constructor (private userService: UserAccountsService, private fb: FormBuilder) {}
 
   messageForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    message: ['', Validators.required]
+    reason: ['', Validators.required]
   })
 
 
@@ -48,7 +49,7 @@ export class AboutComponent implements OnDestroy {
   }
 
   rejectAccount() {
-    this.userSubscription = this.userService.getUserStatus(8, 'REJECTED').subscribe({
+    this.userSubscription = this.userService.getUserStatus(6, 'REJECTED').subscribe({
       next: (response: User) => {
         this.notyf.success('Account status updated successfully');
       },
@@ -60,7 +61,7 @@ export class AboutComponent implements OnDestroy {
   }
 
   revokeAccount() {
-    this.userSubscription = this.userService.getUserStatus(8, 'DEACTIVATED').subscribe({
+    this.userSubscription = this.userService.getUserStatus(6, 'DEACTIVATED').subscribe({
       next: (response: User) => {
         this.notyf.success('Account status updated successfully');
       },
@@ -75,13 +76,25 @@ export class AboutComponent implements OnDestroy {
     this.visible = true
   }
 
-  onSubmit() {
-    if (this.messageForm.valid) {
-      console.log('Form submitted', this.messageForm.value);
-    } else {
-      console.log('Form is invalid');
-    }
+
+  handleFormSubmit(data: { email: string; reason: string }, actionType: 'revoke' | 'reject') {
+    this.userService.sendMessage(data.email, data.reason).subscribe({
+      next: (response: User) => {
+        if (actionType === 'revoke') {
+          this.revokeAccount()
+        } else if (actionType === 'reject') {
+          this.rejectAccount()
+        }
+        this.notyf.success('Message sent successfully')
+        this.visible = false
+      },
+      error: (err) => {
+        console.error('Error sending message:', err)
+        this.notyf.error('Error sending message')
+      }
+    })
   }
+  
 
   ngOnDestroy() {
     if (this.userSubscription) {

@@ -33,8 +33,8 @@ export class UserAccountsService {
 
   }
 
-  sendMessage(message: string): Observable<User> {
-    return this.http.post<User>(`${environment.baseUrl}/v1/users`, {message})
+  sendMessage(email: string, reason: string): Observable<User> {
+    return this.http.post<User>(`${environment.baseUrl}/v1/users/send-rejection-email`, {email, reason})
     .pipe(
       retry(2),
       catchError(error => this.errorHandler.handleError(error))

@@ -1,0 +1,26 @@
+<form [formGroup]="messageForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <input formControlName="email" type="email" [placeholder]="emailPlaceholder" />
+      @if (messageForm.get('email')?.invalid && (messageForm.get('email')?.dirty || messageForm.get('email')?.touched)) {
+        <small class="error">Please enter a valid email address.</small>
+      }
+    </div>
+  
+    <textarea formControlName="reason" [placeholder]="messagePlaceholder"></textarea>
+    @if (messageForm.get('reason')?.invalid && (messageForm.get('reason')?.dirty || messageForm.get('reason')?.touched)) {
+      <small class="error">Please enter a message.</small>
+    }
+  
+    <button type="submit" [disabled]="messageForm.invalid">
+      Send Message
+      <i class="pi pi-arrow-right" style="color: white"></i>
+    </button>
+  
+    @if (showWarning) {
+        <small>
+            <i class="pi pi-exclamation-triangle" style="color: #FFC107"></i>
+            Sending email automatically updates account status
+        </small>
+    }
+  </form>
+  
