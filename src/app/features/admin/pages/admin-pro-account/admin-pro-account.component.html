@@ -23,7 +23,12 @@
           <ng-template pTemplate="body" let-proAccount>
             <tr [routerLink]="['/admin/dashboard/pro-accounts/details', proAccount.email]">
               <td class="business-owner">
-                <img [src]="proAccount.profileImage" alt="business owner's avatar">
+                @if (proAccount.profileImage) {
+                  <img [src]="proAccount.profileImage" alt="business owner's avatar">
+                }
+                @else {
+                  <img [src]="'https://avatar.iran.liara.run/username?username=' + getUsername(proAccount.businessOwnerName)" alt="business owner's initials" class="initials">
+                }
                 {{ proAccount.businessOwnerName }}
               </td>
               <td>{{ proAccount.userName | slice:0:15 }}</td>
