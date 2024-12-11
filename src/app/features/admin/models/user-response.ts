@@ -13,9 +13,10 @@ export interface User {
   accountNonLocked: boolean;
   accountNonExpired: boolean;
   credentialsNonExpired: boolean;
-  enabled: boolean;
   profileImage: string | null;
-  businessAddress: string | null;
+  placeName: string | null;
+  latitude: number;
+  longitude: number;
   status: string
 }
 
