@@ -320,5 +320,12 @@ export const routes: Routes = [
         './features/help-and-support/components/help-and-support/help-and-support.component'
       ).then((m) => m.HelpAndSupportComponent),
     
+  },
+  {
+    path: 'quote',
+    loadComponent: () =>
+      import(
+        './features/seeker/components/quote-created/quote-created.component'
+      ).then((m) => m.QuoteCreatedComponent),
   }
 ];
