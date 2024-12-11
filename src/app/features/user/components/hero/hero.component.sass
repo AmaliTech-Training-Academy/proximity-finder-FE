@@ -17,7 +17,7 @@
         .left-side
             @include flex-option(flex, null, null, column)
             flex: 1
-            gap: 2.5rem
+            gap: 1.5rem
 
             .col-1
                 @include flex-option(flex, null, null, column)
@@ -35,7 +35,7 @@
 
             .col-2
                 @include flex-option(flex, null, null, column)
-                gap: 1.5rem
+                gap: 2.5rem
 
                 p
                     font-size: 1.25rem
@@ -51,10 +51,13 @@
                     border: 1px solid $primary
 
                     div
-                        height: 40px
+                        height: 30px
                         width: 1px
                         background: #D9D9D9
                         margin: 1px 0
+                        
+                    i
+                        margin-left: 1.25rem
 
                     .location
                         flex: 1
@@ -62,7 +65,7 @@
                     button
                         cursor: pointer
                         border: none
-                        padding: 1rem pxToRem(28) 1rem pxToRem(44)
+                        padding: 1rem pxToRem(44)
                         border-radius: 6px
                         background-color: $primary
                         font-size: 1.25rem
