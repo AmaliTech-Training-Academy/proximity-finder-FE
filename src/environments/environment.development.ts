@@ -3,6 +3,6 @@ export const environment = {
       registration:'https://api.proximity-finder.amalitech-dev.net/api/v1/provider-service/',
       searchUrl:'http://3.136.48.244:8080/api/v1',
        faq:'https://api.proximity-finder.amalitech-dev.net/api/v1/support/',
-       quote:'https://api.proximity-finder.amalitech-dev.net/api/v1/quote-service/quotes',
+       quote:'https://api.proximity-finder.amalitech-dev.net/api/v1/quote-service',
 
 };
