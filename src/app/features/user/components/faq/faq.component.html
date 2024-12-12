@@ -7,7 +7,7 @@
     <div class="faqs">
         <p-accordion [multiple]="true" [activeIndex]="[0]">
             @if (faqs | async; as faqs) {
-                @for (faq of faqs | slice:0:8; track $index) {
+                @for (faq of faqs | slice:0:6; track $index) {
                     <p-accordionTab header="{{ faq.question }}">
                         <p>{{ faq.answer }}</p>
                     </p-accordionTab>
@@ -29,13 +29,22 @@
             <p-dialog header="Get in Touch" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem'}">
                 <div class="request-form">
                     <span>If you can't find the FAQ that addresses your specific question, don't hesitate to reach out for support. Contact the support team for personalized assistance.They're there to help resolve your concerns quickly and effectively!</span>
-                    <form>
+                    <form [formGroup]="supportForm" (ngSubmit)="onSubmit()">
                         <input formControlName="email" type="email" placeholder="Email address">
+                        @if (supportForm.get('email')?.invalid && (supportForm.get('email')?.dirty || supportForm.get('email')?.touched)) {
+                            <small class="error">Please enter a valid email address</small>
+                        }
                         <input formControlName="subject" type="text" placeholder="Subject">
+                        @if (supportForm.get('subject')?.invalid && (supportForm.get('subject')?.dirty || supportForm.get('subject')?.touched)) {
+                            <small class="error">Subject is required</small>
+                        }
                         <textarea formControlName="message" placeholder="Message"></textarea>
+                        @if (supportForm.get('message')?.invalid && (supportForm.get('message')?.dirty || supportForm.get('message')?.touched)) {
+                            <small class="error">Message is required</small>
+                        }
                       
                         <div class="buttons">
-                          <button type="submit" class="btn-send">Send Message</button>
+                          <button type="submit" class="btn-send" [disabled]="supportForm.invalid">Send Message</button>
                           <i class="pi pi-arrow-right" style="color: white"></i>
                         </div>
                       </form>
