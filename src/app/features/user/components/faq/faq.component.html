@@ -7,7 +7,7 @@
     <div class="faqs">
         <p-accordion [multiple]="true" [activeIndex]="[0]">
             @if (faqs | async; as faqs) {
-                @for (faq of faqs | slice:0:8; track $index) {
+                @for (faq of faqs | slice:0:6; track $index) {
                     <p-accordionTab header="{{ faq.question }}">
                         <p>{{ faq.answer }}</p>
                     </p-accordionTab>
