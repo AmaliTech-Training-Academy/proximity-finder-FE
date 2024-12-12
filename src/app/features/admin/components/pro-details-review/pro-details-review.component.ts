@@ -4,6 +4,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { MeterGroupModule } from 'primeng/metergroup';
 import { FormsModule } from '@angular/forms';
 import { ProviderResponse } from '../../../../core/models/provider-response';
+import { ReviewService } from '../../../reviews-feedback/services/review.service';
 
 @Component({
   selector: 'app-pro-details-review',
@@ -16,6 +17,13 @@ export class ProDetailsReviewComponent {
   value: number = 4
   values = [
     {value: 75, color: '#4285F4' }
-];
-@Input() provider!: ProviderResponse
+  ];
+  @Input() provider!: ProviderResponse
+  userEmail: string = this.provider.authservice.email
+
+  constructor(private reviewService: ReviewService) {}
+
+  loadProviderReviews() {
+    
+  }
 }
