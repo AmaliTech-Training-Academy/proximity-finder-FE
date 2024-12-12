@@ -21,6 +21,7 @@ import { UserBankService } from '../../../profile-management/services/user-bank.
 import { Notyf } from 'notyf';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { PaypalFormComponent } from '../paypal-form/paypal-form.component';
+import { LoaderComponent } from '../../../../shared/components/loader/loader.component';
 
 @Component({
   selector: 'app-pro-account-info',
@@ -33,6 +34,7 @@ import { PaypalFormComponent } from '../paypal-form/paypal-form.component';
     DropdownModule,
     MobileMoneyFormComponent,
     BankDetailsFormComponent,
+    LoaderComponent,
     PaypalFormComponent,
     FormsModule,
     MatTabsModule,
@@ -52,6 +54,8 @@ export class ProAccountInfoComponent implements OnInit, OnDestroy {
   linkedAccounts$: Observable<IPaymentAccount[]> =
     this.profileService.paymentAccounts$;
   selectedAccount: IPaymentAccount | undefined;
+
+  isLoading: boolean = false;
 
   @ViewChild('menu') menu!: Menu;
 
@@ -78,12 +82,14 @@ export class ProAccountInfoComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.profileService.getPaymentAccounts();
 
     this.subscription = this.paymentService.getAllPrefernces().subscribe({
       next: (preferences) => {
         this.paymentPreferences = preferences;
         if (this.paymentPreferences && this.paymentPreferences.length > 0) {
+          this.isLoading = false;
           this.defaultPaymentPreference =
             this.paymentPreferences[0].paymentPreference;
           this.selectedPaymentPreference =

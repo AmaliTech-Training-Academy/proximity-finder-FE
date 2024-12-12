@@ -13,15 +13,20 @@
   </header>
 
   <section class="account-list">
-    @if (linkedAccounts$ | async; as linkedAccounts) {
+    @if (linkedAccounts$ | async; as linkedAccounts) { @if
+    (linkedAccounts.length > 0 && !isLoading) {
     <ul>
       @for (account of linkedAccounts; let i = $index; track i) {
       <li>
+        @if (account.paymentPreference === 'PayPal') {
+        <span class="name">{{ account.paymentPreference }}</span>
+        } @else {
         <span class="name">{{
           account.bankName
             ? account.bankName
             : account.paymentPreference + " - " + account.phoneNumber
         }}</span>
+        }
         <p-button
           (onClick)="openAccountOptions($event, account)"
           icon="pi pi-ellipsis-v"
@@ -30,7 +35,11 @@
       <p-menu #menu [model]="items" [popup]="true" />
       }
     </ul>
-    } @else {
+    } @else if (linkedAccounts.length < 1 && isLoading) {
+    <div class="loading">
+      <app-loader />
+    </div>
+    } @else if (linkedAccounts.length < 1 && !isLoading) {
     <div class="empty">
       <svg
         width="95"
@@ -83,7 +92,7 @@
         add new account.
       </p>
     </div>
-    }
+    } }
   </section>
 </main>
 
