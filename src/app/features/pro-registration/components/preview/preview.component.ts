@@ -17,23 +17,36 @@ export class PreviewComponent {
   providerInfo$!: Observable<ProviderResponse>;
   private notyf = inject(NOTYF);
   loggedInUser$ = this.profileService.loggedInUser$;
+  showSuccessMessage = false;
 
   constructor(
     private previewService: PreviewService,
     private profileService: ProfileService
   ) {}
-
+ 
   ngOnInit(): void {
+    this.providerInfo$ = EMPTY; 
+
     this.loggedInUser$.subscribe({
       next: (loggedInUser) => {
         const email = loggedInUser?.sub;
-        this.providerInfo$ = this.previewService.getPreview(email as string);
-        this.notyf.success('Account has been sent for approval');
+        if (email) {
+          this.providerInfo$ = this.previewService.getPreview(email).pipe(
+            catchError((error) => {
+              console.error('Error loading provider info:', error);
+              return EMPTY;
+            })
+          );
+        } else {
+         
+        }
       },
+      error: (err) => console.error('Error loading logged-in user:', err),
     });
+  }
 
-    this.providerInfo$.subscribe({
-      next: (providerInfo) => console.log(providerInfo),
-    });
+  onContinue(): void {
+    this.showSuccessMessage = true; 
+    this.notyf.success('Account has been sent for approval');
   }
 }

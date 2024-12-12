@@ -1,0 +1,30 @@
+<div class="card flex justify-content-center">
+    <p-button (onClick)="showDialog()" label="Show" />
+    <p-dialog header="Add a Public Review" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+        
+        <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
+            <div class="col">
+                <p class="rate">Select a Rating</p>
+                <div class="card flex justify-content-center">
+                    <p-rating  formControlName="value" [cancel]="false"/>
+                </div>
+            </div>
+
+            <div class="col-1">
+                <label for="text" class="font-semibold w-6rem">Give a Review</label>
+                <textarea
+                rows="5"
+                cols="30" 
+                pInputTextarea 
+                placeholder="Write here"
+                formControlName="text">
+                </textarea>
+            </div>
+
+            <div class="actions">
+                <button (click)="visible=false" class="cancel-btn">Cancel</button>
+                <button type="submit" class="submit-btn" [disabled]="reviewForm.invalid">Submit</button>
+            </div>
+        </form>
+        </p-dialog>
+</div>

@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { CommonModule, DatePipe } from '@angular/common';
+import { CommonModule} from '@angular/common';
 import { quotes } from '../../data';
 import { Router } from '@angular/router';
-import { CalendarModule } from 'primeng/calendar';
-import { FormsModule } from '@angular/forms';
+
 
 interface PageEvent {
   first: number;

@@ -31,7 +31,10 @@
               "node_modules/primeng/resources/primeng.min.css",
               "./node_modules/notyf/notyf.min.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": [
+    "quill-delta"
+  ]
           },
           "configurations": {
             "production": {
@@ -43,8 +46,8 @@
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "10kb",
-                  "maximumError": "10kb"
+                  "maximumWarning": "5mb",
+                  "maximumError": "5mb"
                 }
               ],
               "outputHashing": "all"

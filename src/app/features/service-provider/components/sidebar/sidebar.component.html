@@ -315,7 +315,7 @@
         <h4 class="name">{{ loggedInUser?.username }}</h4>
         <p class="role">PRO</p>
       </div>
-      <button class="logout">
+      <button class="logout"  (click)="logout()">
         <svg
           width="18"
           height="18"
@@ -710,7 +710,7 @@
         <h4 class="name">{{ loggedInUser?.username }}</h4>
         <p class="role">ADMIN</p>
       </div>
-      <button class="logout">
+      <button class="logout" (click)="logout()">
         <svg
           width="18"
           height="18"

@@ -60,20 +60,29 @@ export class ProfileService {
   }
 
   getPaymentAccounts(): void {
-    this.http.get<IPaymentAccount[]>(`${this.apiUrl}/payment-method`)
-    .subscribe((accounts) => {
+    this.http.get<IPaymentAccount[]>(`${this.apiUrl}/payment-method`).subscribe((accounts) => {
       this.paymentAccountsSubject.next(accounts)
     })
   }
 
-  editPaymentAccount(paymentAccount: IPaymentAccountNoId, accountId: number): Observable<IPaymentAccount> {
-   
-    return this.http.patch<IPaymentAccount>(`${this.apiUrl}/payment-method/${accountId}`, paymentAccount).pipe(
-      retry(2),
-      tap(() => this.getPaymentAccounts()),
-      catchError(error => this.errorHandler.handleError(error))
-    )
+
+
+  editPaymentAccount(
+    paymentAccount: IPaymentAccountNoId,
+    accountId: number
+  ): Observable<IPaymentAccount> {
+    return this.http
+      .patch<IPaymentAccount>(
+        `${this.apiUrl}/payment-method/id=${accountId}`,
+        paymentAccount
+      )
+      .pipe(
+        retry(2),
+        catchError((error) => this.errorHandler.handleError(error))
+      );
   }
+
+  
 
   deletePaymentAccount(accountId: number): Observable<IPaymentAccount> {
     return this.http.delete<IPaymentAccount>(`${this.apiUrl}/payment-method/${accountId}`).pipe(
