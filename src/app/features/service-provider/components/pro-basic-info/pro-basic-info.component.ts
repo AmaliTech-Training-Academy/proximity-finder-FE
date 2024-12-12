@@ -53,12 +53,14 @@ export class ProBasicInfoComponent implements OnInit, OnDestroy {
     this.subscription = this.profileService.loggedInUser$.subscribe({
       next: (user) => (this.loggedInuser = user),
     });
+    this.profileService.getClient().subscribe({
+      next: (client) => console.log(client),
+    });
   }
 
   setEditing() {
     this.isEditing = true;
     this.toggleFormControls();
-    console.log(this.isEditing);
   }
 
   cancelEditing() {

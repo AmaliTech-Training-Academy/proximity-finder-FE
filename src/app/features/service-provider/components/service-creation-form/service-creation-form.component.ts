@@ -52,9 +52,12 @@ import { Observable } from 'rxjs';
 export class ServiceCreationFormComponent implements OnInit {
   @Output() closeDialogEvent = new EventEmitter<boolean>();
 
+  // serviceCategories;
   serviceCategories$ = this.serviceService.serviceCategories$;
   linkedAccounts$: Observable<IPaymentAccount[]> =
     this.profileService.paymentAccounts$;
+
+  linkedAccounts!: IPaymentAccount[];
 
   accountPreferences = accountPreferences;
   days = bookingDays;
@@ -85,7 +88,17 @@ export class ServiceCreationFormComponent implements OnInit {
   ngOnInit(): void {
     this.profileService.getPaymentAccounts();
     this.linkedAccounts$.subscribe({
-      next: (linkedAccounts) => console.log(linkedAccounts),
+      next: (linkedAccounts) => {
+        this.linkedAccounts = linkedAccounts.map((account) => ({
+          ...account,
+          label: account.phoneNumber
+            ? `${account.serviceProvider} - ${account.phoneNumber}`
+            : `${account.bankName} - ${account.accountNumber}`,
+        }));
+      },
+    });
+    this.serviceCategories$.subscribe({
+      next: (serviceCats) => console.log(serviceCats),
     });
   }
 
@@ -153,11 +166,16 @@ export class ServiceCreationFormComponent implements OnInit {
     this.closeDialogEvent.emit(false);
   }
 
+  getAccountLabel(account: any) {
+    return account.accountNumber;
+  }
+
   onSubmit() {
     if (this.serviceForm.valid) {
       const servicePreferenceData = new FormData();
       const serviceExperienceData = new FormData();
       const formValue = this.serviceForm.value;
+      console.log(formValue);
       const locationData = {
         placeName: this.selectedLocation.address,
         latitude: this.selectedLocation.location?.lat(),
@@ -179,7 +197,8 @@ export class ServiceCreationFormComponent implements OnInit {
       );
       servicePreferenceData.append(
         'paymentPreference',
-        formValue.accountPreference.name || formValue.accountPreference
+        formValue.accountPreference.paymentPreference ||
+          formValue.accountPreference
       );
 
       servicePreferenceData.append('placeName', locationData.placeName);
@@ -212,6 +231,10 @@ export class ServiceCreationFormComponent implements OnInit {
       this.projectPictures.forEach((file) => {
         serviceExperienceData.append('images', file);
       });
+
+      servicePreferenceData.forEach((key, value) =>
+        console.log(`${key}: ${value}`)
+      );
 
       // Send service preference data
       this.serviceService
