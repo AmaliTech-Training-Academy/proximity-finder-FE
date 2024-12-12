@@ -20,6 +20,7 @@ import { AsyncPipe } from '@angular/common';
 import { UserBankService } from '../../../profile-management/services/user-bank.service';
 import { Notyf } from 'notyf';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
+import { PaypalFormComponent } from '../paypal-form/paypal-form.component';
 
 @Component({
   selector: 'app-pro-account-info',
@@ -32,6 +33,7 @@ import { NOTYF } from '../../../../shared/notify/notyf.token';
     DropdownModule,
     MobileMoneyFormComponent,
     BankDetailsFormComponent,
+    PaypalFormComponent,
     FormsModule,
     MatTabsModule,
     AsyncPipe,
@@ -86,11 +88,10 @@ export class ProAccountInfoComponent implements OnInit, OnDestroy {
             this.paymentPreferences[0].paymentPreference;
           this.selectedPaymentPreference =
             this.paymentPreferences[0].paymentPreference;
-          console.log(this.defaultPaymentPreference);
         }
       },
       error: (error) =>
-        console.log('Failed to fetch payment preferences', error),
+        console.error('Failed to fetch payment preferences', error),
     });
   }
 
@@ -112,7 +113,6 @@ export class ProAccountInfoComponent implements OnInit, OnDestroy {
   }
 
   deleteAccount() {
-    console.log(this.selectedAccount?.id);
     this.bankService
       .deleteBankAccount(this.selectedAccount?.id as number)
       .subscribe({

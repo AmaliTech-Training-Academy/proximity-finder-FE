@@ -47,7 +47,7 @@ export class BankDetailsFormComponent implements OnInit, OnDestroy {
   bankDetailsForm: FormGroup = this.fb.group({
     bankName: ['', Validators.required],
     accountName: ['', Validators.required],
-    accountAlias: ['', Validators.required, Validators.pattern(/^\S*$/)],
+    accountAlias: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
     accountNumber: [
       null,
       [Validators.required, Validators.minLength(13), Validators.maxLength(13)],

@@ -113,7 +113,7 @@
   <app-bank-details-form (closeModalEvent)="closeModal($event)" />
   } @else if (selectedPaymentPreference === 'Mobile Money') {
   <app-mobile-money-form (closeModalEvent)="closeModal($event)" />
-  }
+  } @else { <app-paypal-form (closeModalEvent)="closeModal($event)" /> }
 </p-dialog>
 
 <p-dialog
