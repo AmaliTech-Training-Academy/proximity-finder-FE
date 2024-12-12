@@ -18,6 +18,6 @@ export interface review {
     id: string;
     rating: number;
     sentiment: string;
-    serviceProviderId: string;
+    providerServiceId: string;
     userEmail: string;
 }

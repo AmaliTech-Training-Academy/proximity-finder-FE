@@ -3,12 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { RatingModule } from 'primeng/rating';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { MeterGroupModule } from 'primeng/metergroup';
-import { ReviewFormComponent } from "../../../../reviews-feedback/components/review-form/review-form.component";
+import { ReviewService } from '../../../../reviews-feedback/services/review.service';
 
 @Component({
   selector: 'app-reviews',
   standalone: true,
-  imports: [RatingModule, FormsModule, ProgressBarModule, MeterGroupModule, ReviewFormComponent],
+  imports: [RatingModule, FormsModule, ProgressBarModule, MeterGroupModule],
   templateUrl: './reviews.component.html',
   styleUrl: './reviews.component.sass'
 })
@@ -17,4 +17,12 @@ export class ReviewsComponent {
   values = [
     {value: 75, color: '#4285F4' }
 ];
+
+constructor(private reviewService: ReviewService) { }
+
+ngOnInit() {
+  this.reviewService.getReviewById('9a608364-f0a2-4c66-98a3-ad7106b30b7e').subscribe(reviews => {
+    console.log(reviews)
+  })
+}
 }
