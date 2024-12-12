@@ -6,7 +6,21 @@
       [options]="banks"
       optionLabel="bankName"
       placeholder="Select a Bank"
+      [ngClass]="{
+        'ng-invalid ng-dirty':
+          bankDetailsForm.get('bankName')?.touched &&
+          bankDetailsForm.get('bankName')?.invalid
+      }"
     />
+    <small
+      class="error-message"
+      *ngIf="
+        bankDetailsForm.get('bankName')?.touched &&
+        bankDetailsForm.get('bankName')?.invalid
+      "
+    >
+      Bank name is required
+    </small>
   </div>
   <div class="accountName">
     <label for="accountName">Account Name</label>
@@ -15,7 +29,21 @@
       pInputText
       formControlName="accountName"
       placeholder="Enter account name"
+      [ngClass]="{
+        'ng-invalid ng-dirty':
+          bankDetailsForm.get('accountName')?.touched &&
+          bankDetailsForm.get('accountName')?.invalid
+      }"
     />
+    <small
+      class="error-message"
+      *ngIf="
+        bankDetailsForm.get('accountName')?.touched &&
+        bankDetailsForm.get('accountName')?.invalid
+      "
+    >
+      Account name is required
+    </small>
   </div>
 
   <div class="accountAlias">
@@ -25,17 +53,44 @@
       pInputText
       formControlName="accountAlias"
       placeholder="Enter a desired name"
+      [ngClass]="{
+        'ng-invalid ng-dirty':
+          bankDetailsForm.get('accountAlias')?.touched &&
+          bankDetailsForm.get('accountAlias')?.invalid
+      }"
     />
+    <small
+      class="error-message"
+      *ngIf="
+        bankDetailsForm.get('accountAlias')?.touched &&
+        bankDetailsForm.get('accountAlias')?.invalid
+      "
+    >
+      Account alias is required
+    </small>
   </div>
 
   <div class="accountNumber">
     <label for="accountNumber">Account Number</label>
-    <input
-      type="text"
-      pInputText
+    <p-inputNumber
       formControlName="accountNumber"
       placeholder="0000 0000 0000"
+      [useGrouping]="false"
+      [ngClass]="{
+        'ng-invalid ng-dirty':
+          bankDetailsForm.get('accountNumber')?.touched &&
+          bankDetailsForm.get('accountNumber')?.invalid
+      }"
     />
+    <small
+      class="error-message"
+      *ngIf="
+        bankDetailsForm.get('accountNumber')?.touched &&
+        bankDetailsForm.get('accountNumber')?.invalid
+      "
+    >
+      Account number is required
+    </small>
   </div>
 
   <div class="buttons">

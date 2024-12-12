@@ -1,0 +1,47 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+
+form
+    @include flex-option(flex, null, null, column)
+    gap: pxToRem(8) 
+
+    input, .subject
+        border: 1px solid #E4E7E9
+        width: 100%
+        border-radius: pxToRem(4)
+        padding: pxToRem(16)
+
+        &:focus
+            outline: none
+            border-color: none
+
+    textarea
+        border: 1px solid #E4E7E9
+        width: 100%
+        border-radius: pxToRem(4)
+        padding: pxToRem(16)  
+
+        &:focus
+            outline: none
+            border-color: none
+
+    button
+        @include flex-option(flex, flex-start, center, row)
+        cursor: pointer
+        align-self: flex-start
+        gap: pxToRem(16)
+        background-color: #408EFD
+        margin-top: pxToRem(10)
+        font-size: pxToRem(14)
+        font-weight: 500
+        text-transform: uppercase
+        color: $white
+        border: none
+        padding: 1rem
+
+    small
+        font-weight: 600
+        color: #FFC107
+    .error
+        color: $red
