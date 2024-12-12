@@ -32,6 +32,7 @@ import { NOTYF } from '../../../../shared/notify/notyf.token';
     DropdownModule,
     MobileMoneyFormComponent,
     BankDetailsFormComponent,
+    FormsModule,
     MatTabsModule,
     AsyncPipe,
   ],
@@ -42,7 +43,8 @@ export class ProAccountInfoComponent implements OnInit, OnDestroy {
   isDialogVisible: boolean = false;
   isConfirmDialogVisible: boolean = false;
   paymentPreferences: paymentPreference[] = [];
-  selectedPaymentPreference = 'Bank Account';
+  selectedPaymentPreference: string | undefined;
+  defaultPaymentPreference: string | undefined;
   subscription!: Subscription;
   paymentMethod!: IPaymentAccount;
   linkedAccounts$: Observable<IPaymentAccount[]> =
@@ -75,8 +77,18 @@ export class ProAccountInfoComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.profileService.getPaymentAccounts();
+
     this.subscription = this.paymentService.getAllPrefernces().subscribe({
-      next: (preferences) => (this.paymentPreferences = preferences),
+      next: (preferences) => {
+        this.paymentPreferences = preferences;
+        if (this.paymentPreferences && this.paymentPreferences.length > 0) {
+          this.defaultPaymentPreference =
+            this.paymentPreferences[0].paymentPreference;
+          this.selectedPaymentPreference =
+            this.paymentPreferences[0].paymentPreference;
+          console.log(this.defaultPaymentPreference);
+        }
+      },
       error: (error) =>
         console.log('Failed to fetch payment preferences', error),
     });
