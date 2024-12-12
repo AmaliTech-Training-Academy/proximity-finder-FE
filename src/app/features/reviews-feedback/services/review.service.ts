@@ -30,15 +30,15 @@ export class ReviewService {
     ).subscribe()
   }
 
-  getReviewById(id: string): Observable<reviewResponse[]> {
-    return this.http.get<reviewResponse[]>(`${environment.searchUrl}/reviews/provider-service/${id}`).pipe(
+  getReviewById(id: string): Observable<reviewResponse> {
+    return this.http.get<reviewResponse>(`${environment.searchUrl}/reviews/provider-service/${id}`).pipe(
       retry(2),
       catchError(error => this.errorHandler.handleError(error))
     )
   }
 
-  getReviewByProviderEmail(email: string): Observable<reviewResponse[]> {
-    return this.http.get<reviewResponse[]>(`${environment.searchUrl}/reviews/service-provider?providerEmail=${email}`).pipe(
+  getReviewByProviderEmail(email: string): Observable<reviewResponse> {
+    return this.http.get<reviewResponse>(`${environment.searchUrl}/reviews/service-provider?providerEmail=${email}`).pipe(
       retry(2),
       catchError(error => this.errorHandler.handleError(error))
     )
