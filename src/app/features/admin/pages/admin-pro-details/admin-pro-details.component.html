@@ -28,7 +28,15 @@
         </div>
 
         <div class="email">
-            <button type="button">Send an Email</button>
+            <button type="button" (click)="showDialog()">Send an Email</button>
+            <p-dialog header="Send Mail" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem'}">
+              <app-message-form
+                  [emailPlaceholder]="'Enter email address'"
+                  [messagePlaceholder]="'Message'"
+                  [showWarning]="true"
+                  (formSubmit)="handleFormSubmit($event, '')"
+              ></app-message-form>
+          </p-dialog>
         </div>
     </header>
 

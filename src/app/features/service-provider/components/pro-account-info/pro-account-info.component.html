@@ -103,8 +103,11 @@
       [options]="paymentPreferences"
       optionLabel="paymentPreference"
       placeholder="Select payment preference"
+      [(ngModel)]="defaultPaymentPreference"
     />
   </div>
+
+  <hr />
 
   @if (selectedPaymentPreference === 'Bank Account') {
   <app-bank-details-form (closeModalEvent)="closeModal($event)" />

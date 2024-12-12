@@ -1,23 +1,26 @@
 <section class="content">
-    <h1 class="page-title">Requests</h1>
-    <div class="main-content">
-      <p-tabView>
-        <div class="filter">
-          <label>Filter by date:</label>
-          <p-calendar [(ngModel)]="date" />
+  <h1 class="page-title">Requests</h1>
+  <div class="main-content">
+    <p-tabView>
+      <div class="filter">
+        <label>Filter by date:</label>
+        <p-calendar [(ngModel)]="date" />
+      </div>
+      <p-tabPanel header="Quote Requests">
+        <div class="tab-content">
+          <app-quotes />
         </div>
-    <p-tabPanel header="Quote Requests">
-      <div class="tab-content">
-        <app-quotes />
-      </div>
-    </p-tabPanel>
-    <p-tabPanel header="Call Requests">
-      <div class="tab-content">
-        <app-calls />
-      </div>
-    </p-tabPanel>
-  </p-tabView>
-    </div>
-  </section>
-  
-  
+      </p-tabPanel>
+      <p-tabPanel header="Call Requests">
+        <div class="tab-content">
+          <app-calls />
+        </div>
+      </p-tabPanel>
+      <p-tabPanel header="Bookings">
+        <div class="tab-content">
+          <app-bookings />
+        </div>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+</section>

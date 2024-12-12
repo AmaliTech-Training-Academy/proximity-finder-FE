@@ -1,8 +1,13 @@
 import { Component, inject, Input } from '@angular/core';
+
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ProfileService } from '../../../profile-management/services/profile.service';
 import { User } from '../../../profile-management/models/user';
 import { AuthService } from '../../../auth/services/auth/auth.service';
+
+import { AsyncPipe } from '@angular/common';
+import { LocalStorageService } from '../../../../shared/services/local-storage.service';
+
 import { NOTYF } from '../../../../shared/notify/notyf.token';
 
 @Component({
@@ -15,15 +20,32 @@ import { NOTYF } from '../../../../shared/notify/notyf.token';
 export class SidebarComponent {
   loggedInUser!: User | null;
   @Input() role!: string;
-  private notyf = inject(NOTYF);
 
-  constructor(private profileService: ProfileService,private authService:AuthService,private router:Router) {}
+  userRole: string = '';
+
+  constructor(
+    public profileService: ProfileService,
+    private authService: AuthService,
+    private router: Router,
+    public localStorageService: LocalStorageService
+  ) {}
+
+  private notyf = inject(NOTYF);
 
   ngOnInit() {
     this.profileService.loggedInUser$.subscribe({
       next: (user) => (this.loggedInUser = user),
       error: (error) => console.error('Could not get user'),
     });
+
+    this.userRole = JSON.parse(
+      this.localStorageService.getItem('userRoles') as string
+    )[0];
+  }
+
+  onLogout() {
+    this.authService.logout();
+    this.router.navigateByUrl('');
   }
 
   logout() {

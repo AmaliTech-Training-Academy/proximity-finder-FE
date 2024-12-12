@@ -7,26 +7,33 @@ import { LocalStorageService } from '../../../shared/services/local-storage.serv
 import { jwtDecode } from 'jwt-decode';
 import { User } from '../models/user';
 import { IProfile } from '../models/profile';
-import { IPaymentAccount, IPaymentAccountNoId } from '../../../core/models/payment-account';
+import {
+  IPaymentAccount,
+  IPaymentAccountNoId,
+} from '../../../core/models/payment-account';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProfileService {
-
-  token!: string
-  email: string | null | undefined = null
-   apiUrl = 'https://api.proximity-finder.amalitech-dev.net/api/v1/provider-service'
+  token!: string;
+  email: string | null | undefined = null;
+  apiUrl =
+    'https://api.proximity-finder.amalitech-dev.net/api/v1/provider-service';
 
   loggedInUserSubject = new BehaviorSubject<User | null>(null);
   loggedInUser$ = this.loggedInUserSubject.asObservable();
 
-  paymentAccountsSubject = new BehaviorSubject<IPaymentAccount[]>([])
-  paymentAccounts$ = this.paymentAccountsSubject.asObservable()
+  paymentAccountsSubject = new BehaviorSubject<IPaymentAccount[]>([]);
+  paymentAccounts$ = this.paymentAccountsSubject.asObservable();
 
-  constructor(private http: HttpClient, private errorHandler: ErrorHandlingService, private localStorageService: LocalStorageService) {
-    this.token = this.localStorageService.getItem('accessToken') || ''
-    this.decodeToken()
+  constructor(
+    private http: HttpClient,
+    private errorHandler: ErrorHandlingService,
+    private localStorageService: LocalStorageService
+  ) {
+    this.token = this.localStorageService.getItem('accessToken') || '';
+    this.decodeToken();
   }
 
   getClient(): Observable<IProfile> {
@@ -60,10 +67,15 @@ export class ProfileService {
   }
 
   getPaymentAccounts(): void {
-    this.http.get<IPaymentAccount[]>(`${this.apiUrl}/payment-method`).subscribe((accounts) => {
-      this.paymentAccountsSubject.next(accounts)
-    })
+    this.http
+      .get<IPaymentAccount[]>(`${this.apiUrl}/payment-method`)
+      .subscribe((accounts) => {
+        this.paymentAccountsSubject.next(accounts);
+      });
   }
+
+
+
 
 
 
@@ -73,11 +85,16 @@ export class ProfileService {
   ): Observable<IPaymentAccount> {
     return this.http
       .patch<IPaymentAccount>(
+
         `${this.apiUrl}/payment-method/id=${accountId}`,
+
         paymentAccount
       )
       .pipe(
         retry(2),
+
+        tap(() => this.getPaymentAccounts()),
+
         catchError((error) => this.errorHandler.handleError(error))
       );
   }
@@ -85,11 +102,13 @@ export class ProfileService {
   
 
   deletePaymentAccount(accountId: number): Observable<IPaymentAccount> {
-    return this.http.delete<IPaymentAccount>(`${this.apiUrl}/payment-method/${accountId}`).pipe(
-      retry(2),
-      tap(() => this.getPaymentAccounts()),
-      catchError(error => this.errorHandler.handleError(error))
-    )
+    return this.http
+      .delete<IPaymentAccount>(`${this.apiUrl}/payment-method/${accountId}`)
+      .pipe(
+        retry(2),
+        tap(() => this.getPaymentAccounts()),
+        catchError((error) => this.errorHandler.handleError(error))
+      );
   }
 
   decodeToken() {

@@ -8,6 +8,7 @@
     @include flex-option($display: flex, $justify-content: space-between, $align-items: null, $direction: column)
     border-right: solid 1px $grey-lighten-3
     background-color: $white
+    width: 260px
 
     nav
         display: flex
@@ -62,9 +63,13 @@
 
     .profile
         border-top: solid 1px rgba(234, 236, 240, 1)
-        @include flex-option($display: flex, $justify-content: null, $align-items: center, $direction: null)
-        gap: 6px
+        @include flex-option($display: flex, $justify-content: space-between, $align-items: center, $direction: null)
         padding: 10px 8px
+
+        .user
+            @include flex-option($display: flex, $justify-content: null, $align-items: center, $direction: row)
+            gap: 8px
+            
 
         .avatar
             width: 40px
