@@ -9,11 +9,11 @@ main
 
     header
         @include flex-option($display: flex, $justify-content: space-between, $align-items: center, $direction: row)
-        
+
         .headline
             @include flex-option($display: flex, $justify-content: null, $align-items: null, $direction: column)
             gap: 10px
-            
+
             h4
                 font-size: 16px
                 color: $text-main
@@ -24,7 +24,7 @@ main
             border: none
             background-color: $blue
             color: $white
-            font-size: 16px 
+            font-size: 16px
             padding: 10px 16px
             border-radius: 4px
             cursor: pointer
@@ -52,11 +52,11 @@ main
 
             li
                 @include flex-option($display: flex, $justify-content: space-between, $align-items: center, $direction: null)
-                
+
                 list-style-type: none
                 color: $text-main
                 padding: 16px
-                border: solid 1px $grey-lighten-3   
+                border: solid 1px $grey-lighten-3
                 border-radius: 4px
                 background-color: $blue-lighten-6
 
@@ -66,6 +66,10 @@ main
                     appearance: none
                     border: none
 
+    .loading
+        @include flex-option($display: flex, $justify-content: center, $align-items: center, $direction: null)
+        margin-top: 80px
+
 .confirmDelete
     .buttons
         margin: 20px 0 0 0
@@ -74,10 +78,12 @@ main
 
         p-button
             flex: 1
-        
+
 .preferred-account
     @include flex-option($display: flex, $justify-content: null, $align-items: null, $direction: column)
     gap: 4px
 
-
-        
+hr
+    height: 1px
+    margin: 30px 0 0 0
+    color: rgba(234, 236, 240, 1)

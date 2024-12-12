@@ -78,10 +78,28 @@
 
     <div class="actions">
         @if (isApproved) {
-            <button type="button" class="revoked" (click)="revokeAccount()">Revoke Approval</button>
+            <button type="button" class="revoked" (click)="showDialog()">Revoke Approval</button>
+            <p-dialog header="Revoke Pro Account" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem'}">
+                <app-message-form
+                    [emailPlaceholder]="'Enter email address'"
+                    [messagePlaceholder]="'Enter reason for account revocation'"
+                    [showWarning]="true"
+                    (formSubmit)="handleFormSubmit($event, 'revoke')"
+                ></app-message-form>
+            </p-dialog>
         }
         @else {
-            <button type="button" class="secondary" (click)="rejectAccount()">Reject</button>
+            <div class="card flex justify-center">
+                <button type="button" class="secondary" (click)="showDialog()">Reject</button>
+                <p-dialog header="Reject Pro Account" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem'}">
+                    <app-message-form
+                        [emailPlaceholder]="'Enter email address'"
+                        [messagePlaceholder]="'Enter reason for rejection'"
+                        [showWarning]="true"
+                        (formSubmit)="handleFormSubmit($event, 'reject')"
+                    ></app-message-form>
+                </p-dialog>
+            </div>
             <button type="button" class="primary" (click)="openDialog()">Approve account</button>
         }
     </div>

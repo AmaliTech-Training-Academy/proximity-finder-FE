@@ -58,7 +58,6 @@ export class ProBasicInfoComponent implements OnInit, OnDestroy {
   setEditing() {
     this.isEditing = true;
     this.toggleFormControls();
-    console.log(this.isEditing);
   }
 
   cancelEditing() {

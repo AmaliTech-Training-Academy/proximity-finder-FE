@@ -1,0 +1,59 @@
+<form class="paypal-form" [formGroup]="paypalForm" (ngSubmit)="onSubmit()">
+  <div class="firstName">
+    <label for="firstName">First Name</label>
+    <input
+      type="text"
+      pInputText
+      formControlName="firstName"
+      placeholder="First name"
+    />
+    <small
+      class="error-message"
+      *ngIf="
+        paypalForm.get('firstName')?.touched &&
+        paypalForm.get('firstName')?.invalid
+      "
+    >
+      First name is required
+    </small>
+  </div>
+  <div class="lastName">
+    <label for="lastName">Last Name</label>
+    <input
+      type="text"
+      pInputText
+      formControlName="lastName"
+      placeholder="Last name"
+    />
+    <small
+      class="error-message"
+      *ngIf="
+        paypalForm.get('lastName')?.touched &&
+        paypalForm.get('lastName')?.invalid
+      "
+    >
+      Last name is required
+    </small>
+  </div>
+  <div class="email">
+    <label for="email">Email</label>
+    <input
+      type="email"
+      pInputText
+      formControlName="email"
+      placeholder="Enter your paypal email"
+    />
+    <small
+      class="error-message"
+      *ngIf="
+        paypalForm.get('email')?.touched && paypalForm.get('email')?.invalid
+      "
+    >
+      Email is required
+    </small>
+  </div>
+  <div class="buttons">
+    <p-button label="Cancel" severity="secondary" (onClick)="closeDialog()" />
+    <p-button label="Save" type="submit" />
+  </div>
+</form>

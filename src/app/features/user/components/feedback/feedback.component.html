@@ -5,72 +5,34 @@
             <p>Don’t take our word for it. Trust our customers</p>
         </div>
         <div class="actions">
-            <button> 
+            <button (click)="previousPage()" [disabled]="currentPage === 0"> 
                 <i class="pi pi-angle-left" style="color: #A1BDFC;"></i>
                 Previous 
             </button>
-            <button>Next 
-                <i class="pi pi-angle-right" style="color: #2563EB;"></i>
+            <button [disabled]="(currentPage + 1) * reviewsPerPage >= reviews.length">Next 
+                <i class="pi pi-angle-right" style="color: #2563EB;" (click)="nextPage()"></i>
             </button>
         </div>
     </div>
 
     <div class="testimonies">
         <div class="cards">
-            <div class="card">
-                <div class="rating">
-                    <img src="../../../../../assets/images/profile.png" alt="profile image">
-                    <div class="stars">
-                        <mat-icon svgIcon="star"></mat-icon>
-                        <mat-icon svgIcon="star"></mat-icon>
-                        <mat-icon svgIcon="star"></mat-icon>
-                        <mat-icon svgIcon="star"></mat-icon>
-                        <mat-icon svgIcon="star"></mat-icon>
+            @if (reviews) {
+                @for (review of displayedReviews; track $index) {
+                    <div class="card">
+                        <div class="rating">
+                            <img [src]="review.authorInfo?.profileImage ? review.authorInfo?.profileImage : defaultImage" alt="profile image">
+                            <p-rating [(ngModel)]="review.rating" [readonly]="true" [cancel]="false" />
+                        </div>
+                        <h6>{{review.authorInfo?.userName}}</h6>
+                        <p>{{review.content}}</p>
                     </div>
-                </div>
-                <h6>Floyd Miles</h6>
-                <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. 
-                    Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia con... 
-                </p>
-            </div>
-            <div class="card">
-                <div class="rating">
-                    <img src="../../../../../assets/images/profile.png" alt="profile image">
-                    <div class="stars">
-                        <mat-icon svgIcon="star"></mat-icon>
-                        <mat-icon svgIcon="star"></mat-icon>
-                        <mat-icon svgIcon="star"></mat-icon>
-                        <mat-icon svgIcon="star"></mat-icon>
-                        <mat-icon svgIcon="star"></mat-icon>
-                    </div>
-                </div>
-                <h6>Floyd Miles</h6>
-                <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. 
-                    Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia con... 
-                </p>
-            </div>
-            <div class="card">
-                <div class="rating">
-                    <img src="../../../../../assets/images/profile.png" alt="profile image">
-                    <div class="stars">
-                        <mat-icon svgIcon="star"></mat-icon>
-                        <mat-icon svgIcon="star"></mat-icon>
-                        <mat-icon svgIcon="star"></mat-icon>
-                        <mat-icon svgIcon="star"></mat-icon>
-                        <mat-icon svgIcon="star"></mat-icon>
-                    </div>
-                </div>
-                <h6>Floyd Miles</h6>
-                <p>Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit. 
-                    Exercitation veniam consequat sunt nostrud amet. Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. Velit officia con... 
-                </p>
-            </div>
+                }
+            }
         </div>
         
         <div class="ellipses">
-            <span class="ellipse active"></span>
-            <span class="ellipse"></span>
-            <span class="ellipse"></span>
+            <span *ngFor="let _ of displayedReviews; index as i" [class.active]="i === currentPage" class="ellipse"></span>
         </div>
     </div>
 

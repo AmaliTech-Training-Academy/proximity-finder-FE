@@ -8,7 +8,7 @@ import { ReviewService } from '../../../../reviews-feedback/services/review.serv
 @Component({
   selector: 'app-reviews',
   standalone: true,
-  imports: [RatingModule, FormsModule, ProgressBarModule, MeterGroupModule],
+  imports: [RatingModule, FormsModule,ProgressBarModule, MeterGroupModule],
   templateUrl: './reviews.component.html',
   styleUrl: './reviews.component.sass'
 })
@@ -20,9 +20,4 @@ export class ReviewsComponent {
 
 constructor(private reviewService: ReviewService) { }
 
-ngOnInit() {
-  this.reviewService.getReviewById('9a608364-f0a2-4c66-98a3-ad7106b30b7e').subscribe(reviews => {
-    console.log(reviews)
-  })
-}
 }
