@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RatingModule } from 'primeng/rating';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { MeterGroupModule } from 'primeng/metergroup';
 import { FormsModule } from '@angular/forms';
+import { ProviderResponse } from '../../../../core/models/provider-response';
 
 @Component({
   selector: 'app-pro-details-review',
@@ -16,4 +17,5 @@ export class ProDetailsReviewComponent {
   values = [
     {value: 75, color: '#4285F4' }
 ];
+@Input() provider!: ProviderResponse
 }
