@@ -7,7 +7,7 @@ import { ReviewFormComponent } from "../../../reviews-feedback/components/review
 @Component({
   selector: 'app-feedback',
   standalone: true,
-  imports: [MatIconModule, RatingModule, FormsModule, ReviewFormComponent],
+  imports: [MatIconModule, RatingModule, FormsModule],
   templateUrl: './feedback.component.html',
   styleUrl: './feedback.component.sass'
 })
