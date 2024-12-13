@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
-import { acceptQuote, declineQuote, getQuote, Quote } from '../../../service-provider/models/quoteData';
+import { acceptQuote, declineQuote, getQuote, Quote, ResponseData } from '../../../service-provider/models/quoteData';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -25,7 +25,7 @@ export class QuoteService {
 
 
   getQuotes(){
-    return this.http.get<getQuote[]>(`${this.url}/quotes/provider`);
+    return this.http.get<ResponseData>(`${this.url}/quotes/provider`);
   }
 
   getSingleQuote(id: number) {
