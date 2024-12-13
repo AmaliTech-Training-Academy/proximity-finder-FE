@@ -14,13 +14,14 @@ import { Notyf } from 'notyf';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { faqGroup } from '../../models/faqGroup';
 import { Subscription } from 'rxjs';
+import { ReversePipe } from "../../../../utils/reverse.pipe";
 
 
 
 @Component({
   selector: 'app-admin-support',
   standalone: true,
-  imports: [DialogModule, ReactiveFormsModule, DropdownModule, CommonModule, MenuModule, DeleteComponent, EditComponent,FormsModule],
+  imports: [DialogModule, ReactiveFormsModule, DropdownModule, CommonModule, MenuModule, DeleteComponent, EditComponent, FormsModule, ReversePipe],
   templateUrl: './admin-support.component.html',
   styleUrl: './admin-support.component.sass'
 })
@@ -99,7 +100,9 @@ export class AdminSupportComponent implements AfterViewInit,OnInit,OnDestroy {
       });
     }
 
-
+     resetForm(){
+       this.createForm.reset();
+     }
     
     
 
@@ -109,6 +112,7 @@ export class AdminSupportComponent implements AfterViewInit,OnInit,OnDestroy {
       this.saveSub=this.helpAndSupportService.createFaq(newFaq).subscribe({
         next: (response) => {
           this.notyf.success('Faq created successfully');
+          this.resetForm()
           this.visible = false; 
           this.loadFaqs(); 
         },
