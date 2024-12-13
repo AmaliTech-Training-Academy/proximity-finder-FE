@@ -3,6 +3,8 @@
     [paginator]="true"
     [rows]="10"
     [value]="calls"
+    [(ngModel)]="selectedDate"
+    (change)="filterByDate()"
     [tableStyle]="{ 'min-width': '50rem' }"
   >
     <ng-template pTemplate="header">
@@ -18,7 +20,8 @@
       <tr>
         <td>{{ call.clientName }}</td>
         <td>{{ call.phoneNumber }}</td>
-        <td>{{ call.email }}</td>
+        <td>{{ call.clientEmail }}</td>
+        <td>{{ call.requestDate }}</td>
         <td>
           <span class="status-label" [ngClass]="call.status | lowercase">
             <i class="status-icon"></i>

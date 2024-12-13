@@ -122,7 +122,7 @@ export class ProfileDetailsComponent{
     if (this.callForm.valid) {
       this.callService.sendCallRequest({
         ...this.callForm.value, 
-        providerEmail: this.provider.authservice.email 
+        assignedProvider: this.provider.authservice.email 
       }).subscribe({
         next: () => {
           this.notyf.success('Call Request Sent Successfully');
