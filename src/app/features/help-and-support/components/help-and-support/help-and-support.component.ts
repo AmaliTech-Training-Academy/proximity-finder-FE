@@ -10,12 +10,13 @@ import { Notyf } from 'notyf';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { Faqs } from '../../models/faqs';
 import { Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-help-and-support',
   standalone: true,
-  imports: [UserProfileHeaderComponent, NavbarComponent, AccordionModule, FormsModule, SelectButtonModule,ReactiveFormsModule],
+  imports: [UserProfileHeaderComponent, NavbarComponent, AccordionModule, FormsModule, SelectButtonModule,ReactiveFormsModule,CommonModule],
   templateUrl: './help-and-support.component.html',
   styleUrl: './help-and-support.component.sass'
 })
@@ -27,6 +28,8 @@ export class HelpAndSupportComponent implements OnInit, OnDestroy {
 
   value: string = 'seeker';  
   faqs: Faqs[] = [];
+  searchResults: Faqs[] = [];
+isSearching: boolean = false;
   loadFaqSub!:Subscription
   sendSub!:Subscription
 
@@ -52,7 +55,6 @@ export class HelpAndSupportComponent implements OnInit, OnDestroy {
         this.faqs = response;
       },
       error: (error) => {
-        console.error('Error loading FAQs', error);
         this.notyf.error('Error loading FAQs');
       }
     });
@@ -62,21 +64,38 @@ export class HelpAndSupportComponent implements OnInit, OnDestroy {
     this.loadFaqs(this.value);  
   }
 
+  onSearch(event: Event): void {
+    const searchKeyword = (event.target as HTMLInputElement).value.toLowerCase().trim();
+    this.isSearching = !!searchKeyword; 
+  
+    if (this.isSearching) {
+      this.searchResults = this.faqs.filter(faq =>
+        faq.question.toLowerCase().includes(searchKeyword) ||
+        faq.answer.toLowerCase().includes(searchKeyword)
+      );
+    } else {
+      this.searchResults = [];
+    }
+  }
+  
+
+  resetForm(){
+    this.messageForm.reset();
+  }
+
   onSubmit(): void {
     if (this.messageForm.valid) {
       const formData: Support = this.messageForm.value;
       this.sendSub=this.supportService.sendSupport(formData).subscribe({
         next: (response) => {
-          console.log('Message sent successfully', response);
           this.notyf.success('Message sent successfully');
+          this.resetForm()
         },
         error: (error) => {
-          console.error('Error sending message', error);
           this.notyf.error('Error sending message');
         }
       });
     } else {
-      console.log('Form is invalid');
       this.notyf.error('Form is invalid');
     }
   }

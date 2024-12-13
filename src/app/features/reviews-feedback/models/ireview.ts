@@ -1,3 +1,5 @@
+import { IProfile } from "../../profile-management/models/profile";
+
 export interface Ireview {
     rating: number;
     content: string;
@@ -18,6 +20,14 @@ export interface review {
     id: string;
     rating: number;
     sentiment: string;
-    serviceProviderId: string;
+    providerServiceId: string;
     userEmail: string;
+    authorInfo?: IProfile
+}
+
+export interface appReview{
+    reviewerName: string;
+    reviewerImage: string;
+    reason: string;
+    ratings: number;
 }

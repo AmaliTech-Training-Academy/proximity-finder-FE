@@ -128,12 +128,15 @@
     <div class="payment-pref">
       <div class="payment-info">
         <p>Payment Preference</p>
-        <div class="field">
-          {{
-            providerInfo["business-info"].paymentMethodResponse
-              .paymentPreference
-          }}
-        </div>
+        @if (providerInfo['business-info'].paymentMethodResponses; as payments) {
+          
+          @for (payment of payments; track $index) {
+            <div class="field">
+              {{payment.paymentPreference}}
+            </div>
+          }
+          
+      }
       </div>
 
       <div class="payment-doc">

@@ -9,7 +9,7 @@
         </div>
     }
     
-    @for (faq of faqs; track faq) {
+    @for (faq of faqs | reverse; track faq) {
         <div class="faq">
             <div class="faq-header">
                 <p>{{ faq.question }}</p>

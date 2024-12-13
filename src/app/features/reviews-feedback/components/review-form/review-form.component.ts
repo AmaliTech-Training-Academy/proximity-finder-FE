@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
@@ -6,6 +6,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { RatingModule } from 'primeng/rating';
 import { ReviewService } from '../../services/review.service';
 import { Ireview } from '../../models/ireview';
+import { NOTYF } from '../../../../shared/notify/notyf.token';
 
 
 @Component({
@@ -19,6 +20,7 @@ export class ReviewFormComponent{
 
   visible: boolean = false;
   value!: number;
+  private notyf = inject(NOTYF)
 
   constructor(private reviewService: ReviewService, private fb: FormBuilder) { }
 
@@ -38,17 +40,19 @@ export class ReviewFormComponent{
       const review: Ireview = {
         rating: value!,
         content: text!,
-        providerServiceId: '7096b16d-a6de-479b-b7a8-c4a5955eb7f0',
+        providerServiceId: '2a5f5e10-15e3-4613-92ad-162619593100',
         isAnonymous: false,
       }
 
       this.reviewService.createReview(review).subscribe({
         next: (response) => {
-          console.log(response)
           this.visible = false
+          this.notyf.success('Review created successfully')
+          this.reviewForm.reset()
         },
         error: (error) => {
           console.error('Error creating review:', error)
+          this.notyf.error('Error creating review')
         }
       })
     }

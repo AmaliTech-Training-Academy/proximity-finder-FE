@@ -569,65 +569,59 @@ export const bookingDays = [
 
 export const reviews = [
   {
-    reviewerName: 'John Doe',
-    providerName: 'Ama Yawson',
-    message: 'Great service, I will definitely use this service again!',
+    reviewerName: 'Spencer James',
+    reviewerImage: 'assets/images/core.png',
+    reason: 'This app is a lifesaver! I needed an electrician urgently, and within 15 minutes, someone was at my door. The interface is user-friendly, and I love the real-time tracking feature. Highly recommend it to anyone who values convenience!',
     ratings: 5,
   },
   {
     reviewerName: 'Jane Smith',
-    providerName: 'Kojo Mensah',
-    message: 'Quick response time and very professional.',
+    reviewerImage: 'assets/images/occupation.png',
+    reason: 'I can’t imagine my life without this app. From plumbers to tutors, I’ve found reliable professionals every time. The reviews from other users help me make confident choices. It’s like having a trusted local guide in my pocket.',
     ratings: 4,
   },
   {
     reviewerName: 'Michael Brown',
-    providerName: 'Kwame Agyeman',
-    message: 'Satisfactory service, but there is room for improvement.',
+    reviewerImage: 'assets/images/luna.jpg',
+    reason: 'Great service overall! The app is intuitive, and I found a dog walker within 10 minutes. My only suggestion would be to add more payment options. Otherwise, everything else works seamlessly.',
     ratings: 3,
   },
   {
     reviewerName: 'Emily Davis',
-    providerName: 'Efua Asantewaa',
-    message: 'Excellent experience! Highly recommended.',
+    reviewerImage: 'assets/images/max.jpg',
+    reason: 'I run a small business and often need last-minute help. This app has connected me with skilled professionals in minutes. The support team is also very responsive, which adds to the great experience.',
     ratings: 5,
   },
   {
     reviewerName: 'Daniel Wilson',
-    providerName: 'Yaw Kofi',
-    message: 'Affordable and efficient. I’m really impressed!',
+    reviewerImage: 'assets/images/brownbag.jpg',
+    reason: 'Amazing app! The ratings and reviews for service providers are accurate, and I’ve never had a bad experience. The added feature of scheduling appointments ahead of time is a big plus.',
     ratings: 4,
   },
   {
     reviewerName: 'Sophia Taylor',
-    providerName: 'Adwoa Sarfo',
-    message: 'The service was good, but it took longer than expected.',
+    reviewerImage: 'assets/images/heels.jpg',
+    reason: 'I needed a reliable babysitter, and this app delivered! I loved how I could see certifications and past reviews for each candidate. It made me feel secure in my choice. Excellent service!',
     ratings: 3,
   },
   {
     reviewerName: 'Liam Johnson',
-    providerName: 'Esi Oforiwaa',
-    message: 'Absolutely amazing! Exceeded my expectations.',
+    reviewerImage: 'assets/images/buddy.jpg',
+    reason: 'The app is fantastic for finding local services. I booked a cleaning service last week, and they did a great job. The only downside is that some providers are slightly pricey, but the quality makes up for it.',
     ratings: 5,
   },
   {
     reviewerName: 'Olivia Anderson',
-    providerName: 'Kweku Baah',
-    message: 'Fairly decent service for the price paid.',
+    reviewerImage: 'assets/images/default-avatar.png',
+    reason: 'Super efficient and reliable! I’ve used this app multiple times for home repairs, and it never disappoints. The booking process is smooth, and I appreciate the follow-up notifications.',
     ratings: 3,
   },
   {
     reviewerName: 'William Martinez',
-    providerName: 'Ama Agyapong',
-    message: 'The provider was friendly and very helpful.',
+    reviewerImage: 'assets/images/charlie.jpg',
+    reason: 'This app helped me find a yoga instructor nearby, and I couldn’t be happier! The filters for narrowing down specific needs are incredibly helpful. 10/10 would recommend.',
     ratings: 4,
-  },
-  {
-    reviewerName: 'Isabella White',
-    providerName: 'Kojo Antwi',
-    message: 'Fantastic! I’ll definitely recommend to my friends.',
-    ratings: 5,
-  },
+  }
 ];
 
 export const linkedAccounts = [
@@ -645,97 +639,4 @@ export const linkedAccounts = [
   },
 ];
 
-
-export const proAccounts = [
-  {
-    businessOwner: "John Smith",
-    businessName: "Smith Tech Solutions",
-    email: "john.smith@example.com",
-    location: "New York, NY",
-    verification: "Yes",
-    status: "Active",
-    action: "Edit/Delete"
-  },
-  {
-    businessOwner: "Emily Johnson",
-    businessName: "Emily's Bakery",
-    email: "emily.johnson@example.com",
-    location: "Los Angeles, CA",
-    verification: "No",
-    status: "Inactive",
-    action: "Verify/Approve"
-  },
-  {
-    businessOwner: "Michael Brown",
-    businessName: "Brown Construction",
-    email: "michael.brown@example.com",
-    location: "Chicago, IL",
-    verification: "Yes",
-    status: "Active",
-    action: "Edit/Delete"
-  },
-  {
-    businessOwner: "Sarah Davis",
-    businessName: "Davis Marketing",
-    email: "sarah.davis@example.com",
-    location: "Houston, TX",
-    verification: "No",
-    status: "Inactive",
-    action: "Resubmit/Delete"
-  },
-  {
-    businessOwner: "David Wilson",
-    businessName: "Wilson Auto Parts",
-    email: "david.wilson@example.com",
-    location: "Miami, FL",
-    verification: "Yes",
-    status: "Active",
-    action: "Edit/Delete"
-  },
-  {
-    businessOwner: "Olivia Martinez",
-    businessName: "Martinez Designs",
-    email: "olivia.martinez@example.com",
-    location: "Austin, TX",
-    verification: "No",
-    status: "Inactive",
-    action: "Verify/Approve"
-  },
-  {
-    businessOwner: "Chris White",
-    businessName: "White's Electronics",
-    email: "chris.white@example.com",
-    location: "San Diego, CA",
-    verification: "Yes",
-    status: "Active",
-    action: "Edit/Delete"
-  },
-  {
-    businessOwner: "Sophia Green",
-    businessName: "Green Landscaping",
-    email: "sophia.green@example.com",
-    location: "Seattle, WA",
-    verification: "Yes",
-    status: "Active",
-    action: "Edit/Delete"
-  },
-  {
-    businessOwner: "James Miller",
-    businessName: "Miller's Garage",
-    email: "james.miller@example.com",
-    location: "Denver, CO",
-    verification: "No",
-    status: "Inactive",
-    action: "Verify/Approve"
-  },
-  {
-    businessOwner: "Isabella Thomas",
-    businessName: "Thomas Art Studio",
-    email: "isabella.thomas@example.com",
-    location: "San Francisco, CA",
-    verification: "No",
-    status: "Inactive",
-    action: "Resubmit/Delete"
-  }
-];
 

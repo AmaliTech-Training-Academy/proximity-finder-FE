@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, map, Observable } from 'rxjs';
 import { ServiceResponse } from '../models/IServiceResponse';
 import { ServiceCategory } from '../models/IServiceCategory';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ServiceService {
-  apiUrl = 'http://3.136.48.244:8080';
+  apiUrl = environment.serviceUrl;
   servicesUrl = '/api/v1/services';
   proServicesUrl = '/api/v1/provider-services';
   serviceExperienceUrl = '/api/v1/service-experiences';

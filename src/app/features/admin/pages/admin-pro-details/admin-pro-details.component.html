@@ -1,5 +1,7 @@
 <div class="container">
+  @if (providerInfo | async; as provider) {
     <header>
+
         <div class="info">
             <div class="avatar">
                 <img src=".././../../../../assets/images/core.png" alt="avatar">
@@ -7,10 +9,10 @@
 
             <div class="details">
                 <div class="col">
-                    <p>Esthera Jackson</p>
+                    <p>{{provider.authservice.userName}}</p>
                     <span class="status-label" [ngClass]="status | lowercase">
                         <i class="status-icon"></i>
-                        pending
+                        {{provider.authservice.status}}
                     </span>
                 </div>
 
@@ -28,7 +30,15 @@
         </div>
 
         <div class="email">
-            <button type="button">Send an Email</button>
+            <button type="button" (click)="showDialog()">Send an Email</button>
+            <p-dialog header="Send Mail" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem'}">
+              <app-message-form
+                  [emailPlaceholder]="'Enter email address'"
+                  [messagePlaceholder]="'Message'"
+                  [showWarning]="true"
+                  (formSubmit)="handleFormSubmit($event, '')"
+              ></app-message-form>
+          </p-dialog>
         </div>
     </header>
 
@@ -37,7 +47,7 @@
               
           <p-tabPanel header="About">
             <div class="tab-content">
-                <app-about/>
+                <app-about [provider]="provider"/>
             </div>
           </p-tabPanel>
 
@@ -49,16 +59,17 @@
 
           <p-tabPanel header="Reviews">
             <div class="tab-content">
-              <app-pro-details-review/>
+              <app-pro-details-review [provider]="provider"/>
             </div>
           </p-tabPanel>
 
           <p-tabPanel header="Credentials">
             <div class="tab-content">
-              <app-admin-credentials/>
+              <app-admin-credentials [provider]="provider"/>
             </div>
           </p-tabPanel>
 
         </p-tabView>
     </main>
+  }
 </div>

@@ -26,6 +26,8 @@ export class ApprovalModalComponent implements OnDestroy {
       type: string;
       confirmText: string;
       cancelText: string;
+      userId: number;
+      userEmail: string;
     },
     private userService: UserAccountsService
   ) {}
@@ -34,8 +36,11 @@ export class ApprovalModalComponent implements OnDestroy {
   @Output() cancel = new EventEmitter();
   
   onConfirm() {
-    this.userSubscription = this.userService.getUserStatus(8, 'ACTIVE').subscribe({
+    const email = this.data.userEmail
+    const reason = 'Your account has been successfully approved and activated. You can now access all the features and services available to approved users.'
+    this.userSubscription = this.userService.getUserStatus(this.data.userId, 'ACTIVE').subscribe({
       next: (response: User) => {
+        this.userService.sendMessage(email, reason).subscribe()
         this.notyf.success('Account status updated successfully');
         this.dialogRef.close(true);
       },
@@ -46,6 +51,7 @@ export class ApprovalModalComponent implements OnDestroy {
 
       },
     });
+
     this.confirm.emit(true);
   }
 

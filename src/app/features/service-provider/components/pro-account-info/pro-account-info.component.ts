@@ -20,6 +20,8 @@ import { AsyncPipe } from '@angular/common';
 import { UserBankService } from '../../../profile-management/services/user-bank.service';
 import { Notyf } from 'notyf';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
+import { PaypalFormComponent } from '../paypal-form/paypal-form.component';
+import { LoaderComponent } from '../../../../shared/components/loader/loader.component';
 
 @Component({
   selector: 'app-pro-account-info',
@@ -32,6 +34,9 @@ import { NOTYF } from '../../../../shared/notify/notyf.token';
     DropdownModule,
     MobileMoneyFormComponent,
     BankDetailsFormComponent,
+    LoaderComponent,
+    PaypalFormComponent,
+    FormsModule,
     MatTabsModule,
     AsyncPipe,
   ],
@@ -42,12 +47,15 @@ export class ProAccountInfoComponent implements OnInit, OnDestroy {
   isDialogVisible: boolean = false;
   isConfirmDialogVisible: boolean = false;
   paymentPreferences: paymentPreference[] = [];
-  selectedPaymentPreference = 'Bank Account';
+  selectedPaymentPreference: string | undefined;
+  defaultPaymentPreference: string | undefined;
   subscription!: Subscription;
   paymentMethod!: IPaymentAccount;
   linkedAccounts$: Observable<IPaymentAccount[]> =
     this.profileService.paymentAccounts$;
   selectedAccount: IPaymentAccount | undefined;
+
+  isLoading: boolean = false;
 
   @ViewChild('menu') menu!: Menu;
 
@@ -74,11 +82,22 @@ export class ProAccountInfoComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.isLoading = true;
     this.profileService.getPaymentAccounts();
+
     this.subscription = this.paymentService.getAllPrefernces().subscribe({
-      next: (preferences) => (this.paymentPreferences = preferences),
+      next: (preferences) => {
+        this.paymentPreferences = preferences;
+        if (this.paymentPreferences && this.paymentPreferences.length > 0) {
+          this.isLoading = false;
+          this.defaultPaymentPreference =
+            this.paymentPreferences[0].paymentPreference;
+          this.selectedPaymentPreference =
+            this.paymentPreferences[0].paymentPreference;
+        }
+      },
       error: (error) =>
-        console.log('Failed to fetch payment preferences', error),
+        console.error('Failed to fetch payment preferences', error),
     });
   }
 
@@ -97,16 +116,16 @@ export class ProAccountInfoComponent implements OnInit, OnDestroy {
   openAccountOptions(event: any, account: IPaymentAccount) {
     this.selectedAccount = account;
     this.menu.toggle(event);
-    console.log(this.selectedAccount);
   }
 
   deleteAccount() {
-    console.log(this.selectedAccount?.id);
     this.bankService
       .deleteBankAccount(this.selectedAccount?.id as number)
       .subscribe({
         next: () => {
           this.notyf.success('Account delete successfully');
+          this.profileService.getPaymentAccounts();
+
           this.isConfirmDialogVisible = false;
         },
         error: () => {

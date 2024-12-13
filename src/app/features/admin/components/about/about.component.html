@@ -1,88 +1,131 @@
 <div class="container">
-    <section>
-        <p class="summary">
-            Lorem ipsum dolor sit amet consectetur. Fermentum sit nunc consectetur molestie ultricies dictum id fames.
-            Ultrices curabitur lobortis adipiscing cursus ante. Sapien commodo amet non in iaculis aliquam mauris eget nibh. Aliquet sit lorem nec diam porta duis. Netus aenean urna sit massa facilisi non tempus turpis. Ornare nam mauris scelerisque amet varius urna aliquam tortor.
-            Imperdiet lacus magna venenatis non volutpat metus ac. Quis facilisi adipiscing sed ac.
-        </p>
+    @if (provider) {
+        <section>
+            @if (provider['business-info'].aboutBusinessResponse; as about) {
+                <p class="summary">
+                    {{about.businessSummary}}
+                </p>
+            }
 
-        <div class="col">
-            <div class="col-1">
-                <div class="col-1-1">
-                    <h5>Services</h5>
+            <div class="col">
+                <div class="col-1">
+                    @if (provider['provider-service']; as services) {
+                        <div class="col-1-1">
+                            <h5>Services</h5>
 
-                    <div class="services">
-                        <div class="service">
-                            <i class="pi pi-check-circle" style="color: #408EFD;"></i>
-                            <p>Cleaning</p>
+                            <div class="services">
+                                @if (services.length > 0) {
+                                    @for (service of services; track $index) {
+                                        @if (service.service) {
+                                            <div class="service">
+                                                <i class="pi pi-check-circle" style="color: #408EFD;"></i>
+                                                <p>{{service.service.name}}</p>
+                                            </div>
+                                          }
+                                    }
+                                }
+                                @else {
+                                    <p>No services</p>
+                                }
+                            </div>
                         </div>
-                        <div class="service">
-                            <i class="pi pi-check-circle" style="color: #408EFD;"></i>
-                            <p>Plumbing</p>
+                    }
+
+                    <div class="col-1-1">
+                        <h5>Payment Methods</h5>
+
+                        @if (provider['business-info'].paymentMethodResponses; as payments) {
+                            <div class="payments">
+                                @for (payment of payments; track $index) {
+                                    <p>{{payment.paymentPreference}}</p>
+                                }
+                            </div>
+                        }
+                    </div>
+                    
+                </div>
+
+                <div class="overview">
+                    <h5>Overview</h5>
+
+                    <div class="info">
+                        <p>Top Pro</p>
+                        <p>Hired 400 times</p>
+                        <p>{{provider.authservice.placeName}}</p>
+                        <p>{{provider.authservice.status === 'ACTIVE' ? 'Background Checked' :'Background Check pending'}}</p>
+                        @if (provider['business-info'].aboutBusinessResponse; as about) {
+                            <p>{{about.numberOfEmployees}} employees</p>
+                        }
+                        @if (getBusinessYears === '1 year in business') {
+                            <p>
+                              1 year in business
+                            </p>
+                          }
+                          
+                          @if (getBusinessYears !== '1 year in business') {
+                            <p>
+                              {{ getBusinessYears }}
+                            </p>
+                          }
+                    </div>
+                </div>
+
+                <div class="business">
+                    <h5>Business hours</h5>
+
+                    <div class="col-2">
+                        <div class="days">
+                        <p>Mon</p>
+                        <p>Tue</p>
+                        <p>Wed</p>
+                        <p>Thu</p>
+                        <p>Fri</p>
+                        <p>Sat</p>
+                        <p>Sun</p>
+                        </div>
+        
+                        <div class="time">
+                        <p>10:00am - 4:00pm</p>
+                        <p>10:00am - 4:00pm</p>
+                        <p>10:00am - 4:00pm</p>
+                        <p>10:00am - 4:00pm</p>
+                        <p>10:00am - 4:00pm</p>
+                        <p>Closed</p>
+                        <p>Closed</p>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-1-1">
-                    <h5>Payment Methods</h5>
-
-                    <div class="payments">
-                        <p>MTN</p>
-                        <p>Bank Transfer</p>
-                    </div>
-                </div>
             </div>
 
-            <div class="overview">
-                <h5>Overview</h5>
+        </section>
 
-                <div class="info">
-                    <p>Top Pro</p>
-                    <p>Hired 400 times</p>
-                    <p>Brooklyn, NYC</p>
-                    <p>Background checked</p>
-                    <p>5 employees</p>
-                    <p>2 years in business</p>
+        <div class="actions">
+            @if (isApproved) {
+                <button type="button" class="revoked" (click)="showDialog()">Revoke Approval</button>
+                <p-dialog header="Revoke Pro Account" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem'}">
+                    <app-message-form
+                        [emailPlaceholder]="'Enter email address'"
+                        [messagePlaceholder]="'Enter reason for account revocation'"
+                        [showWarning]="true"
+                        (formSubmit)="handleFormSubmit($event, 'revoke')"
+                    ></app-message-form>
+                </p-dialog>
+            }
+            @else {
+                <div class="card flex justify-center">
+                    <button type="button" class="secondary" (click)="showDialog()">Reject</button>
+                    <p-dialog header="Reject Pro Account" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem'}">
+                        <app-message-form
+                            [emailPlaceholder]="'Enter email address'"
+                            [messagePlaceholder]="'Enter reason for rejection'"
+                            [showWarning]="true"
+                            (formSubmit)="handleFormSubmit($event, 'reject')"
+                        ></app-message-form>
+                    </p-dialog>
                 </div>
-            </div>
-
-            <div class="business">
-                <h5>Business hours</h5>
-
-                <div class="col-2">
-                    <div class="days">
-                      <p>Mon</p>
-                      <p>Tue</p>
-                      <p>Wed</p>
-                      <p>Thu</p>
-                      <p>Fri</p>
-                      <p>Sat</p>
-                      <p>Sun</p>
-                    </div>
-      
-                    <div class="time">
-                      <p>10:00am - 4:00pm</p>
-                      <p>10:00am - 4:00pm</p>
-                      <p>10:00am - 4:00pm</p>
-                      <p>10:00am - 4:00pm</p>
-                      <p>10:00am - 4:00pm</p>
-                      <p>Closed</p>
-                      <p>Closed</p>
-                    </div>
-                </div>
-            </div>
-
+                <button type="button" class="primary" (click)="openDialog()">Approve account</button>
+            }
         </div>
-
-    </section>
-
-    <div class="actions">
-        @if (isApproved) {
-            <button type="button" class="revoked" (click)="revokeAccount()">Revoke Approval</button>
-        }
-        @else {
-            <button type="button" class="secondary" (click)="rejectAccount()">Reject</button>
-            <button type="button" class="primary" (click)="openDialog()">Approve account</button>
-        }
-    </div>
+    }
 </div>

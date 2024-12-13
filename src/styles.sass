@@ -6,22 +6,35 @@
 
 @import "primeicons/primeicons.css"
 
+// Primeng styles
+@import "../node_modules/quill/dist/quill.core.css"
+@import "../node_modules/quill/dist/quill.snow.css"
+
+// Quill Styles
 @import "../node_modules/quill/dist/quill.core.css"
 @import "../node_modules/quill/dist/quill.snow.css"
 
 body, button, input, textarea
     font-family: $font-stack
 
-
 // PrimeNG Styles
 .p-button, .p-inputtext, .p-dropdown, .p-checkbox, .p-radio, .p-table, .p-dialog
     font-family: $font-stack
-    
+
+.p-inputnumber
+    width: 100%
+
+input[type="phone"]
+    border: solid 1px rgba(234, 236, 240, 1)
+    border-radius: 8px
+    padding: 10px 0 10px 8px
+    font-size: 16px
+
 .p-dropdown
     border: solid 1px rgba(234, 236, 240, 1)
     border-radius: 8px
     padding: 5px 0 5px 5px
-    
+
 .p-dropdown-label
     margin: 0 10px 0 0
 
@@ -41,7 +54,7 @@ body, button, input, textarea
 
 .p-tabmenu
     background: none
-   
+
 .p-tabmenu-nav
     display: flex
     align-items: center
@@ -51,7 +64,7 @@ body, button, input, textarea
 .p-menuitem-link
     color: $text-main
     padding: 8px
-    background: none    
+    background: none
 
 .p-datatable
     border: solid 1px $grey-lighten-3
@@ -84,7 +97,7 @@ body, button, input, textarea
 
 .p-paginator-page.p-highlight
     border: solid 1px $blue
-    
+
 .p-input-icon
     top: 2px
 
@@ -113,10 +126,9 @@ body, button, input, textarea
     .p-dialog-header
         padding: 24px 24px 20px 24px
         border-bottom: solid 1px $grey-lighten-3
-        
+
     .p-dialog-content
         padding: 24px
-    
 
 .service-creation-form, .service-preference-form
     .p-dropdown
@@ -124,7 +136,6 @@ body, button, input, textarea
 
     .p-inputtextarea
         width: 100%
-        
 
     .p-dropdown
         width: 100%
@@ -151,13 +162,11 @@ body, button, input, textarea
         &:focus
             border-color: $primary
 
-            
 app-fields.custom-style .inputs .label
-    font-size: 1rem 
+    font-size: 1rem
     font-weight: 500 !important
 
-
-app-fields.custom-style .inputs input 
+app-fields.custom-style .inputs input
     padding: 0.75rem 0.5rem !important
     border-radius: 4px !important
     cursor: pointer
@@ -178,7 +187,6 @@ app-fields.custom-style .inputs input
     .p-multiselect-items
         @include flex-option($display: flex, $justify-content: null, $align-items: null,$direction: column)
         gap: 5px
-        
 
     .p-multiselect-item
         padding: 5px
@@ -207,7 +215,7 @@ app-fields.custom-style .inputs input
 .p-inputgroup
     input
         width: 100%
-    
+
 app-fields.custom-input-style .inputs input
     padding: 0.625rem !important
     border: 1px solid #CBCED7 !important
@@ -225,7 +233,6 @@ app-fields.custom .inputs input
     border-bottom: 1px solid $grey-lighten-3
     padding-bottom: 1rem
 
-
 .p-accordion .p-accordion-header .p-accordion-header-link
     @include flex-option(flex, space-between, center, row-reverse)
     border: none
@@ -235,7 +242,6 @@ app-fields.custom .inputs input
     color: $text-main
     border-radius: 0px
     border: none
-
 
 .p-accordion-header-text
     font-size: 1.125rem
@@ -258,7 +264,7 @@ app-fields.custom .inputs input
         padding: 0.75rem 0.5rem
         border: 1px solid #EAECF0
         font-size: pxToRem(14)
-        
+
         &:focus
             border-color: $primary
 
@@ -272,8 +278,8 @@ app-fields.custom .inputs input
     display: none
 
 .p-metergroup
-    gap: 0 
-    
+    gap: 0
+
 .p-tabview-panels
     background: none
 
@@ -287,13 +293,12 @@ app-fields.custom .inputs input
 
 .p-menuitem-text
     margin: 0 0 0 6px
-    
+
 .p-button-text
     margin: 10px 0 0 0
-    
+
 .p-button-label
     font-size: 14px
-
 
 .chat-input
     .p-inputtext
@@ -334,7 +339,7 @@ app-fields.custom .inputs input
         width: 100%
         padding: 10px 0 10px 8px
 
-.accountName, .accountAlias, .accountNumber, .mobileNumber
+.accountName, .accountAlias, .accountNumber, .mobileNumber, .paypal-form
     .p-inputtext
         padding: 10px 0 10px 8px
 
@@ -346,6 +351,23 @@ app-fields.custom .inputs input
     .p-inputtext
         width: 100%
 
-
 .pac-container
     z-index: 2000
+
+.booking-form
+    .p-datepicker-calendar
+        margin: 12px 0
+    .p-datepicker-header
+        padding: 8px
+    .p-inputtext
+        padding: 14px 0 14px 8px
+    .p-calendar
+        width: 100%
+
+.generateForm
+    margin: 0 0 30px 0
+
+    .p-inputtextarea
+        margin: 8px 0 0 0
+        padding: 14px 0 14px 8px
+        width: 100%

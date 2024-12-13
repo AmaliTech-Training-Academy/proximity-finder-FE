@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ViewFaqService } from '../../../help-and-support/services/view-faq.service';
 import { Support } from '../../../help-and-support/models/clarification';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
@@ -14,7 +14,7 @@ import { NOTYF } from '../../../../shared/notify/notyf.token';
 @Component({
   selector: 'app-faq',
   standalone: true,
-  imports: [AccordionModule, CommonModule, DialogModule, ButtonModule],
+  imports: [AccordionModule, CommonModule, DialogModule, ButtonModule, ReactiveFormsModule],
   templateUrl: './faq.component.html',
   styleUrl: './faq.component.sass'
 })

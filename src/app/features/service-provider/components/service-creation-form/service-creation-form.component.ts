@@ -3,6 +3,7 @@ import {
   ElementRef,
   EventEmitter,
   Inject,
+  OnDestroy,
   OnInit,
   Output,
 } from '@angular/core';
@@ -30,7 +31,7 @@ import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { Notyf } from 'notyf';
 import { ProfileService } from '../../../profile-management/services/profile.service';
 import { IPaymentAccount } from '../../../../core/models/payment-account';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-service-creation-form',
@@ -49,12 +50,15 @@ import { Observable } from 'rxjs';
   templateUrl: './service-creation-form.component.html',
   styleUrl: './service-creation-form.component.sass',
 })
-export class ServiceCreationFormComponent implements OnInit {
+export class ServiceCreationFormComponent implements OnInit, OnDestroy {
   @Output() closeDialogEvent = new EventEmitter<boolean>();
 
+  // serviceCategories;
   serviceCategories$ = this.serviceService.serviceCategories$;
   linkedAccounts$: Observable<IPaymentAccount[]> =
     this.profileService.paymentAccounts$;
+
+  linkedAccounts!: IPaymentAccount[];
 
   accountPreferences = accountPreferences;
   days = bookingDays;
@@ -63,6 +67,8 @@ export class ServiceCreationFormComponent implements OnInit {
   projectPictures: File[] = [];
   selectedLocation!: PlaceSearchResult;
   isSameLocation: boolean = true;
+
+  linkedAccountsSubscription!: Subscription;
 
   serviceForm: FormGroup = this.fb.group({
     serviceName: ['', Validators.required],
@@ -84,8 +90,15 @@ export class ServiceCreationFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.profileService.getPaymentAccounts();
-    this.linkedAccounts$.subscribe({
-      next: (linkedAccounts) => console.log(linkedAccounts),
+    this.linkedAccountsSubscription = this.linkedAccounts$.subscribe({
+      next: (linkedAccounts) => {
+        this.linkedAccounts = linkedAccounts.map((account) => ({
+          ...account,
+          label: account.phoneNumber
+            ? `${account.serviceProvider} - ${account.phoneNumber}`
+            : `${account.bankName} - ${account.accountNumber}`,
+        }));
+      },
     });
   }
 
@@ -153,11 +166,16 @@ export class ServiceCreationFormComponent implements OnInit {
     this.closeDialogEvent.emit(false);
   }
 
+  getAccountLabel(account: any) {
+    return account.accountNumber;
+  }
+
   onSubmit() {
     if (this.serviceForm.valid) {
       const servicePreferenceData = new FormData();
       const serviceExperienceData = new FormData();
       const formValue = this.serviceForm.value;
+      console.log(formValue);
       const locationData = {
         placeName: this.selectedLocation.address,
         latitude: this.selectedLocation.location?.lat(),
@@ -179,7 +197,8 @@ export class ServiceCreationFormComponent implements OnInit {
       );
       servicePreferenceData.append(
         'paymentPreference',
-        formValue.accountPreference.name || formValue.accountPreference
+        formValue.accountPreference.paymentPreference ||
+          formValue.accountPreference
       );
 
       servicePreferenceData.append('placeName', locationData.placeName);
@@ -212,6 +231,10 @@ export class ServiceCreationFormComponent implements OnInit {
       this.projectPictures.forEach((file) => {
         serviceExperienceData.append('images', file);
       });
+
+      servicePreferenceData.forEach((key, value) =>
+        console.log(`${key}: ${value}`)
+      );
 
       // Send service preference data
       this.serviceService
@@ -257,5 +280,11 @@ export class ServiceCreationFormComponent implements OnInit {
     return `${hours.toString().padStart(2, '0')}:${minutes
       .toString()
       .padStart(2, '0')}`;
+  }
+
+  ngOnDestroy(): void {
+    if (this.linkedAccountsSubscription) {
+      this.linkedAccountsSubscription.unsubscribe();
+    }
   }
 }

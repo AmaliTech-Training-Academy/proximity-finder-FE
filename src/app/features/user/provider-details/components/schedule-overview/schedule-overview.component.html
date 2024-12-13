@@ -8,7 +8,7 @@
               <p>Top Pro</p>
               <p>Hired 400 times</p>
               <p>{{provider.authservice.placeName || 'N/A'}}</p>
-              <p>Background Checked</p>
+              <p>{{provider.authservice.status === 'ACTIVE' ? 'Background Checked' :'Background Check pending'}}</p>
               @if (provider['business-info'].aboutBusinessResponse; as about) {
                 <p>{{about.numberOfEmployees}} employees</p>
               }
@@ -62,8 +62,11 @@
                   <div class="services">
                     @for (service of services; track $index) {
                       <div class="service">
-                        <i class="pi pi-check-circle" style="color: #408EFD"></i>
-                        <p>{{service.createdAt}}</p>
+
+                        @if (service.service) {
+                          <i class="pi pi-check-circle" style="color: #408EFD"></i>
+                          <p>{{service.service.name}}</p> 
+                        }
                       </div>
                     }
                   </div>

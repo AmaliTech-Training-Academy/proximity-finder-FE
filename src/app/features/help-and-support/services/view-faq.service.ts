@@ -13,8 +13,8 @@ export class ViewFaqService {
 
   constructor(private http:HttpClient) { }
 
-  sendSupport(data:Support):Observable<Support[]>{
-    return this.http.post<Support[]>(`${this.apiUrl}contact-support`,data);
+  sendSupport(data:Support):Observable<string>{
+    return this.http.post(`${this.apiUrl}contact-support`,data,{ responseType: 'text' });
   }
 
 

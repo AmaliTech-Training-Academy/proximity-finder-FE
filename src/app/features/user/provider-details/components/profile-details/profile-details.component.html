@@ -110,18 +110,18 @@
           <label>Start Date</label>
           <input
             type="date"
-            formControlName="date"
+            formControlName="startDate"
             [class.has-error]="
-              quoteForm.get('date')?.invalid &&
-              (quoteForm.get('date')?.dirty || quoteForm.get('date')?.touched)
+              quoteForm.get('startDate')?.invalid &&
+              (quoteForm.get('startDate')?.dirty || quoteForm.get('startDate')?.touched)
             "
           />
         </div>
         <div
           class="error-message"
           *ngIf="
-            quoteForm.get('date')?.invalid &&
-            (quoteForm.get('date')?.dirty || quoteForm.get('date')?.touched)
+            quoteForm.get('startDate')?.invalid &&
+            (quoteForm.get('startDate')?.dirty || quoteForm.get('startDate')?.touched)
           "
         >
           Start Date is required
@@ -130,18 +130,18 @@
           <label>Start Time</label>
           <input
             type="time"
-            formControlName="time"
+            formControlName="startTime"
             [class.has-error]="
-              quoteForm.get('time')?.invalid &&
-              (quoteForm.get('time')?.dirty || quoteForm.get('time')?.touched)
+              quoteForm.get('startTime')?.invalid &&
+              (quoteForm.get('startTime')?.dirty || quoteForm.get('startTime')?.touched)
             "
           />
         </div>
         <div
           class="error-message"
           *ngIf="
-            quoteForm.get('time')?.invalid &&
-            (quoteForm.get('time')?.dirty || quoteForm.get('time')?.touched)
+            quoteForm.get('startTime')?.invalid &&
+            (quoteForm.get('startTime')?.dirty || quoteForm.get('startTime')?.touched)
           "
         >
           End Date is required
@@ -211,7 +211,7 @@
 
       <div class="info">
         <label>Additional Info(Optional)</label>
-        <textarea placeholder="Type here" formControlName="info"></textarea>
+        <textarea placeholder="Type here" formControlName="additionalDetails"></textarea>
       </div>
 
       <div class="images">

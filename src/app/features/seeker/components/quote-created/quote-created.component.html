@@ -9,55 +9,58 @@
 
    <div class="all-quotes">
     <div  class="quote-container">
-        <div class="quote-list">
-            <div class="header">
-                <p>Commercial Painter</p>
-            </div>
+        @for(quotes of quotes; track quotes.id){
 
-            <div class="location">
-                <i class="pi pi-map-marker" style="color:#77878F"></i>
-                <p>Accra</p>
-            </div>
-
-            <div class="info">
-                <div class="date">
-                    <i class="pi pi-calendar" style="color:#77878F"> Date</i>
-                    <p>26th June ‘24 - 7th August ‘24</p>
+            <div class="quote-list">
+                <div class="header">
+                    <p>{{quotes.title}}</p>
                 </div>
-
-                <div class="duration">
-                    <i class="pi pi-clock" style="color:#77878F"> Duration</i>
-                    <p>12 hours</p>
+    
+                <div class="location">
+                    <i class="pi pi-map-marker" style="color:#77878F"></i>
+                    <p>{{quotes.location}}</p>
                 </div>
-                <div class="price">
-                    <i class="pi pi-dollar" style="color:#77878F"> Price</i>
-                    <p>$1500</p>
+    
+                <div class="info">
+                    <div class="date">
+                        <i class="pi pi-calendar" style="color:#77878F"> Date</i>
+                        <p>{{quotes.startDate}} -  {{quotes.endDate}}</p>
+                    </div>
+    
+                    <div class="duration">
+                        <i class="pi pi-clock" style="color:#77878F"> Duration</i>
+                        <p>{{quotes.duration}}</p>
+                    </div>
+                    <div class="price">
+                        <i class="pi pi-dollar" style="color:#77878F"> Price</i>
+                        <p>{{quotes.price || 'Not available'}}</p>
+                    </div>
                 </div>
+    
+                <div class="view-details" (click)="toggleDetails()">
+                    <button class="btn-view">View Details</button>
+                </div>
+    
             </div>
-
-            <div class="view-details" (click)="toggleDetails()">
-                <button class="btn-view">View Details</button>
-            </div>
-
-        </div>
+        }
 
     </div>
 
-    <div class="details-preview" *ngIf="showDetails">
+    <div class="details-preview" *ngIf="showDetails && selectedQuote">
         <div class="title">
-            <p>Commercial Painter</p>
+            <p>{{ selectedQuote.title }}</p>
             <i class="pi pi-times" style="color:#77878F; cursor:pointer " (click)="toggleDetails()"></i>
         </div>
 
         <div class="received-info">
             <div class="status">
                 <p>Status:</p>
-                <span>Approved</span>
+                <span>{{selectedQuote.decision}}</span>
             </div>
 
             <div class="due-date">
                 <p>Due Date:</p>
-                <span>26-27 June, 2024</span>
+                <span>{{selectedQuote.endDate}}</span>
             </div>
              
             <div class="provider">
@@ -75,102 +78,8 @@
           <p-tabPanel header="Attachments">
             <div class="tab-content">
                 <div class="photos">
-                    <img src="assets/images/core.png" alt="picture">
-                    <img src="assets/images/core.png" alt="picture">
-                    <img src="assets/images/core.png" alt="picture">
-
-                </div>
-              
-            </div>
-          </p-tabPanel>
-          <p-tabPanel header="Reply">
-            <div class="tab-content">
-              <div class="reply">
-                <img src="assets/images/Avatar.png" alt="profile-img">
-
-                <div class="text">
-                    <p>John Does</p>
-                    <span>Hi Whitney, I have reviewed your quote and would like to inform you that I am okay with these terms. But can you clearify a few things for me ?</span>
-                </div>
-              </div>
-            </div>
-          </p-tabPanel>
-        </p-tabView>
-          </div>
-    </div>
-   </div>
-
-   <div class="all-quotes">
-    <div  class="quote-container">
-        <div class="quote-list">
-            <div class="header">
-                <p>Commercial Painter</p>
-            </div>
-
-            <div class="location">
-                <i class="pi pi-map-marker" style="color:#77878F"></i>
-                <p>Accra</p>
-            </div>
-
-            <div class="info">
-                <div class="date">
-                    <i class="pi pi-calendar" style="color:#77878F"> Date</i>
-                    <p>26th June ‘24 - 7th August ‘24</p>
-                </div>
-
-                <div class="duration">
-                    <i class="pi pi-clock" style="color:#77878F"> Duration</i>
-                    <p>12 hours</p>
-                </div>
-                <div class="price">
-                    <i class="pi pi-dollar" style="color:#77878F"> Price</i>
-                    <p>$1500</p>
-                </div>
-            </div>
-
-            <div class="view-details" (click)="toggleDetails()">
-                <button class="btn-view">View Details</button>
-            </div>
-
-        </div>
-
-    </div>
-
-    <div class="details-preview" *ngIf="showDetails">
-        <div class="title">
-            <p>Commercial Painter</p>
-            <i class="pi pi-times" style="color:#77878F; cursor:pointer " (click)="toggleDetails()"></i>
-        </div>
-
-        <div class="received-info">
-            <div class="status">
-                <p>Status:</p>
-                <span>Approved</span>
-            </div>
-
-            <div class="due-date">
-                <p>Due Date:</p>
-                <span>26-27 June, 2024</span>
-            </div>
-             
-            <div class="provider">
-                <p>Provider:</p>
-               <div class="pro">
-                <img src="assets/images/Avatar.png" alt="img">
-                <span>John Doe</span>
-               </div>
-            </div>
-            
-        </div>
-
-        <div class="main-content">
-            <p-tabView>
-          <p-tabPanel header="Attachments">
-            <div class="tab-content">
-                <div class="photos">
-                    <img src="assets/images/core.png" alt="picture">
-                    <img src="assets/images/core.png" alt="picture">
-                    <img src="assets/images/core.png" alt="picture">
+                    <img *ngFor="let attachment of selectedQuote.images" src="assets/images/core.png" alt="picture">
+                    
 
                 </div>
               
