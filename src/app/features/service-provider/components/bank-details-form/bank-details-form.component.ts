@@ -7,6 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
@@ -50,7 +51,7 @@ export class BankDetailsFormComponent implements OnInit, OnDestroy {
     accountAlias: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
     accountNumber: [
       null,
-      [Validators.required, Validators.minLength(13), Validators.maxLength(13)],
+      [Validators.required, this.accountNumberLengthValidator],
     ],
   });
 
@@ -67,6 +68,11 @@ export class BankDetailsFormComponent implements OnInit, OnDestroy {
       next: (banks) => (this.banks = banks),
       error: (error) => console.error('Failed to fetch banks', error),
     });
+  }
+
+  accountNumberLengthValidator(control: AbstractControl) {
+    const value = control.value;
+    return value && value.toString().length < 13 ? { lengthError: true } : null;
   }
 
   onSubmit() {
