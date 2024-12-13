@@ -1,33 +1,50 @@
 <div class="container">
-    <header>
+  <header>
+    <div class="col">
+      <p>17 open slots</p>
+      <p class="text">in the next week</p>
+    </div>
+  </header>
 
-        <div class="col">
-            <p>17 open slots</p>
-            <p class="text">in the next week</p>
-            
-        </div>
-    </header>
+  <form>
+    <div class="input">
+      <label for="date">Scheduling Date</label>
+      <app-password-input type="date" id="date" />
+    </div>
 
-    <form>
-        <div class="input">
-            <label for="date">Scheduling Date</label>
-            <app-password-input type="date" id="date"/>
-        </div>
+    <div class="input">
+      <label for="hours">Estimated Hours</label>
+      <app-password-input
+        type="number"
+        placeholder="Please choose"
+        id="hours"
+      />
+    </div>
 
-        <div class="input">
-            <label for="hours">Estimated Hours</label>
-            <app-password-input type="number"
-            placeholder="Please choose" id="hours"/>
-        </div>
+    <button type="submit">Check Availability</button>
+  </form>
 
-        <button type="submit">Check Availability</button>
-    </form>
-
-    @if (isProAvailable) {
-        <div class="no-pro">
-            <p>Sorry, this pro can’t do your job, let’s get you a pro. </p>
-            <a>Check out for others</a>
-        </div>
-    }
-
+  @if (!isProAvailable) {
+  <div class="no-pro">
+    <p>Sorry, this pro can’t do your job, let’s get you a pro.</p>
+    <a>Check out for others</a>
+  </div>
+  }
+  <div class="pro-available">
+    <p-button (click)="showDialog()" label="Book Now" />
+  </div>
+  <p-dialog
+    header="Book Service"
+    [modal]="true"
+    [(visible)]="visible"
+    [draggable]="false"
+    [resizable]="false"
+    [autofocus]="false"
+    [style]="{ width: '44rem' }"
+  >
+    <app-booking-form
+      [providerEmail]="providerEmail"
+      (closeDialogEvent)="onCloseDialogClicked($event)"
+    />
+  </p-dialog>
 </div>
