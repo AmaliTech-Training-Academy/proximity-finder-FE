@@ -64,4 +64,16 @@
         <p class="message">{{review.content}}</p>
     </div>
 }
+@if (showAllReviews) {
+    <a (click)="showAllReviews = false">
+        <span>Show less</span>
+        <i class="pi pi-chevron-up"></i>
+    </a>
+}
+@else {
+    <a (click)="showAllReviews = true">
+        <span>Read all reviews</span>
+        <i class="pi pi-chevron-down"></i>
+    </a>
+}
 </div>
