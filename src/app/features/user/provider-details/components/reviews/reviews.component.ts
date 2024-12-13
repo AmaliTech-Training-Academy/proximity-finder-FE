@@ -32,6 +32,8 @@ export class ReviewsComponent {
   serviceId: string = ''
   defaultImage = 'assets/images/default-avatar.png'
   getTime: string | undefined
+  displayedReviews: review[] = []
+  showAllReviews = false
 
   constructor(private reviewService: ReviewService, private providerService: ProviderDataService,
     private previewService: PreviewService
@@ -69,6 +71,7 @@ export class ReviewsComponent {
             }
           })
         })
+        this.updateDisplayedReviews()
       }
     })
   }
@@ -78,6 +81,15 @@ export class ReviewsComponent {
         const inceptionDate = this.provider.createdAt
         this.getTime = getBusinessYears(inceptionDate)
       }
+  }
+
+  updateDisplayedReviews() {
+    this.displayedReviews = this.showAllReviews ? this.reviews : this.reviews.slice(0, 3)
+  }
+
+  toggleReviews() {
+    this.showAllReviews = !this.showAllReviews
+    this.updateDisplayedReviews()
   }
 
 }

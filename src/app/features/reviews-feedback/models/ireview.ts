@@ -24,3 +24,10 @@ export interface review {
     userEmail: string;
     authorInfo?: IProfile
 }
+
+export interface appReview{
+    reviewerName: string;
+    reviewerImage: string;
+    reason: string;
+    ratings: number;
+}

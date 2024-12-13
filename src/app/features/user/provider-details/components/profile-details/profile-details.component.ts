@@ -10,13 +10,17 @@ import { Notyf } from 'notyf';
 import { NOTYF } from '../../../../../shared/notify/notyf.token';
 import { CallService } from '../../../../service-discovery/services/call/call.service';
 import { QuoteService } from '../../../../service-discovery/services/quote/quote.service';
+import { CalendarModule } from 'primeng/calendar';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-profile-details',
   standalone: true,
-  imports: [FormsModule, RatingModule, AvailabilityFormComponent,DialogModule, ImageUploaderComponent, ReactiveFormsModule,CommonModule],
+  imports: [FormsModule, RatingModule, AvailabilityFormComponent,DialogModule, ImageUploaderComponent, ReactiveFormsModule,CommonModule,CalendarModule],
   templateUrl: './profile-details.component.html',
-  styleUrl: './profile-details.component.sass'
+  styleUrl: './profile-details.component.sass',
+  providers: [DatePipe]
 })
 export class ProfileDetailsComponent{
   value: number = 4;
@@ -39,17 +43,17 @@ export class ProfileDetailsComponent{
   quoteForm:FormGroup = this.formBuilder.group({
   title: ["",Validators.required],
    location: ["",Validators.required],
-    date: ["",Validators.required],
-    time: ["",Validators.required],
+    startDate: ["",Validators.required],
+    startTime: ["",Validators.required],
     endDate: ["",Validators.required],
     endTime: ["",Validators.required],
     description: ["",Validators.required],
-    info: ["",],
+    additionalDetails: ["",],
     images:[null]
     
   })
 
-  constructor(private formBuilder:FormBuilder, private callService:CallService,@Inject(NOTYF) private notyf: Notyf,private quoteService:QuoteService){}
+  constructor(private formBuilder:FormBuilder, private callService:CallService,@Inject(NOTYF) private notyf: Notyf,private quoteService:QuoteService,private datePipe: DatePipe){}
 
   ngOnInit() {
     if(this.provider.authservice){
@@ -78,33 +82,46 @@ export class ProfileDetailsComponent{
     });
   }
 
+
   onQuoteSubmit() {
     if (this.quoteForm.valid) {
       console.log(this.quoteForm.value);
+  
       const formData = new FormData();
+    
+     
+      const formattedStartDate = this.datePipe.transform(this.quoteForm.get('startDate')?.value, 'MM/dd/yyyy');
+      const formattedEndDate = this.datePipe.transform(this.quoteForm.get('endDate')?.value, 'MM/dd/yyyy');
   
-      // Append form values to FormData
-      Object.entries(this.quoteForm.value).forEach(([key, value]) => {
-        if (key === 'images' && Array.isArray(value)) {
-          // Append each file in the images array
-          value.forEach((file: File, index: number) => {
-            formData.append(`images[${index}]`, file);
-          });
-        } else if (value !== null && value !== undefined) {
-          formData.append(key, value as string);
-        }
-      });
+      formData.append('endDate', formattedEndDate || '');      
+      formData.append('startDate', formattedStartDate || '');      
+    
+      
+      formData.append('title', this.quoteForm.get('title')?.value);
+      formData.append('location', this.quoteForm.get('location')?.value);
+      formData.append('startTime', this.quoteForm.get('startTime')?.value);
+      formData.append('endTime', this.quoteForm.get('endTime')?.value);
+      formData.append('description', this.quoteForm.get('description')?.value);
+      formData.append('additionalDetails', this.quoteForm.get('additionalDetails')?.value);
   
-      // Append the provider's email
-      formData.append('providerEmail', this.provider.authservice.email);
+      
+      const images = this.quoteForm.get('images')?.value;
+      if (images && images.length > 0) {
+        images.forEach((image: File) => {
+          formData.append('images', image);
+        });
+      }
   
-      // Call the API to submit the form
+      
+      formData.append('assignedProvider', this.provider.authservice.email);
+    
+    
       this.quoteService.sendQuote(formData).subscribe({
         next: () => {
           this.notyf.success('Quote submitted successfully');
-          this.modals.quote = false; // Close the dialog
-          this.quoteForm.reset(); // Reset the form
-          this.isImageModified = false; // Reset the image modification flag
+          this.modals.quote = false; 
+          this.quoteForm.reset(); 
+          this.isImageModified = false; 
         },
         error: (error) => {
           console.error('Error submitting quote:', error);
@@ -116,13 +133,18 @@ export class ProfileDetailsComponent{
     }
   }
   
+  formatDate(date: string): string {
+    return this.datePipe.transform(date, 'MM/dd/yyyy') || '';
+  }
+
+  
 
   onCallRequest() {
     console.log(this.callForm.value);
     if (this.callForm.valid) {
       this.callService.sendCallRequest({
         ...this.callForm.value, 
-        providerEmail: this.provider.authservice.email 
+        assignedProvider: this.provider.authservice.email 
       }).subscribe({
         next: () => {
           this.notyf.success('Call Request Sent Successfully');
