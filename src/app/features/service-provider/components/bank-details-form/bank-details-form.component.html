@@ -39,10 +39,19 @@
       class="error-message"
       *ngIf="
         bankDetailsForm.get('accountName')?.touched &&
-        bankDetailsForm.get('accountName')?.invalid
+        bankDetailsForm.get('accountName')?.hasError('required')
       "
     >
       Account name is required
+    </small>
+    <small
+      class="error-message"
+      *ngIf="
+        bankDetailsForm.get('accountName')?.hasError('containsNumbers') &&
+        bankDetailsForm.get('accountName')?.touched
+      "
+    >
+      Account name cannot contain numbers
     </small>
   </div>
 
