@@ -21,8 +21,8 @@ export class CallService {
     return this.http.get<PaginatedRequests>(`${this.url}/call-request`);
   }
 
-  changeStatus(id: number, status: string) {
-    return this.http.patch(`${this.url}call-request/${id}/status`, { status });
+  changeStatus(requestId: number,status:string) {
+    return this.http.patch(`${this.url}/call-request/${requestId}/complete`, { status });
   }
   
   
