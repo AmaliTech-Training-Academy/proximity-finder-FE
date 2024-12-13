@@ -14,9 +14,8 @@ import { DialogModule } from 'primeng/dialog';
 import { MessageFormComponent } from "../../components/message-form/message-form.component";
 import { UserAccountsService } from '../../services/user-accounts.service';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
-import { catchError, EMPTY, Observable, Subscription, tap } from 'rxjs';
+import { catchError, EMPTY, Observable, Subscription } from 'rxjs';
 import { ProviderResponse } from '../../../../core/models/provider-response';
-import { ProDetails } from '../../../service-discovery/models/pro-details';
 
 @Component({
   selector: 'app-admin-pro-details',
@@ -44,7 +43,6 @@ export class AdminProDetailsComponent implements OnInit, OnDestroy{
     this.email = this.activatedRoute.snapshot.paramMap.get('email')
     const email = this.email ?? ''
     this.providerInfo = this.previewService.getPreview(email).pipe(
-      tap((provider) => {console.log('Provider info:', provider)}),
       catchError((error) => {
         console.error('Error fetching provider info:', error);
         this.notyf.error('Failed to load provider info');

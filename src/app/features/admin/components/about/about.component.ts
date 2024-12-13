@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy } from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { ApprovalModalComponent } from '../approval-modal/approval-modal.component';
 import { MatDialog } from '@angular/material/dialog';
 import { UserAccountsService } from '../../services/user-accounts.service';
@@ -9,6 +9,8 @@ import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MessageFormComponent } from "../message-form/message-form.component";
+import { ProviderResponse } from '../../../../core/models/provider-response';
+import { getBusinessYears } from '../../../../utils/yearsCalculator';
 
 @Component({
   selector: 'app-about',
@@ -17,12 +19,16 @@ import { MessageFormComponent } from "../message-form/message-form.component";
   templateUrl: './about.component.html',
   styleUrl: './about.component.sass'
 })
-export class AboutComponent implements OnDestroy {
+export class AboutComponent implements OnInit, OnDestroy {
   readonly dialog = inject(MatDialog)
   private notyf = inject(NOTYF)
   userSubscription: Subscription | null = null
   isApproved = false
   visible: boolean = false
+  @Input() provider!: ProviderResponse
+  getBusinessYears: string | undefined
+  userId!: number
+
 
   
   constructor (private userService: UserAccountsService, private fb: FormBuilder) {}
@@ -32,14 +38,36 @@ export class AboutComponent implements OnDestroy {
     reason: ['', Validators.required]
   })
 
+  
+  ngOnInit() {
+    this.getInceptionDate()
+  }
+
+  getInceptionDate() {
+    if(this.provider['business-info'].aboutBusinessResponse.inceptionDate){
+
+      const inceptionDate = this.provider['business-info'].aboutBusinessResponse.inceptionDate
+      this.getBusinessYears = getBusinessYears(inceptionDate)
+    }
+  }
+
+  getUserId() {
+    if(this.provider.authservice.userId) {
+      this.userId = this.provider.authservice.userId
+    }
+  }
 
   openDialog(){
+    this.getUserId()
     const dialogRef = this.dialog.open(ApprovalModalComponent, {
             data: {title: 'Account Approval',
             message: 'Are you sure you want to approve this account?',
             type: 'approve',
             confirmText: 'Approve',
-            cancelText: 'Cancel'}
+            cancelText: 'Cancel',
+            userId: this.userId,
+            userEmail: this.provider.authservice.email
+          }
     })
     dialogRef.afterClosed().subscribe((results) => {
       if(results) {
@@ -49,7 +77,7 @@ export class AboutComponent implements OnDestroy {
   }
 
   rejectAccount() {
-    this.userSubscription = this.userService.getUserStatus(6, 'REJECTED').subscribe({
+    this.userSubscription = this.userService.getUserStatus(this.userId, 'REJECTED').subscribe({
       next: (response: User) => {
         this.notyf.success('Account status updated successfully');
       },
@@ -61,7 +89,7 @@ export class AboutComponent implements OnDestroy {
   }
 
   revokeAccount() {
-    this.userSubscription = this.userService.getUserStatus(6, 'DEACTIVATED').subscribe({
+    this.userSubscription = this.userService.getUserStatus(this.userId, 'DEACTIVATED').subscribe({
       next: (response: User) => {
         this.notyf.success('Account status updated successfully');
       },
