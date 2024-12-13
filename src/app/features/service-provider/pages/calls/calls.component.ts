@@ -1,31 +1,30 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostListener } from '@angular/core';
 import { TableModule } from 'primeng/table';
-import { calls } from '../../data';
 import { Statuses } from '../../../../utils/status';
 import { CallService } from '../../../service-discovery/services/call/call.service';
-import { CallData } from '../../../service-discovery/models/call';
-import { callData } from '../../models/callData';
+import { RequestContent } from '../../../service-discovery/models/call';
+import { FormsModule } from '@angular/forms';
+
+
 
 
 @Component({
   selector: 'app-calls',
   standalone: true,
-  imports: [TableModule, CommonModule,],
+  imports: [TableModule, CommonModule,FormsModule],
   templateUrl: './calls.component.html',
   styleUrl: './calls.component.sass'
 })
 export class CallsComponent {
-  
-  calls:callData[]=[]
+  calls: RequestContent[] = [];
+  filteredCalls: RequestContent[] = [];
+  selectedDate: string | null = null;
+  statuses = Statuses;
+  activeCall: any = null;
 
-   statuses = Statuses
+  constructor(private callService: CallService) {}
 
-  activeCall: any = null; 
-
-  constructor(private callService:CallService){}
-
- 
   ngOnInit() {
     this.fetchCallRequests();
   }
@@ -33,7 +32,8 @@ export class CallsComponent {
   fetchCallRequests() {
     this.callService.getCallRequest().subscribe({
       next: (response) => {
-        this.calls = response;
+        this.calls = response.content;
+        this.filteredCalls = this.calls; 
       },
       error: (err) => {
         console.error('Error fetching call requests:', err);
@@ -41,15 +41,27 @@ export class CallsComponent {
     });
   }
 
+  filterByDate() {
+    if (this.selectedDate) {
+      this.filteredCalls = this.calls.filter(
+        (call) =>
+          new Date(call.requestDate).toISOString().split('T')[0] ===
+          this.selectedDate
+      );
+    } else {
+      this.filteredCalls = this.calls; 
+    }
+  }
+
   toggleMenu(call: any) {
     this.activeCall = this.activeCall === call ? null : call;
   }
 
   updateStatus(call: any, status: string) {
-    this.callService.changeStatus(call.id, status).subscribe({
+    this.callService.changeStatus(call.requestId, status).subscribe({
       next: () => {
-        call.status = status; 
-        this.activeCall = null; 
+        call.status = status;
+        this.activeCall = null;
       },
       error: (err) => {
         console.error('Error updating status:', err);
