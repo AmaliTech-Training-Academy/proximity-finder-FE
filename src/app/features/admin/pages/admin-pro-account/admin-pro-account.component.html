@@ -1,7 +1,7 @@
 <div class="container">
     <p>Pro Accounts</p>
 
-    @if (allProAccounts.length > 0) {
+    @if (allProAccounts.length > 0 ) {
     <div class="table">
         <p-table
           [paginator]="true"
@@ -21,65 +21,67 @@
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-proAccount>
-            <tr [routerLink]="['/admin/dashboard/pro-accounts/details', proAccount.email]">
-              <td class="business-owner">
-                @if (proAccount.profileImage) {
-                  <img [src]="proAccount.profileImage" alt="business owner's avatar">
-                }
-                @else {
-                  <img [src]="'https://avatar.iran.liara.run/username?username=' + getUsername(proAccount.businessOwnerName)" alt="business owner's initials" class="initials">
-                }
-                {{ proAccount.businessOwnerName }}
-              </td>
-              <td>{{ proAccount.userName | slice:0:15 }}</td>
-              <td>{{ proAccount.email | slice:0:18 }}...</td>
-              <td>{{ proAccount.placeName | slice:0:13}}...</td>
-              <td>{{ proAccount.status === 'ACTIVE' ? 'Yes' : 'No'}}
+            @if (proAccount.status !== 'PENDING') {
+              <tr [routerLink]="['/admin/dashboard/pro-accounts/details', proAccount.email]">
+                <td class="business-owner">
+                  @if (proAccount.profileImage) {
+                    <img [src]="proAccount.profileImage" alt="business owner's avatar">
+                  }
+                  @else {
+                    <img [src]="'https://avatar.iran.liara.run/username?username=' + getUsername(proAccount.businessOwnerName)" alt="business owner's initials" class="initials">
+                  }
+                  {{ proAccount.businessOwnerName }}
+                </td>
+                <td>{{ proAccount.userName | slice:0:15 }}</td>
+                <td>{{ proAccount.email | slice:0:18 }}...</td>
+                <td>{{ proAccount.placeName | slice:0:13}}...</td>
+                <td>{{ proAccount.status === 'ACTIVE' ? 'Yes' : 'No'}}
+                </td>
+                <td>
+
+                <div class="action-container" (click)="$event.stopPropagation()">
+                    <span class="status-label" [ngClass]="proAccount.status | lowercase" (click)="toggleMenu(proAccount)">
+                      <i class="status-icon"></i>
+                      {{ proAccount.status === 'DEACTIVATED' ? 'Inactive' : proAccount.status | status | titlecase}}
+                      <i class="pi pi-chevron-down"></i>
+                    </span>
+                    
+
+                    @if (activeAccount === proAccount) {
+                      <div class="menu">
+                        @for (status of statuses; track $index) {
+                          <span class="status-label" [ngClass]="statusMapping[status] | lowercase" (click)="updateStatus(proAccount, status)">
+                            <i class="status-icon"></i>
+                            {{ status | status }}
+                          </span>
+                        }
+                      </div>
+                    }
+                </div>
+
               </td>
               <td>
+                <div class="action-container" (click)="$event.stopPropagation()">
+                  <i class="pi pi-ellipsis-v" style="color: rgba(119, 135, 143, 1)" (click)="toggleAction(proAccount)"></i>
 
-              <div class="action-container" (click)="$event.stopPropagation()">
-                  <span class="status-label" [ngClass]="proAccount.status | lowercase" (click)="toggleMenu(proAccount)">
-                    <i class="status-icon"></i>
-                    {{ proAccount.status === 'DEACTIVATED' ? 'Inactive' : proAccount.status | status | titlecase}}
-                    <i class="pi pi-chevron-down"></i>
-                  </span>
-                  
-
-                  @if (activeAccount === proAccount) {
+                  @if(showAction[proAccount.email]){
                     <div class="menu">
-                      @for (status of statuses; track $index) {
-                        <span class="status-label" [ngClass]="statusMapping[status] | lowercase" (click)="updateStatus(proAccount, status)">
-                          <i class="status-icon"></i>
-                          {{ status | status }}
-                        </span>
-                      }
+                      <div class="action" (click)="openDialog()">
+                        <i class="pi pi-trash"></i>
+                        <p>Delete</p>
+                      </div>
+                      <a routerLink="/admin/dashboard/pro-accounts/details"
+                        routerLinkActive="active-link" class="action">
+                        <i class="pi pi-pencil"></i>
+                        <p>View</p>
+                      </a>
                     </div>
                   }
-              </div>
-
-            </td>
-            <td>
-              <div class="action-container" (click)="$event.stopPropagation()">
-                <i class="pi pi-ellipsis-v" style="color: rgba(119, 135, 143, 1)" (click)="toggleAction(proAccount)"></i>
-
-                @if(showAction[proAccount.email]){
-                  <div class="menu">
-                    <div class="action" (click)="openDialog()">
-                      <i class="pi pi-trash"></i>
-                      <p>Delete</p>
-                    </div>
-                    <a routerLink="/admin/dashboard/pro-accounts/details"
-                      routerLinkActive="active-link" class="action">
-                      <i class="pi pi-pencil"></i>
-                      <p>View</p>
-                    </a>
-                  </div>
-                }
-                
-              </div>
-            </td>
-            </tr>
+                  
+                </div>
+              </td>
+              </tr>
+          }
           </ng-template>
         </p-table>
     </div>
