@@ -1,0 +1,13 @@
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+@use '../../../../../styles/_variables' as *
+
+.container
+    @include flex-option(flex, null, null, column)
+    gap: 1rem
+    padding: 1.25rem 2.5rem
+
+    p
+        font-size: 1.5rem
+        font-weight: 600
+        color: $text-main

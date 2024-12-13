@@ -1,0 +1,54 @@
+@use '../../../../../styles/_variables' as *
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+
+header
+    @include flex-option(flex, flex-end, center,row)
+    gap: 0.5rem
+    
+    ::ng-deep .p-dropdown
+        border-radius: 4px
+        border: 1px solid #EAECF0
+        color: $text-main
+        padding: 0.5rem
+
+    ::ng-deep .p-dropdown .p-dropdown-trigger
+        color: $text-main
+
+    ::ng-deep .p-dropdown-label
+        color: $text-main
+
+    .today
+        @include flex-option(flex, flex-start, center,row)
+        gap: 0.5rem
+        border: 1px solid #EAECF0
+        background-color: $white
+        border-radius: 4px
+        padding: 0.5rem
+
+
+
+        button
+            font-size: 1rem
+            font-weight: 500
+            color: $text-main
+            border: none
+            outline: none
+            background-color: transparent
+            cursor: pointer
+    
+    .add-btn
+        @include flex-option(flex, flex-start, center,row)
+        gap: 0.5rem
+        border: none
+        outline: none
+        background-color: #408EFD
+        color: $white
+        border-radius: 4px
+        padding: 0.5rem
+        font-size: 1rem
+        font-weight: 500
+        letter-spacing: 0.8px
+        cursor: pointer
+
+    
