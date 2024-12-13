@@ -16,11 +16,12 @@ export interface getQuote{
     endDate:string;
     description:string;
     additionalDetails:string;
-    image:string,
+    images:string,
     decision:string,
     price:string
     duration:string
     approvalDetails?:string
+    id?:number
 }
 
 export interface acceptQuote{

@@ -39,12 +39,12 @@ export class ProfileDetailsComponent{
   quoteForm:FormGroup = this.formBuilder.group({
   title: ["",Validators.required],
    location: ["",Validators.required],
-    date: ["",Validators.required],
-    time: ["",Validators.required],
+    startDate: ["",Validators.required],
+    startTime: ["",Validators.required],
     endDate: ["",Validators.required],
     endTime: ["",Validators.required],
     description: ["",Validators.required],
-    info: ["",],
+    additionalDetails: ["",],
     images:[null]
     
   })
@@ -83,28 +83,56 @@ export class ProfileDetailsComponent{
       console.log(this.quoteForm.value);
       const formData = new FormData();
   
-      // Append form values to FormData
-      Object.entries(this.quoteForm.value).forEach(([key, value]) => {
-        if (key === 'images' && Array.isArray(value)) {
-          // Append each file in the images array
-          value.forEach((file: File, index: number) => {
-            formData.append(`images[${index}]`, file);
-          });
-        } else if (value !== null && value !== undefined) {
-          formData.append(key, value as string);
-        }
-      });
+      formData.append(
+        'title',
+        this.quoteForm.get('title')?.value
+      );
+      formData.append(
+        'location',
+        this.quoteForm.get('location')?.value
+      );
+      formData.append(
+        'startDate',
+        this.quoteForm.get('startDate')?.value
+      );
+      formData.append(
+        'startTime',
+        this.quoteForm.get('startTime')?.value
+      );
+      formData.append(
+        'endDate',
+        this.quoteForm.get('endDate')?.value
+      );
+      formData.append(
+        'endTime',
+        this.quoteForm.get('endTime')?.value
+      );
+      formData.append(
+        'additionalDetails',
+        this.quoteForm.get('additionalDetails')?.value
+      );
+      formData.append(
+        'description',
+        this.quoteForm.get('description')?.value
+      );
+
+      const images = this.quoteForm.get('images')?.value;
+      if (images && images.length > 0) {
+        images.forEach((image: File, index: number) => {
+          formData.append('images', image);
+        });
+      }
   
-      // Append the provider's email
-      formData.append('providerEmail', this.provider.authservice.email);
+    
+      formData.append('assignedProvider', this.provider.authservice.email);
   
-      // Call the API to submit the form
+      
       this.quoteService.sendQuote(formData).subscribe({
         next: () => {
           this.notyf.success('Quote submitted successfully');
-          this.modals.quote = false; // Close the dialog
-          this.quoteForm.reset(); // Reset the form
-          this.isImageModified = false; // Reset the image modification flag
+          this.modals.quote = false; 
+          this.quoteForm.reset(); 
+          this.isImageModified = false; 
         },
         error: (error) => {
           console.error('Error submitting quote:', error);
