@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { CommonModule} from '@angular/common';
-import { quotes } from '../../data';
 import { Router } from '@angular/router';
+import { QuoteService } from '../../../service-discovery/services/quote/quote.service';
+import { Request } from '../../../service-provider/models/quoteData';
 
 
 interface PageEvent {
@@ -20,10 +21,29 @@ interface PageEvent {
   styleUrl: './quotes.component.sass',
 })
 export class QuotesComponent {
-  quotes = quotes;
+  quotes:Request[] = [];
+  selectedDate: string | null = null;
+  
+  
 
 
-  constructor(private router:Router){}
+  constructor(private router:Router, private quoteService:QuoteService){}
+
+  ngOnInit() {
+    this.fetchQuoteRequests();
+  }
+
+  fetchQuoteRequests() {
+    this.quoteService.getQuotes().subscribe({
+      next: (response) => {
+        this.quotes = response.content;
+      },
+      error: (err) => {
+        console.error('Error fetching quote requests:', err);
+      },
+    });
+  }
+
 
   openDetails(){
    this.router.navigateByUrl('/provider/dashboard/requests/quote-detail')
