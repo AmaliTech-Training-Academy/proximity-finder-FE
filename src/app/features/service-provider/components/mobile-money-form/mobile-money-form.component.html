@@ -1,11 +1,25 @@
-<form>
+<form [formGroup]="mobileMoneyForm" (ngSubmit)="onSubmit()">
   <div class="serviceProvider">
     <label for="serviceProvider">Service Provider</label>
     <p-dropdown
-      formControlName="selectedProvider"
+      formControlName="serviceProvider"
       [options]="mobileMoneyProviders"
       placeholder="Choose Service Provider"
+      [ngClass]="{
+        'ng-invalid ng-dirty':
+          mobileMoneyForm.get('serviceProvider')?.touched &&
+          mobileMoneyForm.get('serviceProvider')?.invalid
+      }"
     />
+    <small
+      class="error-message"
+      *ngIf="
+        mobileMoneyForm.get('serviceProvider')?.touched &&
+        mobileMoneyForm.get('serviceProvider')?.invalid
+      "
+    >
+      Provider is required
+    </small>
   </div>
   <div class="accountName">
     <label for="accountName">Account Name</label>
@@ -14,7 +28,21 @@
       pInputText
       formControlName="accountName"
       placeholder="Enter account name"
+      [ngClass]="{
+        'ng-invalid ng-dirty':
+          mobileMoneyForm.get('accountName')?.touched &&
+          mobileMoneyForm.get('accountName')?.invalid
+      }"
     />
+    <small
+      class="error-message"
+      *ngIf="
+        mobileMoneyForm.get('accountName')?.touched &&
+        mobileMoneyForm.get('accountName')?.invalid
+      "
+    >
+      Account name is required
+    </small>
   </div>
 
   <div class="accountAlias">
@@ -24,21 +52,48 @@
       pInputText
       formControlName="accountAlias"
       placeholder="Enter a desired name"
+      [ngClass]="{
+        'ng-invalid ng-dirty':
+          mobileMoneyForm.get('accountAlias')?.touched &&
+          mobileMoneyForm.get('accountAlias')?.invalid
+      }"
     />
+    <small
+      class="error-message"
+      *ngIf="
+        mobileMoneyForm.get('accountAlias')?.touched &&
+        mobileMoneyForm.get('accountAlias')?.invalid
+      "
+    >
+      Account alias is required
+    </small>
   </div>
 
   <div class="mobileNumber">
     <label for="mobileNumber">Mobile Number</label>
     <input
-      type="text"
-      pInputText
-      formControlName="accountNumber"
-      placeholder="0000 0000 0000"
+      type="phone"
+      formControlName="mobileNumber"
+      placeholder="+233123834756"
+      [ngClass]="{
+        'ng-invalid ng-dirty':
+          mobileMoneyForm.get('mobileNumber')?.touched &&
+          mobileMoneyForm.get('mobileNumber')?.invalid
+      }"
     />
+    <small
+      class="error-message"
+      *ngIf="
+        mobileMoneyForm.get('mobileNumber')?.touched &&
+        mobileMoneyForm.get('mobileNumber')?.invalid
+      "
+    >
+      Mobile number is required
+    </small>
   </div>
 
   <div class="buttons">
     <p-button label="Cancel" severity="secondary" (onClick)="closeDialog()" />
-    <p-button label="Save" />
+    <p-button label="Save" type="submit" />
   </div>
 </form>
