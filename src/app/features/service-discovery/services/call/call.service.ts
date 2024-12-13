@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
 import { Observable } from 'rxjs';
-import { Call, CallData } from '../../models/call';
+import { Call, CallData, PaginatedRequests } from '../../models/call';
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +14,11 @@ export class CallService {
   constructor(private http:HttpClient) { }
 
   sendCallRequest(data:Call):Observable<Call[]>{
-    return this.http.post<Call[]>(`${this.url}call-request`, data);
+    return this.http.post<Call[]>(`${this.url}/call-request`, data);
   }
 
   getCallRequest(){
-    return this.http.get<CallData[]>(`${this.url}call-request`);
+    return this.http.get<PaginatedRequests>(`${this.url}/call-request`);
   }
 
   changeStatus(id: number, status: string) {
