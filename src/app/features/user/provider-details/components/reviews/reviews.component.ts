@@ -87,4 +87,9 @@ export class ReviewsComponent {
     this.displayedReviews = this.showAllReviews ? this.reviews : this.reviews.slice(0, 3)
   }
 
+  toggleReviews() {
+    this.showAllReviews = !this.showAllReviews
+    this.updateDisplayedReviews()
+  }
+
 }
