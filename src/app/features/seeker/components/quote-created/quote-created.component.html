@@ -9,7 +9,7 @@
 
    <div class="all-quotes">
     <div  class="quote-container">
-        @for(quotes of quotes; track quotes.id){
+        @for(quotes of quotes; track quotes.quoteId){
 
             <div class="quote-list">
                 <div class="header">
@@ -33,11 +33,16 @@
                     </div>
                     <div class="price">
                         <i class="pi pi-dollar" style="color:#77878F"> Price</i>
-                        <p>{{quotes.price || 'Not available'}}</p>
+                        <p>
+                            {{ quotes.status === 'APPROVED' && quotes.decision.price !== null && quotes.decision.price !== undefined 
+                              ? quotes.decision.price 
+                              : 'Not available' }}
+                          </p>
+                          
                     </div>
                 </div>
     
-                <div class="view-details" (click)="toggleDetails()">
+                <div class="view-details" (click)="viewQuoteDetails(quotes.quoteId)">
                     <button class="btn-view">View Details</button>
                 </div>
     

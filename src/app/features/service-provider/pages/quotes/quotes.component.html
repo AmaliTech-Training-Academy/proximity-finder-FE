@@ -2,7 +2,7 @@
   <p-table
     [paginator]="true"
     [rows]="10"
-    [value]="quotes"
+    [value]="quotes | reverse"
     [tableStyle]="{ 'min-width': '50rem' }"
   >
     <ng-template pTemplate="header">
@@ -14,7 +14,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-quote>
-      <tr (click)="openDetails()">
+      <tr (click)="openDetails()" >
         <td>{{ quote.clientName }}</td>
         <td>{{ quote.description }}</td>
         <td>{{ quote.clientEmail }}</td>
