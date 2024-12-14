@@ -14,7 +14,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-quote>
-      <tr (click)="openDetails()" >
+      <tr (click)="openDetails(quote)" >
         <td>{{ quote.clientName }}</td>
         <td>{{ quote.description }}</td>
         <td>{{ quote.clientEmail }}</td>

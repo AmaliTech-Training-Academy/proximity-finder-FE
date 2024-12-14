@@ -46,7 +46,8 @@ export class QuotesComponent {
   }
 
 
-  openDetails(){
-   this.router.navigateByUrl('/provider/dashboard/requests/quote-detail')
+  openDetails(quote: Request) {
+    this.router.navigateByUrl(`/provider/dashboard/requests/quote-detail/${quote.requestId}`);
   }
+  
 }
