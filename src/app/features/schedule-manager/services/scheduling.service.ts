@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ErrorHandlingService } from '../../../core/services/error-handling.service';
-import { Event, EventResponse } from '../models/scheduler';
+import { Availablity, Event, EventResponse } from '../models/scheduler';
 import { catchError, retry } from 'rxjs';
 
 @Injectable({
@@ -29,6 +29,20 @@ export class SchedulingService {
 
   deleteEvent(eventId: number) {
     return this.http.delete(`${this.eventUrl}/${eventId}`).pipe(
+      retry(2),
+      catchError(error => this.errorHandler.handleError(error))
+    )
+  }
+
+  updateEvent(eventId: number, event: Event) {
+    return this.http.put<Event>(`this.eventUrl/${eventId}`, {event}).pipe(
+      retry(2),
+      catchError(error => this.errorHandler.handleError(error))
+    )
+  }
+
+  checkAvailability(data: Availablity) {
+    return this.http.post<Availablity>(`${this.eventUrl}/check-availability`, {data}).pipe(
       retry(2),
       catchError(error => this.errorHandler.handleError(error))
     )

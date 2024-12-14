@@ -30,3 +30,30 @@
         <p class="time">{{ arg.timeText }}</p>
     </ng-template>
 </full-calendar>
+
+<p-overlayPanel #op>
+    <div class="event-popup">
+        <div class="event-actions">
+            <button pButton icon="pi pi-pencil"></button>
+            <button  pButton icon="pi pi-trash"></button>
+            
+            <p-toast />
+            <p-confirmPopup />
+            <p-button 
+                (click)="confirm1($event)" 
+                label="Save" 
+                [outlined]="true" />
+            <p-button 
+                (click)="confirm2($event)" 
+                label="Delete" 
+                severity="danger" 
+                [outlined]="true" />
+
+            <button (click)="op.hide()" pButton icon="pi pi-times"></button>
+        </div>
+
+        <h4>{{ selectedEvent?.title }}</h4>
+        <p>{{ selectedEvent?.description }}</p>
+        <p>{{ selectedEvent?.start }} - {{ selectedEvent?.end }}</p>
+    </div>
+</p-overlayPanel>

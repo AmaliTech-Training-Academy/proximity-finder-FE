@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal, ViewChild } from '@angular/core';
 import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
-import { CalendarOptions, EventApi, EventClickArg } from '@fullcalendar/core';
+import { CalendarOptions, EventClickArg } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -15,11 +15,19 @@ import { EventFormComponent } from "../event-form/event-form.component";
 import { SchedulingService } from '../../services/scheduling.service';
 import { formatDate, formatDateForFullCalendar, formatTime, formatTimeForFullCalendar } from '../../../../utils/dateFormatter';
 import { Event, EventResponse, FormattedEvent } from '../../models/scheduler';
+import { OverlayPanel, OverlayPanelModule } from 'primeng/overlaypanel';
+import { ButtonModule } from 'primeng/button';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ConfirmationService, MessageService } from 'primeng/api';
+
 
 @Component({
   selector: 'app-calendar',
   standalone: true,
-  imports: [FullCalendarModule, CommonModule, FormsModule, ReactiveFormsModule, DropdownModule, DialogModule, EventFormComponent],
+  imports: [FullCalendarModule, CommonModule, FormsModule, ReactiveFormsModule, DropdownModule, DialogModule, EventFormComponent,
+  OverlayPanelModule, ButtonModule, ToastModule, ConfirmPopupModule],
+  providers: [ConfirmationService, MessageService],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.sass'
 })
@@ -30,10 +38,13 @@ export class CalendarComponent {
   selectedMonth = new FormControl(new Date().getMonth())
   visible: boolean = false
   @ViewChild(FullCalendarComponent) fullCalendar!: FullCalendarComponent
+  @ViewChild('op') overlayPanel!: OverlayPanel
   private notyf = inject(NOTYF)
   events = signal<FormattedEvent[]>([])
+  selectedEvent: any = null
+  
 
-  constructor(private schedulingService: SchedulingService) {}
+  constructor(private schedulingService: SchedulingService, private confirmationService: ConfirmationService, private messageService: MessageService) {}
 
   calendarOptions = signal<CalendarOptions>({
     plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin],
@@ -130,7 +141,7 @@ export class CalendarComponent {
       },
       error: (error) => {
         console.error('Error adding event:', error)
-        this.notyf.error(error.message)
+        this.notyf.error('Error adding event')
       }
     })
   }
@@ -138,13 +149,14 @@ export class CalendarComponent {
   getAllEvents() {
     this.schedulingService.getAllEvents().subscribe({
       next: (events) => {
-        const formattedEvents = events.map((event: Event) => {
+        const formattedEvents = events.map((event: EventResponse) => {
           const startDate = formatDateForFullCalendar(event.startDate)
           const endDate = formatDateForFullCalendar(event.endDate)
           const startTime = formatTimeForFullCalendar(event.startTime)
           const endTime = formatTimeForFullCalendar(event.endTime)
   
           return {
+            id: event.eventId,
             title: event.title,
             start: `${startDate}T${startTime}`,
             end: `${endDate}T${endTime}`,
@@ -160,7 +172,7 @@ export class CalendarComponent {
       },
       error: (error) => {
         console.error('Error fetching events:', error)
-        this.notyf.error(error.message)
+        this.notyf.error('Error fetching events')
       }
     });
   }
@@ -188,11 +200,61 @@ export class CalendarComponent {
   }
   
 
+  // handleEventClick(clickInfo: EventClickArg) {
+  //   if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+  //     clickInfo.event.remove()
+  //     const eventId = Number(clickInfo.event.id)
+  //     this.schedulingService.deleteEvent(eventId).subscribe({
+  //       next: () => {
+  //         this.notyf.success('Event deleted successfully')
+  //       },
+  //       error: (error) => {
+  //         console.error('Error deleting event:', error)
+  //         this.notyf.error('Error deleting event')
+  //       }
+  //     })
+  //   }
+  // }
   handleEventClick(clickInfo: EventClickArg) {
-    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-      clickInfo.event.remove();
+    this.selectedEvent = {
+        id: clickInfo.event.id,
+        title: clickInfo.event.title,
+        description: clickInfo.event.extendedProps?.['description'] || 'No description',
+        start: clickInfo.event.start?.toLocaleString(),
+        end: clickInfo.event.end?.toLocaleString(),
     }
+
+    this.overlayPanel.show(clickInfo.jsEvent);
   }
+
+  confirm1(event: MouseEvent) {
+    this.confirmationService.confirm({
+        target: event.target as EventTarget,
+        message: 'Are you sure you want to proceed?',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+            this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
+        },
+        reject: () => {
+            this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+        }
+    });
+}
+
+confirm2(event: MouseEvent) {
+    this.confirmationService.confirm({
+        target: event.target as EventTarget,
+        message: 'Do you want to delete this record?',
+        icon: 'pi pi-info-circle',
+        acceptButtonStyleClass: 'p-button-danger p-button-sm',
+        accept: () => {
+            this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 3000 });
+        },
+        reject: () => {
+            this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+        }
+    });
+}
   
 }
 
