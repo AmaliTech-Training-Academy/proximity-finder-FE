@@ -183,6 +183,7 @@ export class CalendarComponent {
   
     if (this.calendarApi) {
       this.calendarApi.addEvent(formattedEvent)
+      this.calendarApi.refetchEvents()
     }
   }
   

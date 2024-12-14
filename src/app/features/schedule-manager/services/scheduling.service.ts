@@ -26,4 +26,11 @@ export class SchedulingService {
       catchError(error => this.errorHandler.handleError(error))
     )
   }
+
+  deleteEvent(eventId: number) {
+    return this.http.delete(`${this.eventUrl}/${eventId}`).pipe(
+      retry(2),
+      catchError(error => this.errorHandler.handleError(error))
+    )
+  }
 }

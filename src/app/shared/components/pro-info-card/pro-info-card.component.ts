@@ -21,7 +21,7 @@ export class ProInfoCardComponent implements OnInit, OnDestroy {
   businessName: string = ''
   businessImage: string = ''
   previewSubscription: Subscription | null = null
-  defaultImage = 'assets/images/default-avatar.png'
+  defaultImage = 'assets/images/default-service.jpg'
   
 
   constructor(private router: Router, private providerService: ProviderDataService, private previewService: PreviewService,
