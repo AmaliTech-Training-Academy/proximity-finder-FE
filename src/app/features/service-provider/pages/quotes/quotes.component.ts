@@ -4,6 +4,7 @@ import { CommonModule} from '@angular/common';
 import { Router } from '@angular/router';
 import { QuoteService } from '../../../service-discovery/services/quote/quote.service';
 import { Request } from '../../../service-provider/models/quoteData';
+import { ReversePipe } from '../../../../utils/reverse.pipe';
 
 
 interface PageEvent {
@@ -16,7 +17,7 @@ interface PageEvent {
 @Component({
   selector: 'app-quotes',
   standalone: true,
-  imports: [TableModule, CommonModule],
+  imports: [TableModule, CommonModule,ReversePipe],
   templateUrl: './quotes.component.html',
   styleUrl: './quotes.component.sass',
 })
