@@ -1,7 +1,7 @@
 @if (provider) {
 
     <div class="card">
-        <img [src]="provider.service.image" alt="service image">
+        <img [src]="businessImage ? businessImage : defaultImage" alt="service image">
     
         <div class="info">
             <div class="col">

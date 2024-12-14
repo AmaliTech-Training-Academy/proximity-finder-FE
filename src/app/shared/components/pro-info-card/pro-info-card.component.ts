@@ -19,7 +19,9 @@ export class ProInfoCardComponent implements OnInit, OnDestroy {
   @Input() provider!: ProDetails
   value: number = 0
   businessName: string = ''
+  businessImage: string = ''
   previewSubscription: Subscription | null = null
+  defaultImage = 'assets/images/default-service.jpg'
   
 
   constructor(private router: Router, private providerService: ProviderDataService, private previewService: PreviewService,
@@ -37,6 +39,7 @@ export class ProInfoCardComponent implements OnInit, OnDestroy {
   getBusinessName() {
     this.previewService.getClientPreview(this.provider.userEmail).subscribe((res) => {
       this.businessName = res.userName
+      this.businessImage = res.profileImage
     })
   }
 
