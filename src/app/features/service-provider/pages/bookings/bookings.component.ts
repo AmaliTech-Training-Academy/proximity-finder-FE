@@ -9,14 +9,7 @@ import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-bookings',
   standalone: true,
-  imports: [
-    TableModule,
-    DatePipe,
-    DialogModule,
-    ButtonModule,
-    InputTextModule,
-    BookingFormComponent,
-  ],
+  imports: [TableModule, DatePipe, DialogModule, ButtonModule, InputTextModule],
   templateUrl: './bookings.component.html',
   styleUrl: './bookings.component.sass',
 })
@@ -25,9 +18,5 @@ export class BookingsComponent {
 
   showDialog() {
     this.visible = true;
-  }
-
-  onCloseDialogClicked(visible: boolean) {
-    this.visible = visible;
   }
 }

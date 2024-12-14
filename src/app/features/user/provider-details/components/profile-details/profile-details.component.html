@@ -53,7 +53,7 @@
   </div>
 
   <div class="right">
-    <app-availability-form />
+    <app-availability-form [providerEmail]="email" />
   </div>
 </div>
 
@@ -219,9 +219,7 @@
 
       <div class="images">
         <label>Upload some pictures related to the project</label>
-        <app-image-uploader 
-        (uploadedImages)="onImageUploaded($event)"
-        />
+        <app-image-uploader (uploadedImages)="onImageUploaded($event)" />
       </div>
 
       <div class="action-buttons">

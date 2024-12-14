@@ -51,4 +51,38 @@ header
         letter-spacing: 0.8px
         cursor: pointer
 
-    
+::ng-deep .fc .fc-timegrid-slot-minor
+    border: none
+
+
+::ng-deep .fc .fc-timegrid-slot
+    height: pxToRem(39)
+
+::ng-deep td.fc-timegrid-slot.fc-timegrid-slot-lane.fc-timegrid-slot-minor
+    border: none
+
+::ng-deep .fc-v-event
+    @include flex-option(flex, null, null, column)
+    gap: 0.5rem
+    padding: pxToRem(4)
+    background-color: #D8E8FF
+    border: none
+
+::ng-deep .fc-v-event .fc-event-title
+    color: $text-main
+    font-size: 0.875rem
+
+::ng-deep .fc-timegrid-event .fc-event-time
+    color: #408EFD
+    font-size: 0.75rem
+
+::ng-deep .fc-timegrid-event-harness-inset .fc-timegrid-event
+    box-shadow: none
+
+.title
+    color: $text-main
+    font-size: 0.875rem
+
+.time
+    color: #408EFD
+    font-size: 0.75rem

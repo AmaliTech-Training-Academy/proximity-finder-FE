@@ -1,13 +1,18 @@
-<form class="booking-form">
+<form class="booking-form" [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
   <div class="start">
     <div class="start-date">
       <label for="startDate">Start Date</label>
-      <p-calendar placeholder="dd/mm/yyyy" formControlName="startDate" />
+      <p-calendar
+        dateFormat="dd/mm/yy"
+        placeholder="dd/mm/yyyy"
+        formControlName="startDate"
+      />
     </div>
     <div class="start-time">
       <label for="startTime">Start Time</label>
       <p-calendar
         placeholder="00:00"
+        formControlName="startTime"
         inputId="calendar-timeonly"
         [timeOnly]="true"
       />
@@ -17,12 +22,17 @@
   <div class="end">
     <div class="end-date">
       <label for="endDate">End Date</label>
-      <p-calendar placeholder="dd/mm/yyyy" formControlName="endDate" />
+      <p-calendar
+        dateFormat="dd/mm/yy"
+        placeholder="dd/mm/yyyy"
+        formControlName="endDate"
+      />
     </div>
     <div class="end-time">
       <label for="endTime">End Time</label>
       <p-calendar
         placeholder="00:00"
+        formControlName="endTime"
         inputId="calendar-timeonly"
         [timeOnly]="true"
       />
@@ -32,9 +42,9 @@
   <div class="description">
     <label for="description">Project Description</label>
     <p-editor
-      formControlName="projectDescription"
       [style]="{ height: '320px' }"
       [(ngModel)]="projectDescriptionText"
+      formControlName="description"
     >
       <ng-template pTemplate="header">
         <span class="ql-formats">
@@ -111,7 +121,7 @@
   </div>
   <div class="buttons">
     <p-button label="Cancel" severity="secondary" (onClick)="closeDialog()" />
-    <p-button type="submit" label="Submit" />
+    <p-button type="submit" label="Submit" (onClick)="submitClicked()" />
   </div>
 </form>
 

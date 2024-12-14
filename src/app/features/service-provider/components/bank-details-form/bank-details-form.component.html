@@ -39,10 +39,19 @@
       class="error-message"
       *ngIf="
         bankDetailsForm.get('accountName')?.touched &&
-        bankDetailsForm.get('accountName')?.invalid
+        bankDetailsForm.get('accountName')?.hasError('required')
       "
     >
       Account name is required
+    </small>
+    <small
+      class="error-message"
+      *ngIf="
+        bankDetailsForm.get('accountName')?.hasError('containsNumbers') &&
+        bankDetailsForm.get('accountName')?.touched
+      "
+    >
+      Account name cannot contain numbers
     </small>
   </div>
 
@@ -76,6 +85,7 @@
       formControlName="accountNumber"
       placeholder="0000 0000 0000"
       [useGrouping]="false"
+      [maxlength]="13"
       [ngClass]="{
         'ng-invalid ng-dirty':
           bankDetailsForm.get('accountNumber')?.touched &&
@@ -86,10 +96,19 @@
       class="error-message"
       *ngIf="
         bankDetailsForm.get('accountNumber')?.touched &&
-        bankDetailsForm.get('accountNumber')?.invalid
+        bankDetailsForm.get('accountNumber')?.hasError('required')
       "
     >
       Account number is required
+    </small>
+    <small
+      class="error-message"
+      *ngIf="
+        bankDetailsForm.get('accountNumber')?.hasError('lengthError') &&
+        bankDetailsForm.get('accountNumber')?.touched
+      "
+    >
+      Account number must be 13 digits
     </small>
   </div>
 
