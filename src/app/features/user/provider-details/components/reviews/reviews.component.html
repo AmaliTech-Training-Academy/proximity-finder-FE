@@ -37,27 +37,43 @@
 
     </div>
 </div>
-<div class="col-2">
-    <div class="profile">
-        <div class="left">
-            <img src="../../../../../../assets/images/profile.png" alt="profile image">
-            <p class="name">Hillary Mills</p>
-            <p class="time">4 months ago</p>
+@for (review of displayedReviews; track $index) {
+    <div class="col-2">
+        <div class="profile">
+            <div class="left">
+                <img [src]="review.authorInfo?.profileImage ? review.authorInfo?.profileImage : defaultImage" alt="profile image">
+                <p class="name">{{review.authorInfo?.userName}}</p>
+                @if (getTime === '1 year ago') {
+                    <p class="time">
+                      1 year in business
+                    </p>
+                  }
+                  
+                  @if (getTime !== '1 year ago') {
+                    <p class="time">
+                      {{ getTime }}
+                    </p>
+                  }
+            </div>
+    
+            <div class="right">
+                <p class="rate">{{review.rating}}.0</p>
+                <p-rating [(ngModel)]="review.rating" [readonly]="true" [cancel]="false" />
+            </div>
         </div>
-
-        <div class="right">
-            <p class="rate">(4.5)</p>
-            <p-rating [(ngModel)]="value" [readonly]="true" [cancel]="false" />
-        </div>
+        <p class="message">{{review.content}}</p>
     </div>
-    <p class="message">
-        Towering performance by Matt Damon as a troubled working class who needs to address his creative genius elevates this drama way above its therapeutic approach, resulting in a zeitgeist film that may touch chord with young viewers the way The Graduate did
-    </p>
+}
 
-    <div class="images">
-        <img src="../../../../../../assets/images/profile.png" alt="image">
-        <img src="../../../../../../assets/images/profile.png" alt="image">
-        <img src="../../../../../../assets/images/profile.png" alt="image">
-    </div>
-</div>
+<div class="review-actions">
+    <a (click)="toggleReviews()">
+        @if (!showAllReviews) {
+            <span>Read all reviews</span>
+        }
+        @if (showAllReviews) {
+            <span>Show less</span>
+        }
+      <i [class]="showAllReviews ? 'pi pi-chevron-up' : 'pi pi-chevron-down'"></i>
+    </a>
+  </div>
 </div>

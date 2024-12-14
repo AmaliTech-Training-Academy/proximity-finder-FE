@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { ProviderResponse } from '../../../../core/models/provider-response';
 
 @Component({
   selector: 'app-admin-credentials',
@@ -8,6 +9,7 @@ import { Component } from '@angular/core';
   styleUrl: './admin-credentials.component.sass'
 })
 export class AdminCredentialsComponent {
+  @Input() provider!: ProviderResponse
   images: string[] = [
     'assets/images/core.png',
     'assets/images/occupation.png',
