@@ -7,9 +7,11 @@ import {
   Output,
 } from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { DropdownModule } from 'primeng/dropdown';
@@ -46,11 +48,11 @@ export class BankDetailsFormComponent implements OnInit, OnDestroy {
 
   bankDetailsForm: FormGroup = this.fb.group({
     bankName: ['', Validators.required],
-    accountName: ['', Validators.required],
+    accountName: ['', [Validators.required, this.containsNumbersValidator()]],
     accountAlias: ['', [Validators.required, Validators.pattern(/^\S*$/)]],
     accountNumber: [
       null,
-      [Validators.required, Validators.minLength(13), Validators.maxLength(13)],
+      [Validators.required, this.accountNumberLengthValidator],
     ],
   });
 
@@ -67,6 +69,18 @@ export class BankDetailsFormComponent implements OnInit, OnDestroy {
       next: (banks) => (this.banks = banks),
       error: (error) => console.error('Failed to fetch banks', error),
     });
+  }
+
+  accountNumberLengthValidator(control: AbstractControl) {
+    const value = control.value;
+    return value && value.toString().length < 13 ? { lengthError: true } : null;
+  }
+
+  containsNumbersValidator(): ValidatorFn {
+    return (control: AbstractControl) => {
+      const hasNumbers = /\d/.test(control.value);
+      return hasNumbers ? { containsNumbers: true } : null;
+    };
   }
 
   onSubmit() {
