@@ -107,8 +107,8 @@ export class BasicInfoComponent implements OnInit {
     this.placeValue = place;
     this.registrationForm.patchValue({
       placeName: this.placeValue.address,
-      latitude: this.placeValue.coordinates?.lat,
-      longitude: this.placeValue.coordinates?.lng,
+      latitude: this.placeValue.coordinates?.lng,
+      longitude: this.placeValue.coordinates?.lat,
     });
   }
 }
