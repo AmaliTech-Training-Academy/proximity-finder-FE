@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../../../environments/environment';
-import { acceptQuote, declineQuote, getQuote, Quote } from '../../../service-provider/models/quoteData';
+import { acceptQuote, declineQuote, getQuote, Quote, ResponseData } from '../../../service-provider/models/quoteData';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -19,17 +19,17 @@ export class QuoteService {
   getCreatedQuotes():Observable<getQuote[]>{
     return this.http.get<getQuote[]>(`${this.url}/quotes/creator`);
   }
-  getSingleQuoteCreated(id: number) {
-    return this.http.get<getQuote>(`${this.url}/quotes/provider/${id}/creator/details`);
+  getSingleQuoteCreated(quoteId: number) {
+    return this.http.get<getQuote>(`${this.url}/quotes/${quoteId}/creator/details`);
   }
 
 
   getQuotes(){
-    return this.http.get<getQuote[]>(`${this.url}/quotes/provider`);
+    return this.http.get<ResponseData>(`${this.url}/requests/assigned`);
   }
 
-  getSingleQuote(id: number) {
-    return this.http.get<Quote[]>(`${this.url}/quotes/provider/${id}/assignee/details`);
+  getSingleQuote(requestId: number) {
+    return this.http.get<getQuote[]>(`${this.url}/quotes/provider/${requestId}/details`);
   }
 
   acceptRequest(data:acceptQuote,id:number):Observable<acceptQuote[]>{

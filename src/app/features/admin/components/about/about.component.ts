@@ -34,7 +34,7 @@ export class AboutComponent implements OnInit, OnDestroy {
   constructor (private userService: UserAccountsService, private fb: FormBuilder) {}
 
   messageForm: FormGroup = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
+    email: [this.provider.authservice.email || '', [Validators.required, Validators.email]],
     reason: ['', Validators.required]
   })
 

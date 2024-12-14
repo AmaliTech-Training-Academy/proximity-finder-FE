@@ -5,6 +5,7 @@ import { Statuses } from '../../../../utils/status';
 import { CallService } from '../../../service-discovery/services/call/call.service';
 import { RequestContent } from '../../../service-discovery/models/call';
 import { FormsModule } from '@angular/forms';
+import { ReversePipe } from '../../../../utils/reverse.pipe';
 
 
 
@@ -12,14 +13,12 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-calls',
   standalone: true,
-  imports: [TableModule, CommonModule,FormsModule],
+  imports: [TableModule, CommonModule,FormsModule,ReversePipe],
   templateUrl: './calls.component.html',
   styleUrl: './calls.component.sass'
 })
 export class CallsComponent {
   calls: RequestContent[] = [];
-  filteredCalls: RequestContent[] = [];
-  selectedDate: string | null = null;
   statuses = Statuses;
   activeCall: any = null;
 
@@ -33,26 +32,13 @@ export class CallsComponent {
     this.callService.getCallRequest().subscribe({
       next: (response) => {
         this.calls = response.content;
-        this.filteredCalls = this.calls; 
+        
       },
       error: (err) => {
         console.error('Error fetching call requests:', err);
       },
     });
   }
-
-  filterByDate() {
-    if (this.selectedDate) {
-      this.filteredCalls = this.calls.filter(
-        (call) =>
-          new Date(call.requestDate).toISOString().split('T')[0] ===
-          this.selectedDate
-      );
-    } else {
-      this.filteredCalls = this.calls; 
-    }
-  }
-
   toggleMenu(call: any) {
     this.activeCall = this.activeCall === call ? null : call;
   }

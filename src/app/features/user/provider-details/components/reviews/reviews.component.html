@@ -37,7 +37,7 @@
 
     </div>
 </div>
-@for (review of reviews | slice:0:3; track $index) {
+@for (review of displayedReviews; track $index) {
     <div class="col-2">
         <div class="profile">
             <div class="left">
@@ -57,23 +57,23 @@
             </div>
     
             <div class="right">
-                <p class="rate">({{review.rating}})</p>
+                <p class="rate">{{review.rating}}.0</p>
                 <p-rating [(ngModel)]="review.rating" [readonly]="true" [cancel]="false" />
             </div>
         </div>
         <p class="message">{{review.content}}</p>
     </div>
 }
-@if (showAllReviews) {
-    <a (click)="showAllReviews = false">
-        <span>Show less</span>
-        <i class="pi pi-chevron-up"></i>
+
+<div class="review-actions">
+    <a (click)="toggleReviews()">
+        @if (!showAllReviews) {
+            <span>Read all reviews</span>
+        }
+        @if (showAllReviews) {
+            <span>Show less</span>
+        }
+      <i [class]="showAllReviews ? 'pi pi-chevron-up' : 'pi pi-chevron-down'"></i>
     </a>
-}
-@else {
-    <a (click)="showAllReviews = true">
-        <span>Read all reviews</span>
-        <i class="pi pi-chevron-down"></i>
-    </a>
-}
+  </div>
 </div>

@@ -1,1 +1,1 @@
-export const Statuses = ['Pending', 'Completed']
+export const Statuses = ['PENDING', 'COMPLETED']

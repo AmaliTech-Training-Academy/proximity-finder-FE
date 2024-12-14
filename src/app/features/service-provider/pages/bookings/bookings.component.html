@@ -1,4 +1,4 @@
-<div class="table">
+<!-- <div class="table">
   <p-table
     [paginator]="true"
     [rows]="10"
@@ -23,16 +23,3 @@
     </ng-template>
   </p-table>
 </div>
-
-<p-button (click)="showDialog()" label="Show" />
-<p-dialog
-  header="Book Service"
-  [modal]="true"
-  [(visible)]="visible"
-  [draggable]="false"
-  [resizable]="false"
-  [autofocus]="false"
-  [style]="{ width: '44rem' }"
->
-  <app-booking-form (closeDialogEvent)="onCloseDialogClicked($event)" />
-</p-dialog>

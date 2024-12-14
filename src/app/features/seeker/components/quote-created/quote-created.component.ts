@@ -42,9 +42,10 @@ export class QuoteCreatedComponent {
   }
 
 
-  viewQuoteDetails(id: number) {
+  viewQuoteDetails(quoteId: number) {
+    console.log('Hey')
     this.loading = true;
-    this.quoteService.getSingleQuoteCreated(id).subscribe({
+    this.quoteService.getSingleQuoteCreated(quoteId).subscribe({
       next: (quote) => {
         this.selectedQuote = quote;
         this.showDetails = true;

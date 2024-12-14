@@ -43,11 +43,6 @@ export class SidebarComponent {
     )[0];
   }
 
-  onLogout() {
-    this.authService.logout();
-    this.router.navigateByUrl('');
-  }
-
   logout() {
     this.authService.logout();
     this.notyf.success('You have successfully logged out');

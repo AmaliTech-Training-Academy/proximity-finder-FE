@@ -1,0 +1,32 @@
+<header>
+    <p-dropdown
+      [formControl]="selectedMonth"
+      [options]="months"
+      optionLabel="name"
+      optionValue="value"
+      placeholder="Month"
+    />
+
+    <div class="today">
+        <i class="pi pi-angle-left" style="color: #252C32" (click)="navigateToPrevious()"></i>
+        <button (click)="navigateToToday()">This Week</button>
+        <i class="pi pi-angle-right" style="color: #252C32" (click)="navigateToNext()"></i>
+    </div>
+
+    <button (click)="showDialog()" class="add-btn">
+        <i class="pi pi-plus-circle" style="color: #ffffff"></i>
+        Add event
+    </button>
+
+    <p-dialog header="Add Event" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+        <app-event-form (eventAdded)="onEventFormSubmitted($event)"/>
+    </p-dialog>
+</header>
+
+<full-calendar [options]='calendarOptions()' #calendar>
+    <ng-template #eventContent let-arg>
+        <p class="title">{{ arg.event.title }}</p>
+        <br>
+        <p class="time">{{ arg.timeText }}</p>
+    </ng-template>
+</full-calendar>

@@ -1,0 +1,48 @@
+@use '../../../../../styles/_variables' as *
+@use '../../../../../styles/_functions' as *
+@use '../../../../../styles/_mixins' as *
+
+form
+    @include flex-option(flex, null, null, column)
+    gap: 2rem
+
+    .input-group
+        @include flex-option(flex, null, null, column)
+        gap: 2rem
+
+        .col 
+            @include flex-option(flex, space-between, center, row)
+            gap: 0.5rem
+            
+        .input-field
+            @include flex-option(flex, null, null, column)
+            gap: 4px
+
+            label
+                font-size: 1rem
+                font-weight: 500
+                color: $text-main
+
+            ::ng-deep .p-inputtext, textarea
+                border-radius: 4px
+                border: 1px solid #EAECF0
+                color: $text-main
+                padding: 0.5rem
+
+            textarea
+                resize: none
+
+                &:active,
+                &:focus
+                    outline: none
+
+    button
+        background-color: #408EFD
+        color: $white
+        padding: 0.5rem
+        border: 1px solid #EAECF0
+        border-radius: 4px
+        font-size: 1rem
+        font-weight: 500
+        cursor: pointer
+    

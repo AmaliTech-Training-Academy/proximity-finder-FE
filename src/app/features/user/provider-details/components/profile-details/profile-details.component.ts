@@ -10,13 +10,17 @@ import { Notyf } from 'notyf';
 import { NOTYF } from '../../../../../shared/notify/notyf.token';
 import { CallService } from '../../../../service-discovery/services/call/call.service';
 import { QuoteService } from '../../../../service-discovery/services/quote/quote.service';
+import { CalendarModule } from 'primeng/calendar';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-profile-details',
   standalone: true,
-  imports: [FormsModule, RatingModule, AvailabilityFormComponent,DialogModule, ImageUploaderComponent, ReactiveFormsModule,CommonModule],
+  imports: [FormsModule, RatingModule, AvailabilityFormComponent,DialogModule, ImageUploaderComponent, ReactiveFormsModule,CommonModule,CalendarModule],
   templateUrl: './profile-details.component.html',
-  styleUrl: './profile-details.component.sass'
+  styleUrl: './profile-details.component.sass',
+  providers: [DatePipe]
 })
 export class ProfileDetailsComponent{
   value: number = 4;
@@ -49,7 +53,7 @@ export class ProfileDetailsComponent{
     
   })
 
-  constructor(private formBuilder:FormBuilder, private callService:CallService,@Inject(NOTYF) private notyf: Notyf,private quoteService:QuoteService){}
+  constructor(private formBuilder:FormBuilder, private callService:CallService,@Inject(NOTYF) private notyf: Notyf,private quoteService:QuoteService,private datePipe: DatePipe){}
 
   ngOnInit() {
     if(this.provider.authservice){
@@ -78,55 +82,40 @@ export class ProfileDetailsComponent{
     });
   }
 
+
   onQuoteSubmit() {
     if (this.quoteForm.valid) {
       console.log(this.quoteForm.value);
-      const formData = new FormData();
   
-      formData.append(
-        'title',
-        this.quoteForm.get('title')?.value
-      );
-      formData.append(
-        'location',
-        this.quoteForm.get('location')?.value
-      );
-      formData.append(
-        'startDate',
-        this.quoteForm.get('startDate')?.value
-      );
-      formData.append(
-        'startTime',
-        this.quoteForm.get('startTime')?.value
-      );
-      formData.append(
-        'endDate',
-        this.quoteForm.get('endDate')?.value
-      );
-      formData.append(
-        'endTime',
-        this.quoteForm.get('endTime')?.value
-      );
-      formData.append(
-        'additionalDetails',
-        this.quoteForm.get('additionalDetails')?.value
-      );
-      formData.append(
-        'description',
-        this.quoteForm.get('description')?.value
-      );
-
+      const formData = new FormData();
+    
+     
+      const formattedStartDate = this.datePipe.transform(this.quoteForm.get('startDate')?.value, 'dd/MM/yyyy');
+      const formattedEndDate = this.datePipe.transform(this.quoteForm.get('endDate')?.value, 'dd/MM/yyyy');
+  
+      formData.append('endDate', formattedEndDate || '');      
+      formData.append('startDate', formattedStartDate || '');      
+    
+      
+      formData.append('title', this.quoteForm.get('title')?.value);
+      formData.append('location', this.quoteForm.get('location')?.value);
+      formData.append('startTime', this.quoteForm.get('startTime')?.value);
+      formData.append('endTime', this.quoteForm.get('endTime')?.value);
+      formData.append('description', this.quoteForm.get('description')?.value);
+      formData.append('additionalDetails', this.quoteForm.get('additionalDetails')?.value);
+  
+      
       const images = this.quoteForm.get('images')?.value;
       if (images && images.length > 0) {
-        images.forEach((image: File, index: number) => {
+        images.forEach((image: File) => {
           formData.append('images', image);
         });
       }
   
-    
-      formData.append('assignedProvider', this.provider.authservice.email);
-  
       
+      formData.append('assignedProvider', this.provider.authservice.email);
+    
+    
       this.quoteService.sendQuote(formData).subscribe({
         next: () => {
           this.notyf.success('Quote submitted successfully');
@@ -143,6 +132,11 @@ export class ProfileDetailsComponent{
       this.notyf.error('Please fill in all required fields');
     }
   }
+  
+  formatDate(date: string): string {
+    return this.datePipe.transform(date, 'dd/MM/yyyy') || '';
+  }
+
   
 
   onCallRequest() {

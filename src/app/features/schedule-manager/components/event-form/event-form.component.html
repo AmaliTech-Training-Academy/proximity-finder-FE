@@ -1,0 +1,41 @@
+<form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+    <div class="input-group">
+        <div class="input-field">
+            <label for="title">Title</label>
+            <input type="text" pInputText formControlName="title" name="title"/>
+        </div>
+
+        <div class="col">
+            <div class="input-field">
+                <label for="startDate">Start Date</label>
+                <p-calendar placeholder="dd/mm/yyyy" formControlName="startDate" />
+            </div>
+
+            <div class="input-field">
+                <label for="startTime">Start Time</label>
+                <p-calendar placeholder="00:00" inputId="calendar-timeonly" [timeOnly]="true"  formControlName="startTime"/>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="input-field">
+                <label for="EndDate">End Date</label>
+                <p-calendar placeholder="dd/mm/yyyy" formControlName="endDate" />
+            </div>
+
+            <div class="input-field">
+                <label for="endTime">End Time</label>
+                <p-calendar placeholder="00:00" inputId="calendar-timeonly" [timeOnly]="true" formControlName="endTime"/>
+            </div>
+        </div>
+
+        <div class="input-field">
+            <label for="description">Description</label>
+            <textarea placeholder="Type here" formControlName="description" name="description" rows="4" ></textarea>
+        </div>
+
+
+    </div>
+
+    <button type="submit" [disabled]="eventForm.invalid">Add</button>
+</form>

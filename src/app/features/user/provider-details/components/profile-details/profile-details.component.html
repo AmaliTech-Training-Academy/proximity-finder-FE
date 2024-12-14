@@ -53,7 +53,7 @@
   </div>
 
   <div class="right">
-    <app-availability-form />
+    <app-availability-form [providerEmail]="email" />
   </div>
 </div>
 
@@ -108,15 +108,13 @@
       <div class="date">
         <div class="start-date">
           <label>Start Date</label>
-          <input
-            type="date"
+          <p-calendar
+            dateFormat="dd/mm/yy"
+            placeholder="dd/mm/yy"
             formControlName="startDate"
-            [class.has-error]="
-              quoteForm.get('startDate')?.invalid &&
-              (quoteForm.get('startDate')?.dirty || quoteForm.get('startDate')?.touched)
-            "
           />
         </div>
+        
         <div
           class="error-message"
           *ngIf="
@@ -150,7 +148,12 @@
       <div class="date-time">
         <div class="start-date">
           <label>End Date</label>
-          <input type="date" formControlName="endDate" />
+          <p-calendar
+        dateFormat="dd/mm/yy"
+        placeholder="dd/mm/yy"
+        formControlName="endDate"
+      />
+        
         </div>
         <div
           class="error-message"
@@ -216,9 +219,7 @@
 
       <div class="images">
         <label>Upload some pictures related to the project</label>
-        <app-image-uploader 
-        (uploadedImages)="onImageUploaded($event)"
-        />
+        <app-image-uploader (uploadedImages)="onImageUploaded($event)" />
       </div>
 
       <div class="action-buttons">
