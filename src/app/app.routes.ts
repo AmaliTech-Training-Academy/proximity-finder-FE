@@ -322,7 +322,7 @@ export const routes: Routes = [
     
   },
   {
-    path: 'quote',
+    path: 'quote-and-bookings',
     loadComponent: () =>
       import(
         './features/seeker/components/quote-created/quote-created.component'
