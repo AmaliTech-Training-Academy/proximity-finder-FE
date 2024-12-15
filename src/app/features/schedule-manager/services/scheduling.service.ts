@@ -42,7 +42,7 @@ export class SchedulingService {
   }
 
   checkAvailability(data: Availablity) {
-    return this.http.post<Availablity>(`${this.eventUrl}/check-availability`, {data}).pipe(
+    return this.http.post<boolean>(`${this.eventUrl}/check-availability`, {data}).pipe(
       retry(2),
       catchError(error => this.errorHandler.handleError(error))
     )

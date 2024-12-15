@@ -1,13 +1,93 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { PasswordInputComponent } from "../../../../profile-management/components/password-input/password-input.component";
+import { SchedulingService } from '../../../../schedule-manager/services/scheduling.service';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { formatDate } from '../../../../../utils/dateFormatter';
+import { Availablity } from '../../../../schedule-manager/models/scheduler';
+import { NOTYF } from '../../../../../shared/notify/notyf.token';
+import { ProDetails } from '../../../../service-discovery/models/pro-details';
+import { ProviderDataService } from '../../../../service-discovery/services/provider-data.service';
+import { Subscription } from 'rxjs';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-availability-form',
   standalone: true,
-  imports: [PasswordInputComponent],
+  imports: [PasswordInputComponent, ReactiveFormsModule, CommonModule],
   templateUrl: './availability-form.component.html',
   styleUrl: './availability-form.component.sass'
 })
-export class AvailabilityFormComponent {
-  isProAvailable = false;
+export class AvailabilityFormComponent implements OnInit, OnDestroy{
+  isProAvailable: boolean = false
+  private notyf = inject(NOTYF)
+  provider!: ProDetails
+  providerEmail: string = ''
+  providerSubscription: Subscription | null = null
+
+  constructor(private schedulingService: SchedulingService, private fb: FormBuilder, private providerService: ProviderDataService) {}
+
+  availabilityForm: FormGroup = this.fb.group({
+    schedulingDate: ['', Validators.required],
+    estimatedHours: ['', [Validators.required, Validators.min(1)]]
+  })
+
+  ngOnInit() {
+    const storedProvider = this.providerService.getSelectedProvider();
+  
+    if (storedProvider) {
+      this.provider = storedProvider
+      this.providerEmail = this.provider.userEmail
+    } else {
+      this.providerSubscription = this.providerService.selectedProvider$.subscribe((provider) => {
+        if (provider) {
+          this.provider = provider
+          this.providerEmail = this.provider.userEmail
+        } else {
+          this.notyf.error('Provider not found');
+        }
+      });
+    }
+  }
+
+  onSubmit() {
+    if(this.availabilityForm.valid) {
+      const {schedulingDate, estimatedHours} = this.availabilityForm.value
+
+      const date = new Date(schedulingDate)
+
+      if (isNaN(date.getTime())) {
+        console.error('Invalid date')
+        return;
+      }
+
+      const data: Availablity = {
+        schedulingDate: formatDate(date),
+        estimatedHours: estimatedHours,
+        createdBy: this.providerEmail
+      }
+      this.schedulingService.checkAvailability(data).subscribe({
+        next: (response) => {
+          this.isProAvailable = response
+          console.log(this.isProAvailable)
+          if (this.isProAvailable) {
+            this.notyf.success('Provider is available')
+          }
+          else {
+            this.notyf.error('Provider is not available')
+          }
+        },
+        error: (error) => {
+          console.error(error)
+          this.notyf.error('Failed to check provider\'s availability')
+          this.isProAvailable = false
+        }
+      })
+    }
+  }
+
+  ngOnDestroy() {
+    if(this.providerSubscription) {
+      this.providerSubscription.unsubscribe()
+    }
+  }
 }
