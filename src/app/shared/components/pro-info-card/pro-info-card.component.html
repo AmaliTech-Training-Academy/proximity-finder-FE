@@ -1,7 +1,7 @@
 @if (provider) {
 
     <div class="card">
-        <img [src]="provider.service.image" alt="service image">
+        <img [src]="businessImage ? businessImage : defaultImage" alt="service image">
     
         <div class="info">
             <div class="col">
@@ -20,7 +20,7 @@
                     </div>
                 </div>
     
-                <p class="name">{{provider.service.name}}</p>
+                <p class="name">{{businessName}}</p>
     
                 <div class="col-2">
                     <p>Exceptional 5.0</p>

@@ -21,11 +21,11 @@
                 @for (review of displayedReviews; track $index) {
                     <div class="card">
                         <div class="rating">
-                            <img [src]="review.authorInfo?.profileImage ? review.authorInfo?.profileImage : defaultImage" alt="profile image">
-                            <p-rating [(ngModel)]="review.rating" [readonly]="true" [cancel]="false" />
+                            <img [src]="review.reviewerImage" alt="profile image">
+                            <p-rating [(ngModel)]="review.ratings" [readonly]="true" [cancel]="false" />
                         </div>
-                        <h6>{{review.authorInfo?.userName}}</h6>
-                        <p>{{review.content}}</p>
+                        <h6>{{review.reviewerName}}</h6>
+                        <p>{{review.reason}}</p>
                     </div>
                 }
             }

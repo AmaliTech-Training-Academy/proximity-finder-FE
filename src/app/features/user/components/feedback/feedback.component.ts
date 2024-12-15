@@ -1,11 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RatingModule } from 'primeng/rating';
 import { FormsModule } from '@angular/forms';
 import { ReviewService } from '../../../reviews-feedback/services/review.service';
-import { review } from '../../../reviews-feedback/models/ireview';
-import { Subscription } from 'rxjs';
 import { PreviewService } from '../../../../core/services/preview.service';
 import { CommonModule } from '@angular/common';
+import { reviews } from '../../../service-provider/data';
+import { appReview } from '../../../reviews-feedback/models/ireview';
 @Component({
   selector: 'app-feedback',
   standalone: true,
@@ -13,36 +13,15 @@ import { CommonModule } from '@angular/common';
   templateUrl: './feedback.component.html',
   styleUrl: './feedback.component.sass'
 })
-export class FeedbackComponent implements OnInit, OnDestroy {
-  reviews: review[] = []
-  reviewSubscription: Subscription | null = null
-  defaultImage = 'assets/images/default-avatar.png'
+export class FeedbackComponent implements OnInit {
+  reviews = reviews
   currentPage = 0
   reviewsPerPage = 3
-  displayedReviews: review[] = []
+  displayedReviews: appReview[] = []
 
-  constructor(private reviewService: ReviewService, private previewService: PreviewService) {}
 
   ngOnInit() {
-    this.loadReviews()
-  }
-
-  loadReviews() {
-    this.reviewService.getReviews()
-
-    this.reviewService.reviews$.subscribe((data) => {
-      this.reviews = data.result
-
-      this.reviews.forEach((review) => {
-        this.previewService.getClientPreview(review.userEmail).subscribe({
-          next: (info) => {
-            review.authorInfo = info
-          }
-        })
-      })
-      this.updateDisplayedReviews()
-    })
-
+    this.updateDisplayedReviews()
   }
 
   updateDisplayedReviews() {
@@ -62,12 +41,6 @@ export class FeedbackComponent implements OnInit, OnDestroy {
     if (this.currentPage > 0) {
       this.currentPage--;
       this.updateDisplayedReviews();
-    }
-  }
-
-  ngOnDestroy() {
-    if (this.reviewSubscription) {
-      this.reviewSubscription.unsubscribe()
     }
   }
 }

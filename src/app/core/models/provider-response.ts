@@ -46,7 +46,7 @@ export interface AboutBusinessResponse {
 
 export interface BusinessInfo {
   aboutBusinessResponse: AboutBusinessResponse;
-  paymentMethodResponse: IPaymentAccount;
+  paymentMethodResponses: IPaymentAccount[];
 }
 
 export interface ProviderResponse {

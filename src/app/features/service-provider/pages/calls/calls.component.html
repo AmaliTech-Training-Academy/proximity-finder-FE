@@ -2,7 +2,7 @@
   <p-table
     [paginator]="true"
     [rows]="10"
-    [value]="calls"
+    [value]="calls | reverse"
     [tableStyle]="{ 'min-width': '50rem' }"
   >
     <ng-template pTemplate="header">
@@ -10,6 +10,7 @@
         <th>CLIENT NAME</th>
         <th>PHONE NUMBER</th>
         <th>EMAIL</th>
+        <th>REQUEST DATE</th>
         <th>STATUS</th>
         <th>ACTIONS</th>
       </tr>
@@ -18,7 +19,8 @@
       <tr>
         <td>{{ call.clientName }}</td>
         <td>{{ call.phoneNumber }}</td>
-        <td>{{ call.email }}</td>
+        <td>{{ call.clientEmail }}</td>
+        <td>{{ call.requestDate | date }}</td>
         <td>
           <span class="status-label" [ngClass]="call.status | lowercase">
             <i class="status-icon"></i>
