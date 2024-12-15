@@ -10,7 +10,7 @@
             <div class="details">
                 <div class="col">
                     <p>{{provider.authservice.userName}}</p>
-                    <span class="status-label" [ngClass]="status | lowercase">
+                    <span class="status-label" [ngClass]="provider.authservice.status | lowercase">
                         <i class="status-icon"></i>
                         {{provider.authservice.status}}
                     </span>
@@ -37,6 +37,7 @@
                   [messagePlaceholder]="'Message'"
                   [showWarning]="true"
                   (formSubmit)="handleFormSubmit($event, '')"
+                  [email]="email"
               ></app-message-form>
           </p-dialog>
         </div>
