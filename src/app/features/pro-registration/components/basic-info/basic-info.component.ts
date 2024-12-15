@@ -88,15 +88,9 @@ export class BasicInfoComponent implements OnInit {
         longitude: String(this.placeValue.coordinates?.lng),
         latitude: String(this.placeValue.coordinates?.lat),
       };
-      // const formData: userInfo = {
-      //   businessOwnerName:
-      //     this.registrationForm.get('businessOwnerName')?.value,
-      //   mobileNumber: this.registrationForm.get('mobileNumber')?.value,
-      // };
 
       this.basicInfoService.sendInfo(formValue).subscribe({
         next: (response) => {
-          console.log(response);
           this.notyf.success('Basic Information Saved');
         },
         error: (error) => {
@@ -104,7 +98,7 @@ export class BasicInfoComponent implements OnInit {
         },
       });
     } else {
-      console.log('Form is invalid');
+      this.notyf.error('Form is invalid')
     }
   }
 
@@ -113,8 +107,8 @@ export class BasicInfoComponent implements OnInit {
     this.placeValue = place;
     this.registrationForm.patchValue({
       placeName: this.placeValue.address,
-      latitude: this.placeValue.coordinates?.lat,
-      longitude: this.placeValue.coordinates?.lng,
+      latitude: this.placeValue.coordinates?.lng,
+      longitude: this.placeValue.coordinates?.lat,
     });
   }
 }

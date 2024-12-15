@@ -13,7 +13,7 @@
       <div class="more">
         <div class="profile-img">
           <img
-            src="providerInfo.profileImageUrl || 'assets/images/default.png'"
+            [src]="providerInfo.authservice.profileImage || 'assets/images/default-avatar.png' "
             alt="profile"
           />
         </div>
@@ -104,9 +104,9 @@
     <div class="socials">
       <div class="media">
         <p>Social Media Links</p>
-        <div class="fields"></div>
-        <div class="fields"></div>
-        <div class="fields"></div>
+        @for(socialMediaLinks of providerInfo["business-info"].aboutBusinessResponse.socialMediaLinks; track $index ){
+          <div class="fields">{{socialMediaLinks || 'Not Included'}}</div>
+        }
       </div>
 
       <div class="summary">
@@ -127,125 +127,174 @@
 
     <div class="payment-pref">
       <div class="payment-info">
-        <p>Payment Preference</p>
         @if (providerInfo['business-info'].paymentMethodResponses; as payments) {
           
           @for (payment of payments; track $index) {
-            <div class="field">
-              {{payment.paymentPreference}}
+            @if(payment.paymentPreference === 'PayPal'){
+              <div class="account">
+                <div class="account-info">
+                  <p>Payment Preference</p>
+                  <div class="field">{{payment.paymentPreference}}</div>
+                </div>
+          
+                <div class="account-info">
+                  <p>Email</p>
+                  <div class="field">{{payment.email}}</div>
+                </div>
+          
+                <div class="account-alias">
+                  <p>Last Name</p>
+                  <div class="field">{{payment.firstName}}</div>
+                </div>
+              </div>
+              <p>First Name</p>
+              <div class="field">
+                {{payment.lastName}}
+              </div>
+            }@else if(payment.paymentPreference === 'Bank Account'){
+              <div class="account">
+                <div class="account-info">
+                  <p>Payment Preference</p>
+                  <div class="field">{{payment.paymentPreference}}</div>
+                </div>
+                <div class="account-info">
+                  <p>Bank Name</p>
+                  <div class="field">{{payment.bankName}}</div>
+                </div>
+                <div class="account-info">
+                  <p>Account Name</p>
+                  <div class="field">{{payment.accountName}}</div>
+                </div>
+                <div class="account-info">
+                  <p>Account Number</p>
+                  <div class="field">{{payment.accountNumber}}</div>
+                </div>
+                <div class="account-alias">
+                  <p>Account Alias</p>
+                  <div class="field">{{payment.accountAlias}}</div>
+                </div>
+              </div>
+          }@else {
+            <div class="account">
+              <div class="account-info">
+                <p>Payment Preference</p>
+                <div class="field">{{payment.paymentPreference}}</div>
+              </div>
+              <div class="account-info">
+                <p>Service Provider</p>
+                <div class="field">{{payment.serviceProvider}}</div>
+              </div>
+              <div class="account-alias">
+                <p>Account Name</p>
+                <div class="field">{{payment.accountName}}</div>
+              </div>
+              <div class="account-alias">
+                <p>Account Alias</p>
+                <div class="field">{{payment.accountAlias}}</div>
+              </div>
+              <div class="account-alias">
+                <p>Mobile Number</p>
+                <div class="field">{{payment.phoneNumber}}</div>
+              </div>
             </div>
           }
           
-      }
-      </div>
+      }}
 
-      <div class="payment-doc">
-        <p>Service Provider</p>
-        <div class="field"></div>
-      </div>
-    </div>
-
-    <div class="account">
-      <div class="account-info">
-        <p>Account Name</p>
-        <div class="field"></div>
-      </div>
-
-      <div class="account-alias">
-        <p>Account Alias</p>
-        <div class="field"></div>
-      </div>
-    </div>
-
-    <div class="pay-details">
-      <p>Mobile Number</p>
-      <div class="field"></div>
-    </div>
-  </div>
-
+  
   <div class="preference">
-    @if(providerInfo['provider-service']; as service){ @for(service of service;
-    track $index){
-    <div class="head">
-      <p>Preferences</p>
-    </div>
+    @if(providerInfo['provider-service']; as services){
+      
+      @for(service of services;
+   track $index){
+   <div class="head">
+     <p>Preferences</p>
+   </div>
 
     <div class="preference-details">
       <div class="service">
-        <p>What service do you offer?</p>
-        <div class="field">{{ service.serviceExperience }}</div>
-      </div>
-      <div class="experience">
-        <p>Payment Preference</p>
-        <div class="field">{{ service.paymentPreference }}</div>
-      </div>
+       <p>What service do you offer?</p>
+       <div class="field">{{ service.service.name }}</div>
+     </div> 
+     <div class="experience">
+       <p>Payment Preference</p>
+       <div class="field">{{ service.paymentPreference }}</div>
+     </div>
+   </div> 
+
+   <div class="documents">
+     <div class="document">
+       <p>Extra Document(s)</p>
+       @for(service of services;
+   track $index){
+     <div class="field">{{ service.serviceExperience?.images}}</div>
+   }
+     </div>
+   </div>
+
+   <div class="booking">
+    <div class="booking-header">
+      <div class="header-item">Booking Days</div>
+      <div class="header-item">From</div>
+      <div class="header-item">To</div>
     </div>
-
-    <div class="documents">
-      <div class="document">
-        <p>Extra Document(s)</p>
-        <div class="field">{{ service.documents }}</div>
+    @for (booking of service.bookingDays; track $index) {
+      <div class="booking-row">
+        <div class="booking-item day">{{ booking.day }}</div>
+        <div class="booking-item time">{{ booking.startTime }}</div>
+        <div class="booking-item time">{{ booking.endTime }}</div>
       </div>
+    }
+  </div>
+  
 
-      <div class="alias">
-        <p>Account Alias</p>
-        <div class="field">{{ service.id }}</div>
-      </div>
-    </div>
-
-    <div class="booking">
-      @for(booking of service.bookingDays; track $index){
-      <div class="days">
-        <p>Booking Days</p>
-        <div class="day"></div>
-      </div>
-      <div class="from">
-        <p>From</p>
-        <div class="time"></div>
-        <div class="time"></div>
-        <div class="time"></div>
-      </div>
-
-      <div class="to">
-        <p>To</p>
-        <div class="time"></div>
-        <div class="time"></div>
-        <div class="time"></div>
-      </div>
-
-      }
-    </div>
-
-    <div class="scheduling">
-      <p>Scheduling Policy (optional)</p>
-      <div class="field"></div>
-    </div>
-    } }
+   <div class="scheduling">
+     <p>Scheduling Policy (optional)</p>
+     <div class="field">{{service.schedulingPolicy}}</div>
+     
+   </div>
+   
+   } 
+    }
   </div>
 
   <div class="information">
-    <div class="head">
-      <p>Business Experience</p>
-    </div>
+    @if(providerInfo['provider-service']; as services){
+      @for(service of services;
+   track $index){
 
-    <div class="exp">
-      <div class="exp-info">
-        <p>Title of Project</p>
-        <div class="field"></div>
-      </div>
-      <div class="exp-details">
-        <p>Description</p>
-        <div class="field"></div>
-      </div>
-    </div>
+     <div class="head">
+       <p>Business Experience</p>
+     </div>
+  
+     <div class="exp">
+       <div class="exp-info">
+         <p>Title of Project</p>
+         <div class="field">{{service.serviceExperience?.projectTitle}}</div>
+       </div>
+       <div class="exp-details">
+         <p>Description</p>
+         <div class="field">{{service.serviceExperience?.description}}</div>
+       </div>
+     </div>
+   }
+      
+    }
   </div>
-
   <div class="pic-upload">
     <p>Uploads</p>
-    <div class="uploaded"></div>
-    <div class="uploaded"></div>
-    <div class="uploaded"></div>
+
+    @if(providerInfo['provider-service']; as services){
+      @for(service of services;
+   track $index){
+
+     <div class="uploaded">{{service.serviceExperience?.images}}</div>
+   }
+    }
+    
+    
   </div>
+
 
   <div class="instruction">
     <p>
@@ -257,6 +306,6 @@
 
   <div class="buttons">
     <div class="back">Back</div>
-    <div class="register" (click)="onContinue()">Rester</div>
+    <div class="register" (click)="onRegister()">Register</div>
   </div>
-</div>
+

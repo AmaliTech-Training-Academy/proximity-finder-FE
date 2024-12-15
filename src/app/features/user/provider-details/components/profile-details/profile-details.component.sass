@@ -233,6 +233,7 @@
         .date-time
             @include flex-option(flex, null, null, row)
             gap: pxToRem(8) 
+
             
 
             .start-date
@@ -245,7 +246,7 @@
                   font-weight: 500
                   color: $black-darken-1
 
-                input
+            ::ng-deep .p-element .p-inputtext .p-component
                   width: 100%
                   border-radius: pxToRem(5)
                   border: 2px solid #EFF1F3
