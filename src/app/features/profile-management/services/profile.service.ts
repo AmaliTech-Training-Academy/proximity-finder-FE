@@ -13,6 +13,7 @@ import {
 } from '../../../core/models/payment-account';
 import { ProviderData } from '../../../core/models/ProviderData';
 import { LoggedInUser } from '../../../core/models/LoggedInUser';
+import { BusinessData } from '../../../core/models/BusinessInfoData';
 
 @Injectable({
   providedIn: 'root',
@@ -83,6 +84,18 @@ export class ProfileService {
 
         paymentAccount
       )
+      .pipe(
+        retry(2),
+
+        tap(() => this.getPaymentAccounts()),
+
+        catchError((error) => this.errorHandler.handleError(error))
+      );
+  }
+
+  getProviderBusinessInfo(): Observable<BusinessData> {
+    return this.http
+      .get<BusinessData>(`${environment.registration}/about/about-company`)
       .pipe(
         retry(2),
 

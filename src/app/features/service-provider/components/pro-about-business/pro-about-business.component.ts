@@ -1,36 +1,69 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FileUploaderComponent } from '../file-uploader/file-uploader.component';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormArray,
+  Validators,
+  ReactiveFormsModule,
+} from '@angular/forms';
+import { ProfileService } from '../../../profile-management/services/profile.service';
 
 @Component({
   selector: 'app-pro-about-business',
   standalone: true,
-  imports: [FileUploaderComponent, InputGroupModule, InputGroupAddonModule],
+  imports: [
+    FileUploaderComponent,
+    InputGroupModule,
+    InputGroupAddonModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './pro-about-business.component.html',
   styleUrl: './pro-about-business.component.sass',
 })
-export class ProAboutBusinessComponent {
+export class ProAboutBusinessComponent implements OnInit {
   isEditing = false;
   maxSocialLinks = 5;
+  socialMediaLinks: string[] = [];
+  businessCertificate: string = '';
+  businessId: string = '';
 
   aboutBusinessForm: FormGroup = this.fb.group({
     inceptionDate: [
-      { value: '10/12/2024', disabled: !this.isEditing },
+      { value: '10/12/2024', disabled: true },
       Validators.required,
     ],
-    businessCertificate: [{ value: null, disabled: !this.isEditing }],
+    businessCertificate: [{ value: null, disabled: true }],
     socialLinks: this.fb.array(['', Validators.required]),
-    numberOfEmployees: [
-      { value: 200, disabled: !this.isEditing },
-      Validators.required,
-    ],
+    numberOfEmployees: [{ value: 200, disabled: true }, Validators.required],
     businessID: [null],
     summary: [''],
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private profileService: ProfileService
+  ) {}
+
+  ngOnInit(): void {
+    this.profileService.getProviderBusinessInfo().subscribe({
+      next: (businessInfo) => {
+        this.aboutBusinessForm.patchValue({
+          inceptionDate: businessInfo.inceptionDate,
+          businessCertificate: businessInfo.businessCertificate,
+          numberOfEmployees: businessInfo.numberOfEmployees,
+          businessId: businessInfo.businessIdentityCard,
+          summary: businessInfo.businessSummary,
+        });
+        this.socialMediaLinks = businessInfo.socialMediaLinks;
+        this.businessCertificate = businessInfo.businessCertificate;
+        this.businessId = businessInfo.businessIdentityCard;
+        // console.log(this.socialMediaLinks);
+      },
+    });
+  }
 
   get socialLinks() {
     return this.aboutBusinessForm.get('socialLinks') as FormArray;

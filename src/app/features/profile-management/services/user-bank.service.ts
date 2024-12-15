@@ -23,20 +23,22 @@ export class UserBankService {
   }
 
   getAllBanks(): Observable<BankName[]> {
-    return this.http.get<BankName[]>(`${this.apiUrl}banks`).pipe(
+    return this.http.get<BankName[]>(`${this.apiUrl}/banks`).pipe(
       retry(2),
       catchError((error) => this.errorHandler.handleError(error))
     );
   }
   addBank(bank: IBank): Observable<IBank> {
-    return this.http.post<IBank>(`${this.apiUrl}new-payment-method`, bank).pipe(
-      retry(2),
-      catchError((error) => this.errorHandler.handleError(error))
-    );
+    return this.http
+      .post<IBank>(`${this.apiUrl}/new-payment-method`, bank)
+      .pipe(
+        retry(2),
+        catchError((error) => this.errorHandler.handleError(error))
+      );
   }
 
   deleteBankAccount(accountId: number) {
-    return this.http.delete(`${this.apiUrl}${accountId}`).pipe(
+    return this.http.delete(`${this.apiUrl}/${accountId}`).pipe(
       retry(2),
       catchError((error) => this.errorHandler.handleError(error))
     );
