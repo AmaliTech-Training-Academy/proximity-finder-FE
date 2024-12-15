@@ -1,4 +1,5 @@
 import { ServiceCategory } from "../../../core/models/IServiceCategory";
+import { ServiceExperience } from "../../../core/models/provider-response";
 
     export interface ProDetails {
         id: string,
@@ -6,7 +7,7 @@ import { ServiceCategory } from "../../../core/models/IServiceCategory";
         service: ServiceCategory,
         paymentPreference: string,
         placeName: string,
-        serviceExperience: string | null;
+        serviceExperience: ServiceExperience;
         schedulingPolicy: string,
         bookingDays: [],
         documents: [],

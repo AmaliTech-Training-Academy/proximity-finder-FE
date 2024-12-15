@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RatingModule } from 'primeng/rating';
 import { ProgressBarModule } from 'primeng/progressbar';
@@ -20,7 +20,7 @@ import { getBusinessYears } from '../../../../../utils/yearsCalculator';
   templateUrl: './reviews.component.html',
   styleUrl: './reviews.component.sass'
 })
-export class ReviewsComponent {
+export class ReviewsComponent implements OnInit, OnDestroy {
   values = [
     {value: 75, color: '#4285F4' }
   ]
@@ -98,12 +98,17 @@ export class ReviewsComponent {
     this.reviewService.getAnalytics(this.type, this.serviceId).subscribe({
       next: analytics => {
         this.analytics = analytics.result
-        this.notyf.success('Review analytics fetched successfully')
       },
       error: () => {
-        this.notyf.error('Failed to fetch review analytics')
+        console.error('Failed to fetch review analytics')
       }
     })
+  }
+
+  ngOnDestroy() {
+    if(this.providerSubscription) {
+      this.providerSubscription.unsubscribe()
+    }
   }
 
 }

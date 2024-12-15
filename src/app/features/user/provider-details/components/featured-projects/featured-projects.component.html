@@ -1,12 +1,24 @@
 <div class="container">
     <h3>Featured Projects</h3>
-    <a>208 photos</a>
+    @if (provider.serviceExperience; as experience) {
+        @if (experience.images.length === 1) {
+            <a>{{experience.images.length}} photo</a>
+        }
+        @else {
+            <a>{{experience.images.length}} photos</a>
+        }
 
     <main>
-        @for (image of images; track $index) {
-            <div class="card">
-                <img [src]="image" alt="project image">
-            </div>
-        }
+            @if (experience.images.length > 0) {
+                @for (image of experience.images; track $index) {
+                    <div class="card">
+                        <img [src]="image" alt="project image">
+                    </div>
+                }
+            }
+            @else {
+                <p>No featured projects</p>
+            }
     </main>
+    }
 </div>

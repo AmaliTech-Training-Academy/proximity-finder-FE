@@ -59,7 +59,6 @@ export class AvailabilityFormComponent implements OnInit, OnDestroy {
       this.schedulingService.checkAvailability(data).subscribe({
         next: (response) => {
           this.isProAvailable = response
-          console.log(this.isProAvailable)
           if (this.isProAvailable) {
             this.notyf.success('Provider is available')
           }

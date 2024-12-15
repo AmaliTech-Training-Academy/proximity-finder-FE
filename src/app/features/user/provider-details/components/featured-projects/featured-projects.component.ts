@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ProDetails } from '../../../../service-discovery/models/pro-details';
+import { ProviderDataService } from '../../../../service-discovery/services/provider-data.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-featured-projects',
@@ -7,13 +10,31 @@ import { Component } from '@angular/core';
   templateUrl: './featured-projects.component.html',
   styleUrl: './featured-projects.component.sass'
 })
-export class FeaturedProjectsComponent {
-  images: string[] = [
-    'assets/images/core.png',
-    'assets/images/occupation.png',
-    'assets/images/Avatar.png',
-    'assets/images/cover-image.png',
-    'assets/images/background.jpg',
-    'assets/images/Hero.png'
-  ];
+export class FeaturedProjectsComponent implements OnInit, OnDestroy {
+  provider!: ProDetails
+  providerSubscription: Subscription | null = null
+
+  constructor(private providerService: ProviderDataService) { }
+
+  ngOnInit() {
+    const storedProvider = this.providerService.getSelectedProvider();
+  
+    if (storedProvider) {
+      this.provider = storedProvider
+    } else {
+      this.providerSubscription = this.providerService.selectedProvider$.subscribe((provider) => {
+        if (provider) {
+          this.provider = provider
+        } else {
+          console.error('Provider not found');
+        }
+      });
+    }
+  }
+
+  ngOnDestroy() {
+    if (this.providerSubscription) {
+      this.providerSubscription.unsubscribe()
+    }
+  }
 }
