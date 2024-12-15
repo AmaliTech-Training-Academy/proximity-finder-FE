@@ -23,7 +23,8 @@ import { SeekerBookingsComponent } from '../seeker-bookings/seeker-bookings.comp
     ReversePipe,
     FormsModule,
     SeekerBookingsComponent,
-  ],
+    NavbarComponent
+],
   templateUrl: './quote-created.component.html',
   styleUrl: './quote-created.component.sass',
 })
