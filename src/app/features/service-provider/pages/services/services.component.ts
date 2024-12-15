@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { InputIconModule } from 'primeng/inputicon';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputTextModule } from 'primeng/inputtext';
@@ -9,6 +9,9 @@ import { DialogModule } from 'primeng/dialog';
 import { CommonModule } from '@angular/common';
 import { services } from '../../data';
 import { ServiceCreationFormComponent } from '../../components/service-creation-form/service-creation-form.component';
+import { ServiceService } from '../../../../core/services/service.service';
+import { Observable } from 'rxjs';
+import { ProviderServiceDetails } from '../../../../core/models/ProviderServiceResponse';
 
 @Component({
   selector: 'app-services',
@@ -27,10 +30,16 @@ import { ServiceCreationFormComponent } from '../../components/service-creation-
   templateUrl: './services.component.html',
   styleUrl: './services.component.sass',
 })
-export class ServicesComponent {
-  services = services;
+export class ServicesComponent implements OnInit {
+  services$!: Observable<ProviderServiceDetails[]>;
 
   visible: boolean = false;
+
+  constructor(private serviceService: ServiceService) {}
+
+  ngOnInit(): void {
+    this.services$ = this.serviceService.getProviderServices();
+  }
 
   showDialog() {
     this.visible = true;

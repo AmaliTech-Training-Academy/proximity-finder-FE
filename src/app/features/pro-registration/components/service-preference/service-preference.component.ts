@@ -33,6 +33,9 @@ import { ProfileService } from '../../../profile-management/services/profile.ser
 import { Payment } from '../../models/payment';
 import { IPaymentAccount } from '../../../../core/models/payment-account';
 import { ServiceResponse } from '../../../../core/models/IServiceResponse';
+import { take } from 'rxjs';
+import { User } from '../../../profile-management/models/user';
+import { LoggedInUser } from '../../../../core/models/LoggedInUser';
 
 @Component({
   selector: 'app-service-preference',
@@ -64,6 +67,7 @@ export class ServicePreferenceComponent implements OnInit {
   loggedInuser$ = this.profileService.loggedInUser$;
   paymentAccounts$ = this.profileService.paymentAccounts$;
   paymentMethod!: IPaymentAccount;
+  currentUser!: LoggedInUser | null;
 
   servicePreferenceForm: FormGroup = this.fb.group({
     service: [null, Validators.required],
@@ -85,11 +89,15 @@ export class ServicePreferenceComponent implements OnInit {
 
   ngOnInit(): void {
     this.profileService.getPaymentAccounts();
-    this.loggedInuser$.subscribe({
-      next: (user) => console.log(user),
+    this.loggedInuser$.pipe(take(1)).subscribe({
+      next: (user) => {
+        this.currentUser = user;
+      },
     });
     this.paymentAccounts$.subscribe({
-      next: (paymentAccounts) => (this.paymentMethod = paymentAccounts[0]),
+      next: (paymentAccounts) => {
+        this.paymentMethod = paymentAccounts[0];
+      },
     });
   }
 
@@ -165,7 +173,7 @@ export class ServicePreferenceComponent implements OnInit {
       }));
 
       // TODO: Send currently logged in service provider's id
-      formData.append('userId', '33252a99-ab98-4413-9191-6f93c6df5806');
+      formData.append('userId', String(this.currentUser?.id));
 
       formData.append(
         'serviceName',

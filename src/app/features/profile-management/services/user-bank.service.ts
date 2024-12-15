@@ -5,13 +5,14 @@ import { catchError, Observable, retry } from 'rxjs';
 import { BankName } from '../models/bank-name';
 import { LocalStorageService } from '../../../shared/services/local-storage.service';
 import { ErrorHandlingService } from '../../../core/services/error-handling.service';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserBankService {
-  apiUrl =
-    'https://api.proximity-finder.amalitech-dev.net/api/v1/provider-service';
+  apiUrl = environment.paymentsUrl;
+
   token!: string;
   constructor(
     private http: HttpClient,
@@ -29,7 +30,7 @@ export class UserBankService {
   }
   addBank(bank: IBank): Observable<IBank> {
     return this.http
-      .post<IBank>(`${this.apiUrl}/payment-method/new-payment-method`, bank)
+      .post<IBank>(`${this.apiUrl}/new-payment-method`, bank)
       .pipe(
         retry(2),
         catchError((error) => this.errorHandler.handleError(error))
@@ -37,7 +38,7 @@ export class UserBankService {
   }
 
   deleteBankAccount(accountId: number) {
-    return this.http.delete(`${this.apiUrl}/payment-method/${accountId}`).pipe(
+    return this.http.delete(`${this.apiUrl}/${accountId}`).pipe(
       retry(2),
       catchError((error) => this.errorHandler.handleError(error))
     );

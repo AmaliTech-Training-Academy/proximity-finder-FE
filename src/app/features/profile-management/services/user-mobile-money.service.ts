@@ -4,13 +4,14 @@ import { LocalStorageService } from '../../../shared/services/local-storage.serv
 import { ErrorHandlingService } from '../../../core/services/error-handling.service';
 import { catchError, Observable, retry } from 'rxjs';
 import { IMobileMoney } from '../models/mobile-money';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserMobileMoneyService {
-  apiUrl =
-    'https://api.proximity-finder.amalitech-dev.net/api/v1/provider-service';
+  apiUrl = environment.paymentsUrl;
+
   token!: string;
   constructor(
     private http: HttpClient,
@@ -18,13 +19,10 @@ export class UserMobileMoneyService {
     private errorHandler: ErrorHandlingService
   ) {
     this.token = this.localStorageService.getItem('accessToken') || '';
-
   }
   getServiceProviders(): Observable<string[]> {
     return this.http
-      .get<string[]>(
-        `${this.apiUrl}/payment-method/providers/mobile-money-providers`
-      )
+      .get<string[]>(`${this.apiUrl}providers/mobile-money-providers`)
       .pipe(
         retry(2),
         catchError((error) => this.errorHandler.handleError(error))
@@ -32,10 +30,7 @@ export class UserMobileMoneyService {
   }
   addMobileMoney(momo: IMobileMoney): Observable<IMobileMoney> {
     return this.http
-      .post<IMobileMoney>(
-        `${this.apiUrl}/payment-method/new-payment-method`,
-        momo
-      )
+      .post<IMobileMoney>(`${this.apiUrl}new-payment-method`, momo)
       .pipe(
         retry(2),
         catchError((error) => this.errorHandler.handleError(error))

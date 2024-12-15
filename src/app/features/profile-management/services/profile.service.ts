@@ -11,6 +11,9 @@ import {
   IPaymentAccount,
   IPaymentAccountNoId,
 } from '../../../core/models/payment-account';
+import { ProviderData } from '../../../core/models/ProviderData';
+import { LoggedInUser } from '../../../core/models/LoggedInUser';
+import { BusinessData } from '../../../core/models/BusinessInfoData';
 
 @Injectable({
   providedIn: 'root',
@@ -18,10 +21,9 @@ import {
 export class ProfileService {
   token!: string;
   email: string | null | undefined = null;
-  apiUrl =
-    'https://api.proximity-finder.amalitech-dev.net/api/v1/provider-service';
+  apiUrl = environment.paymentsUrl;
 
-  loggedInUserSubject = new BehaviorSubject<User | null>(null);
+  loggedInUserSubject = new BehaviorSubject<LoggedInUser | null>(null);
   loggedInUser$ = this.loggedInUserSubject.asObservable();
 
   paymentAccountsSubject = new BehaviorSubject<IPaymentAccount[]>([]);
@@ -36,28 +38,28 @@ export class ProfileService {
     this.decodeToken();
   }
 
-  getClient(): Observable<IProfile> {
+  getClient(): Observable<ProviderData> {
     if (!this.email) {
       throw new Error('Email not found');
     }
     const params = new HttpParams().set('email', this.email);
 
     return this.http
-      .get<IProfile>(`${environment.baseUrl}/auth/info`, { params })
+      .get<ProviderData>(`${environment.baseUrl}/auth/info`, { params })
       .pipe(
         retry(2),
         catchError((error) => this.errorHandler.handleError(error))
       );
   }
 
-  updateClient(client: IProfile): Observable<IProfile> {
+  updateClient(client: ProviderData): Observable<ProviderData> {
     if (!this.email) {
       throw new Error('Email not found');
     }
     const params = new HttpParams().set('email', this.email);
 
     return this.http
-      .put<IProfile>(`${environment.baseUrl}/auth/update/info`, client, {
+      .put<ProviderData>(`${environment.baseUrl}/auth/update/info`, client, {
         params,
       })
       .pipe(
@@ -67,17 +69,10 @@ export class ProfileService {
   }
 
   getPaymentAccounts(): void {
-    this.http
-      .get<IPaymentAccount[]>(`${this.apiUrl}/payment-method`)
-      .subscribe((accounts) => {
-        this.paymentAccountsSubject.next(accounts);
-      });
+    this.http.get<IPaymentAccount[]>(`${this.apiUrl}`).subscribe((accounts) => {
+      this.paymentAccountsSubject.next(accounts);
+    });
   }
-
-
-
-
-
 
   editPaymentAccount(
     paymentAccount: IPaymentAccountNoId,
@@ -85,7 +80,6 @@ export class ProfileService {
   ): Observable<IPaymentAccount> {
     return this.http
       .patch<IPaymentAccount>(
-
         `${this.apiUrl}/payment-method/id=${accountId}`,
 
         paymentAccount
@@ -99,7 +93,17 @@ export class ProfileService {
       );
   }
 
-  
+  getProviderBusinessInfo(): Observable<BusinessData> {
+    return this.http
+      .get<BusinessData>(`${environment.registration}/about/about-company`)
+      .pipe(
+        retry(2),
+
+        tap(() => this.getPaymentAccounts()),
+
+        catchError((error) => this.errorHandler.handleError(error))
+      );
+  }
 
   deletePaymentAccount(accountId: number): Observable<IPaymentAccount> {
     return this.http
@@ -114,7 +118,7 @@ export class ProfileService {
   decodeToken() {
     if (this.token) {
       try {
-        const decodedToken = jwtDecode(this.token) as User;
+        const decodedToken = jwtDecode(this.token) as LoggedInUser;
         this.email = decodedToken.sub;
         this.loggedInUserSubject.next(decodedToken);
       } catch (error) {

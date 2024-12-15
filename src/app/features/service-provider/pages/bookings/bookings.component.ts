@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
@@ -7,6 +7,8 @@ import { BookingService } from '../../services/booking.service';
 import { BookingData } from '../../../profile-management/models/bookingData';
 import { Menu, MenuModule } from 'primeng/menu';
 import { TagModule } from 'primeng/tag';
+import { NOTYF } from '../../../../shared/notify/notyf.token';
+import { Notyf } from 'notyf';
 
 @Component({
   selector: 'app-bookings',
@@ -53,11 +55,16 @@ export class BookingsComponent implements OnInit {
     },
   ];
 
-  constructor(private bookingService: BookingService) {}
+  constructor(
+    private bookingService: BookingService,
+    @Inject(NOTYF) private notyf: Notyf
+  ) {}
 
   ngOnInit(): void {
     this.bookingService.getProviderBookings().subscribe({
-      next: (bookings) => (this.providerBookings = bookings),
+      next: (bookings) => {
+        this.providerBookings = bookings;
+      },
       error: (error) => console.error('Failed to fetch bookings'),
     });
   }
@@ -81,12 +88,13 @@ export class BookingsComponent implements OnInit {
       case 'PENDING':
         return [
           {
-            label: 'Complete',
-            icon: 'pi pi-check-circle',
+            label: 'Accept',
+            icon: 'pi pi-check',
             command: () => {
-              this.completeBooking();
+              this.acceptBooking();
             },
           },
+
           {
             label: 'Decline',
             icon: 'pi pi-times',
@@ -130,10 +138,11 @@ export class BookingsComponent implements OnInit {
     this.bookingService
       .acceptBooking(this.selectedBookingId as number)
       .subscribe({
-        next: (response) => {
+        next: () => {
+          this.notyf.success('Booking accepted');
           this.refreshBookings();
-          console.log(response);
         },
+        error: () => this.notyf.error('Failed to accept booking'),
       });
   }
 
@@ -141,10 +150,11 @@ export class BookingsComponent implements OnInit {
     this.bookingService
       .declineBooking(this.selectedBookingId as number)
       .subscribe({
-        next: (response) => {
+        next: () => {
+          this.notyf.success('Booking Declined');
           this.refreshBookings();
-          console.log(response);
         },
+        error: () => this.notyf.error('Failed to decline booking'),
       });
   }
 
@@ -152,10 +162,11 @@ export class BookingsComponent implements OnInit {
     this.bookingService
       .completeBooking(this.selectedBookingId as number)
       .subscribe({
-        next: (response) => {
+        next: () => {
+          this.notyf.success('Booking Completed Successfully');
           this.refreshBookings();
-          console.log(response);
         },
+        error: () => this.notyf.error('Failed to complete booking'),
       });
   }
 
