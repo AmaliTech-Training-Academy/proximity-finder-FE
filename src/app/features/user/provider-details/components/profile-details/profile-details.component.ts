@@ -27,6 +27,7 @@ export class ProfileDetailsComponent{
   @Input() provider!: ProviderResponse;
   email: string = ''
   isImageModified: boolean = false;
+  time: Date[] | undefined;
   
 
   visible: boolean = false;
@@ -90,8 +91,8 @@ export class ProfileDetailsComponent{
       const formData = new FormData();
     
      
-      const formattedStartDate = this.datePipe.transform(this.quoteForm.get('startDate')?.value, 'MM/dd/yyyy');
-      const formattedEndDate = this.datePipe.transform(this.quoteForm.get('endDate')?.value, 'MM/dd/yyyy');
+      const formattedStartDate = this.datePipe.transform(this.quoteForm.get('startDate')?.value, 'dd/MM/yyyy');
+      const formattedEndDate = this.datePipe.transform(this.quoteForm.get('endDate')?.value, 'dd/MM/yyyy');
   
       formData.append('endDate', formattedEndDate || '');      
       formData.append('startDate', formattedStartDate || '');      
@@ -134,7 +135,7 @@ export class ProfileDetailsComponent{
   }
   
   formatDate(date: string): string {
-    return this.datePipe.transform(date, 'MM/dd/yyyy') || '';
+    return this.datePipe.transform(date, 'dd/MM/yyyy') || '';
   }
 
   

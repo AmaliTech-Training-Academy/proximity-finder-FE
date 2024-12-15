@@ -97,7 +97,7 @@ export const routes: Routes = [
               import('./features/service-provider/pages/request-table/request-table.component').then(m => m.RequestTableComponent)
           },
             {
-              path:'quote-detail',
+              path:'quote-detail/:requestId',
               loadComponent: () => 
               import('./features/service-provider/components/quote-details/quote-details.component').then(m => m.QuoteDetailsComponent)
 
@@ -322,7 +322,7 @@ export const routes: Routes = [
     
   },
   {
-    path: 'quote',
+    path: 'quote-and-bookings',
     loadComponent: () =>
       import(
         './features/seeker/components/quote-created/quote-created.component'

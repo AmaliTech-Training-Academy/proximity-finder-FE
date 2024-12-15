@@ -10,23 +10,33 @@ export interface Quote{
 }
 
 export interface getQuote{
-    title:string;
-    location:string;
-    startDate:string;
-    endDate:string;
-    description:string;
-    additionalDetails:string;
-    images:string,
-    decision:string,
-    price:string
-    duration:string
-    approvalDetails?:string
-    id?:number
+  providerInfo: any;
+  quoteId: number;
+  title: string;
+  description: string;
+  location: string;
+  additionalDetails: string;
+  status: "DECLINED" | "APPROVED"  
+  startDate: string; 
+  startTime: string; 
+  endDate: string; 
+  endTime: string;
+  createdBy: string; 
+  assignedProvider: string; 
+  images: string[]; 
+  decision: {
+      price: number | null;  
+      approvalDetails: string | null; 
+      declineReason: string | null; 
+  };
+  duration: string; 
 }
+
+
 
 export interface acceptQuote{
     price:string
-    decision:string
+    aprrovalDetails:string
     
 }
 export interface declineQuote{

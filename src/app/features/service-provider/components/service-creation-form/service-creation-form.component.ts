@@ -175,7 +175,7 @@ export class ServiceCreationFormComponent implements OnInit, OnDestroy {
       const servicePreferenceData = new FormData();
       const serviceExperienceData = new FormData();
       const formValue = this.serviceForm.value;
-      console.log(formValue);
+
       const locationData = {
         placeName: this.selectedLocation.address,
         latitude: this.selectedLocation.location?.lat(),
@@ -204,11 +204,11 @@ export class ServiceCreationFormComponent implements OnInit, OnDestroy {
       servicePreferenceData.append('placeName', locationData.placeName);
       servicePreferenceData.append(
         'latitude',
-        String(locationData.latitude ?? '')
+        String(locationData.longitude ?? '')
       );
       servicePreferenceData.append(
         'longitude',
-        String(locationData.longitude ?? '')
+        String(locationData.latitude ?? '')
       );
 
       servicePreferenceData.append(
@@ -231,10 +231,6 @@ export class ServiceCreationFormComponent implements OnInit, OnDestroy {
       this.projectPictures.forEach((file) => {
         serviceExperienceData.append('images', file);
       });
-
-      servicePreferenceData.forEach((key, value) =>
-        console.log(`${key}: ${value}`)
-      );
 
       // Send service preference data
       this.serviceService

@@ -5,6 +5,7 @@ import { Statuses } from '../../../../utils/status';
 import { CallService } from '../../../service-discovery/services/call/call.service';
 import { RequestContent } from '../../../service-discovery/models/call';
 import { FormsModule } from '@angular/forms';
+import { ReversePipe } from '../../../../utils/reverse.pipe';
 
 
 
@@ -12,7 +13,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-calls',
   standalone: true,
-  imports: [TableModule, CommonModule,FormsModule],
+  imports: [TableModule, CommonModule,FormsModule,ReversePipe],
   templateUrl: './calls.component.html',
   styleUrl: './calls.component.sass'
 })

@@ -53,7 +53,7 @@
   </div>
 
   <div class="right">
-    <app-availability-form />
+    <app-availability-form [providerEmail]="email" />
   </div>
 </div>
 
@@ -109,7 +109,7 @@
         <div class="start-date">
           <label>Start Date</label>
           <p-calendar
-            dateFormat="mm/dd/yy"
+            dateFormat="dd/mm/yy"
             placeholder="dd/mm/yy"
             formControlName="startDate"
           />
@@ -126,13 +126,11 @@
         </div>
         <div class="end-time">
           <label>Start Time</label>
-          <input
-            type="time"
-            formControlName="startTime"
-            [class.has-error]="
-              quoteForm.get('startTime')?.invalid &&
-              (quoteForm.get('startTime')?.dirty || quoteForm.get('startTime')?.touched)
-            "
+          <p-calendar 
+          inputId="calendar-timeonly" 
+          [(ngModel)]="time" 
+          [timeOnly]="true" 
+          formControlName="startTime"
           />
         </div>
         <div
@@ -149,7 +147,7 @@
         <div class="start-date">
           <label>End Date</label>
           <p-calendar
-        dateFormat="mm/dd/yy"
+        dateFormat="dd/mm/yy"
         placeholder="dd/mm/yy"
         formControlName="endDate"
       />
@@ -167,7 +165,19 @@
         </div>
         <div class="end-time">
           <label>End Time</label>
-          <input
+          <p-calendar 
+            inputId="calendar-timeonly" 
+            [(ngModel)]="time" 
+            [timeOnly]="true" 
+            formControlName="endTime"
+            [class.has-error]="
+              quoteForm.get('endTime')?.invalid &&
+              (quoteForm.get('endTime')?.dirty ||
+                quoteForm.get('endTime')?.touched)
+            "
+
+            />
+          <!-- <input
             type="time"
             formControlName="endTime"
             [class.has-error]="
@@ -175,7 +185,7 @@
               (quoteForm.get('endTime')?.dirty ||
                 quoteForm.get('endTime')?.touched)
             "
-          />
+          /> -->
         </div>
         <div
           class="error-message"
@@ -219,9 +229,7 @@
 
       <div class="images">
         <label>Upload some pictures related to the project</label>
-        <app-image-uploader 
-        (uploadedImages)="onImageUploaded($event)"
-        />
+        <app-image-uploader (uploadedImages)="onImageUploaded($event)" />
       </div>
 
       <div class="action-buttons">

@@ -73,5 +73,6 @@ export class AuthService {
     this.localStorageService.removeItem('accessToken');
     this.localStorageService.removeItem('refreshToken');
     this.localStorageService.removeItem('userRoles');
+    this.localStorageService.removeItem('userData');
   }
 }

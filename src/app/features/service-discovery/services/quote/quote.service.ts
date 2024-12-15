@@ -19,24 +19,24 @@ export class QuoteService {
   getCreatedQuotes():Observable<getQuote[]>{
     return this.http.get<getQuote[]>(`${this.url}/quotes/creator`);
   }
-  getSingleQuoteCreated(id: number) {
-    return this.http.get<getQuote>(`${this.url}/quotes/provider/${id}/creator/details`);
+  getSingleQuoteCreated(quoteId: number) {
+    return this.http.get<getQuote>(`${this.url}/quotes/${quoteId}/creator/details`);
   }
 
 
   getQuotes(){
-    return this.http.get<ResponseData>(`${this.url}/quotes/provider`);
+    return this.http.get<ResponseData>(`${this.url}/requests/assigned`);
   }
 
-  getSingleQuote(id: number) {
-    return this.http.get<Quote[]>(`${this.url}/quotes/provider/${id}/assignee/details`);
+  getSingleQuote(requestId: number) {
+    return this.http.get<getQuote>(`${this.url}/requests/quote/${requestId}`);
   }
 
-  acceptRequest(data:acceptQuote,id:number):Observable<acceptQuote[]>{
-    return this.http.put<acceptQuote[]>(`${this.url}/quotes/${id}/status/approve`,data);
+  acceptRequest(data:acceptQuote,requestId:number):Observable<acceptQuote[]>{
+    return this.http.put<acceptQuote[]>(`${this.url}/quotes/${requestId}/status/approve`,data);
   }
-  declineRequest(data:declineQuote,id:number):Observable<declineQuote[]>{
-    return this.http.put<acceptQuote[]>(`${this.url}/quotes/${id}/status/decline`,data);
+  declineRequest(data:declineQuote,requestId:number):Observable<declineQuote[]>{
+    return this.http.put<declineQuote[]>(`${this.url}/quotes/${requestId}/status/decline`,data);
     
   }
   

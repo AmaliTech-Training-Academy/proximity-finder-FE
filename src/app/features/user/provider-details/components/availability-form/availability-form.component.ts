@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, Input, OnDestroy, OnInit } from '@angular/core';
 import { PasswordInputComponent } from "../../../../profile-management/components/password-input/password-input.component";
 import { SchedulingService } from '../../../../schedule-manager/services/scheduling.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -6,25 +6,30 @@ import { formatDate } from '../../../../../utils/dateFormatter';
 import { Availablity } from '../../../../schedule-manager/models/scheduler';
 import { NOTYF } from '../../../../../shared/notify/notyf.token';
 import { ProDetails } from '../../../../service-discovery/models/pro-details';
-import { ProviderDataService } from '../../../../service-discovery/services/provider-data.service';
 import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { BookingFormComponent } from '../../../../seeker/components/booking-form/booking-form.component';
 
 @Component({
   selector: 'app-availability-form',
   standalone: true,
-  imports: [PasswordInputComponent, ReactiveFormsModule, CommonModule],
+  imports: [PasswordInputComponent, ReactiveFormsModule, CommonModule, ButtonModule, DialogModule, BookingFormComponent],
   templateUrl: './availability-form.component.html',
-  styleUrl: './availability-form.component.sass'
+  styleUrl: './availability-form.component.sass',
 })
-export class AvailabilityFormComponent implements OnInit, OnDestroy{
+
+export class AvailabilityFormComponent implements OnInit, OnDestroy {
   isProAvailable: boolean = false
   private notyf = inject(NOTYF)
   provider!: ProDetails
-  providerEmail: string = ''
   providerSubscription: Subscription | null = null
+  @Input() providerEmail!: string;
 
-  constructor(private schedulingService: SchedulingService, private fb: FormBuilder, private providerService: ProviderDataService) {}
+  visible: boolean = false;
+
+  constructor(private schedulingService: SchedulingService, private fb: FormBuilder) {}
 
   availabilityForm: FormGroup = this.fb.group({
     schedulingDate: ['', Validators.required],
@@ -32,21 +37,7 @@ export class AvailabilityFormComponent implements OnInit, OnDestroy{
   })
 
   ngOnInit() {
-    const storedProvider = this.providerService.getSelectedProvider();
-  
-    if (storedProvider) {
-      this.provider = storedProvider
-      this.providerEmail = this.provider.userEmail
-    } else {
-      this.providerSubscription = this.providerService.selectedProvider$.subscribe((provider) => {
-        if (provider) {
-          this.provider = provider
-          this.providerEmail = this.provider.userEmail
-        } else {
-          this.notyf.error('Provider not found');
-        }
-      });
-    }
+    console.log(this.providerEmail);
   }
 
   onSubmit() {
@@ -89,5 +80,13 @@ export class AvailabilityFormComponent implements OnInit, OnDestroy{
     if(this.providerSubscription) {
       this.providerSubscription.unsubscribe()
     }
+  }
+
+  showDialog() {
+    this.visible = true;
+  }
+
+  onCloseDialogClicked(visible: boolean) {
+    this.visible = visible;
   }
 }
