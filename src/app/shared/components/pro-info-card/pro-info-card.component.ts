@@ -7,6 +7,7 @@ import { ProviderDataService } from '../../../features/service-discovery/service
 import { PreviewService } from '../../../core/services/preview.service';
 import { Subscription } from 'rxjs';
 import { ReviewService } from '../../../features/reviews-feedback/services/review.service';
+import { analyticsResult } from '../../../features/reviews-feedback/models/ireview';
 
 @Component({
   selector: 'app-pro-info-card',
@@ -22,13 +23,18 @@ export class ProInfoCardComponent implements OnInit, OnDestroy {
   businessImage: string = ''
   previewSubscription: Subscription | null = null
   defaultImage = 'assets/images/default-service.jpg'
+  serviceId!: string
+  analytics!: analyticsResult
+  type: 'provider' | 'service' = 'service'
   
 
   constructor(private router: Router, private providerService: ProviderDataService, private previewService: PreviewService,
-  ) { }
+    private reviewService: ReviewService) { }
 
   ngOnInit(): void {
     this.getBusinessName()
+    this.getServiceId()
+    this.fetchAnalytics()
   }
 
   viewProfile() {
@@ -42,6 +48,24 @@ export class ProInfoCardComponent implements OnInit, OnDestroy {
       this.businessImage = res.profileImage
     })
   }
+
+  getServiceId() {
+    if(this.provider) {
+      this.serviceId = this.provider.id
+    }
+  }
+
+  fetchAnalytics() {
+    this.reviewService.getAnalytics(this.type, this.serviceId).subscribe({
+      next: analytics => {
+        this.analytics = analytics.result
+      },
+      error: () => {
+        console.error('Failed to fetch review analytics')
+      }
+    })
+  }
+
 
   ngOnDestroy() {
     if (this.previewSubscription) {

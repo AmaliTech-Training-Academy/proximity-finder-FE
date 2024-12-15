@@ -4,7 +4,7 @@ import { RatingModule } from 'primeng/rating';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { MeterGroupModule } from 'primeng/metergroup';
 import { ReviewService } from '../../../../reviews-feedback/services/review.service';
-import { review, reviewAnalytics } from '../../../../reviews-feedback/models/ireview';
+import { analyticsResult, review } from '../../../../reviews-feedback/models/ireview';
 import { ProviderDataService } from '../../../../service-discovery/services/provider-data.service';
 import { ProDetails } from '../../../../service-discovery/models/pro-details';
 import { Subscription } from 'rxjs';
@@ -21,7 +21,6 @@ import { getBusinessYears } from '../../../../../utils/yearsCalculator';
   styleUrl: './reviews.component.sass'
 })
 export class ReviewsComponent {
-  value: number = 4
   values = [
     {value: 75, color: '#4285F4' }
   ]
@@ -34,7 +33,7 @@ export class ReviewsComponent {
   getTime: string | undefined
   displayedReviews: review[] = []
   showAllReviews = false
-  analytics!: reviewAnalytics
+  analytics!: analyticsResult
   type: 'provider' | 'service' = 'service'
 
   constructor(private reviewService: ReviewService, private providerService: ProviderDataService,
@@ -98,8 +97,7 @@ export class ReviewsComponent {
   fetchAnalytics() {
     this.reviewService.getAnalytics(this.type, this.serviceId).subscribe({
       next: analytics => {
-        this.analytics = analytics
-        console.log(this.analytics)
+        this.analytics = analytics.result
         this.notyf.success('Review analytics fetched successfully')
       },
       error: () => {

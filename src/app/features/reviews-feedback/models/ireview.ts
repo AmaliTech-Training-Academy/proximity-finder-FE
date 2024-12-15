@@ -34,13 +34,15 @@ export interface appReview{
 
 export interface reviewAnalytics {
     status: string;
-    result: {
-        oneStarCount: number;
-        twoStarCount: number;
-        threeStarCount: number;
-        fourStarCount: number;
-        fiveStarCount: number;
-        totalReviews: number;
-        averageRating: number;
-    }
+    result: analyticsResult
+}
+
+export interface analyticsResult {
+    oneStarCount: number;
+    twoStarCount: number;
+    threeStarCount: number;
+    fourStarCount: number;
+    fiveStarCount: number;
+    totalReviews: number;
+    averageRating: number;
 }
