@@ -105,7 +105,7 @@
       <div class="media">
         <p>Social Media Links</p>
         @for(socialMediaLinks of providerInfo["business-info"].aboutBusinessResponse.socialMediaLinks; track $index ){
-          <div class="fields">{{socialMediaLinks}}</div>
+          <div class="fields">{{socialMediaLinks || 'Not Included'}}</div>
         }
       </div>
 
@@ -127,7 +127,6 @@
 
     <div class="payment-pref">
       <div class="payment-info">
-        <p>Payment Preference</p>
         @if (providerInfo['business-info'].paymentMethodResponses; as payments) {
           
           @for (payment of payments; track $index) {
@@ -163,7 +162,7 @@
                   <div class="field">{{payment.bankName}}</div>
                 </div>
                 <div class="account-info">
-                  <p>Account formArrayName="control"</p>
+                  <p>Account Name</p>
                   <div class="field">{{payment.accountName}}</div>
                 </div>
                 <div class="account-info">
@@ -226,32 +225,28 @@
    <div class="documents">
      <div class="document">
        <p>Extra Document(s)</p>
-       <div class="field">{{ service.documents }}</div>
+       @for(service of services;
+   track $index){
+     <div class="field">{{ service.serviceExperience?.images}}</div>
+   }
      </div>
    </div>
 
-  <div class="booking">
-     @for(booking of service.bookingDays; track $index){
-     <div class="days">
-       <p>Booking Days</p>
-       <div class="day"></div>
-     </div>
-     <div class="from">
-       <p>From</p>
-       <div class="time"></div>
-       <div class="time"></div>
-       <div class="time"></div>
-     </div>
-
-     <div class="to">
-       <p>To</p>
-       <div class="time"></div>
-       <div class="time"></div>
-       <div class="time"></div>
-     </div>
-
-     }
-   </div> 
+   <div class="booking">
+    <div class="booking-header">
+      <div class="header-item">Booking Days</div>
+      <div class="header-item">From</div>
+      <div class="header-item">To</div>
+    </div>
+    @for (booking of service.bookingDays; track $index) {
+      <div class="booking-row">
+        <div class="booking-item day">{{ booking.day }}</div>
+        <div class="booking-item time">{{ booking.startTime }}</div>
+        <div class="booking-item time">{{ booking.endTime }}</div>
+      </div>
+    }
+  </div>
+  
 
    <div class="scheduling">
      <p>Scheduling Policy (optional)</p>
@@ -275,24 +270,31 @@
      <div class="exp">
        <div class="exp-info">
          <p>Title of Project</p>
-         <div class="field"></div>
+         <div class="field">{{service.serviceExperience?.projectTitle}}</div>
        </div>
        <div class="exp-details">
          <p>Description</p>
-         <div class="field"></div>
+         <div class="field">{{service.serviceExperience?.description}}</div>
        </div>
      </div>
    }
       
     }
   </div>
-
   <div class="pic-upload">
     <p>Uploads</p>
-    <div class="uploaded"></div>
-    <div class="uploaded"></div>
-    <div class="uploaded"></div>
+
+    @if(providerInfo['provider-service']; as services){
+      @for(service of services;
+   track $index){
+
+     <div class="uploaded">{{service.serviceExperience?.images}}</div>
+   }
+    }
+    
+    
   </div>
+
 
   <div class="instruction">
     <p>
@@ -304,6 +306,6 @@
 
   <div class="buttons">
     <div class="back">Back</div>
-    <div class="register" (click)="onContinue()">Register</div>
+    <div class="register" (click)="onRegister()">Register</div>
   </div>
 

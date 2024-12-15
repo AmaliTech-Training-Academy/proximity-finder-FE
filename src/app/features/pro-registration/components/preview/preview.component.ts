@@ -6,6 +6,7 @@ import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { CommonModule } from '@angular/common';
 import { ProfileService } from '../../../profile-management/services/profile.service';
 import { UserAccountsService } from '../../../admin/services/user-accounts.service';
+import { Router } from '@angular/router';
 
 
 
@@ -28,7 +29,8 @@ export class PreviewComponent {
   constructor(
     private previewService: PreviewService,
     private profileService: ProfileService,
-    private userAccountsService:UserAccountsService
+    private userAccountsService:UserAccountsService,
+    private router:Router
   ) {}
  
   ngOnInit(): void {
@@ -41,20 +43,36 @@ export class PreviewComponent {
           this.providerInfo$ = this.previewService.getPreview(email).pipe(
             tap((data) => console.log('Provider Info:', data)),
             catchError((error) => {
-              console.error('Error loading provider info:', error);
               return EMPTY;
             })
           );
-        } else {
-         
         }
       },
-      error: (err) => console.error('Error loading logged-in user:', err),
+      
     });
   }
 
-  onContinue(): void {
-    this.showSuccessMessage = true; 
-    this.notyf.success('Account has been sent for approval');
+  onRegister(): void {
+    this.providerInfo$.subscribe({
+      next: (providerInfo) => {
+        const userId = providerInfo?.authservice?.userId; 
+        if (userId) {
+          const newStatus = 'submitted'; 
+          this.userAccountsService.getUserStatus(userId, newStatus).subscribe({
+            next: () => {
+              this.showSuccessMessage = true;
+              this.notyf.success('Registeration has been sent for aprroval');
+              this.router.navigateByUrl('/provider/dashboard')
+            },
+            error: (err) => {
+              this.notyf.error('Failed to send registration for approval');
+            },
+          });
+        } 
+      },
+    });
   }
+  
+  
+  
 }
