@@ -69,3 +69,23 @@ export interface ProviderResponse {
   'provider-service': ProviderService[];
   'business-info': BusinessInfo;
 }
+
+export interface BookingDays {
+  id: string;
+  day: string;
+  startTime: string;
+  endTime: string;
+}
+
+export interface Documents {
+  id: string;
+  name: string;
+  url: string;
+}
+
+export interface ServiceExperience {
+  id: string;
+  description: string;
+  projectTitle: string;
+  images: string[]
+}

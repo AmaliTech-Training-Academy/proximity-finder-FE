@@ -7,15 +7,16 @@ import { Subscription } from 'rxjs';
 import { User } from '../../models/user-response';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MessageFormComponent } from "../message-form/message-form.component";
 import { ProviderResponse } from '../../../../core/models/provider-response';
 import { getBusinessYears } from '../../../../utils/yearsCalculator';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [DialogModule, ReactiveFormsModule, InputTextModule, MessageFormComponent],
+  imports: [DialogModule, ReactiveFormsModule, InputTextModule, MessageFormComponent, CommonModule],
   templateUrl: './about.component.html',
   styleUrl: './about.component.sass'
 })
@@ -28,15 +29,9 @@ export class AboutComponent implements OnInit, OnDestroy {
   @Input() provider!: ProviderResponse
   getBusinessYears: string | undefined
   userId!: number
-
-
+  userEmail: string = ''
   
-  constructor (private userService: UserAccountsService, private fb: FormBuilder) {}
-
-  messageForm: FormGroup = this.fb.group({
-    email: [this.provider.authservice.email || '', [Validators.required, Validators.email]],
-    reason: ['', Validators.required]
-  })
+  constructor (private userService: UserAccountsService) {}
 
   
   ngOnInit() {
@@ -49,11 +44,18 @@ export class AboutComponent implements OnInit, OnDestroy {
       const inceptionDate = this.provider['business-info'].aboutBusinessResponse.inceptionDate
       this.getBusinessYears = getBusinessYears(inceptionDate)
     }
+    this.getUserEmail()
   }
 
   getUserId() {
     if(this.provider.authservice.userId) {
       this.userId = this.provider.authservice.userId
+    }
+  }
+
+  getUserEmail() {
+    if(this.provider.authservice.email) {
+      this.userEmail = this.provider.authservice.email
     }
   }
 
@@ -69,6 +71,7 @@ export class AboutComponent implements OnInit, OnDestroy {
             userEmail: this.provider.authservice.email
           }
     })
+    
     dialogRef.afterClosed().subscribe((results) => {
       if(results) {
         
