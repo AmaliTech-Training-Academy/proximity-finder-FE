@@ -12,7 +12,7 @@
 
           <div class="task">
             <div class="details">
-                <p>Interior Painter</p>
+                <p>{{quoteDetails?.title}}</p>
             </div>
 
             <div class="btn-decisions">
@@ -31,41 +31,41 @@
 
           <div class="detailed">
             <p>Details</p>
-            <span>Lorem ipsum dolor sit amet consectetur. Nunc purus ut posuere pharetra ut sagittis dolor bibendum. Suspendisse tellus tellus iaculis ipsum varius pretium. Consequat sagittis eget sit tortor magnis lorem viverra lacus amet. Congue lorem consectetur nunc in at quis eu.</span>
+            <span>{{quoteDetails?.description}}</span>
           </div>
 
           <div class="time-frame">
             <p>Time Frame</p>
-            <span>Start : 12/12/2022 <br> End : 12/12/2022</span>
+            <span>Start : {{quoteDetails?.startDate}}<br> End : {{quoteDetails?.endDate}}</span>
           </div>
           <div class="location">
             <p>Location</p>
-            <span>Kumasi, Ghana</span>
+            <span>{{quoteDetails?.location}}</span>
           </div>
           <div class="add-info">
             <p>Additional Information (Special Instructions)</p>
-            <span>Lorem ipsum dolor sit amet consectetur. Nunc purus ut posuere pharetra ut sagittis dolor bibendum. Suspendisse tellus tellus iaculis ipsum varius pretium. Consequat sagittis eget sit tortor magnis lorem viverra lacus amet. Congue lorem consectetur nunc in at quis eu.</span>
+            <span>{{quoteDetails?.additionalDetails || 'Not Added'}}</span>
           </div>
 
           <div class="uploads">
             <p>Uploaded Images</p>
-          <div class="pictures">
-            <img src="assets/avatar.jpeg" alt="image1">
-            <img src="assets/avatar.jpeg" alt="image1">
-            <img src="assets/avatar.jpeg" alt="image1">
-            <img src="assets/avatar.jpeg" alt="image1">
-            <img src="assets/avatar.jpeg" alt="image1">
-            <img src="assets/avatar.jpeg" alt="image1">
             
-          </div>
-
+            @if (quoteDetails?.images?.length) {
+              <div class="pictures">
+                @for (image of quoteDetails?.images; track $index) {
+                  <img [src]="image" alt="uploaded image" />
+                }
+              </div>
+            } @else {
+              <p>No images were attached.</p>
+            }
           </div>
 </div>
 
 </section>
 
 <p-dialog header="Request Approval" [modal]="true" [(visible)]="modals.approve">
- <form [formGroup]="approveForm">
+ <form [formGroup]="approveForm" (ngSubmit)="onApproval()">
     <div class="pricing-details">
         <label>Pricing Details</label>
         <input 
@@ -82,7 +82,8 @@
         <p>Additional Information</p>
         <p-editor
         [style]="{ height: '200px' }" 
-        formControlName="info" 
+        formControlName="approvalDetails"
+        [(ngModel)]="reasonText"
          />
     </div>
     <div class="error-message" *ngIf="approveForm.get('info')?.invalid && (approveForm.get('info')?.dirty || approveForm.get('info')?.touched)">
@@ -98,12 +99,13 @@
 </p-dialog>
 
 <p-dialog header="Decline Request" [modal]="true" [(visible)]="modals.decline">       
-  <form class="modal" [formGroup]="declineForm">
+  <form class="modal" [formGroup]="declineForm" (ngSubmit)="onDecline()">
     <div class="rich-text">
         <p>Reasons for declining</p>
         <p-editor
          [style]="{ height: '200px' }" 
-         formControlName="reason"
+         formControlName="declineReason"
+         [(ngModel)]="reasonText"
          />
     </div>
     <div class="error-message" *ngIf="declineForm.get('reason')?.invalid && (declineForm.get('reason')?.dirty || declineForm.get('reason')?.touched)">

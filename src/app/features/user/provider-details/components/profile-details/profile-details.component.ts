@@ -27,6 +27,7 @@ export class ProfileDetailsComponent{
   @Input() provider!: ProviderResponse;
   email: string = ''
   isImageModified: boolean = false;
+  time: Date[] | undefined;
   
 
   visible: boolean = false;
