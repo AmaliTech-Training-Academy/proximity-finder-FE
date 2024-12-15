@@ -14,5 +14,5 @@ export const environment = {
   quote: 'http://113.29.247.162:8888/api/v1/quote-service',
   bookingUrl: 'http://113.29.247.162:8888/api/v1/quote-service/bookings/',
   paymentsUrl:
-    'http://113.29.247.162:8888/api/v1/provider-service/payment-method/',
+    'http://113.29.247.162:8888/api/v1/provider-service/payment-method',
 };

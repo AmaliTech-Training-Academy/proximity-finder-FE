@@ -3,8 +3,11 @@
 @use '../../../../../styles/_mixins' as *
 
 
+.content
+     padding: pxToRem(20) pxToRem(100)   
+
 .quotes
-    padding: pxToRem(20) pxToRem(100)
+    margin-top: pxToRem(30)
 
 
     h6
@@ -118,8 +121,10 @@
         gap: pxToRem(20)
         margin-top: pxToRem(24)
         flex:1 
-        border: 1px solid #E4E7E9  
+        border: 1px solid #E4E7E9
         border-radius: pxToRem(4)
+        height: 100%
+        
 
         .title
             @include flex-option(flex, space-between, null, row)
@@ -183,13 +188,18 @@
                 span
                    font-size: pxToRem(14)
                    font-weight: 500
-                   color: $text-main 
+                   color: $text-main
+
+    .tab-content
+        height: pxToRem(500)
+                    
 
         .photos
             display: grid
-            grid-template-columns: repeat(3, 1fr)
+            grid-template-columns: repeat(2, 1fr)
             gap: pxToRem(16)
             padding: pxToRem(16) pxToRem(20)
+            height: 100%
 
             img
                 width: pxToRem(150)
