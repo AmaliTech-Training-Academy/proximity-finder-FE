@@ -84,7 +84,7 @@ export interface Documents {
 }
 
 export interface ServiceExperience {
-  id: string;
+  id: number;
   description: string;
   projectTitle: string;
   images: string[]
