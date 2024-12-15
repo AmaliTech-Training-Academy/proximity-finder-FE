@@ -13,6 +13,7 @@ export class MessageFormComponent {
   @Input() messagePlaceholder: string = 'Message';
   @Input() showWarning: boolean = true;
   @Output() formSubmit = new EventEmitter<{ email: string; reason: string; actionType?: string }>();
+  @Input() email: string | null = null
 
   
 
@@ -22,6 +23,12 @@ export class MessageFormComponent {
     email: ['', [Validators.required, Validators.email]],
     reason: ['', Validators.required],
   });
+
+  ngOnChanges() {
+    if (this.email) {
+      this.messageForm.patchValue({ email: this.email })
+    }
+  }
 
   onSubmit() {
     if (this.messageForm.valid) {

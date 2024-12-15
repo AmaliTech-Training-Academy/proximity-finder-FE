@@ -5,24 +5,38 @@
       <p class="text">in the next week</p>
     </div>
   </header>
+  
+    <form [formGroup]="availabilityForm" (ngSubmit)="onSubmit()">
+        <div class="input">
+            <label for="date">Scheduling Date</label>
+            <app-password-input type="date" id="date" formControlName="schedulingDate"
+            [error]="availabilityForm.get('schedulingDate')?.invalid &&(availabilityForm.get('schedulingDate')?.dirty || availabilityForm.get('schedulingDate')?.touched)"
+            />
+            @if (availabilityForm.get('schedulingDate')?.invalid &&(availabilityForm.get('schedulingDate')?.dirty || availabilityForm.get('schedulingDate')?.touched)) {
+                @if (availabilityForm.get('schedulingDate')?.hasError('required')) {
+                    <small class="error">Scheduling date is required</small>
+                }
+            }          
+        </div>
 
-  <form>
-    <div class="input">
-      <label for="date">Scheduling Date</label>
-      <app-password-input type="date" id="date" />
-    </div>
+        <div class="input">
+            <label for="hours">Estimated Hours</label>
+            <app-password-input type="number"
+            placeholder="Please enter the value" id="hours" formControlName="estimatedHours"
+            [error]="availabilityForm.get('estimatedHours')?.invalid &&(availabilityForm.get('estimatedHours')?.dirty || availabilityForm.get('estimatedHours')?.touched)"
+            />
+            @if (availabilityForm.get('estimatedHours')?.invalid &&(availabilityForm.get('estimatedHours')?.dirty || availabilityForm.get('estimatedHours')?.touched)) {
+                @if (availabilityForm.get('estimatedHours')?.hasError('required')) {
+                    <small class="error">Estimated hours are required</small>
+                }
+                @if (availabilityForm.get('estimatedHours')?.hasError('min')) {
+                    <small class="error"> Estimated hours must be at least 1.</small>
+                }
+            }
+        </div>
 
-    <div class="input">
-      <label for="hours">Estimated Hours</label>
-      <app-password-input
-        type="number"
-        placeholder="Please choose"
-        id="hours"
-      />
-    </div>
-
-    <button type="submit">Check Availability</button>
-  </form>
+        <button type="submit" [disabled]="availabilityForm.invalid">Check Availability</button>
+    </form>
 
   @if (!isProAvailable) {
   <div class="no-pro">

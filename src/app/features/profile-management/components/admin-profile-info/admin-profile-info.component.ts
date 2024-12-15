@@ -5,7 +5,7 @@ import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { FieldsComponent } from "../../../pro-registration/components/fields/fields.component";
+import { FieldsComponent } from '../../../pro-registration/components/fields/fields.component';
 import { ProfileService } from '../../services/profile.service';
 import { Subscription } from 'rxjs';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
@@ -15,47 +15,58 @@ import { IProfile } from '../../models/profile';
 import { LocalStorageService } from '../../../../shared/services/local-storage.service';
 import { decodeToken, initializeUser } from '../../../../utils/decodeToken';
 import { ROLE_ADMIN } from '../../../../utils/roles';
+import { ProviderData } from '../../../../core/models/ProviderData';
 @Component({
   selector: 'app-admin-profile-info',
   standalone: true,
-  imports: [MatDialogModule, MatIconModule, ReactiveFormsModule, CommonModule, FieldsComponent],
+  imports: [
+    MatDialogModule,
+    MatIconModule,
+    ReactiveFormsModule,
+    CommonModule,
+    FieldsComponent,
+  ],
   templateUrl: './admin-profile-info.component.html',
   styleUrl: './admin-profile-info.component.sass',
-  providers: [provideNativeDateAdapter()]
+  providers: [provideNativeDateAdapter()],
 })
-export class AdminProfileInfoComponent implements OnInit, OnDestroy{
-  readonly dialog = inject(MatDialog)
-  private subscription: Subscription = new Subscription()
-  private notyf = inject(NOTYF)
+export class AdminProfileInfoComponent implements OnInit, OnDestroy {
+  readonly dialog = inject(MatDialog);
+  private subscription: Subscription = new Subscription();
+  private notyf = inject(NOTYF);
 
-  profileSubscription!: Subscription
-  imageSubscription!: Subscription
+  profileSubscription!: Subscription;
+  imageSubscription!: Subscription;
 
-  isFormActive: boolean = false
-  disableEmail: boolean = true
-  client!: IProfile
-  imageUrl: string | ArrayBuffer | null = null
-  selectedFile: File | Blob | undefined
-  defaultImage = 'assets/images/default-avatar.png'
-  isUploading = false
-  token!: string
-  role: string[] = []
-  timestamp: number = new Date().getTime()
+  isFormActive: boolean = false;
+  disableEmail: boolean = true;
+  client!: ProviderData;
+  imageUrl: string | ArrayBuffer | null = null;
+  selectedFile: File | Blob | undefined;
+  defaultImage = 'assets/images/default-avatar.png';
+  isUploading = false;
+  token!: string;
+  role: string[] = [];
+  timestamp: number = new Date().getTime();
 
-  constructor(private fb: FormBuilder, private profileService: ProfileService, private imageService: ImageManagementService,
-              private svgService: SvgService, private localStorageService: LocalStorageService
+  constructor(
+    private fb: FormBuilder,
+    private profileService: ProfileService,
+    private imageService: ImageManagementService,
+    private svgService: SvgService,
+    private localStorageService: LocalStorageService
   ) {
-    const userData = initializeUser(this.localStorageService)
-    this.token = userData.token
-    this.role = userData.role
+    const userData = initializeUser(this.localStorageService);
+    this.token = userData.token;
+    this.role = userData.role;
   }
 
   togglEditForm(): void {
-    this.isFormActive = !this.isFormActive
+    this.isFormActive = !this.isFormActive;
   }
 
   ngOnInit(): void {
-    if(this.role[0] === ROLE_ADMIN){
+    if (this.role[0] === ROLE_ADMIN) {
       this.profileSubscription = this.profileService.getClient().subscribe({
         next: (client) => {
           this.client = client;
@@ -63,62 +74,64 @@ export class AdminProfileInfoComponent implements OnInit, OnDestroy{
         },
         error: (error) => {
           console.error('Error fetching client data:', error);
-        }
+        },
       });
     }
   }
-  
-  
 
   userForm = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(3)]],
     email: ['', Validators.email],
-    phone: ['', [Validators.required]]
-  })
+    phone: ['', [Validators.required]],
+  });
 
   updateUserForm() {
     this.userForm.patchValue({
       name: this.client.userName,
       email: this.client.email,
-      phone: this.client.mobileNumber?.toString() || ''
-    })
+      phone: this.client.mobileNumber?.toString() || '',
+    });
   }
 
   onSubmit() {
-    if(this.userForm.valid) {
-      const {name, phone} = this.userForm.value
-      const updatedClient:IProfile = {...this.client,
-             userName: name || '',
-             mobileNumber: phone || ''}
+    if (this.userForm.valid) {
+      const { name, phone } = this.userForm.value;
+      const updatedClient: ProviderData = {
+        ...this.client,
+        userName: name || '',
+        mobileNumber: phone || '',
+      };
 
       this.profileService.updateClient(updatedClient).subscribe({
         next: (client) => {
-          this.client = client
-          this.isFormActive = false
-          this.notyf.success('Profile updated successfully')
+          this.client = client;
+          this.isFormActive = false;
+          this.notyf.success('Profile updated successfully');
         },
         error: (error) => {
-          console.error('Error updating profile:', error)
-          this.notyf.error('Error updating profile')
-        }
-      })
+          console.error('Error updating profile:', error);
+          this.notyf.error('Error updating profile');
+        },
+      });
     }
-    
   }
 
-  openDialog(){
+  openDialog() {
     const dialogRef = this.dialog.open(DeleteModalComponent, {
-            data: {title: 'Delete Profile',
-            message: 'Are you sure you want to delete your profile? This action cannot be undone.',
-            type: 'delete',
-            confirmText: 'Delete',
-            cancelText: 'Cancel'}
-    })
+      data: {
+        title: 'Delete Profile',
+        message:
+          'Are you sure you want to delete your profile? This action cannot be undone.',
+        type: 'delete',
+        confirmText: 'Delete',
+        cancelText: 'Cancel',
+      },
+    });
     dialogRef.afterClosed().subscribe((results) => {
-      if(results) {
-        this.deleteProfileImage()
+      if (results) {
+        this.deleteProfileImage();
       }
-    })
+    });
   }
 
   triggerFileInput(): void {
@@ -141,25 +154,26 @@ export class AdminProfileInfoComponent implements OnInit, OnDestroy{
         this.imageUrl = reader.result as string;
       };
       reader.readAsDataURL(file);
-
     }
   }
 
   updateProfileImage() {
-    this.isUploading = true
-    this.imageSubscription = this.imageService.uploadProfileImage(this.selectedFile).subscribe({
-      next: (response) => {
-        this.imageUrl = response
-        this.isUploading = false
-        this.client.profileImage = response
-        this.timestamp = new Date().getTime()
-        this.notyf.success('Profile image uploaded successfully')
-      },
-      error: (error) => {
-        console.error(error)
-        this.isUploading = false
-      }
-    })
+    this.isUploading = true;
+    this.imageSubscription = this.imageService
+      .uploadProfileImage(this.selectedFile)
+      .subscribe({
+        next: (response) => {
+          this.imageUrl = response;
+          this.isUploading = false;
+          this.client.profileImage = response;
+          this.timestamp = new Date().getTime();
+          this.notyf.success('Profile image uploaded successfully');
+        },
+        error: (error) => {
+          console.error(error);
+          this.isUploading = false;
+        },
+      });
   }
 
   deleteProfileImage() {
@@ -176,12 +190,12 @@ export class AdminProfileInfoComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    if(this.profileSubscription) {
-      this.profileSubscription.unsubscribe
+    if (this.profileSubscription) {
+      this.profileSubscription.unsubscribe;
     }
 
-    if(this.imageSubscription) {
-      this.imageSubscription.unsubscribe
+    if (this.imageSubscription) {
+      this.imageSubscription.unsubscribe;
     }
   }
 }
