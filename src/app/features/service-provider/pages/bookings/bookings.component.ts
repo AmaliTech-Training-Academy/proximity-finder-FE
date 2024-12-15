@@ -88,12 +88,13 @@ export class BookingsComponent implements OnInit {
       case 'PENDING':
         return [
           {
-            label: 'Complete',
-            icon: 'pi pi-check-circle',
+            label: 'Accept',
+            icon: 'pi pi-check',
             command: () => {
-              this.completeBooking();
+              this.acceptBooking();
             },
           },
+
           {
             label: 'Decline',
             icon: 'pi pi-times',

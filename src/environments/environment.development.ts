@@ -4,7 +4,7 @@ export const environment = {
   serviceUrl: 'http://113.29.247.162:8080',
   // registration:'https://api.proximity-finder.amalitech-dev.net/api/v1/provider-service/',
   registration: 'http://113.29.247.162:8888/api/v1/provider-service',
-  searchUrl: 'http://113.29.247.162:8080/api/v1',
+  searchUrl: 'http://113.29.247.162:8080/api/v1/management',
   // faq: 'https://api.proximity-finder.amalitech-dev.net/api/v1/support/',
   faq: 'http://113.29.247.162:8888/api/v1/support/',
 
@@ -12,6 +12,7 @@ export const environment = {
   // quote:
   //   'https://api.proximity-finder.amalitech-dev.net/api/v1/quote-service',
   quote: 'http://113.29.247.162:8888/api/v1/quote-service',
-  bookingUrl: 'http://113.29.247.162:8888/api/v1/quote-service/bookings/',
-  paymentsUrl: 'http://113.29.247.162:8888/api/v1/provider-service',
+  bookingUrl: 'http://113.29.247.162:8888/api/v1/quote-service/bookings',
+  paymentsUrl:
+    'http://113.29.247.162:8888/api/v1/provider-service/payment-method',
 };

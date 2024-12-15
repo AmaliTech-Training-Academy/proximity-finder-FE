@@ -23,7 +23,7 @@ export class UserBankService {
   }
 
   getAllBanks(): Observable<BankName[]> {
-    return this.http.get<BankName[]>(`${this.apiUrl}/banks`).pipe(
+    return this.http.get<BankName[]>(`${this.apiUrl}banks`).pipe(
       retry(2),
       catchError((error) => this.errorHandler.handleError(error))
     );

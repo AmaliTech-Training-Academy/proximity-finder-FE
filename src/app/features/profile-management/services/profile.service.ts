@@ -12,6 +12,7 @@ import {
   IPaymentAccountNoId,
 } from '../../../core/models/payment-account';
 import { ProviderData } from '../../../core/models/ProviderData';
+import { LoggedInUser } from '../../../core/models/LoggedInUser';
 
 @Injectable({
   providedIn: 'root',
@@ -19,9 +20,9 @@ import { ProviderData } from '../../../core/models/ProviderData';
 export class ProfileService {
   token!: string;
   email: string | null | undefined = null;
-  apiUrl = environment.registration;
+  apiUrl = environment.paymentsUrl;
 
-  loggedInUserSubject = new BehaviorSubject<User | null>(null);
+  loggedInUserSubject = new BehaviorSubject<LoggedInUser | null>(null);
   loggedInUser$ = this.loggedInUserSubject.asObservable();
 
   paymentAccountsSubject = new BehaviorSubject<IPaymentAccount[]>([]);
@@ -67,11 +68,9 @@ export class ProfileService {
   }
 
   getPaymentAccounts(): void {
-    this.http
-      .get<IPaymentAccount[]>(`${this.apiUrl}/payment-method`)
-      .subscribe((accounts) => {
-        this.paymentAccountsSubject.next(accounts);
-      });
+    this.http.get<IPaymentAccount[]>(`${this.apiUrl}`).subscribe((accounts) => {
+      this.paymentAccountsSubject.next(accounts);
+    });
   }
 
   editPaymentAccount(
@@ -106,7 +105,7 @@ export class ProfileService {
   decodeToken() {
     if (this.token) {
       try {
-        const decodedToken = jwtDecode(this.token) as User;
+        const decodedToken = jwtDecode(this.token) as LoggedInUser;
         this.email = decodedToken.sub;
         this.loggedInUserSubject.next(decodedToken);
       } catch (error) {

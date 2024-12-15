@@ -30,6 +30,13 @@ export class BookingService {
     );
   }
 
+  getSeekerBookings(): Observable<BookingData[]> {
+    return this.http.get<BookingData[]>(`${this.apiUrl}/seeker`).pipe(
+      retry(2),
+      catchError((error) => this.errorHandler.handleError(error))
+    );
+  }
+
   acceptBooking(bookingId: number) {
     return this.http.put(`${this.apiUrl}/${bookingId}/accept`, bookingId);
   }
