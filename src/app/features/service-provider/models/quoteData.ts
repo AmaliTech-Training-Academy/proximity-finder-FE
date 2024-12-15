@@ -10,6 +10,7 @@ export interface Quote{
 }
 
 export interface getQuote{
+  providerInfo: any;
   quoteId: number;
   title: string;
   description: string;
@@ -35,7 +36,7 @@ export interface getQuote{
 
 export interface acceptQuote{
     price:string
-    decision:string
+    aprrovalDetails:string
     
 }
 export interface declineQuote{

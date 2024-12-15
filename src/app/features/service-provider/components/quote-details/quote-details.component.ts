@@ -19,15 +19,19 @@ import { TabViewModule } from 'primeng/tabview';
   styleUrl: './quote-details.component.sass'
 })
 export class QuoteDetailsComponent implements OnInit {
-  quoteDetails: getQuote[]=[]
+  quoteDetails: getQuote | null = null;
   approveForm: FormGroup;
   declineForm: FormGroup;
+
 
   modals = {
     approve: false,
     decline: false,
   };
+  
 
+  
+  reasonText = ''
   constructor(
     private route: ActivatedRoute,
     private quoteService: QuoteService,
@@ -38,11 +42,11 @@ export class QuoteDetailsComponent implements OnInit {
     
     this.approveForm = this.fb.group({
       price: ['', Validators.required],
-      info: ['', Validators.required],
+      approvalDetails: ['', Validators.required],
     });
 
     this.declineForm = this.fb.group({
-      reason: ['', Validators.required],
+      declineReason: ['', Validators.required],
     });
   }
 
@@ -69,6 +73,54 @@ export class QuoteDetailsComponent implements OnInit {
       },
     });
   }
+
+  onApproval() {
+    console.log(this.approveForm.value)
+    if (this.approveForm.valid && this.quoteDetails) {
+      const approvalDetails = this.approveForm.value; 
+      const requestId = this.quoteDetails.quoteId; 
+  
+      this.quoteService.acceptRequest(approvalDetails, requestId).subscribe({
+        next: (res) => {
+          console.log('Response', res)
+          this.modals.approve = false;
+          this.notyf.success('Quote approved successfully.');
+          this.router.navigateByUrl('/provider/dashboard/requests');
+        },
+        error: (err) => {
+          console.error('Error approving quote:', err);
+          this.notyf.error('Failed to approve quote.');
+        },
+      });
+    } else {
+      this.notyf.error('Please fill out the approval form correctly.');
+    }
+  }
+
+  onDecline(){
+    console.log(this.declineForm.value)
+    if (this.declineForm.valid && this.quoteDetails) {
+      const declineReason = this.declineForm.value;
+      const requestId = this.quoteDetails.quoteId;
+      
+      this.quoteService.declineRequest(declineReason, requestId).subscribe({
+        next: (res) => {
+          console.log('Response', res)
+          this.modals.decline = false;
+          this.notyf.success('Quote declined successfully.');
+          this.router.navigateByUrl('/provider/dashboard/requests');
+        },
+        error: (err) => {
+          console.error('Error declining quote:', err);
+          this.notyf.error('Failed to decline quote.');
+        },
+      });
+      
+    } else {
+      this.notyf.error('Please fill out the decline reason correctly.');
+  
+  }}
+  
 
   
   showDialog(type: 'approve' | 'decline'): void {
