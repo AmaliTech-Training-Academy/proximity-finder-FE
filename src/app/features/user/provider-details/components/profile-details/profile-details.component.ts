@@ -95,7 +95,9 @@ export class ProfileDetailsComponent{
       const formattedEndDate = this.datePipe.transform(this.quoteForm.get('endDate')?.value, 'dd/MM/yyyy');
   
       formData.append('endDate', formattedEndDate || '');      
-      formData.append('startDate', formattedStartDate || '');      
+      formData.append('startDate', formattedStartDate || '');    
+      
+     
     
       
       formData.append('title', this.quoteForm.get('title')?.value);
@@ -137,6 +139,12 @@ export class ProfileDetailsComponent{
   formatDate(date: string): string {
     return this.datePipe.transform(date, 'dd/MM/yyyy') || '';
   }
+
+  formatTime(time: string): string {
+    const date = new Date(time);
+    return this.datePipe.transform(date, 'HH:mm') || '';
+  }
+
 
   
 

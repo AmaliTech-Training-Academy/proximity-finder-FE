@@ -14,7 +14,7 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-quote-created',
   standalone: true,
-  imports: [UserProfileHeaderComponent,CommonModule,TabMenuModule,TabViewModule,ReversePipe,FormsModule,],
+  imports: [UserProfileHeaderComponent, CommonModule, TabMenuModule, TabViewModule, ReversePipe, FormsModule, NavbarComponent],
   templateUrl: './quote-created.component.html',
   styleUrl: './quote-created.component.sass'
 })
