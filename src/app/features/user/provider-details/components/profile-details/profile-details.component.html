@@ -126,12 +126,15 @@
         </div>
         <div class="end-time">
           <label>Start Time</label>
-          <p-calendar 
-          inputId="calendar-timeonly" 
-          [(ngModel)]="time" 
-          [timeOnly]="true" 
+          <input
+          type="time"
           formControlName="startTime"
-          />
+          [class.has-error]="
+            quoteForm.get('startTime')?.invalid &&
+            (quoteForm.get('startTime')?.dirty ||
+              quoteForm.get('startTime')?.touched)
+          "
+        />
         </div>
         <div
           class="error-message"
@@ -165,19 +168,7 @@
         </div>
         <div class="end-time">
           <label>End Time</label>
-          <p-calendar 
-            inputId="calendar-timeonly" 
-            [(ngModel)]="time" 
-            [timeOnly]="true" 
-            formControlName="endTime"
-            [class.has-error]="
-              quoteForm.get('endTime')?.invalid &&
-              (quoteForm.get('endTime')?.dirty ||
-                quoteForm.get('endTime')?.touched)
-            "
-
-            />
-          <!-- <input
+          <input
             type="time"
             formControlName="endTime"
             [class.has-error]="
@@ -185,7 +176,7 @@
               (quoteForm.get('endTime')?.dirty ||
                 quoteForm.get('endTime')?.touched)
             "
-          /> -->
+          />
         </div>
         <div
           class="error-message"

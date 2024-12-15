@@ -70,6 +70,7 @@ export class ProfileUpdateComponent {
     this.isUploading = true
     this.imageSubscription = this.imageService.uploadProfileImage(this.selectedFile).subscribe({
       next: (response) => {
+        this.notyf.success('Image Uploaded Successfully');
         this.imageUrl = response
         this.isUploading = false
       },

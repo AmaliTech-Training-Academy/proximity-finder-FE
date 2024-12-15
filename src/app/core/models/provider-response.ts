@@ -25,14 +25,16 @@ export interface ProviderService {
   userEmail: string;
   paymentPreference: string;
   placeName: string | null;
-  serviceExperience: ServiceExperience;
+  serviceExperience: ServiceExperience | null;
   schedulingPolicy: string;
   service: ServiceCategory
-  bookingDays: BookingDays[];
-  documents: Documents[];
+  bookingDays: BookingDay[];
+  documents: [];
   createdAt: string;
   updatedAt: string;
 }
+
+
 
 export interface AboutBusinessResponse {
   businessId: number;
@@ -42,6 +44,19 @@ export interface AboutBusinessResponse {
   businessCertificate: string;
   numberOfEmployees: number;
   businessSummary: string;
+}
+export interface ServiceExperience {
+  id: number;
+  projectTitle: string;
+  description: string;
+  images: string[];
+}
+
+export interface BookingDay {
+  id: string;
+  day: string; 
+  startTime: string; 
+  endTime: string;   
 }
 
 export interface BusinessInfo {
@@ -69,7 +84,7 @@ export interface Documents {
 }
 
 export interface ServiceExperience {
-  id: string;
+  id: number;
   description: string;
   projectTitle: string;
   images: string[]

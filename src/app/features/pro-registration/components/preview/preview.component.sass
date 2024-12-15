@@ -293,9 +293,10 @@
 
 
         .account
-            @include flex-option(flex, null, null, row)
-            gap: pxToRem(32)
+            @include flex-option(flex, null, null, column)
+            gap: pxToRem(12)
             margin-top: pxToRem(32)
+        
 
             .account-info
                 width: 100%
@@ -424,58 +425,37 @@
                   border-radius: pxToRem(4) 
                   background: #E8F0FE
                   margin-top: pxToRem(8)
-
         .booking
-            margin-top: pxToRem(32)
-            @include flex-option(flex, null, null, row)
-            gap: pxToRem(20)
-            
+           margin-top: pxToRem(32)
+           display: grid
+           grid-template-columns: 1fr
+           gap: pxToRem(16)
 
-            .days
-                width: 100%
-                p
-                 font-size: pxToRem(14)
-                 font-weight: 500
-                 color: $text-main
+           .booking-header
+             display: grid
+             grid-template-columns: 1fr 1fr 1fr
+             text-align: center
+             font-size: pxToRem(14)
+             font-weight: 500
+             color: $text-main
+             padding: pxToRem(8)
+             
+           .booking-row
+               display: grid
+               grid-template-columns: 1fr 1fr 1fr
+               gap: pxToRem(8)
+               align-items: center
 
-                .day
-                    border: 1px solid #EAECF0
-                    padding: pxToRem(16) pxToRem(21)  
-                    width: 100% 
-                    border-radius: pxToRem(4) 
-                    background: #E8F0FE
-                    margin-top: pxToRem(8)
+           .booking-item
+              border: 1px solid #eaecf0
+              padding: pxToRem(16)
+              border-radius: pxToRem(4)
+              background: #e8f0fe
+              text-align: center
 
-            .from
-                width: 100%
-                p
-                 font-size: pxToRem(14)
-                 font-weight: 500
-                 color: $text-main
+              &.day
+                font-weight:400
 
-                .time
-                    border: 1px solid #EAECF0
-                    padding: pxToRem(16) pxToRem(18)  
-                    width: 100% 
-                    border-radius: pxToRem(4) 
-                    background: #E8F0FE
-                    margin-top: pxToRem(8)
-
-            .to
-                width: 100%
-                p
-                 font-size: pxToRem(14)
-                 font-weight: 500
-                 color: $text-main
-
-
-                .time
-                    border: 1px solid #EAECF0
-                    padding: pxToRem(16) pxToRem(18)  
-                    width: 100% 
-                    border-radius: pxToRem(4) 
-                    background: #E8F0FE
-                    margin-top: pxToRem(8) 
 
         .scheduling
             width: 100%

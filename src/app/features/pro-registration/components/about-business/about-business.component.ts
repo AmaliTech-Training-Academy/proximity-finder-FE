@@ -76,7 +76,8 @@ export class AboutBusinessComponent implements OnDestroy {
 
       const socialLinks = this.socialsComponent.selectedSocialMedias
         .filter(media => media.link)
-        .map(media => ({ name: media.name, link: media.link }));
+        .map(media => media.link );
+        console.log('Filtered Social Media Links:', socialLinks);
 
       if (socialLinks.length > 0) {
         formData.append('socialMediaLinks', JSON.stringify(socialLinks));

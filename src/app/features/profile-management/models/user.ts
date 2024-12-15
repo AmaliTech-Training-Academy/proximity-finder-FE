@@ -1,5 +1,6 @@
 export interface User {
-  username: string;
-  sub: string;
-  role: string[];
+    username: string;
+    sub: string;
+    role: string[];
+    userId?:number
 }

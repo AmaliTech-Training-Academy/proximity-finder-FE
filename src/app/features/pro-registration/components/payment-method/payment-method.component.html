@@ -61,7 +61,7 @@
          [error]="bankForm.get('accountNumber')?.invalid && (bankForm.get('accountNumber')?.dirty || bankForm.get('accountNumber')?.touched)"
          />
          <div class="error-message" *ngIf="bankForm.get('accountNumber')?.invalid && (bankForm.get('accountNumber')?.dirty || bankForm.get('accountNumber')?.touched)">
-            Account Number is required
+            Account Number is required and should be at least 13 digits
          </div>
  
      <div class="btns">
