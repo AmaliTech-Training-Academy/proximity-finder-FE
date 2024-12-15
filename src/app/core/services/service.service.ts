@@ -10,9 +10,9 @@ import { environment } from '../../../environments/environment';
 })
 export class ServiceService {
   apiUrl = environment.serviceUrl;
-  servicesUrl = '/api/v1/services';
-  proServicesUrl = '/api/v1/provider-services';
-  serviceExperienceUrl = '/api/v1/service-experiences';
+  servicesUrl = '/services';
+  proServicesUrl = '/provider-services';
+  serviceExperienceUrl = '/service-experiences';
   servicesSubject = new BehaviorSubject<ServiceCategory[]>([]);
   serviceCategories$ = this.servicesSubject.asObservable();
 

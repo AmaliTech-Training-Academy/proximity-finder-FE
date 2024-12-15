@@ -1,25 +1,48 @@
-<!-- <div class="table">
+ <div class="table">
   <p-table
     [paginator]="true"
     [rows]="10"
     [tableStyle]="{ 'min-width': '50rem' }"
+    [value]="providerBookings"
   >
     <ng-template pTemplate="header">
       <tr>
-        <th>CLIENT NAME</th>
-        <th>DESCRIPTION</th>
-        <th>REQUEST DATE</th>
-        <th>AMOUNT</th>
+        <th>CLIENT EMAIL</th>
+        <th>START DATE</th>
+        <th>END DATE</th>
         <th>STATUS</th>
+        <th></th>
       </tr>
     </ng-template>
-    <ng-template pTemplate="body" let-quote>
+    <ng-template pTemplate="body" let-booking>
       <tr>
-        <td>{{ quote.clientName }}</td>
-        <td>{{ quote.requirements }}</td>
-        <td>{{ quote.email }}</td>
-        <td>{{ quote.dateTime | date : "MMMM d, y" }}</td>
+        <td>{{ booking.createdBy }}</td>
+        <td>{{ booking.startDate }}</td>
+        <td>{{ booking.endDate }}</td>
+        <td class="status">
+          @if (booking.status === "PENDING") {
+
+          <p-tag severity="warning" [value]="booking.status" [rounded]="true" />
+          } @else if (booking.status === "ACCEPTED") {
+          <p-tag severity="info" [value]="booking.status" [rounded]="true" />
+          } @else if (booking.status === 'COMPLETED') {
+          <p-tag severity="success" [value]="booking.status" [rounded]="true" />
+          } @else if (booking.status === 'DECLINED') {
+          <p-tag severity="danger" [value]="booking.status" [rounded]="true" />
+
+          }
+        </td>
+        <td>
+          <p-button
+            (onClick)="
+              openBookingOptions($event, booking.bookingId, booking.status)
+            "
+            icon="pi pi-ellipsis-v"
+          />
+        </td>
       </tr>
     </ng-template>
   </p-table>
 </div>
+
+<p-menu #menu [model]="options" [popup]="true" />
