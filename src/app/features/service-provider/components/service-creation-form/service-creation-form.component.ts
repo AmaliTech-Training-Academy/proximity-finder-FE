@@ -204,11 +204,11 @@ export class ServiceCreationFormComponent implements OnInit, OnDestroy {
       servicePreferenceData.append('placeName', locationData.placeName);
       servicePreferenceData.append(
         'latitude',
-        String(locationData.latitude ?? '')
+        String(locationData.longitude ?? '')
       );
       servicePreferenceData.append(
         'longitude',
-        String(locationData.longitude ?? '')
+        String(locationData.latitude ?? '')
       );
 
       servicePreferenceData.append(
