@@ -1,9 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable } from 'rxjs';
+import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { ServiceResponse } from '../models/IServiceResponse';
 import { ServiceCategory } from '../models/IServiceCategory';
 import { environment } from '../../../environments/environment';
+import {
+  ProviderServiceDetails,
+  ProviderServiceResponse,
+} from '../models/ProviderServiceResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -11,7 +15,7 @@ import { environment } from '../../../environments/environment';
 export class ServiceService {
   apiUrl = environment.serviceUrl;
   servicesUrl = '/api/v1/services';
-  proServicesUrl = '/api/v1/provider-services';
+  proServicesUrl = '/api/v1/management/provider-services';
   serviceExperienceUrl = '/api/v1/service-experiences';
   servicesSubject = new BehaviorSubject<ServiceCategory[]>([]);
   serviceCategories$ = this.servicesSubject.asObservable();
@@ -54,6 +58,12 @@ export class ServiceService {
     this.http
       .delete<ServiceResponse>(`${this.apiUrl}${this.servicesUrl}/${id}`)
       .subscribe(() => this.getServices());
+  }
+
+  getProviderServices(): Observable<ProviderServiceDetails[]> {
+    return this.http
+      .get<ProviderServiceResponse>(`${this.apiUrl}${this.proServicesUrl}`)
+      .pipe(map((res) => res.result));
   }
 
   setServicePreference(servicePreferenceData: FormData) {

@@ -9,7 +9,7 @@ import { ErrorHandlingService } from '../../../core/services/error-handling.serv
   providedIn: 'root',
 })
 export class BookingService {
-  apiUrl = environment.quoteServiceUrl;
+  apiUrl = environment.serviceUrl;
   constructor(
     private http: HttpClient,
     private errorHandler: ErrorHandlingService
