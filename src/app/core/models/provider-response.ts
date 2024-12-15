@@ -25,10 +25,10 @@ export interface ProviderService {
   userEmail: string;
   paymentPreference: string;
   placeName: string | null;
-  serviceExperience: string | null;
+  serviceExperience: ServiceExperience | null;
   schedulingPolicy: string;
   service: ServiceCategory
-  bookingDays: [];
+  bookingDays: BookingDay[];
   documents: [];
   createdAt: string;
   updatedAt: string;
@@ -44,6 +44,19 @@ export interface AboutBusinessResponse {
   businessCertificate: string;
   numberOfEmployees: number;
   businessSummary: string;
+}
+export interface ServiceExperience {
+  id: number;
+  projectTitle: string;
+  description: string;
+  images: string[];
+}
+
+export interface BookingDay {
+  id: string;
+  day: string; 
+  startTime: string; 
+  endTime: string;   
 }
 
 export interface BusinessInfo {
