@@ -24,3 +24,9 @@ export interface FormattedEvent {
   end: string;
   description: string;
 }
+
+export interface Availablity {
+  schedulingDate: string;
+  estimatedHours: number;
+  createdBy: string;
+}

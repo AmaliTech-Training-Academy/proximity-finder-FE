@@ -1,6 +1,7 @@
 import {
   Component,
   EventEmitter,
+  Inject,
   Input,
   OnDestroy,
   OnInit,
@@ -26,6 +27,8 @@ import * as marked from 'marked';
 import { AiLoaderComponent } from '../../../../shared/components/ai-loader/ai-loader.component';
 import { BookingService } from '../../../service-provider/services/booking.service';
 import { DatePipe } from '@angular/common';
+import { NOTYF } from '../../../../shared/notify/notyf.token';
+import { Notyf } from 'notyf';
 
 @Component({
   selector: 'app-booking-form',
@@ -63,7 +66,8 @@ export class BookingFormComponent implements OnInit, OnDestroy {
     private geminiService: GeminiService,
     private fb: FormBuilder,
     private bookingService: BookingService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    @Inject(NOTYF) private notyf: Notyf
   ) {}
 
   ngOnInit(): void {
@@ -169,7 +173,10 @@ export class BookingFormComponent implements OnInit, OnDestroy {
       };
 
       this.bookingService.bookProvider(formData).subscribe({
-        next: (response) => console.log(response),
+        next: (response) => {
+          this.notyf.success('Booking successful');
+          this.closeDialog();
+        },
         error: (error) => console.error(error),
       });
     } else {

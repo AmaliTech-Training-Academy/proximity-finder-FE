@@ -21,6 +21,7 @@
 
   <div class="main-content">
     <div class="table">
+      @if (services$ | async; as services) {
       <p-table
         [paginator]="true"
         [rows]="10"
@@ -30,15 +31,16 @@
         <ng-template pTemplate="header">
           <tr>
             <th>Service Name</th>
-            <th>Description</th>
-            <th>Pricing</th>
+            <th>Location</th>
+            <th>Payment Preference</th>
           </tr>
         </ng-template>
+        @for (service of services; track service.id) {
         <ng-template pTemplate="body" let-service>
           <tr>
-            <td>{{ service.serviceName }}</td>
-            <td class="description">{{ service.description }}</td>
-            <td>{{ service.pricing }}</td>
+            <td>{{ service.service.name }}</td>
+            <td class="description">{{ service.placeName }}</td>
+            <td>{{ service.paymentPreference }}</td>
             <td>
               <button>
                 <i
@@ -49,7 +51,9 @@
             </td>
           </tr>
         </ng-template>
+        }
       </p-table>
+      }
     </div>
   </div>
 
