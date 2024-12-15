@@ -9,7 +9,7 @@ import { ErrorHandlingService } from '../../../core/services/error-handling.serv
   providedIn: 'root',
 })
 export class BookingService {
-  apiUrl = environment.serviceUrl;
+  apiUrl = environment.bookingUrl;
 
   constructor(
     private http: HttpClient,
@@ -17,39 +17,28 @@ export class BookingService {
   ) {}
 
   bookProvider(bookingData: BookingData): Observable<unknown> {
-    return this.http.post(`${this.apiUrl}/bookings`, bookingData).pipe(
+    return this.http.post(`${this.apiUrl}`, bookingData).pipe(
       retry(2),
       catchError((error) => this.errorHandler.handleError(error))
     );
   }
 
   getProviderBookings(): Observable<BookingData[]> {
-    return this.http
-      .get<BookingData[]>(`${this.apiUrl}/bookings/provider`)
-      .pipe(
-        retry(2),
-        catchError((error) => this.errorHandler.handleError(error))
-      );
+    return this.http.get<BookingData[]>(`${this.apiUrl}/provider`).pipe(
+      retry(2),
+      catchError((error) => this.errorHandler.handleError(error))
+    );
   }
 
   acceptBooking(bookingId: number) {
-    return this.http.put(
-      `${this.apiUrl}/bookings/${bookingId}/accept`,
-      bookingId
-    );
+    return this.http.put(`${this.apiUrl}/${bookingId}/accept`, bookingId);
   }
 
   declineBooking(bookingId: number) {
-    return this.http.put(
-      `${this.apiUrl}/bookings/${bookingId}/decline`,
-      bookingId
-    );
+    return this.http.put(`${this.apiUrl}/${bookingId}/decline`, bookingId);
   }
 
   completeBooking(bookingId: number) {
-    return this.http.put(
-      `${this.apiUrl}/bookings/${bookingId}/complete`,
-      bookingId
-    );
+    return this.http.put(`${this.apiUrl}/${bookingId}/complete`, bookingId);
   }
 }

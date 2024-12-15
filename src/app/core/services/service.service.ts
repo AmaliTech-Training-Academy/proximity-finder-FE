@@ -14,7 +14,7 @@ import {
 })
 export class ServiceService {
   apiUrl = environment.serviceUrl;
-  servicesUrl = '/api/v1/services';
+  servicesUrl = '/api/v1/management/services';
   proServicesUrl = '/api/v1/management/provider-services';
   serviceExperienceUrl = '/api/v1/service-experiences';
   servicesSubject = new BehaviorSubject<ServiceCategory[]>([]);

@@ -11,6 +11,7 @@ import {
   IPaymentAccount,
   IPaymentAccountNoId,
 } from '../../../core/models/payment-account';
+import { ProviderData } from '../../../core/models/ProviderData';
 
 @Injectable({
   providedIn: 'root',
@@ -18,8 +19,7 @@ import {
 export class ProfileService {
   token!: string;
   email: string | null | undefined = null;
-  apiUrl =
-    'https://api.proximity-finder.amalitech-dev.net/api/v1/provider-service';
+  apiUrl = environment.registration;
 
   loggedInUserSubject = new BehaviorSubject<User | null>(null);
   loggedInUser$ = this.loggedInUserSubject.asObservable();
@@ -36,28 +36,28 @@ export class ProfileService {
     this.decodeToken();
   }
 
-  getClient(): Observable<IProfile> {
+  getClient(): Observable<ProviderData> {
     if (!this.email) {
       throw new Error('Email not found');
     }
     const params = new HttpParams().set('email', this.email);
 
     return this.http
-      .get<IProfile>(`${environment.baseUrl}/auth/info`, { params })
+      .get<ProviderData>(`${environment.baseUrl}/auth/info`, { params })
       .pipe(
         retry(2),
         catchError((error) => this.errorHandler.handleError(error))
       );
   }
 
-  updateClient(client: IProfile): Observable<IProfile> {
+  updateClient(client: ProviderData): Observable<ProviderData> {
     if (!this.email) {
       throw new Error('Email not found');
     }
     const params = new HttpParams().set('email', this.email);
 
     return this.http
-      .put<IProfile>(`${environment.baseUrl}/auth/update/info`, client, {
+      .put<ProviderData>(`${environment.baseUrl}/auth/update/info`, client, {
         params,
       })
       .pipe(
@@ -74,18 +74,12 @@ export class ProfileService {
       });
   }
 
-
-
-
-
-
   editPaymentAccount(
     paymentAccount: IPaymentAccountNoId,
     accountId: number
   ): Observable<IPaymentAccount> {
     return this.http
       .patch<IPaymentAccount>(
-
         `${this.apiUrl}/payment-method/id=${accountId}`,
 
         paymentAccount
@@ -98,8 +92,6 @@ export class ProfileService {
         catchError((error) => this.errorHandler.handleError(error))
       );
   }
-
-  
 
   deletePaymentAccount(accountId: number): Observable<IPaymentAccount> {
     return this.http

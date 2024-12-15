@@ -9,7 +9,7 @@ import { PayPal } from '../../profile-management/models/paypal';
   providedIn: 'root',
 })
 export class PaypalService {
-  apiUrl = environment.registration;
+  apiUrl = environment.paymentsUrl;
 
   constructor(
     private http: HttpClient,
@@ -17,11 +17,9 @@ export class PaypalService {
   ) {}
 
   addPaypal(paypalData: PayPal): Observable<unknown> {
-    return this.http
-      .post<PayPal>(`${this.apiUrl}/payment-method`, paypalData)
-      .pipe(
-        retry(2),
-        catchError((error) => this.errorHandler.handleError(error))
-      );
+    return this.http.post<PayPal>(`${this.apiUrl}`, paypalData).pipe(
+      retry(2),
+      catchError((error) => this.errorHandler.handleError(error))
+    );
   }
 }

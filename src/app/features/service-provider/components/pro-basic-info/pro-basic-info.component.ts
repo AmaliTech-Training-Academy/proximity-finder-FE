@@ -8,6 +8,7 @@ import {
 import { ProfileService } from '../../../profile-management/services/profile.service';
 import { User } from '../../../profile-management/models/user';
 import { Subscription } from 'rxjs';
+import { ProviderData } from '../../../../core/models/ProviderData';
 
 @Component({
   selector: 'app-pro-basic-info',
@@ -17,29 +18,26 @@ import { Subscription } from 'rxjs';
   styleUrl: './pro-basic-info.component.sass',
 })
 export class ProBasicInfoComponent implements OnInit, OnDestroy {
-  loggedInuser!: User | null;
+  providerData!: ProviderData;
   isEditing = false;
   subscription!: Subscription;
 
   basicInfoForm: FormGroup = this.fb.group({
     businessName: [
-      { value: 'Strive Studios', disabled: !this.isEditing },
+      { value: '', disabled: !this.isEditing },
       Validators.required,
     ],
-    businessEmail: [
-      { value: 'oliviarhye@gmail.com', disabled: !this.isEditing },
-      Validators.required,
-    ],
+    businessEmail: [{ value: '', disabled: true }, Validators.required],
     businessAddress: [
-      { value: 'AG-345-4738', disabled: !this.isEditing },
+      { value: '', disabled: !this.isEditing },
       Validators.required,
     ],
     businessOwnerName: [
-      { value: 'Sarah Johnson', disabled: !this.isEditing },
+      { value: '', disabled: !this.isEditing },
       Validators.required,
     ],
     phoneNumber: [
-      { value: '020 378 234 3672', disabled: !this.isEditing },
+      { value: '', disabled: !this.isEditing },
       Validators.required,
     ],
   });
@@ -50,8 +48,18 @@ export class ProBasicInfoComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.subscription = this.profileService.loggedInUser$.subscribe({
-      next: (user) => (this.loggedInuser = user),
+    this.subscription = this.profileService.getClient().subscribe({
+      next: (user) => {
+        this.providerData = user;
+        this.basicInfoForm.patchValue({
+          businessName: user.userName,
+          businessEmail: user.email,
+          businessAddress: user.placeName,
+          businessOwnerName: user.businessOwnerName,
+          phoneNumber: user.mobileNumber,
+        });
+      },
+      error: (error) => console.error('Failed to fetch user', error),
     });
   }
 
@@ -68,7 +76,7 @@ export class ProBasicInfoComponent implements OnInit, OnDestroy {
   toggleFormControls() {
     Object.keys(this.basicInfoForm.controls).forEach((controlName) => {
       const control = this.basicInfoForm.get(controlName);
-      if (this.isEditing) {
+      if (this.isEditing && controlName !== 'businessEmail') {
         control?.enable();
       } else {
         control?.disable();
