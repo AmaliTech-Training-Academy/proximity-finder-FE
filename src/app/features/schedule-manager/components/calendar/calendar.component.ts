@@ -141,7 +141,12 @@ export class CalendarComponent {
       },
       error: (error) => {
         console.error('Error adding event:', error)
-        this.notyf.error('Error adding event')
+        if (error.status === 409) {
+          this.notyf.error('Event already exists at the same time! Please choose a different time.')
+        }
+        else {
+          this.notyf.error('Error adding event')
+        }
       }
     })
   }
@@ -198,63 +203,68 @@ export class CalendarComponent {
       this.calendarApi.refetchEvents()
     }
   }
-  
 
-  // handleEventClick(clickInfo: EventClickArg) {
-  //   if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-  //     clickInfo.event.remove()
-  //     const eventId = Number(clickInfo.event.id)
-  //     this.schedulingService.deleteEvent(eventId).subscribe({
-  //       next: () => {
-  //         this.notyf.success('Event deleted successfully')
-  //       },
-  //       error: (error) => {
-  //         console.error('Error deleting event:', error)
-  //         this.notyf.error('Error deleting event')
-  //       }
-  //     })
-  //   }
-  // }
   handleEventClick(clickInfo: EventClickArg) {
+    const startTime = clickInfo.event.start
+    ? clickInfo.event.start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    : 'N/A'
+
+  const endTime = clickInfo.event.end
+    ? clickInfo.event.end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    : 'N/A'
+
     this.selectedEvent = {
         id: clickInfo.event.id,
         title: clickInfo.event.title,
         description: clickInfo.event.extendedProps?.['description'] || 'No description',
-        start: clickInfo.event.start?.toLocaleString(),
-        end: clickInfo.event.end?.toLocaleString(),
+        start: startTime,
+        end: endTime,
     }
 
-    this.overlayPanel.show(clickInfo.jsEvent);
+    this.overlayPanel.show(clickInfo.jsEvent)
   }
 
-  confirm1(event: MouseEvent) {
-    this.confirmationService.confirm({
-        target: event.target as EventTarget,
-        message: 'Are you sure you want to proceed?',
-        icon: 'pi pi-exclamation-triangle',
-        accept: () => {
-            this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
-        },
-        reject: () => {
-            this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
-        }
-    });
-}
 
-confirm2(event: MouseEvent) {
-    this.confirmationService.confirm({
-        target: event.target as EventTarget,
-        message: 'Do you want to delete this record?',
+
+  confirmDelete(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    const action = target.getAttribute('data-action');
+  
+    if (action === 'delete') {
+      const eventToDelete = this.selectedEvent
+  
+      this.confirmationService.confirm({
+        target: event.currentTarget as EventTarget,
+        message: 'Do you want to delete this event?',
         icon: 'pi pi-info-circle',
         acceptButtonStyleClass: 'p-button-danger p-button-sm',
         accept: () => {
-            this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Record deleted', life: 3000 });
+          const calendarEvent = this.calendarApi.getEventById(eventToDelete.id)
+          if (calendarEvent) {
+            calendarEvent.remove()
+          }
+
+          const eventId = Number(eventToDelete.id);
+          this.schedulingService.deleteEvent(eventId).subscribe({
+            next: () => {
+              this.notyf.success('Event deleted successfully')
+            },
+            error: (error) => {
+              console.error('Error deleting event:', error)
+              this.notyf.error('Error deleting event')
+            }
+          });
         },
         reject: () => {
-            this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+          this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 })
         }
-    });
-}
+      });
+    }
+  }
+  
+  
+
+
   
 }
 
