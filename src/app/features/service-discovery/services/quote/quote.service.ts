@@ -29,14 +29,14 @@ export class QuoteService {
   }
 
   getSingleQuote(requestId: number) {
-    return this.http.get<getQuote[]>(`${this.url}/quotes/provider/${requestId}/details`);
+    return this.http.get<getQuote>(`${this.url}/requests/quote/${requestId}`);
   }
 
-  acceptRequest(data:acceptQuote,id:number):Observable<acceptQuote[]>{
-    return this.http.put<acceptQuote[]>(`${this.url}/quotes/${id}/status/approve`,data);
+  acceptRequest(data:acceptQuote,requestId:number):Observable<acceptQuote[]>{
+    return this.http.put<acceptQuote[]>(`${this.url}/quotes/${requestId}/status/approve`,data);
   }
-  declineRequest(data:declineQuote,id:number):Observable<declineQuote[]>{
-    return this.http.put<acceptQuote[]>(`${this.url}/quotes/${id}/status/decline`,data);
+  declineRequest(data:declineQuote,requestId:number):Observable<declineQuote[]>{
+    return this.http.put<declineQuote[]>(`${this.url}/quotes/${requestId}/status/decline`,data);
     
   }
   

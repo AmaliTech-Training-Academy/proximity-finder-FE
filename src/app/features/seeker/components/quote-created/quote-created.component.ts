@@ -6,11 +6,12 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { TabViewModule } from 'primeng/tabview';
 import { QuoteService } from '../../../service-discovery/services/quote/quote.service';
 import { getQuote } from '../../../service-provider/models/quoteData';
+import { ReversePipe } from '../../../../utils/reverse.pipe';
 
 @Component({
   selector: 'app-quote-created',
   standalone: true,
-  imports: [NavbarComponent, UserProfileHeaderComponent,CommonModule,TabMenuModule,TabViewModule],
+  imports: [NavbarComponent, UserProfileHeaderComponent,CommonModule,TabMenuModule,TabViewModule,ReversePipe],
   templateUrl: './quote-created.component.html',
   styleUrl: './quote-created.component.sass'
 })
@@ -49,6 +50,7 @@ export class QuoteCreatedComponent {
       next: (quote) => {
         this.selectedQuote = quote;
         this.showDetails = true;
+        
         this.loading = false;
       },
       error: (err) => {

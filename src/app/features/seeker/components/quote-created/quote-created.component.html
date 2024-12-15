@@ -9,7 +9,7 @@
 
    <div class="all-quotes">
     <div  class="quote-container">
-        @for(quotes of quotes; track quotes.quoteId){
+        @for(quotes of quotes | reverse; track quotes.quoteId ){
 
             <div class="quote-list">
                 <div class="header">
@@ -83,9 +83,7 @@
           <p-tabPanel header="Attachments">
             <div class="tab-content">
                 <div class="photos">
-                    <img *ngFor="let attachment of selectedQuote.images" src="assets/images/core.png" alt="picture">
-                    
-
+                    <img *ngFor="let images of selectedQuote.images" [src]="images "alt="picture">
                 </div>
               
             </div>
