@@ -48,7 +48,10 @@ export class PaypalFormComponent {
       };
 
       this.paypalService.addPaypal(formData).subscribe({
-        next: () => this.notyf.success('Account added successfully'),
+        next: () => {
+          this.notyf.success('Account added successfully');
+          this.closeDialog();
+        },
         error: () => this.notyf.error('Failed to add account'),
       });
     } else {

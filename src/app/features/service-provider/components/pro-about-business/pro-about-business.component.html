@@ -1,42 +1,31 @@
 <main>
-  <form>
+  <form [formGroup]="aboutBusinessForm">
     <section class="formData">
       <div class="left">
         <div class="inceptionDate">
           <label for="inceptionDate"> Inception Date</label>
-          <input
-            type="date"
-            id="inceptionDate"
-            formControlName="inceptionDate"
-          />
+
+          <input type="text" pInputText formControlName="inceptionDate" />
         </div>
 
         <div class="businessCertificate">
           <label for="businessCertificate">Business Certificate</label>
-          <app-file-uploader />
+          <a target="_blank" [href]="businessCertificate">{{
+            businessCertificate
+          }}</a>
         </div>
 
         <div class="socialLinks">
           <label for="socialLinks">Social Media Links</label>
           <div class="socials" formArrayName="socialLinks">
+            @for (socialMedia of socialMediaLinks; track $index ) {
             <p-inputGroup>
               <p-inputGroupAddon>
                 <i class="pi pi-facebook"></i>
               </p-inputGroupAddon>
-              <input pInputText value="https://facebook.com/montyhayton" />
+              <input pInputText [value]="socialMedia" />
             </p-inputGroup>
-            <p-inputGroup>
-              <p-inputGroupAddon>
-                <i class="pi pi-instagram"></i>
-              </p-inputGroupAddon>
-              <input pInputText value="https://instagram.com/montyhayton" />
-            </p-inputGroup>
-            <p-inputGroup>
-              <p-inputGroupAddon>
-                <i class="pi pi-twitter"></i>
-              </p-inputGroupAddon>
-              <input pInputText value="https://twitter.com/montyhayton" />
-            </p-inputGroup>
+            }
           </div>
         </div>
       </div>
@@ -51,7 +40,7 @@
         </div>
         <div class="businessID">
           <label for="businessID">ID</label>
-          <app-file-uploader />
+          <a target="_blank" [href]="businessId">{{ businessId }}</a>
         </div>
         <div class="summary">
           <label for="summary">Summary</label>
@@ -59,7 +48,7 @@
         </div>
       </div>
     </section>
-    <section class="formActions">
+    <!-- <section class="formActions">
       <button
         [style]="{ display: isEditing ? 'none' : 'block' }"
         type="button"
@@ -77,6 +66,6 @@
         </button>
         <button type="submit" class="save">Save</button>
       </div>
-    </section>
+    </section> -->
   </form>
 </main>
