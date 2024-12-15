@@ -73,27 +73,19 @@
                 <div class="business">
                     <h5>Business hours</h5>
 
-                    <div class="col-2">
-                        <div class="days">
-                        <p>Mon</p>
-                        <p>Tue</p>
-                        <p>Wed</p>
-                        <p>Thu</p>
-                        <p>Fri</p>
-                        <p>Sat</p>
-                        <p>Sun</p>
-                        </div>
-        
-                        <div class="time">
-                        <p>10:00am - 4:00pm</p>
-                        <p>10:00am - 4:00pm</p>
-                        <p>10:00am - 4:00pm</p>
-                        <p>10:00am - 4:00pm</p>
-                        <p>10:00am - 4:00pm</p>
-                        <p>Closed</p>
-                        <p>Closed</p>
-                        </div>
-                    </div>
+                    @if (provider['provider-service']; as services) {
+                        @for (service of services; track $index) {
+                            <div class="col-2">
+                                @for (booking of service.bookingDays; track $index) {
+                                    <div class="booking">
+                                        <p>{{booking.day | titlecase}}</p>
+                                        <p>{{booking.startTime}} - {{booking.endTime}}</p>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    }
+
                 </div>
 
             </div>
@@ -120,6 +112,7 @@
                             [emailPlaceholder]="'Enter email address'"
                             [messagePlaceholder]="'Enter reason for rejection'"
                             [showWarning]="true"
+                            [email]="userEmail"
                             (formSubmit)="handleFormSubmit($event, 'reject')"
                         ></app-message-form>
                     </p-dialog>
