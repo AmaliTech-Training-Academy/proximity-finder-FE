@@ -17,52 +17,61 @@
           </div>
 
           <div class="all-quotes">
-            <div class="quote-container">
-              @for(quotes of quotes | reverse; track quotes.quoteId ){
+            @if(quotes.length === 0){
+               <div class="no-quotes">
+                <p>No quotes found.</p>
+               </div>
+            }
+            @else{
+              
+                          <div class="quote-container">
+                            @for(quotes of quotes | reverse; track quotes.quoteId ){
+              
+                            <div class="quote-list">
+                              <div class="header">
+                                <p>{{ quotes.title }}</p>
+                              </div>
+              
+                              <div class="location">
+                                <i class="pi pi-map-marker" style="color: #77878f"></i>
+                                <p>{{ quotes.location }}</p>
+                              </div>
+              
+                              <div class="info">
+                                <div class="date">
+                                  <i class="pi pi-calendar" style="color: #77878f"> Date</i>
+                                  <p>{{ quotes.startDate }} - {{ quotes.endDate }}</p>
+                                </div>
+              
+                                <div class="duration">
+                                  <i class="pi pi-clock" style="color: #77878f"> Duration</i>
+                                  <p>{{ quotes.duration }}</p>
+                                </div>
+                                <div class="price">
+                                  <i class="pi pi-dollar" style="color: #77878f"> Price</i>
+                                  <p>
+                                    {{
+                                      quotes.status === "APPROVED" &&
+                                      quotes.decision.price !== null &&
+                                      quotes.decision.price !== undefined
+                                        ? quotes.decision.price
+                                        : "Not available"
+                                    }}
+                                  </p>
+                                </div>
+                              </div>
+              
+                              <div
+                                class="view-details"
+                                (click)="viewQuoteDetails(quotes.quoteId)"
+                              >
+                                <button class="btn-view">View Details</button>
+                              </div>
+                            </div>
+                            }
+                          </div>
 
-              <div class="quote-list">
-                <div class="header">
-                  <p>{{ quotes.title }}</p>
-                </div>
-
-                <div class="location">
-                  <i class="pi pi-map-marker" style="color: #77878f"></i>
-                  <p>{{ quotes.location }}</p>
-                </div>
-
-                <div class="info">
-                  <div class="date">
-                    <i class="pi pi-calendar" style="color: #77878f"> Date</i>
-                    <p>{{ quotes.startDate }} - {{ quotes.endDate }}</p>
-                  </div>
-
-                  <div class="duration">
-                    <i class="pi pi-clock" style="color: #77878f"> Duration</i>
-                    <p>{{ quotes.duration }}</p>
-                  </div>
-                  <div class="price">
-                    <i class="pi pi-dollar" style="color: #77878f"> Price</i>
-                    <p>
-                      {{
-                        quotes.status === "APPROVED" &&
-                        quotes.decision.price !== null &&
-                        quotes.decision.price !== undefined
-                          ? quotes.decision.price
-                          : "Not available"
-                      }}
-                    </p>
-                  </div>
-                </div>
-
-                <div
-                  class="view-details"
-                  (click)="viewQuoteDetails(quotes.quoteId)"
-                >
-                  <button class="btn-view">View Details</button>
-                </div>
-              </div>
-              }
-            </div>
+            }
 
             <div class="details-preview" *ngIf="showDetails && selectedQuote">
               <div class="title">
@@ -77,7 +86,7 @@
               <div class="received-info">
                 <div class="status">
                   <p>Status:</p>
-                  <span>{{ selectedQuote.status }}</span>
+                  <span> {{ selectedQuote.decision ? selectedQuote.status : 'No decision yet' }}</span>
                 </div>
 
                 <div class="due-date">
@@ -88,8 +97,8 @@
                 <div class="provider">
                   <p>Provider:</p>
                   <div class="pro">
-                    <img src="assets/images/Avatar.png" alt="img" />
-                    <span>John Doe</span>
+                    <img [src]="providerProfileImage || 'assets/images/default-avatar.png'"  alt="Profile Image" />
+                     <span>{{ businessOwnerName }}</span>
                   </div>
                 </div>
               </div>
@@ -114,10 +123,11 @@
                   <p-tabPanel header="Reply">
                     <div class="tab-content">
                       <div class="reply">
-                        <img src="assets/images/Avatar.png" alt="profile-img" />
+                        <img [src]="providerProfileImage || 'assets/images/default-avatar.png' " alt="Profile Image" />
 
                         <div class="text">
-                          <p>John Does</p>
+                       
+                        <span>{{ businessOwnerName }}</span>
                           @if(selectedQuote.status === 'APPROVED'){
 
                           <span

@@ -43,32 +43,41 @@ export class LoginInputComponent implements OnDestroy {
   onSubmit() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
+  
       this.authService.login(email, password).subscribe({
         next: (res) => {
           this.notyf.success('Login Successful');
-          if (res.roles[0] === 'ROLE_ADMIN') {
-            this.router.navigateByUrl('admin/dashboard');
-          } else if (res.roles[0] === 'ROLE_SEEKER') {
-            this.router.navigateByUrl('');
-          } else if (res.roles[0] === 'ROLE_PROVIDER') {
-            const userData = { email: res.email, userName: res.username };
-            this.authService.localStorageService.setItem('userData', userData);
-            this.profileService.getClient().subscribe({
-              next: (client) => {
-               this.provider= this.authService.localStorageService.getItem('userData') ;
-                if (client.status === 'ACTIVE') {
-                  this.router.navigateByUrl('');
-                } else if (client.status === 'PENDING') {
-                  console.log('come home')
-                  this.router.navigateByUrl('/registration');
-                  return
-                } else {
-                  this.router.navigateByUrl('/registration');
-                }
-              },
-              error: (err) => {
-              },
-            });
+          console.log('respond:', res);
+  
+          // Navigate based on role
+          switch (res.roles[0]) {
+            case 'ROLE_ADMIN':
+              this.router.navigateByUrl('admin/dashboard');
+              break;
+  
+            case 'ROLE_SEEKER':
+              this.router.navigateByUrl('');
+              break;
+  
+            case 'ROLE_PROVIDER':
+              const userData = { email: res.email, userName: res.username };
+              this.authService.localStorageService.setItem('userData', userData);
+              console.log('User status:', res.status);
+           
+
+              if (res.status === 'ACTIVE') {
+                console.log('you are active');
+                this.router.navigateByUrl('');
+              } else if (res.status === 'PENDING') {
+                this.router.navigateByUrl('/registration');
+              } else {
+                this.router.navigateByUrl('/registration');
+               
+              }
+              break;
+  
+            default:
+              this.notyf.error('Unexpected user role.');
           }
         },
         error: (err) => {
@@ -77,7 +86,7 @@ export class LoginInputComponent implements OnDestroy {
       });
     }
   }
-
+  
 
   ngOnDestroy() {
     if (this.subscription) {

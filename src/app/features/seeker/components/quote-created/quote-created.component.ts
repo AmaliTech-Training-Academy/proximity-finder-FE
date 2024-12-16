@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../../user/components/navbar/navbar.component';
 import { UserProfileHeaderComponent } from '../../../../shared/components/user-profile-header/user-profile-header.component';
 import { CommonModule } from '@angular/common';
@@ -11,6 +11,8 @@ import { Notyf } from 'notyf';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { FormsModule } from '@angular/forms';
 import { SeekerBookingsComponent } from '../seeker-bookings/seeker-bookings.component';
+import { ProfileService } from '../../../profile-management/services/profile.service';
+import { ProviderData } from '../../../../core/models/ProviderData';
 
 @Component({
   selector: 'app-quote-created',
@@ -28,30 +30,43 @@ import { SeekerBookingsComponent } from '../seeker-bookings/seeker-bookings.comp
   templateUrl: './quote-created.component.html',
   styleUrl: './quote-created.component.sass',
 })
-export class QuoteCreatedComponent {
+export class QuoteCreatedComponent implements OnInit{
   quotes: getQuote[] = [];
   selectedQuote: getQuote | null = null;
   showDetails: boolean = false;
   loading: boolean = true;
   searchTerm: string = '';
   filteredQuotes: getQuote[] = [];
+  providerData: ProviderData | null = null;
+  businessOwnerName: string = '';
+  providerProfileImage: string = '';
 
+  
+  
   constructor(
     private quoteService: QuoteService,
-    @Inject(NOTYF) private notyf: Notyf
+    @Inject(NOTYF) private notyf: Notyf,
+    private profileService:ProfileService
   ) {}
 
   ngOnInit() {
     this.loadQuotes();
+    this. loadProviderProfile
   }
 
   loadQuotes() {
     this.quoteService.getCreatedQuotes().subscribe({
       next: (data) => {
         this.quotes = data;
-        this.notyf.success('Loaded your created quotes');
         this.filteredQuotes = data;
         this.loading = false;
+  
+       
+        if (this.quotes.length === 0) {
+          this.notyf.error('No quotes created yet');
+        } else {
+          this.notyf.success('Loaded your created quotes');
+        }
       },
       error: (err) => {
         this.notyf.error('Failed to load quotes');
@@ -59,15 +74,21 @@ export class QuoteCreatedComponent {
       },
     });
   }
+  
+
 
   viewQuoteDetails(quoteId: number) {
-    console.log('Hey');
     this.loading = true;
     this.quoteService.getSingleQuoteCreated(quoteId).subscribe({
       next: (quote) => {
         this.selectedQuote = quote;
         this.showDetails = true;
-
+  
+      
+        if (quote.providerEmail) {
+          this.loadProviderProfile(quote.providerEmail);
+        }
+  
         this.loading = false;
       },
       error: (err) => {
@@ -76,6 +97,9 @@ export class QuoteCreatedComponent {
       },
     });
   }
+  
+
+ 
 
   toggleDetails() {
     this.showDetails = false;
@@ -88,4 +112,30 @@ export class QuoteCreatedComponent {
       quote.title.toLowerCase().includes(searchTermLower)
     );
   }
+
+  loadProviderProfile(providerEmail: string) {
+    if (!providerEmail) {
+      this.notyf.error('Provider email is required to fetch profile data.');
+      return;
+    }
+  
+    // Temporarily set the email in the ProfileService
+    this.profileService.email = providerEmail;
+  
+    this.profileService.getClient().subscribe({
+      next: (providerData: ProviderData) => {
+        if (providerData) {
+          this.businessOwnerName = providerData.businessOwnerName || '';
+          this.providerProfileImage = providerData.profileImage || '';
+        } else {
+          this.notyf.error('Provider data not found');
+        }
+      },
+      error: (err) => {
+        console.error('Error loading provider profile:', err);
+        this.notyf.error('Failed to load provider profile');
+      },
+    });
+  }
+  
 }
