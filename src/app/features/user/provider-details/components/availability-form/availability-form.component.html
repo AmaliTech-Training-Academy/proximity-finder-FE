@@ -38,7 +38,7 @@
         <button type="submit" [disabled]="availabilityForm.invalid">Check Availability</button>
     </form>
 
-  @if (!isProAvailable) {
+  @if (isProAvailable) {
   <div class="no-pro">
     <p>Sorry, this pro can’t do your job, let’s get you a pro.</p>
     <a>Check out for others</a>

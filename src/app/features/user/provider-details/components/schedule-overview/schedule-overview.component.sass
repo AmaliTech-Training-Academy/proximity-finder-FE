@@ -33,15 +33,20 @@
                 color: $text-secondary
 
             .col-2
-                @include flex-option(flex, flex-start, center,row)
-                gap: 2rem
+                @include flex-option(flex, flex-start, null,column)
+                gap: 0.75rem
+
+                .booking
+                    @include flex-option(flex, space-between, center, row)
+                    gap: 2rem
+                        
 
                 .days, .time
                     @include flex-option(flex, null, null,column)
                     gap: pxToRem(12)
                     font-size: 1rem
                     font-weight: 400
-                    color: $text-secondary
+                    color: #676161
 
     .service-payment
         @include flex-option(flex, flex-start, null, row)

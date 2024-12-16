@@ -31,3 +31,18 @@ export interface appReview{
     reason: string;
     ratings: number;
 }
+
+export interface reviewAnalytics {
+    status: string;
+    result: analyticsResult
+}
+
+export interface analyticsResult {
+    oneStarCount: number;
+    twoStarCount: number;
+    threeStarCount: number;
+    fourStarCount: number;
+    fiveStarCount: number;
+    totalReviews: number;
+    averageRating: number;
+}

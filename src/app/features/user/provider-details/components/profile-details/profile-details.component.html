@@ -12,13 +12,15 @@
         />
 
         <figcaption class="details">
-          <h4>{{ provider.authservice.userName }}</h4>
+          <h4>{{ serviceName }}</h4>
 
-          <div class="ratings">
-            <p>Exceptional 5.0</p>
-            <p-rating [(ngModel)]="value" [readonly]="true" [cancel]="false" />
-            <p class="rate">(4.5)</p>
-          </div>
+          @if (analytics) {
+            <div class="ratings">
+              <p>Exceptional {{analytics.averageRating}}</p>
+              <p-rating [(ngModel)]="analytics.averageRating" [readonly]="true" [cancel]="false" />
+              <p class="rate">({{analytics.averageRating}})</p>
+            </div>
+        }
 
           <div class="actions">
             <button

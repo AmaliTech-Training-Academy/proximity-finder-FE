@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { ProviderResponse } from '../../../../core/models/provider-response';
 import { ReviewService } from '../../../reviews-feedback/services/review.service';
 import { PreviewService } from '../../../../core/services/preview.service';
-import { review } from '../../../reviews-feedback/models/ireview';
+import { analyticsResult, review } from '../../../reviews-feedback/models/ireview';
 
 @Component({
   selector: 'app-pro-details-review',
@@ -26,6 +26,10 @@ export class ProDetailsReviewComponent {
   displayedReviews: review[] = []
   showAllReviews = false
   defaultImage = 'assets/images/default-avatar.png'
+  type: 'provider' | 'service' = 'provider'
+  analytics!: analyticsResult
+  
+
 
 constructor(private reviewService: ReviewService, private previewService:PreviewService) {}
 
@@ -53,6 +57,7 @@ constructor(private reviewService: ReviewService, private previewService:Preview
           })
         })
         this.updateDisplayedReviews()
+        this.fetchAnalytics()
       }
     })
   }
@@ -64,5 +69,16 @@ constructor(private reviewService: ReviewService, private previewService:Preview
   toggleReviews() {
     this.showAllReviews = !this.showAllReviews
     this.updateDisplayedReviews()
+  }
+
+  fetchAnalytics() {
+    this.reviewService.getAnalytics(this.type, this.userEmail).subscribe({
+      next: analytics => {
+        this.analytics = analytics.result
+      },
+      error: () => {
+        console.error('Failed to fetch review analytics')
+      }
+    })
   }
 }

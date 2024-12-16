@@ -1,10 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RatingModule } from 'primeng/rating';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { MeterGroupModule } from 'primeng/metergroup';
 import { ReviewService } from '../../../../reviews-feedback/services/review.service';
-import { review } from '../../../../reviews-feedback/models/ireview';
+import { analyticsResult, review } from '../../../../reviews-feedback/models/ireview';
 import { ProviderDataService } from '../../../../service-discovery/services/provider-data.service';
 import { ProDetails } from '../../../../service-discovery/models/pro-details';
 import { Subscription } from 'rxjs';
@@ -20,8 +20,7 @@ import { getBusinessYears } from '../../../../../utils/yearsCalculator';
   templateUrl: './reviews.component.html',
   styleUrl: './reviews.component.sass'
 })
-export class ReviewsComponent {
-  value: number = 4
+export class ReviewsComponent implements OnInit, OnDestroy {
   values = [
     {value: 75, color: '#4285F4' }
   ]
@@ -34,6 +33,8 @@ export class ReviewsComponent {
   getTime: string | undefined
   displayedReviews: review[] = []
   showAllReviews = false
+  analytics!: analyticsResult
+  type: 'provider' | 'service' = 'service'
 
   constructor(private reviewService: ReviewService, private providerService: ProviderDataService,
     private previewService: PreviewService
@@ -72,6 +73,7 @@ export class ReviewsComponent {
           })
         })
         this.updateDisplayedReviews()
+        this.fetchAnalytics()
       }
     })
   }
@@ -90,6 +92,23 @@ export class ReviewsComponent {
   toggleReviews() {
     this.showAllReviews = !this.showAllReviews
     this.updateDisplayedReviews()
+  }
+
+  fetchAnalytics() {
+    this.reviewService.getAnalytics(this.type, this.serviceId).subscribe({
+      next: analytics => {
+        this.analytics = analytics.result
+      },
+      error: () => {
+        console.error('Failed to fetch review analytics')
+      }
+    })
+  }
+
+  ngOnDestroy() {
+    if(this.providerSubscription) {
+      this.providerSubscription.unsubscribe()
+    }
   }
 
 }

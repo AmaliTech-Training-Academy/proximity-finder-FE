@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Ireview, reviewResponse } from '../models/ireview';
+import { Ireview, reviewAnalytics, reviewResponse } from '../models/ireview';
 import { environment } from '../../../../environments/environment';
 import { BehaviorSubject, catchError, Observable, retry, tap } from 'rxjs';
 import { ErrorHandlingService } from '../../../core/services/error-handling.service';
@@ -39,6 +39,21 @@ export class ReviewService {
 
   getReviewByProviderEmail(email: string): Observable<reviewResponse> {
     return this.http.get<reviewResponse>(`${environment.searchUrl}/reviews/service-provider?providerEmail=${email}`).pipe(
+      retry(2),
+      catchError(error => this.errorHandler.handleError(error))
+    )
+  }
+
+  getAnalytics(type: 'provider' | 'service', identifier: string): Observable<reviewAnalytics> {
+    let url = ''
+
+    if (type === 'provider') {
+      url = `${environment.searchUrl}/reviews/service-provider/analytics?providerEmail=${identifier}`
+    } else if (type === 'service') {
+      url = `${environment.searchUrl}/reviews/provider-service/${identifier}/analytics`
+    }
+
+    return this.http.get<reviewAnalytics>(url).pipe(
       retry(2),
       catchError(error => this.errorHandler.handleError(error))
     )

@@ -30,28 +30,19 @@
 
           <div class="col-1">
             <h6>Business Hours</h6>
+            @if (provider['provider-service']; as services) {
+              @for (service of services; track $index) {
+                  <div class="col-2">
+                      @for (booking of service.bookingDays; track $index) {
+                          <div class="booking">
+                              <p>{{booking.day | titlecase}}</p>
+                              <p>{{booking.startTime}} - {{booking.endTime}}</p>
+                          </div>
+                      }
+                  </div>
+              }
+          }
 
-            <div class="col-2">
-              <div class="days">
-                <p>Mon</p>
-                <p>Tue</p>
-                <p>Wed</p>
-                <p>Thu</p>
-                <p>Fri</p>
-                <p>Sat</p>
-                <p>Sun</p>
-              </div>
-
-              <div class="time">
-                <p>10:00am - 4:00pm</p>
-                <p>10:00am - 4:00pm</p>
-                <p>10:00am - 4:00pm</p>
-                <p>10:00am - 4:00pm</p>
-                <p>10:00am - 4:00pm</p>
-                <p>Closed</p>
-                <p>Closed</p>
-              </div>
-            </div>
           </div>
         </div>
               
@@ -74,9 +65,11 @@
                 
                 <div class="payment">
                   <h6>Payment Methods</h6>
-                    @for (service of services; track $index) {
-                      <p>{{service.paymentPreference}}</p>
-                    }
+                  @if (provider['business-info'].paymentMethodResponses; as payments) {
+                        @for (payment of payments; track $index) {
+                            <p>{{payment.paymentPreference}}</p>
+                        }
+                }
                 </div>
               }
         </div>
