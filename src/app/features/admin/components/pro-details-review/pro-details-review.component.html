@@ -1,36 +1,48 @@
 <div class="container">
     <div class="col-1">
-        <div class="rate">
-            <h1>4.0</h1>
-            <p-rating [(ngModel)]="value" [readonly]="true" [cancel]="false" />
-            <p>2K ratings</p>
-        </div>
+        @if (analytics) {
+            <div class="rate">
+                <h1>{{analytics.averageRating}}</h1>
+                <p-rating [(ngModel)]="analytics.averageRating" [readonly]="true" [cancel]="false" />
+                <p>{{analytics.totalReviews}} ratings</p>
+            </div>
+        }
     
         <div class="rate-bars">
             <div class="bar">
-                <p-meterGroup [value]="values" [style]="{ width: '320px'}" />
-                <p class="bar-rate">5.0</p>
-                <p class="bar-reviews">14k Reviews</p>
+                @if (analytics) {
+                    <p-meterGroup [value]="values" [style]="{ width: '320px'}" />
+                    <p class="bar-rate">5.0</p>
+                    <p class="bar-reviews">{{analytics.fiveStarCount}} Reviews</p>
+                }
             </div>
             <div class="bar">
-                <p-meterGroup [value]="values" [style]="{ width: '320px'}" />
-                <p class="bar-rate">4.0</p>
-                <p class="bar-reviews">14k Reviews</p>
+                @if (analytics) {
+                    <p-meterGroup [value]="values" [style]="{ width: '320px'}" />
+                    <p class="bar-rate">4.0</p>
+                    <p class="bar-reviews">{{analytics.fourStarCount}} Reviews</p>
+                }
             </div>
             <div class="bar">
-                <p-meterGroup [value]="values" [style]="{ width: '320px'}" />
-                <p class="bar-rate">3.0</p>
-                <p class="bar-reviews">14k Reviews</p>
+                @if (analytics) {
+                    <p-meterGroup [value]="values" [style]="{ width: '320px'}" />
+                    <p class="bar-rate">3.0</p>
+                    <p class="bar-reviews">{{analytics.threeStarCount}} Reviews</p>
+                }
             </div>
             <div class="bar">
-                <p-meterGroup [value]="values" [style]="{ width: '320px'}" />
-                <p class="bar-rate">2.0</p>
-                <p class="bar-reviews">14k Reviews</p>
+                @if (analytics) {
+                    <p-meterGroup [value]="values" [style]="{ width: '320px'}" />
+                    <p class="bar-rate">2.0</p>
+                    <p class="bar-reviews">{{analytics.twoStarCount}} Reviews</p>
+                }
             </div>
             <div class="bar">
-                <p-meterGroup [value]="values" [style]="{ width: '320px'}" />
-                <p class="bar-rate">1.0</p>
-                <p class="bar-reviews">14k Reviews</p>
+                @if (analytics) {
+                    <p-meterGroup [value]="values" [style]="{ width: '320px'}" />
+                    <p class="bar-rate">1.0</p>
+                    <p class="bar-reviews">{{analytics.oneStarCount}} Reviews</p>
+                }
             </div>
             
     
@@ -44,11 +56,11 @@
                     <img [src]="review.authorInfo?.profileImage ? review.authorInfo?.profileImage : defaultImage" alt="profile image">
 
                     <p class="name">{{review.authorInfo?.userName}}</p>
-                    <p class="time">4 months ago</p>
+                    <p class="time">1 month ago</p>
                 </div>
         
                 <div class="right">
-                    <p class="rate">{{review.rating}}.0</p>
+                    <p class="rate">{{review.rating}}</p>
                     <p-rating [(ngModel)]="review.rating" [readonly]="true" [cancel]="false" />
                 </div>
             </div>
