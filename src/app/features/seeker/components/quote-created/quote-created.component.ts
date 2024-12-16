@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { NavbarComponent } from '../../../user/components/navbar/navbar.component';
 import { UserProfileHeaderComponent } from '../../../../shared/components/user-profile-header/user-profile-header.component';
 import { CommonModule } from '@angular/common';
@@ -11,6 +11,7 @@ import { Notyf } from 'notyf';
 import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { FormsModule } from '@angular/forms';
 import { SeekerBookingsComponent } from '../seeker-bookings/seeker-bookings.component';
+import { ProfileService } from '../../../profile-management/services/profile.service';
 
 @Component({
   selector: 'app-quote-created',
@@ -28,21 +29,25 @@ import { SeekerBookingsComponent } from '../seeker-bookings/seeker-bookings.comp
   templateUrl: './quote-created.component.html',
   styleUrl: './quote-created.component.sass',
 })
-export class QuoteCreatedComponent {
+export class QuoteCreatedComponent implements OnInit{
   quotes: getQuote[] = [];
   selectedQuote: getQuote | null = null;
   showDetails: boolean = false;
   loading: boolean = true;
   searchTerm: string = '';
   filteredQuotes: getQuote[] = [];
-
+  providerProfileImage:string = ''
+  businessOwnerName:string =''
+  
   constructor(
     private quoteService: QuoteService,
-    @Inject(NOTYF) private notyf: Notyf
+    @Inject(NOTYF) private notyf: Notyf,
+    private profileService:ProfileService
   ) {}
 
   ngOnInit() {
     this.loadQuotes();
+    this.loadProviderProfile()
   }
 
   loadQuotes() {
@@ -87,5 +92,17 @@ export class QuoteCreatedComponent {
     this.filteredQuotes = this.quotes.filter((quote) =>
       quote.title.toLowerCase().includes(searchTermLower)
     );
+  }
+
+  loadProviderProfile() {
+    this.profileService.getClient().subscribe({
+      next: (providerData) => {
+        this.providerProfileImage = providerData.profileImage || this.providerProfileImage;
+        this.businessOwnerName = providerData.userName || this.businessOwnerName;
+      },
+      error: (err) => {
+        this.notyf.error('Failed to load provider profile');
+      },
+    });
   }
 }

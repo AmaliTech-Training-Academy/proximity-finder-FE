@@ -88,8 +88,8 @@
                 <div class="provider">
                   <p>Provider:</p>
                   <div class="pro">
-                    <img src="assets/images/Avatar.png" alt="img" />
-                    <span>John Doe</span>
+                    <img [src]="providerProfileImage || 'assets/images/default-avatar.png'"  alt="Profile Image" />
+                     <span>{{ businessOwnerName }}</span>
                   </div>
                 </div>
               </div>
@@ -114,10 +114,11 @@
                   <p-tabPanel header="Reply">
                     <div class="tab-content">
                       <div class="reply">
-                        <img src="assets/images/Avatar.png" alt="profile-img" />
+                        <img [src]="providerProfileImage || 'assets/images/default-avatar.png' " alt="Profile Image" />
 
                         <div class="text">
-                          <p>John Does</p>
+                       
+                        <span>{{ businessOwnerName }}</span>
                           @if(selectedQuote.status === 'APPROVED'){
 
                           <span
