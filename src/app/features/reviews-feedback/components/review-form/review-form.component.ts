@@ -40,7 +40,7 @@ export class ReviewFormComponent{
       const review: Ireview = {
         rating: value!,
         content: text!,
-        providerServiceId: '2a5f5e10-15e3-4613-92ad-162619593100',
+        providerServiceId: '360e6a84-e703-4e38-9f3b-17d7bd4cf8bd',
         isAnonymous: false,
       }
 

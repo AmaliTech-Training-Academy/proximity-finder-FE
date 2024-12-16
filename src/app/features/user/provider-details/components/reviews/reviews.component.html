@@ -3,9 +3,9 @@
 <div class="col-1">
     @if (analytics) {
         <div class="rate">
-            <h1>{{analytics.averageRating}}.0</h1>
+            <h1>{{analytics.averageRating}}</h1>
             <p-rating [(ngModel)]="analytics.averageRating" [readonly]="true" [cancel]="false" />
-            <p>{{analytics.totalReviews}}K ratings</p>
+            <p>{{analytics.totalReviews}} ratings</p>
         </div>
     }
 
@@ -14,35 +14,35 @@
             @if (analytics) {
                 <p-meterGroup [value]="values" [style]="{ width: '320px'}" />
                 <p class="bar-rate">5.0</p>
-                <p class="bar-reviews">{{analytics.fiveStarCount}}k Reviews</p>
+                <p class="bar-reviews">{{analytics.fiveStarCount}} Reviews</p>
             }
         </div>
         <div class="bar">
             @if (analytics) {
                 <p-meterGroup [value]="values" [style]="{ width: '320px'}" />
                 <p class="bar-rate">4.0</p>
-                <p class="bar-reviews">{{analytics.fourStarCount}}k Reviews</p>
+                <p class="bar-reviews">{{analytics.fourStarCount}} Reviews</p>
             }
         </div>
         <div class="bar">
             @if (analytics) {
                 <p-meterGroup [value]="values" [style]="{ width: '320px'}" />
                 <p class="bar-rate">3.0</p>
-                <p class="bar-reviews">{{analytics.threeStarCount}}k Reviews</p>
+                <p class="bar-reviews">{{analytics.threeStarCount}} Reviews</p>
             }
         </div>
         <div class="bar">
             @if (analytics) {
                 <p-meterGroup [value]="values" [style]="{ width: '320px'}" />
                 <p class="bar-rate">2.0</p>
-                <p class="bar-reviews">{{analytics.twoStarCount}}k Reviews</p>
+                <p class="bar-reviews">{{analytics.twoStarCount}} Reviews</p>
             }
         </div>
         <div class="bar">
             @if (analytics) {
                 <p-meterGroup [value]="values" [style]="{ width: '320px'}" />
                 <p class="bar-rate">1.0</p>
-                <p class="bar-reviews">{{analytics.oneStarCount}}k Reviews</p>
+                <p class="bar-reviews">{{analytics.oneStarCount}} Reviews</p>
             }
         </div>
         

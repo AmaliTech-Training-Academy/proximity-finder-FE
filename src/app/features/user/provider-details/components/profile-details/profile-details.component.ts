@@ -14,6 +14,8 @@ import { CalendarModule } from 'primeng/calendar';
 import { DatePipe } from '@angular/common';
 import { ProviderDataService } from '../../../../service-discovery/services/provider-data.service';
 import { ProDetails } from '../../../../service-discovery/models/pro-details';
+import { analyticsResult } from '../../../../reviews-feedback/models/ireview';
+import { ReviewService } from '../../../../reviews-feedback/services/review.service';
 
 
 @Component({
@@ -32,6 +34,9 @@ export class ProfileDetailsComponent{
   time: Date[] | undefined;
   pro!: ProDetails
   serviceName: string = ''
+  analytics!: analyticsResult
+  type: 'provider' | 'service' = 'service'
+  serviceId: string = ''
   
 
   visible: boolean = false;
@@ -59,7 +64,7 @@ export class ProfileDetailsComponent{
   })
 
   constructor(private formBuilder:FormBuilder, private callService:CallService,@Inject(NOTYF) private notyf: Notyf,private quoteService:QuoteService,private datePipe: DatePipe,
-  private providerService: ProviderDataService){}
+  private providerService: ProviderDataService, private reviewService: ReviewService){}
 
   ngOnInit() {
     if(this.provider.authservice){
@@ -71,16 +76,20 @@ export class ProfileDetailsComponent{
     if (storedProvider) {
       this.pro = storedProvider
       this.serviceName = this.pro.service.name
+      this.serviceId = this.pro.id
     } else {
       this.providerService.selectedProvider$.subscribe((provider) => {
         if (provider) {
           this.pro = provider
           this.serviceName = this.pro.service.name
+          this.serviceId = this.pro.id
         } else {
           this.notyf.error('Provider not found');
         }
       });
     }
+
+    this.fetchAnalytics()
   }
 
   
@@ -190,4 +199,14 @@ export class ProfileDetailsComponent{
     }
   }
   
+  fetchAnalytics() {
+    this.reviewService.getAnalytics(this.type, this.serviceId).subscribe({
+      next: analytics => {
+        this.analytics = analytics.result
+      },
+      error: () => {
+        console.error('Failed to fetch review analytics')
+      }
+    })
+  }
 }
