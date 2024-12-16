@@ -180,7 +180,10 @@ export class ServicePreferenceComponent implements OnInit {
         formValue.service.name || formValue.service
       );
 
-      formData.append('paymentPreference', JSON.stringify(this.paymentMethod));
+      formData.append(
+        'paymentPreference',
+        this.paymentMethod.paymentPreference
+      );
 
       formData.append('placeName', locationData.placeName);
       formData.append('latitude', String(locationData.latitude ?? ''));

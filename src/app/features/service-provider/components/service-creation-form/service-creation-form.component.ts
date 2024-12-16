@@ -52,6 +52,7 @@ import { Observable, Subscription } from 'rxjs';
 })
 export class ServiceCreationFormComponent implements OnInit, OnDestroy {
   @Output() closeDialogEvent = new EventEmitter<boolean>();
+  @Output() refreshServiceListEvent = new EventEmitter<void>();
 
   // serviceCategories;
   serviceCategories$ = this.serviceService.serviceCategories$;
@@ -245,8 +246,9 @@ export class ServiceCreationFormComponent implements OnInit, OnDestroy {
               .createServiceExperience(serviceExperienceData)
               .subscribe({
                 next: () => {
-                  this.notyf.success('Service created successfully'),
-                    this.closeDialog();
+                  this.notyf.success('Service created successfully');
+                  this.refreshServiceListEvent.emit();
+                  this.closeDialog();
                 },
               });
           },

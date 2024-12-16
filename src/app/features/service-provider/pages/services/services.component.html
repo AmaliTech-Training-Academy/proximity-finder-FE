@@ -33,6 +33,7 @@
             <th>Service Name</th>
             <th>Location</th>
             <th>Payment Preference</th>
+            <th></th>
           </tr>
         </ng-template>
         @for (service of services; track service.id) {
@@ -42,20 +43,24 @@
             <td class="description">{{ service.placeName }}</td>
             <td>{{ service.paymentPreference }}</td>
             <td>
-              <button>
-                <i
-                  class="pi pi-ellipsis-v"
-                  style="color: rgba(119, 135, 143, 1)"
-                ></i>
-              </button>
+              <p-button
+                (onClick)="openServiceOptions($event, service)"
+                icon="pi pi-ellipsis-v"
+              />
             </td>
           </tr>
         </ng-template>
         }
       </p-table>
+      } @else {
+      <div class="loading">
+        <app-loader />
+      </div>
       }
     </div>
   </div>
+
+  <p-menu #menu [model]="options" [popup]="true" />
 
   <p-dialog
     header="Create New Service"
@@ -65,6 +70,9 @@
     [resizable]="false"
     class="new-service-dialog"
   >
-    <app-service-creation-form (closeDialogEvent)="closeDialog($event)" />
+    <app-service-creation-form
+      (closeDialogEvent)="closeDialog($event)"
+      (refreshServiceListEvent)="refreshServices()"
+    />
   </p-dialog>
 </section>
