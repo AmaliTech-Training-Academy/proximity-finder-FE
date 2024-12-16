@@ -35,7 +35,7 @@
       <p-menu #menu [model]="items" [popup]="true" />
       }
     </ul>
-    } @else if (linkedAccounts.length < 1 && isLoading) {
+    } @else if (linkedAccounts.length > 0 && isLoading) {
     <div class="loading">
       <app-loader />
     </div>
