@@ -71,7 +71,8 @@ export class LoginInputComponent implements OnDestroy {
               } else if (res.status === 'PENDING') {
                 this.router.navigateByUrl('/registration');
               } else {
-                this.router.navigateByUrl('');
+                this.router.navigateByUrl('/registration');
+               
               }
               break;
   

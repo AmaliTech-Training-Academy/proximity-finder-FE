@@ -12,6 +12,7 @@ import { NOTYF } from '../../../../shared/notify/notyf.token';
 import { FormsModule } from '@angular/forms';
 import { SeekerBookingsComponent } from '../seeker-bookings/seeker-bookings.component';
 import { ProfileService } from '../../../profile-management/services/profile.service';
+import { ProviderData } from '../../../../core/models/ProviderData';
 
 @Component({
   selector: 'app-quote-created',
@@ -36,8 +37,11 @@ export class QuoteCreatedComponent implements OnInit{
   loading: boolean = true;
   searchTerm: string = '';
   filteredQuotes: getQuote[] = [];
-  providerProfileImage:string = ''
-  businessOwnerName:string =''
+  providerData: ProviderData | null = null;
+  businessOwnerName: string = '';
+  providerProfileImage: string = '';
+
+  
   
   constructor(
     private quoteService: QuoteService,
@@ -47,16 +51,22 @@ export class QuoteCreatedComponent implements OnInit{
 
   ngOnInit() {
     this.loadQuotes();
-    this.loadProviderProfile()
+    this. loadProviderProfile
   }
 
   loadQuotes() {
     this.quoteService.getCreatedQuotes().subscribe({
       next: (data) => {
         this.quotes = data;
-        this.notyf.success('Loaded your created quotes');
         this.filteredQuotes = data;
         this.loading = false;
+  
+       
+        if (this.quotes.length === 0) {
+          this.notyf.error('No quotes created yet');
+        } else {
+          this.notyf.success('Loaded your created quotes');
+        }
       },
       error: (err) => {
         this.notyf.error('Failed to load quotes');
@@ -64,15 +74,21 @@ export class QuoteCreatedComponent implements OnInit{
       },
     });
   }
+  
+
 
   viewQuoteDetails(quoteId: number) {
-    console.log('Hey');
     this.loading = true;
     this.quoteService.getSingleQuoteCreated(quoteId).subscribe({
       next: (quote) => {
         this.selectedQuote = quote;
         this.showDetails = true;
-
+  
+      
+        if (quote.providerEmail) {
+          this.loadProviderProfile(quote.providerEmail);
+        }
+  
         this.loading = false;
       },
       error: (err) => {
@@ -81,6 +97,9 @@ export class QuoteCreatedComponent implements OnInit{
       },
     });
   }
+  
+
+ 
 
   toggleDetails() {
     this.showDetails = false;
@@ -94,15 +113,29 @@ export class QuoteCreatedComponent implements OnInit{
     );
   }
 
-  loadProviderProfile() {
+  loadProviderProfile(providerEmail: string) {
+    if (!providerEmail) {
+      this.notyf.error('Provider email is required to fetch profile data.');
+      return;
+    }
+  
+    // Temporarily set the email in the ProfileService
+    this.profileService.email = providerEmail;
+  
     this.profileService.getClient().subscribe({
-      next: (providerData) => {
-        this.providerProfileImage = providerData.profileImage || this.providerProfileImage;
-        this.businessOwnerName = providerData.userName || this.businessOwnerName;
+      next: (providerData: ProviderData) => {
+        if (providerData) {
+          this.businessOwnerName = providerData.businessOwnerName || '';
+          this.providerProfileImage = providerData.profileImage || '';
+        } else {
+          this.notyf.error('Provider data not found');
+        }
       },
       error: (err) => {
+        console.error('Error loading provider profile:', err);
         this.notyf.error('Failed to load provider profile');
       },
     });
   }
+  
 }

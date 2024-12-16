@@ -10,7 +10,7 @@ export interface Quote{
 }
 
 export interface getQuote{
-  providerInfo: any;
+  providerEmail: any;
   quoteId: number;
   title: string;
   description: string;
