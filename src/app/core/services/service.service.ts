@@ -39,7 +39,10 @@ export class ServiceService {
     formData.append('description', serviceCategory.description);
     formData.append('image', serviceCategory.image);
 
-    return this.http.post<ServiceResponse>(this.servicesUrl, formData);
+    return this.http.post<ServiceResponse>(
+      `${this.apiUrl}${this.servicesUrl}`,
+      formData
+    );
   }
 
   updateService(serviceCategory: ServiceCategory): Observable<ServiceResponse> {
@@ -60,10 +63,16 @@ export class ServiceService {
       .subscribe(() => this.getServices());
   }
 
-  getProviderServices(): Observable<ProviderServiceDetails[]> {
-    return this.http
-      .get<ProviderServiceResponse>(`${this.apiUrl}${this.proServicesUrl}`)
-      .pipe(map((res) => res.result));
+  getProviderServices(userEmail: string): Observable<ProviderServiceDetails[]> {
+    return this.http.get<ProviderServiceDetails[]>(
+      `${this.apiUrl}${this.proServicesUrl}/email?userEmail=${userEmail}`
+    );
+  }
+
+  deleteProviderService(serviceId: string) {
+    return this.http.delete(
+      `${this.apiUrl}${this.proServicesUrl}/${serviceId}`
+    );
   }
 
   setServicePreference(servicePreferenceData: FormData) {
