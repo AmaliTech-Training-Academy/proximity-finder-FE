@@ -12,6 +12,8 @@ import { CallService } from '../../../../service-discovery/services/call/call.se
 import { QuoteService } from '../../../../service-discovery/services/quote/quote.service';
 import { CalendarModule } from 'primeng/calendar';
 import { DatePipe } from '@angular/common';
+import { ProviderDataService } from '../../../../service-discovery/services/provider-data.service';
+import { ProDetails } from '../../../../service-discovery/models/pro-details';
 
 
 @Component({
@@ -28,6 +30,8 @@ export class ProfileDetailsComponent{
   email: string = ''
   isImageModified: boolean = false;
   time: Date[] | undefined;
+  pro!: ProDetails
+  serviceName: string = ''
   
 
   visible: boolean = false;
@@ -54,12 +58,28 @@ export class ProfileDetailsComponent{
     
   })
 
-  constructor(private formBuilder:FormBuilder, private callService:CallService,@Inject(NOTYF) private notyf: Notyf,private quoteService:QuoteService,private datePipe: DatePipe){}
+  constructor(private formBuilder:FormBuilder, private callService:CallService,@Inject(NOTYF) private notyf: Notyf,private quoteService:QuoteService,private datePipe: DatePipe,
+  private providerService: ProviderDataService){}
 
   ngOnInit() {
     if(this.provider.authservice){
       this.email = this.provider.authservice.email
-      console.log(this.email)
+    }
+
+    const storedProvider = this.providerService.getSelectedProvider();
+  
+    if (storedProvider) {
+      this.pro = storedProvider
+      this.serviceName = this.pro.service.name
+    } else {
+      this.providerService.selectedProvider$.subscribe((provider) => {
+        if (provider) {
+          this.pro = provider
+          this.serviceName = this.pro.service.name
+        } else {
+          this.notyf.error('Provider not found');
+        }
+      });
     }
   }
 

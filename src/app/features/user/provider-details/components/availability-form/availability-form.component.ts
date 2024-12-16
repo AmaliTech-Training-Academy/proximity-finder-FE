@@ -37,7 +37,6 @@ export class AvailabilityFormComponent implements OnInit, OnDestroy {
   })
 
   ngOnInit() {
-    console.log(this.providerEmail);
   }
 
   onSubmit() {
